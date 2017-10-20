@@ -8,6 +8,7 @@ Thumbs.db
 *~
 *.sublime-*
 *.bak
+*.log
 
 # Build Artifacts
 .gradle/
