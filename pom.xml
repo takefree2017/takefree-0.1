@@ -37,7 +37,7 @@
     </profiles>
 
     <properties>
-        <release.dir>${project.build.directory}/release/${project.artifactId}-${project.version}-${profiles.active}
+        <release.dir>${project.build.directory}/release-${project.version}-${profiles.active}
         </release.dir>
     </properties>
 
@@ -45,16 +45,12 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-logging</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>
@@ -110,6 +106,7 @@
             </resource>
             <resource>
                 <directory>src/main/resources</directory>
+                <filtering>true</filtering>
                 <!-- 资源根目录排除各环境的配置，使用单独的资源目录来指定 -->
                 <excludes>
                     <exclude>dev/*</exclude>
@@ -120,10 +117,10 @@
         </resources>
 
         <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
+            <!--<plugin>-->
+                <!--<groupId>org.springframework.boot</groupId>-->
+                <!--<artifactId>spring-boot-maven-plugin</artifactId>-->
+            <!--</plugin>-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -132,6 +129,90 @@
                     <target>1.8</target>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>appassembler-maven-plugin</artifactId>
+                <version>2.0.0</version>
+                <executions>
+                    <execution>
+                        <id>generate-jsw-scripts</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>generate-daemons</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <!-- 根目录 -->
+                    <assembleDirectory>${project.build.directory}/${project.artifactId}-${project.version}-${profiles.active}</assembleDirectory>
+                    <!-- 打包的jar，以及maven依赖的jar放到这个目录里面 -->
+                    <repositoryName>lib</repositoryName>
+                    <!-- 可执行脚本的目录 -->
+                    <binFolder>bin</binFolder>
+                    <!-- 配置文件的目标目录 -->
+                    <configurationDirectory>conf</configurationDirectory>
+                    <!-- 拷贝配置文件到上面的目录中 -->
+                    <copyConfigurationDirectory>true</copyConfigurationDirectory>
+                    <!-- 从哪里拷贝配置文件 (默认src/main/config) -->
+                    <configurationSourceDirectory>src/main/resources/${profiles.active}</configurationSourceDirectory>
+                    <!-- lib目录中jar的存放规则，默认是${groupId}/${artifactId}的目录格式，flat表示直接把jar放到lib目录 -->
+                    <repositoryLayout>flat</repositoryLayout>
+                    <encoding>UTF-8</encoding>
+                    <logsDirectory>logs</logsDirectory>
+                    <tempDirectory>tmp</tempDirectory>
+                    <target>${release.dir}</target>
+                    <daemons>
+                        <daemon>
+                            <id>${project.artifactId}</id>
+                            <!-- 启动类 -->
+                            <mainClass>com.takefree.App</mainClass>
+                            <jvmSettings>
+                                <extraArguments>
+                                    <extraArgument>-server</extraArgument>
+                                    <extraArgument>-Xmx2G</extraArgument>
+                                    <extraArgument>-Xms2G</extraArgument>
+                                    <extraArgument>-Dcom.sun.management.jmxremote.port=8320</extraArgument>
+                                    <extraArgument>-Dcom.sun.management.jmxremote.ssl=false</extraArgument>
+                                    <extraArgument>-Dcom.sun.management.jmxremote.authenticate=false</extraArgument>
+                                </extraArguments>
+                            </jvmSettings>
+                            <commandLineArguments>
+                                <commandLineArgument>--spring.config.location=./conf/application.properties</commandLineArgument>
+                            </commandLineArguments>
+
+                            <generatorConfigurations>
+                                <generatorConfiguration>
+                                    <generator>jsw</generator>
+                                    <includes>
+                                        <include>linux-x86-64</include>
+                                        <include>windows-x86-64</include>
+                                        <include>macosx-universal-64</include>
+                                    </includes>
+                                    <configuration>
+                                        <property>
+                                            <name>configuration.directory.in.classpath.first</name>
+                                            <value>etc</value>
+                                        </property>
+                                        <property>
+                                            <name>set.default.REPO_DIR</name>
+                                            <value>lib</value>
+                                        </property>
+                                        <property>
+                                            <name>wrapper.logfile</name>
+                                            <value>logs/wrapper.log</value>
+                                        </property>
+                                    </configuration>
+                                </generatorConfiguration>
+                            </generatorConfigurations>
+                            <platforms>
+                                <platform>jsw</platform>
+                            </platforms>
+                        </daemon>
+                    </daemons>
+                </configuration>
+            </plugin>
+
+
             <plugin>
                 <artifactId>maven-antrun-plugin</artifactId>
                 <executions>
@@ -143,28 +224,9 @@
                         </goals>
                         <configuration>
                             <tasks>
-                                <mkdir dir="${release.dir}/bin"/>
-                                <mkdir dir="${release.dir}/conf"/>
-                                <mkdir dir="${release.dir}/lib"/>
-                                <mkdir dir="${release.dir}/logs"/>
-
-                                <copy todir="${release.dir}/bin">
-                                    <fileset dir="${project.build.directory}/classes/bin">
-                                        <include name="*.sh"/>
-                                    </fileset>
-                                </copy>
-                                <chmod file="${release.dir}/bin/*.sh" perm="+x"></chmod>
-
-                                <copy todir="${release.dir}/conf/">
-                                    <fileset dir="${project.build.directory}/classes/">
-                                        <include name="*.properties"/>
-                                        <include name="*.config"/>
-                                        <include name="*.xml"/>
-                                    </fileset>
-                                </copy>
-
-                                <copy file="${project.build.directory}/${project.artifactId}-${project.version}.jar"
-                                      todir="${release.dir}/lib/"/>
+                                <chmod file="${release.dir}/jsw/${project.artifactId}/bin/${project.artifactId}" perm="+x"></chmod>
+                                <chmod file="${release.dir}/jsw/${project.artifactId}/bin/*linux*" perm="+x"></chmod>
+                                <chmod file="${release.dir}/jsw/${project.artifactId}/bin/*macosx*" perm="+x"></chmod>
                             </tasks>
                         </configuration>
                     </execution>
