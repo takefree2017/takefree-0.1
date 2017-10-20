@@ -1,4 +1,4 @@
-package com.qianbao.takefree.dataobject;
+package com.takefree.dataobject;
 
 import java.sql.Timestamp;
 

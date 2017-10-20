@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+	<Properties>
+		<Property name="logPath">../logs/</Property>
+	</Properties>
+
+	<Loggers>
+		<Root level="info">
+			<AppenderRef ref="LogFile" />
+		</Root>
+	</Loggers>
+
+	<Appenders>
+		<Console name="Console" target="SYSTEM_OUT">
+			<PatternLayout
+				pattern="[%d{yyyy-MM-dd HH:mm:ss.SSS}][%p][%X{sessionId}][%X{cip}:%X{cPort}][%X{sip}:%X{sPort}][][%X{userId}][%t][%logger{1.}|%M|%L] - %msg%n" />
+		</Console>
+		<RollingFile name="LogFile" filename="${logPath}/takefree.log"
+			filepattern="${logPath}/takefree-%d{yyyyMMdd}.log">
+			<PatternLayout
+				pattern="[%d{yyyy-MM-dd HH:mm:ss.SSS}][%p][%X{sessionId}][%X{cip}:%X{cPort}][%X{sip}:%X{sPort}][][%X{userId}][%t][%logger{1.}|%M|%L] - %msg%n" />
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="1" />
+			</Policies>
+		</RollingFile>
+	</Appenders>
+</Configuration>

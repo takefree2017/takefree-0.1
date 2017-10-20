@@ -1,5 +1,6 @@
-package com.qianbao.takefree.controller;
+package com.takefree.controller;
 
+import com.takefree.common.vo.JsonSimpleObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -8,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.qianbao.takefree.dataobject.TestObject;
-import com.qianbao.takefree.service.TestService;
+import com.takefree.dataobject.TestObject;
+import com.takefree.service.TestService;
 
 @SpringBootApplication
 @RestController
@@ -21,7 +22,7 @@ public class TestController {
     
     @RequestMapping(value = "/{id}",method = RequestMethod.GET)
     @ResponseBody
-    public TestObject getById(@PathVariable int id){
-        return testService.getByNm(id);
+    public JsonSimpleObject getById(@PathVariable int id){
+        return new JsonSimpleObject(testService.getByNm(id));
     }
 }

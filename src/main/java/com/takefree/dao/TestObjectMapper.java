@@ -1,10 +1,10 @@
-package com.qianbao.takefree.dao;
+package com.takefree.dao;
 
+import com.takefree.dataobject.TestObject;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Select;
 
-import com.qianbao.takefree.dataobject.TestObject;
 
 public interface TestObjectMapper {
     @Select("select * from t_area where id=#{id}")

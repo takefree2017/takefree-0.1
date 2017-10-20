@@ -1,4 +1,4 @@
-package com.qianbao.takefree.configuration;
+package com.takefree.configuration;
 
 import javax.sql.DataSource;
 
