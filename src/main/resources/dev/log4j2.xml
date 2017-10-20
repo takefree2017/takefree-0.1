@@ -6,12 +6,12 @@
 
 	<Loggers>
 		<Root level="info">
-			<AppenderRef ref="LogFile" />
+			<AppenderRef ref="Console" />
 		</Root>
 	</Loggers>
 
 	<Appenders>
-		<Console name="Console" target="SYSTEM_OUT">
+		<Console name="~/Downloads/takeFree~/Downloads/takeFree" target="SYSTEM_OUT">
 			<PatternLayout
 				pattern="[%d{yyyy-MM-dd HH:mm:ss.SSS}][%p][%X{sessionId}][%X{cip}:%X{cPort}][%X{sip}:%X{sPort}][][%X{userId}][%t][%logger{1.}|%M|%L] - %msg%n" />
 		</Console>
