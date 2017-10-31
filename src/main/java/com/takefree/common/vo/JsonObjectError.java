@@ -13,6 +13,7 @@ public class JsonObjectError extends JsonObjectBase {
 
     public JsonObjectError() {
         super();
+        setMessage("操作失败");
     }
 
     public JsonObjectError(String status,String message) {

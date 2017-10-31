@@ -20,7 +20,11 @@ public class JsonObjectBase implements Serializable {
     private String status = HttpStatus.OK.code();
 
     @JsonView(ResultView.ResultStatusView.class)
-    private String message = "OK";
+    private String message = "操作成功";
+
+    private long timestamp= System.currentTimeMillis();
+
+    private String info;
 
     public JsonObjectBase() {
 
