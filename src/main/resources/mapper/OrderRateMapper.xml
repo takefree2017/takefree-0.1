@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.takefree.dao.OrderRateMapper">
+    <resultMap id="BaseResultMap" type="com.takefree.model.OrderRateDO">
+        <id column="id" jdbcType="BIGINT" property="Id" />
+        <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+        <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+        <result column="order_id" jdbcType="BIGINT" property="orderId" />
+        <result column="receiver_id" jdbcType="BIGINT" property="receiverId" />
+        <result column="rate" jdbcType="TINYINT" property="rate" />
+        <result column="rate_comment" jdbcType="VARCHAR" property="rateComment" />
+    </resultMap>
+
+    <sql id="Query_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                <trim prefix="(" prefixOverrides="and" suffix=")">
+                    <foreach collection="criteria.criteria" item="criterion">
+                        <choose>
+                            <when test="criterion.noValue">
+                                and ${criterion.condition}
+                            </when>
+                            <when test="criterion.singleValue">
+                                and ${criterion.condition} #{criterion.value}
+                            </when>
+                            <when test="criterion.betweenValue">
+                                and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                            </when>
+                            <when test="criterion.listValue">
+                                and ${criterion.condition}
+                            <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                                #{listItem}
+                            </foreach>
+                            </when>
+                        </choose>
+                    </foreach>
+                </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+
+    <sql id="Update_By_Query_Where_Clause">
+        <where>
+            <foreach collection="query.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+
+    <sql id="Base_Column_List">
+        id,gmt_create,gmt_modified,order_id,receiver_id,rate,rate_comment
+    </sql>
+
+    <select id="selectByQuery" parameterType="com.takefree.query.OrderRateQuery" resultMap="BaseResultMap">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List" />
+            from order_rate
+        <if test="_parameter != null">
+            <include refid="Query_Where_Clause" />
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+        <include refid="MysqlDialectSuffix" />
+    </select>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List" /> from order_rate where id = #{Id,jdbcType=BIGINT}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from order_rate where id = #{Id,jdbcType=BIGINT}
+    </delete>
+
+    <delete id="deleteByQuery" parameterType="com.takefree.query.OrderRateQuery">
+        delete from order_rate
+        <if test="_parameter != null">
+            <include refid="Query_Where_Clause" />
+        </if>
+    </delete>
+
+    <insert id="insertSelective" parameterType="com.takefree.model.OrderRateDO">
+        <selectKey keyProperty="Id" order="AFTER" resultType="java.lang.Long">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into order_rate
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            gmt_create,gmt_modified,
+            <if test="orderId != null">
+                order_id,
+            </if>
+            <if test="receiverId != null">
+                receiver_id,
+            </if>
+            <if test="rate != null">
+                rate,
+            </if>
+            <if test="rateComment != null">
+                rate_comment,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            now(),now(),
+            <if test="orderId != null">
+                #{orderId,jdbcType=BIGINT},
+            </if>
+            <if test="receiverId != null">
+                #{receiverId,jdbcType=BIGINT},
+            </if>
+            <if test="rate != null">
+                #{rate,jdbcType=TINYINT},
+            </if>
+            <if test="rateComment != null">
+                #{rateComment,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="countByQuery" parameterType="com.takefree.query.OrderRateQuery" resultType="java.lang.Integer">
+        select count(*) from order_rate
+        <if test="_parameter != null">
+            <include refid="Query_Where_Clause" />
+        </if>
+    </select>
+
+    <update id="updateByQuerySelective" parameterType="map">
+        update order_rate
+        <set>
+            gmt_modified=now(),
+            <if test="record.orderId != null">
+                order_id = #{record.orderId,jdbcType=BIGINT},
+            </if>
+            <if test="record.receiverId != null">
+                receiver_id = #{record.receiverId,jdbcType=BIGINT},
+            </if>
+            <if test="record.rate != null">
+                rate = #{record.rate,jdbcType=TINYINT},
+            </if>
+            <if test="record.rateComment != null">
+                rate_comment = #{record.rateComment,jdbcType=VARCHAR},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Query_Where_Clause" />
+        </if>
+    </update>
+
+    <update id="updateByQuery" parameterType="map">
+        update order_rate set
+        order_id = #{record.orderId,jdbcType=BIGINT},
+        receiver_id = #{record.receiverId,jdbcType=BIGINT},
+        rate = #{record.rate,jdbcType=TINYINT},
+        rate_comment = #{record.rateComment,jdbcType=VARCHAR},
+        gmt_modified = now()
+        <if test="_parameter != null">
+            <include refid="Update_By_Query_Where_Clause" />
+        </if>
+    </update>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.takefree.model.OrderRateDO">
+        update order_rate
+        <set>
+            gmt_modified=now(),
+            <if test="orderId != null">
+                order_id = #{orderId,jdbcType=BIGINT},
+            </if>
+            <if test="receiverId != null">
+                receiver_id = #{receiverId,jdbcType=BIGINT},
+            </if>
+            <if test="rate != null">
+                rate = #{rate,jdbcType=TINYINT},
+            </if>
+            <if test="rateComment != null">
+                rate_comment = #{rateComment,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{Id,jdbcType=BIGINT}
+    </update>
+
+    <sql id="MysqlDialectSuffix">
+        <if test="pageOffset &gt;= 0 and pageSize &gt; 0">
+            <![CDATA[ LIMIT #{pageOffset,jdbcType=INTEGER}, #{pageSize,jdbcType=INTEGER} ]]>
+        </if>
+    </sql>
+
+</mapper>

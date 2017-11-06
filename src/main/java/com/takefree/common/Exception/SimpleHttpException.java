@@ -1,6 +1,6 @@
 package com.takefree.common.Exception;
 
-import com.takefree.common.vo.JsonObjectError;
+import com.takefree.common.entry.JsonObjectError;
 
 /**
  * Created by gaoxiang on 2017/7/11.

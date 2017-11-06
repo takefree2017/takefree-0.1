@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.takefree.dao.TakeOrderMapper">
+    <resultMap id="BaseResultMap" type="com.takefree.model.TakeOrderDO">
+        <id column="id" jdbcType="BIGINT" property="Id" />
+        <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+        <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+        <result column="share_id" jdbcType="BIGINT" property="shareId" />
+        <result column="owner_id" jdbcType="BIGINT" property="ownerId" />
+        <result column="applicant_id" jdbcType="BIGINT" property="applicantId" />
+        <result column="application_id" jdbcType="BIGINT" property="applicationId" />
+        <result column="take_time" jdbcType="TIMESTAMP" property="takeTime" />
+        <result column="take_type" jdbcType="TINYINT" property="takeType" />
+        <result column="address_id" jdbcType="BIGINT" property="addressId" />
+        <result column="status" jdbcType="TINYINT" property="status" />
+        <result column="version" jdbcType="INTEGER" property="version" />
+    </resultMap>
+
+    <sql id="Query_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                <trim prefix="(" prefixOverrides="and" suffix=")">
+                    <foreach collection="criteria.criteria" item="criterion">
+                        <choose>
+                            <when test="criterion.noValue">
+                                and ${criterion.condition}
+                            </when>
+                            <when test="criterion.singleValue">
+                                and ${criterion.condition} #{criterion.value}
+                            </when>
+                            <when test="criterion.betweenValue">
+                                and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                            </when>
+                            <when test="criterion.listValue">
+                                and ${criterion.condition}
+                            <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                                #{listItem}
+                            </foreach>
+                            </when>
+                        </choose>
+                    </foreach>
+                </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+
+    <sql id="Update_By_Query_Where_Clause">
+        <where>
+            <foreach collection="query.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+
+    <sql id="Base_Column_List">
+        id,gmt_create,gmt_modified,share_id,owner_id,applicant_id,application_id,take_time,take_type,address_id,status,version
+    </sql>
+
+    <select id="selectByQuery" parameterType="com.takefree.query.TakeOrderQuery" resultMap="BaseResultMap">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List" />
+            from take_order
+        <if test="_parameter != null">
+            <include refid="Query_Where_Clause" />
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+        <include refid="MysqlDialectSuffix" />
+    </select>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List" /> from take_order where id = #{Id,jdbcType=BIGINT}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from take_order where id = #{Id,jdbcType=BIGINT}
+    </delete>
+
+    <delete id="deleteByQuery" parameterType="com.takefree.query.TakeOrderQuery">
+        delete from take_order
+        <if test="_parameter != null">
+            <include refid="Query_Where_Clause" />
+        </if>
+    </delete>
+
+    <insert id="insertSelective" parameterType="com.takefree.model.TakeOrderDO">
+        <selectKey keyProperty="Id" order="AFTER" resultType="java.lang.Long">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into take_order
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            gmt_create,gmt_modified,
+            <if test="shareId != null">
+                share_id,
+            </if>
+            <if test="ownerId != null">
+                owner_id,
+            </if>
+            <if test="applicantId != null">
+                applicant_id,
+            </if>
+            <if test="applicationId != null">
+                application_id,
+            </if>
+            <if test="takeTime != null">
+                take_time,
+            </if>
+            <if test="takeType != null">
+                take_type,
+            </if>
+            <if test="addressId != null">
+                address_id,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="version != null">
+                version,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            now(),now(),
+            <if test="shareId != null">
+                #{shareId,jdbcType=BIGINT},
+            </if>
+            <if test="ownerId != null">
+                #{ownerId,jdbcType=BIGINT},
+            </if>
+            <if test="applicantId != null">
+                #{applicantId,jdbcType=BIGINT},
+            </if>
+            <if test="applicationId != null">
+                #{applicationId,jdbcType=BIGINT},
+            </if>
+            <if test="takeTime != null">
+                #{takeTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="takeType != null">
+                #{takeType,jdbcType=TINYINT},
+            </if>
+            <if test="addressId != null">
+                #{addressId,jdbcType=BIGINT},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=TINYINT},
+            </if>
+            <if test="version != null">
+                #{version,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="countByQuery" parameterType="com.takefree.query.TakeOrderQuery" resultType="java.lang.Integer">
+        select count(*) from take_order
+        <if test="_parameter != null">
+            <include refid="Query_Where_Clause" />
+        </if>
+    </select>
+
+    <update id="updateByQuerySelective" parameterType="map">
+        update take_order
+        <set>
+            gmt_modified=now(),
+            <if test="record.shareId != null">
+                share_id = #{record.shareId,jdbcType=BIGINT},
+            </if>
+            <if test="record.ownerId != null">
+                owner_id = #{record.ownerId,jdbcType=BIGINT},
+            </if>
+            <if test="record.applicantId != null">
+                applicant_id = #{record.applicantId,jdbcType=BIGINT},
+            </if>
+            <if test="record.applicationId != null">
+                application_id = #{record.applicationId,jdbcType=BIGINT},
+            </if>
+            <if test="record.takeTime != null">
+                take_time = #{record.takeTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.takeType != null">
+                take_type = #{record.takeType,jdbcType=TINYINT},
+            </if>
+            <if test="record.addressId != null">
+                address_id = #{record.addressId,jdbcType=BIGINT},
+            </if>
+            <if test="record.status != null">
+                status = #{record.status,jdbcType=TINYINT},
+            </if>
+            <if test="record.version != null">
+                version = #{record.version,jdbcType=INTEGER},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Query_Where_Clause" />
+        </if>
+    </update>
+
+    <update id="updateByQuery" parameterType="map">
+        update take_order set
+        share_id = #{record.shareId,jdbcType=BIGINT},
+        owner_id = #{record.ownerId,jdbcType=BIGINT},
+        applicant_id = #{record.applicantId,jdbcType=BIGINT},
+        application_id = #{record.applicationId,jdbcType=BIGINT},
+        take_time = #{record.takeTime,jdbcType=TIMESTAMP},
+        take_type = #{record.takeType,jdbcType=TINYINT},
+        address_id = #{record.addressId,jdbcType=BIGINT},
+        status = #{record.status,jdbcType=TINYINT},
+        version = #{record.version,jdbcType=INTEGER},
+        gmt_modified = now()
+        <if test="_parameter != null">
+            <include refid="Update_By_Query_Where_Clause" />
+        </if>
+    </update>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.takefree.model.TakeOrderDO">
+        update take_order
+        <set>
+            gmt_modified=now(),
+            <if test="shareId != null">
+                share_id = #{shareId,jdbcType=BIGINT},
+            </if>
+            <if test="ownerId != null">
+                owner_id = #{ownerId,jdbcType=BIGINT},
+            </if>
+            <if test="applicantId != null">
+                applicant_id = #{applicantId,jdbcType=BIGINT},
+            </if>
+            <if test="applicationId != null">
+                application_id = #{applicationId,jdbcType=BIGINT},
+            </if>
+            <if test="takeTime != null">
+                take_time = #{takeTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="takeType != null">
+                take_type = #{takeType,jdbcType=TINYINT},
+            </if>
+            <if test="addressId != null">
+                address_id = #{addressId,jdbcType=BIGINT},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=TINYINT},
+            </if>
+            <if test="version != null">
+                version = #{version,jdbcType=INTEGER},
+            </if>
+        </set>
+        where id = #{Id,jdbcType=BIGINT}
+    </update>
+
+    <sql id="MysqlDialectSuffix">
+        <if test="pageOffset &gt;= 0 and pageSize &gt; 0">
+            <![CDATA[ LIMIT #{pageOffset,jdbcType=INTEGER}, #{pageSize,jdbcType=INTEGER} ]]>
+        </if>
+    </sql>
+
+</mapper>

@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.takefree.dao.UserInfoMapper">
+    <resultMap id="BaseResultMap" type="com.takefree.model.UserInfoDO">
+        <id column="id" jdbcType="BIGINT" property="id" />
+        <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+        <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+        <result column="nick_name" jdbcType="VARCHAR" property="nickName" />
+        <result column="real_name" jdbcType="VARCHAR" property="realName" />
+        <result column="mobile" jdbcType="VARCHAR" property="mobile" />
+        <result column="email" jdbcType="VARCHAR" property="email" />
+        <result column="endorser_id" jdbcType="BIGINT" property="endorserId" />
+        <result column="password" jdbcType="VARCHAR" property="password" />
+        <result column="status" jdbcType="TINYINT" property="status" />
+        <result column="small_icon" jdbcType="VARCHAR" property="smallIcon" />
+        <result column="big_icon" jdbcType="VARCHAR" property="bigIcon" />
+        <result column="version" jdbcType="INTEGER" property="version" />
+    </resultMap>
+
+    <sql id="Query_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                <trim prefix="(" prefixOverrides="and" suffix=")">
+                    <foreach collection="criteria.criteria" item="criterion">
+                        <choose>
+                            <when test="criterion.noValue">
+                                and ${criterion.condition}
+                            </when>
+                            <when test="criterion.singleValue">
+                                and ${criterion.condition} #{criterion.value}
+                            </when>
+                            <when test="criterion.betweenValue">
+                                and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                            </when>
+                            <when test="criterion.listValue">
+                                and ${criterion.condition}
+                            <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                                #{listItem}
+                            </foreach>
+                            </when>
+                        </choose>
+                    </foreach>
+                </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+
+    <sql id="Update_By_Query_Where_Clause">
+        <where>
+            <foreach collection="query.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+
+    <sql id="Base_Column_List">
+        id,gmt_create,gmt_modified,nick_name,real_name,mobile,email,endorser_id,password,status,small_icon,big_icon,version
+    </sql>
+
+    <select id="selectByQuery" parameterType="com.takefree.query.UserInfoQuery" resultMap="BaseResultMap">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List" />
+            from user_info
+        <if test="_parameter != null">
+            <include refid="Query_Where_Clause" />
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+        <include refid="MysqlDialectSuffix" />
+    </select>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List" /> from user_info where id = #{Id,jdbcType=BIGINT}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from user_info where id = #{Id,jdbcType=BIGINT}
+    </delete>
+
+    <delete id="deleteByQuery" parameterType="com.takefree.query.UserInfoQuery">
+        delete from user_info
+        <if test="_parameter != null">
+            <include refid="Query_Where_Clause" />
+        </if>
+    </delete>
+
+    <insert id="insertSelective" parameterType="com.takefree.model.UserInfoDO">
+        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into user_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            gmt_create,gmt_modified,
+            <if test="nickName != null">
+                nick_name,
+            </if>
+            <if test="realName != null">
+                real_name,
+            </if>
+            <if test="mobile != null">
+                mobile,
+            </if>
+            <if test="email != null">
+                email,
+            </if>
+            <if test="endorserId != null">
+                endorser_id,
+            </if>
+            <if test="password != null">
+                password,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="smallIcon != null">
+                small_icon,
+            </if>
+            <if test="bigIcon != null">
+                big_icon,
+            </if>
+            <if test="version != null">
+                version,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            now(),now(),
+            <if test="nickName != null">
+                #{nickName,jdbcType=VARCHAR},
+            </if>
+            <if test="realName != null">
+                #{realName,jdbcType=VARCHAR},
+            </if>
+            <if test="mobile != null">
+                #{mobile,jdbcType=VARCHAR},
+            </if>
+            <if test="email != null">
+                #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="endorserId != null">
+                #{endorserId,jdbcType=BIGINT},
+            </if>
+            <if test="password != null">
+                #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=TINYINT},
+            </if>
+            <if test="smallIcon != null">
+                #{smallIcon,jdbcType=VARCHAR},
+            </if>
+            <if test="bigIcon != null">
+                #{bigIcon,jdbcType=VARCHAR},
+            </if>
+            <if test="version != null">
+                #{version,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="countByQuery" parameterType="com.takefree.query.UserInfoQuery" resultType="java.lang.Integer">
+        select count(*) from user_info
+        <if test="_parameter != null">
+            <include refid="Query_Where_Clause" />
+        </if>
+    </select>
+
+    <update id="updateByQuerySelective" parameterType="map">
+        update user_info
+        <set>
+            gmt_modified=now(),
+            <if test="record.nickName != null">
+                nick_name = #{record.nickName,jdbcType=VARCHAR},
+            </if>
+            <if test="record.realName != null">
+                real_name = #{record.realName,jdbcType=VARCHAR},
+            </if>
+            <if test="record.mobile != null">
+                mobile = #{record.mobile,jdbcType=VARCHAR},
+            </if>
+            <if test="record.email != null">
+                email = #{record.email,jdbcType=VARCHAR},
+            </if>
+            <if test="record.endorserId != null">
+                endorser_id = #{record.endorserId,jdbcType=BIGINT},
+            </if>
+            <if test="record.password != null">
+                password = #{record.password,jdbcType=VARCHAR},
+            </if>
+            <if test="record.status != null">
+                status = #{record.status,jdbcType=TINYINT},
+            </if>
+            <if test="record.smallIcon != null">
+                small_icon = #{record.smallIcon,jdbcType=VARCHAR},
+            </if>
+            <if test="record.bigIcon != null">
+                big_icon = #{record.bigIcon,jdbcType=VARCHAR},
+            </if>
+            <if test="record.version != null">
+                version = #{record.version,jdbcType=INTEGER},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Query_Where_Clause" />
+        </if>
+    </update>
+
+    <update id="updateByQuery" parameterType="map">
+        update user_info set
+        nick_name = #{record.nickName,jdbcType=VARCHAR},
+        real_name = #{record.realName,jdbcType=VARCHAR},
+        mobile = #{record.mobile,jdbcType=VARCHAR},
+        email = #{record.email,jdbcType=VARCHAR},
+        endorser_id = #{record.endorserId,jdbcType=BIGINT},
+        password = #{record.password,jdbcType=VARCHAR},
+        status = #{record.status,jdbcType=TINYINT},
+        small_icon = #{record.smallIcon,jdbcType=VARCHAR},
+        big_icon = #{record.bigIcon,jdbcType=VARCHAR},
+        version = #{record.version,jdbcType=INTEGER},
+        gmt_modified = now()
+        <if test="_parameter != null">
+            <include refid="Update_By_Query_Where_Clause" />
+        </if>
+    </update>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.takefree.model.UserInfoDO">
+        update user_info
+        <set>
+            gmt_modified=now(),
+            <if test="nickName != null">
+                nick_name = #{nickName,jdbcType=VARCHAR},
+            </if>
+            <if test="realName != null">
+                real_name = #{realName,jdbcType=VARCHAR},
+            </if>
+            <if test="mobile != null">
+                mobile = #{mobile,jdbcType=VARCHAR},
+            </if>
+            <if test="email != null">
+                email = #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="endorserId != null">
+                endorser_id = #{endorserId,jdbcType=BIGINT},
+            </if>
+            <if test="password != null">
+                password = #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=TINYINT},
+            </if>
+            <if test="smallIcon != null">
+                small_icon = #{smallIcon,jdbcType=VARCHAR},
+            </if>
+            <if test="bigIcon != null">
+                big_icon = #{bigIcon,jdbcType=VARCHAR},
+            </if>
+            <if test="version != null">
+                version = #{version,jdbcType=INTEGER},
+            </if>
+        </set>
+        where id = #{Id,jdbcType=BIGINT}
+    </update>
+
+    <sql id="MysqlDialectSuffix">
+        <if test="pageOffset &gt;= 0 and pageSize &gt; 0">
+            <![CDATA[ LIMIT #{pageOffset,jdbcType=INTEGER}, #{pageSize,jdbcType=INTEGER} ]]>
+        </if>
+    </sql>
+
+</mapper>

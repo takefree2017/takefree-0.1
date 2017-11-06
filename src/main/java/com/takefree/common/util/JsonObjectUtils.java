@@ -1,8 +1,8 @@
 package com.takefree.common.util;
 
-import com.takefree.common.vo.JsonObjectError;
-import com.takefree.common.vo.JsonObjectList;
-import com.takefree.common.vo.JsonSimpleObject;
+import com.takefree.common.entry.JsonObjectError;
+import com.takefree.common.entry.JsonObjectList;
+import com.takefree.common.entry.JsonSimpleObject;
 import com.takefree.common.web.constant.HttpStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
