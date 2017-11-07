@@ -1,22 +1,30 @@
 package com.takefree.common.entry;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import com.takefree.model.UserInfoDO;
+
 import java.util.Date;
 
 /**
  * Created by gaoxiang on 2017/11/4.
  */
 public class Token {
+    @JsonView(ResultView.DetailView.class)
     private String key;
-    private Long userId;
+
+    @JsonView(ResultView.DetailView.class)
+    private UserInfoDO userInfoDO;
+
+    @JsonView(ResultView.DetailView.class)
     private Date loginTime;
 
     public Token(){
 
     }
 
-    public Token(String key, Long userId, Date loginTime) {
+    public Token(String key, UserInfoDO userInfoDO, Date loginTime) {
         this.key = key;
-        this.userId = userId;
+        this.userInfoDO = userInfoDO;
         this.loginTime = loginTime;
     }
 
@@ -28,12 +36,12 @@ public class Token {
         this.key = key;
     }
 
-    public Long getUserId() {
-        return userId;
+    public UserInfoDO getUserInfoDO() {
+        return userInfoDO;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setUserInfoDO(UserInfoDO userInfoDO) {
+        this.userInfoDO = userInfoDO;
     }
 
     public Date getLoginTime() {

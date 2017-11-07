@@ -1,9 +1,8 @@
 package com.takefree.model;
 
-import lombok.Data;
-
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import lombok.Data;
 
 @Data
 public class ComplaintDO implements Serializable {
@@ -66,7 +65,7 @@ public class ComplaintDO implements Serializable {
 
     /**
      * 最后修改时间
-     * complaint.gmt_update
+     * complaint.gmt_modified
      */
     private LocalDateTime gmtModified;
 
@@ -75,4 +74,5 @@ public class ComplaintDO implements Serializable {
      * complaint.version
      */
     private Integer version;
+
 }

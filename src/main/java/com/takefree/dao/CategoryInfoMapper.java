@@ -2,19 +2,19 @@ package com.takefree.dao;
 
 import com.takefree.model.CategoryInfoDO;
 import com.takefree.query.CategoryInfoQuery;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 /**
  * MyBatis Mapper for CategoryInfo.
  */
-@Mapper
-@Repository
-public interface CategoryInfoMapper {
+ @Mapper
+ @Repository
 
+public interface CategoryInfoMapper {
     /**
      * query count by query condition.
      */

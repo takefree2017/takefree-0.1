@@ -6,6 +6,9 @@ import com.takefree.query.UserDescriptionQuery;
 import com.takefree.dao.ext.UserDescriptionExtMapper;
 import com.takefree.service.UserDescriptionManager;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

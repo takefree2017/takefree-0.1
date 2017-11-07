@@ -6,6 +6,9 @@ import com.takefree.query.ShareDescQuery;
 import com.takefree.dao.ext.ShareDescExtMapper;
 import com.takefree.service.ShareDescManager;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

@@ -6,6 +6,9 @@ import com.takefree.query.UserLikeQuery;
 import com.takefree.dao.ext.UserLikeExtMapper;
 import com.takefree.service.UserLikeManager;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

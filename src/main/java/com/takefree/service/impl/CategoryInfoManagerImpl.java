@@ -1,10 +1,13 @@
 package com.takefree.service.impl;
 
 import com.takefree.common.PageResult;
-import com.takefree.service.CategoryInfoManager;
-import com.takefree.dao.ext.CategoryInfoExtMapper;
 import com.takefree.model.CategoryInfoDO;
 import com.takefree.query.CategoryInfoQuery;
+import com.takefree.dao.ext.CategoryInfoExtMapper;
+import com.takefree.service.CategoryInfoManager;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -18,7 +21,7 @@ import java.util.List;
 
 @Component
 
-public class CategoryInfoManagerImpl implements CategoryInfoManager {
+public class CategoryInfoManagerImpl implements CategoryInfoManager{
 
     
     @Autowired

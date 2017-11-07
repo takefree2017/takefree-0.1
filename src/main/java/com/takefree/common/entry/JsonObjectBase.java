@@ -16,10 +16,10 @@ public class JsonObjectBase implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @JsonView(ResultView.ResultStatusView.class)
+    @JsonView(ResultView.ResultDataView.class)
     private String status = HttpStatus.OK.code();
 
-    @JsonView(ResultView.ResultStatusView.class)
+    @JsonView(ResultView.ResultDataView.class)
     private String message = "操作成功";
 
     private long timestamp= System.currentTimeMillis();

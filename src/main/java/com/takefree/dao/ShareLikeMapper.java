@@ -2,20 +2,19 @@ package com.takefree.dao;
 
 import com.takefree.model.ShareLikeDO;
 import com.takefree.query.ShareLikeQuery;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 /**
  * MyBatis Mapper for ShareLike.
  */
-@Mapper
-@Repository
+ @Mapper
+ @Repository
 
 public interface ShareLikeMapper {
-
     /**
      * query count by query condition.
      */

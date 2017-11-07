@@ -6,6 +6,9 @@ import com.takefree.query.LogisticsQuery;
 import com.takefree.dao.ext.LogisticsExtMapper;
 import com.takefree.service.LogisticsManager;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

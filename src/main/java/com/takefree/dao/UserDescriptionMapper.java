@@ -2,20 +2,19 @@ package com.takefree.dao;
 
 import com.takefree.model.UserDescriptionDO;
 import com.takefree.query.UserDescriptionQuery;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 /**
  * MyBatis Mapper for UserDescription.
  */
-@Mapper
-@Repository
+ @Mapper
+ @Repository
 
 public interface UserDescriptionMapper {
-
     /**
      * query count by query condition.
      */

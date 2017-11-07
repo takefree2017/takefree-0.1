@@ -1,9 +1,8 @@
 package com.takefree.model;
 
-import lombok.Data;
-
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import lombok.Data;
 
 @Data
 public class ShareDescDO implements Serializable {
@@ -30,7 +29,7 @@ public class ShareDescDO implements Serializable {
 
     /**
      * 最后修改时间
-     * share_desc.gmt_update
+     * share_desc.gmt_modified
      */
     private LocalDateTime gmtModified;
 

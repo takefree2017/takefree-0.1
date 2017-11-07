@@ -8,7 +8,7 @@ import com.takefree.common.web.constant.HttpStatus;
 public class JsonObjectError extends JsonObjectBase {
     private static final long serialVersionUID = 1L;
 
-    @JsonView(ResultView.ResultStatusView.class)
+    @JsonView(ResultView.ResultDataView.class)
     private String status = HttpStatus.INTERNAL_SERVER_ERROR.code();
 
     public JsonObjectError() {

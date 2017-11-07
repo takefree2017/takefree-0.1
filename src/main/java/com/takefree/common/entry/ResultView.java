@@ -5,12 +5,13 @@ package com.takefree.common.entry;
  */
 public class ResultView {
     /**
-     * use in error views
-     */
-    public interface ResultStatusView{};
-
-    /**
      * use in success views
      */
-    public interface ResultDataView extends ResultStatusView{} ;
+    public interface ResultDataView {} ;
+
+    public interface BriefView extends ResultDataView {};
+
+    public interface DetailView extends BriefView {}
+
+    public interface AllView extends DetailView {}
 }

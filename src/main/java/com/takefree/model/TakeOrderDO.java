@@ -1,9 +1,8 @@
 package com.takefree.model;
 
-import lombok.Data;
-
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import lombok.Data;
 
 @Data
 public class TakeOrderDO implements Serializable {
@@ -72,7 +71,7 @@ public class TakeOrderDO implements Serializable {
 
     /**
      * 最后修改时间
-     * take_order.gmt_update
+     * take_order.gmt_modified
      */
     private LocalDateTime gmtModified;
 

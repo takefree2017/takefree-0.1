@@ -1,9 +1,8 @@
 package com.takefree.model;
 
-import lombok.Data;
-
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import lombok.Data;
 
 @Data
 public class UserTimeDO implements Serializable {
@@ -33,4 +32,5 @@ public class UserTimeDO implements Serializable {
      * user_time.version
      */
     private Integer version;
+
 }

@@ -1,9 +1,8 @@
 package com.takefree.model;
 
-import lombok.Data;
-
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import lombok.Data;
 
 @Data
 public class OrderShowContentDO implements Serializable {
@@ -21,4 +20,5 @@ public class OrderShowContentDO implements Serializable {
      * order_show_content.content
      */
     private String content;
+
 }

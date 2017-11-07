@@ -6,6 +6,9 @@ import com.takefree.query.TakeOrderQuery;
 import com.takefree.dao.ext.TakeOrderExtMapper;
 import com.takefree.service.TakeOrderManager;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

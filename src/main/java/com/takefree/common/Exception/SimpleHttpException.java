@@ -1,24 +1,34 @@
 package com.takefree.common.Exception;
 
-import com.takefree.common.entry.JsonObjectError;
+import com.takefree.common.web.constant.HttpStatus;
 
 /**
  * Created by gaoxiang on 2017/7/11.
  */
-public class SimpleHttpException extends Exception{
-    JsonObjectError error;
+public class SimpleHttpException extends Exception {
+    private HttpStatus httpStatus;
+    private String     mesasge;
 
-    public SimpleHttpException(JsonObjectError error){
-        super(error.getMessage());
-        this.error=error;
+    public SimpleHttpException(HttpStatus httpStatus, String message) {
+        super(message);
+        this.httpStatus = httpStatus;
+        this.mesasge = message;
     }
 
-    public JsonObjectError getError() {
-        return error;
+    public HttpStatus getHttpStatus() {
+        return httpStatus;
     }
 
-    public void setError(JsonObjectError error) {
-        this.error = error;
+    public void setHttpStatus(HttpStatus httpStatus) {
+        this.httpStatus = httpStatus;
+    }
+
+    public String getMesasge() {
+        return mesasge;
+    }
+
+    public void setMesasge(String mesasge) {
+        this.mesasge = mesasge;
     }
 
 }

@@ -1,9 +1,8 @@
 package com.takefree.model;
 
-import lombok.Data;
-
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import lombok.Data;
 
 @Data
 public class UserAddressDO implements Serializable {
@@ -48,7 +47,7 @@ public class UserAddressDO implements Serializable {
 
     /**
      * 是否默认地址, 0不是默认1默认地址
-     * user_address.default
+     * user_address.is_default
      */
     private Integer isDefault;
 
@@ -60,7 +59,7 @@ public class UserAddressDO implements Serializable {
 
     /**
      * 最后修改时间
-     * user_address.gmt_update
+     * user_address.gmt_modified
      */
     private LocalDateTime gmtModified;
 

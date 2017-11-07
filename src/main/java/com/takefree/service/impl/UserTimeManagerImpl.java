@@ -6,6 +6,9 @@ import com.takefree.query.UserTimeQuery;
 import com.takefree.dao.ext.UserTimeExtMapper;
 import com.takefree.service.UserTimeManager;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

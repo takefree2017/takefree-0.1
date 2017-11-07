@@ -2,20 +2,19 @@ package com.takefree.dao;
 
 import com.takefree.model.ShareDescDO;
 import com.takefree.query.ShareDescQuery;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 /**
  * MyBatis Mapper for ShareDesc.
  */
-@Mapper
-@Repository
+ @Mapper
+ @Repository
 
 public interface ShareDescMapper {
-
     /**
      * query count by query condition.
      */

@@ -2,20 +2,19 @@ package com.takefree.dao;
 
 import com.takefree.model.ShowPicDO;
 import com.takefree.query.ShowPicQuery;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 /**
  * MyBatis Mapper for ShowPic.
  */
-@Mapper
-@Repository
+ @Mapper
+ @Repository
 
 public interface ShowPicMapper {
-
     /**
      * query count by query condition.
      */

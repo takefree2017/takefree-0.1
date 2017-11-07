@@ -32,7 +32,7 @@ public class JsonObjectUtils {
 
         json.setResult(value);
 
-        LOG.info(json.toString());
+        LOG.debug(json.toString());
 
         return json;
     }
@@ -50,11 +50,10 @@ public class JsonObjectUtils {
 
         json.addData(value);
 
-        LOG.info(json.toString());
+        LOG.debug(json.toString());
 
         return json;
     }
-
 
 
     /**
@@ -62,7 +61,7 @@ public class JsonObjectUtils {
      *
      * @return
      */
-    public static ModelAndView buildError(HttpStatus httpStatus) {
+    public static JsonObjectError buildError(HttpStatus httpStatus) {
 
         JsonObjectError error = new JsonObjectError();
 
@@ -72,7 +71,7 @@ public class JsonObjectUtils {
 
         LOG.info(error.toString());
 
-        return JsonObjectError2ModelView(error);
+        return error;
     }
 
     /**
@@ -80,7 +79,7 @@ public class JsonObjectUtils {
      *
      * @return
      */
-    public static ModelAndView buildError(HttpStatus httpStatus, String errorMsg) {
+    public static JsonObjectError buildError(HttpStatus httpStatus, String errorMsg) {
 
         JsonObjectError error = new JsonObjectError();
 
@@ -90,17 +89,8 @@ public class JsonObjectUtils {
 
         LOG.info(error.toString());
 
-        return JsonObjectError2ModelView(error);
+        return error;
     }
 
-    /**
-     */
-    public static ModelAndView JsonObjectError2ModelView(JsonObjectError json) {
-        ModelAndView model = new ModelAndView(new MappingJackson2JsonView());
-        model.addObject("message", json.getMessage());
-        model.addObject("status", json.getStatus());
-
-        return model;
-    }
 
 }

@@ -4,6 +4,7 @@ import com.alibaba.boot.dubbo.annotation.DubboConsumer;
 import com.alibaba.fastjson.JSON;
 import com.takefree.common.entry.Token;
 import com.takefree.common.service.TokenManager;
+import com.takefree.model.UserInfoDO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -54,13 +55,23 @@ public class RedisTokenManager implements TokenManager {
         this.ttl = ttl;
     }
 
-    public Token createToken(Long userId) {
+    public Token createToken(UserInfoDO userInfoDO) {
         // 使用 uuid 作为源 token
-        String tokenStr = UUID.randomUUID().toString().replace("-", "");
-        Token token = new Token(tokenStr, userId,new Date());
+        String key = UUID.randomUUID().toString().replace("-", "");
+        Token token = new Token(key, userInfoDO,new Date());
         // 存储到 redis 并设置过期时间
         try {
-            redisClient.setex(namespace, tokenStr, ttl, JSON.toJSONString(token));
+            redisClient.setex(namespace, key, ttl, JSON.toJSONString(token));
+        } catch (Exception e) {
+            logger.error("", e);
+            return null;
+        }
+        return token;
+    }
+
+    public Token updateToken(Token token) {
+        try {
+            redisClient.setex(namespace, token.getKey(), ttl, JSON.toJSONString(token));
         } catch (Exception e) {
             logger.error("", e);
             return null;
@@ -103,7 +114,7 @@ public class RedisTokenManager implements TokenManager {
 
         try {
             Token redisToken=this.getToken(token.getKey());
-            if (redisToken==null||!token.getUserId().equals(redisToken.getUserId())) {
+            if (redisToken==null||!token.getUserInfoDO().getId().equals(redisToken.getUserInfoDO().getId())) {
                 return false;
             }
             // 如果验证成功，说明此用户进行了一次有效操作，延长 token 的过期时间

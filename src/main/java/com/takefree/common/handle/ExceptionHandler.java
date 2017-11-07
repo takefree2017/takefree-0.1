@@ -1,7 +1,7 @@
 package com.takefree.common.handle;
 
 import com.takefree.common.Exception.SimpleHttpException;
-import com.takefree.common.util.JsonObjectUtils;
+import com.takefree.common.entry.JsonObjectError;
 import com.takefree.common.web.constant.HttpStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,6 +21,7 @@ import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.SimpleMappingExceptionResolver;
+import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -45,10 +46,13 @@ public class ExceptionHandler extends SimpleMappingExceptionResolver
     public ModelAndView resolveException(HttpServletRequest request,
                                          HttpServletResponse response, Object o, Exception e) {
         LOG.warn(request.getRequestURI() + " ExceptionHandler FOUND. "  + e.toString(),e);
-        if (e instanceof TypeMismatchException) {
-            return JsonObjectUtils.buildError(HttpStatus.BAD_REQUEST, ((TypeMismatchException) e).getPropertyName() + " parameter type error!");
+        if (e instanceof SimpleHttpException){
+            SimpleHttpException simpleHttpException=(SimpleHttpException) e;
+            return buildError(simpleHttpException.getHttpStatus(),simpleHttpException.getMesasge());
+        }else if (e instanceof TypeMismatchException) {
+            return buildError(HttpStatus.BAD_REQUEST, ((TypeMismatchException) e).getPropertyName() + " parameter type error!");
         } else if (e instanceof InvalidPropertyException) {
-            return JsonObjectUtils.buildError(HttpStatus.BAD_REQUEST, ((InvalidPropertyException) e).getPropertyName() + " parameter cannot find!");
+            return buildError(HttpStatus.BAD_REQUEST, ((InvalidPropertyException) e).getPropertyName() + " parameter cannot find!");
         } else if (e instanceof BindException) {
             return getParamErrors(((BindException) e)
                     .getBindingResult());
@@ -56,17 +60,15 @@ public class ExceptionHandler extends SimpleMappingExceptionResolver
             return getParamErrors(((MethodArgumentNotValidException) e)
                     .getBindingResult());
         } else if (e instanceof HttpRequestMethodNotSupportedException) {
-            return JsonObjectUtils.buildError(HttpStatus.METHOD_NOT_ALLOWED);
+            return buildError(HttpStatus.METHOD_NOT_ALLOWED);
         } else if (e instanceof MissingServletRequestParameterException) {
-            return JsonObjectUtils.buildError(HttpStatus.BAD_REQUEST,
+            return buildError(HttpStatus.BAD_REQUEST,
                     e.getMessage());
         } else if (e instanceof HttpMessageConversionException){
-            return JsonObjectUtils.buildError(HttpStatus.BAD_REQUEST,
+            return buildError(HttpStatus.BAD_REQUEST,
                     "request body error!");
-        } else if (e instanceof SimpleHttpException){
-            return JsonObjectUtils.JsonObjectError2ModelView(((SimpleHttpException) e).getError());
-        } else {
-            return JsonObjectUtils.buildError(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+        }  else {
+            return buildError(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
     }
 
@@ -85,6 +87,52 @@ public class ExceptionHandler extends SimpleMappingExceptionResolver
                 errorMessage.append(".");
             }
         }
-        return JsonObjectUtils.buildError(HttpStatus.BAD_REQUEST, errorMessage.toString());
+        return buildError(HttpStatus.BAD_REQUEST, errorMessage.toString());
+    }
+
+    /**
+     * 返回异常
+     *
+     * @return
+     */
+    public static ModelAndView buildError(HttpStatus httpStatus) {
+
+        JsonObjectError error = new JsonObjectError();
+
+        error.setStatus(httpStatus.code());
+
+        error.setMessage(httpStatus.getReasonPhrase());
+
+        LOG.info(error.toString());
+
+        return JsonObjectError2ModelView(error);
+    }
+
+    /**
+     * 返回异常
+     *
+     * @return
+     */
+    public static ModelAndView buildError(HttpStatus httpStatus, String errorMsg) {
+
+        JsonObjectError error = new JsonObjectError();
+
+        error.setStatus(httpStatus.code());
+
+        error.setMessage(errorMsg);
+
+        LOG.info(error.toString());
+
+        return JsonObjectError2ModelView(error);
+    }
+
+    /**
+     */
+    public static ModelAndView JsonObjectError2ModelView(JsonObjectError json) {
+        ModelAndView model = new ModelAndView(new MappingJackson2JsonView());
+        model.addObject("message", json.getMessage());
+        model.addObject("status", json.getStatus());
+
+        return model;
     }
 }

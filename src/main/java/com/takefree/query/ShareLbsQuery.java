@@ -1,5 +1,6 @@
 package com.takefree.query;
 
+
 import com.takefree.common.BaseCriteria;
 import com.takefree.common.BaseQuery;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
@@ -11,7 +12,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public class ShareLbsQuery extends BaseQuery implements Serializable {
-
     private static final long serialVersionUID = 1L;
 
     public ShareLbsQuery() {
@@ -40,7 +40,7 @@ public class ShareLbsQuery extends BaseQuery implements Serializable {
     /**
      * This class corresponds to the database table share_lbs
      */
-    protected abstract static class GeneratedCriteria extends BaseCriteria {
+         protected abstract static class GeneratedCriteria extends BaseCriteria {
 
         protected GeneratedCriteria() {
             super();
@@ -440,16 +440,17 @@ public class ShareLbsQuery extends BaseQuery implements Serializable {
 
     /**
      * This class corresponds to the database table share_lbs
-     */
-    public static class Criteria extends GeneratedCriteria {
-
+    */
+    public  static class Criteria extends GeneratedCriteria{
         protected Criteria() {
             super();
         }
     }
 
+
+
     @Override
-    public String toString() {
+    public String toString(){
         return ReflectionToStringBuilder.toString(this, ToStringStyle.DEFAULT_STYLE);
     }
 }

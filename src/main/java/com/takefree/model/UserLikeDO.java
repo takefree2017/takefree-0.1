@@ -1,9 +1,8 @@
 package com.takefree.model;
 
-import lombok.Data;
-
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import lombok.Data;
 
 @Data
 public class UserLikeDO implements Serializable {
@@ -42,7 +41,7 @@ public class UserLikeDO implements Serializable {
 
     /**
      * 最后修改时间
-     * user_like.gmt_update
+     * user_like.gmt_modified
      */
     private LocalDateTime gmtModified;
 

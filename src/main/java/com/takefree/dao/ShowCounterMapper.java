@@ -2,20 +2,19 @@ package com.takefree.dao;
 
 import com.takefree.model.ShowCounterDO;
 import com.takefree.query.ShowCounterQuery;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 /**
  * MyBatis Mapper for ShowCounter.
  */
-@Mapper
-@Repository
+ @Mapper
+ @Repository
 
 public interface ShowCounterMapper {
-
     /**
      * query count by query condition.
      */

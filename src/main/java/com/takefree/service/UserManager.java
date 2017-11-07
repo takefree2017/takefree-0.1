@@ -11,7 +11,7 @@ import java.util.List;
  * Manager for UserInfo.
  */
 
-public interface UserInfoManager {
+public interface UserManager {
     /**
      * query count by query condition.
      */
@@ -62,4 +62,10 @@ public interface UserInfoManager {
      * update by primary key selective.
      */
     int updateByPrimaryKeySelective(UserInfoDO record);
+
+    /**
+     * select by mobile.
+     */
+    List<UserInfoDO> selectByMobile(String mobile);
+
 }

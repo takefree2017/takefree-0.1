@@ -2,20 +2,19 @@ package com.takefree.dao;
 
 import com.takefree.model.LogisticsDO;
 import com.takefree.query.LogisticsQuery;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 /**
  * MyBatis Mapper for Logistics.
  */
-@Mapper
-@Repository
+ @Mapper
+ @Repository
 
 public interface LogisticsMapper {
-
     /**
      * query count by query condition.
      */

@@ -1,5 +1,6 @@
 package com.takefree.query;
 
+
 import com.takefree.common.BaseCriteria;
 import com.takefree.common.BaseQuery;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
@@ -11,7 +12,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public class UserAddressQuery extends BaseQuery implements Serializable {
-
     private static final long serialVersionUID = 1L;
 
     public UserAddressQuery() {
@@ -40,7 +40,7 @@ public class UserAddressQuery extends BaseQuery implements Serializable {
     /**
      * This class corresponds to the database table user_address
      */
-    protected abstract static class GeneratedCriteria extends BaseCriteria {
+         protected abstract static class GeneratedCriteria extends BaseCriteria {
 
         protected GeneratedCriteria() {
             super();
@@ -576,134 +576,73 @@ public class UserAddressQuery extends BaseQuery implements Serializable {
             return (Criteria) this;
         }
 
-        public Criteria andDefaultIsNull() {
-            addCriterion("default is null");
+        public Criteria andIsDefaultIsNull() {
+            addCriterion("is_default is null");
             return (Criteria) this;
         }
 
-        public Criteria andDefaultIsNotNull() {
-            addCriterion("default is not null");
+        public Criteria andIsDefaultIsNotNull() {
+            addCriterion("is_default is not null");
             return (Criteria) this;
         }
 
-        public Criteria andDefaultEqualTo(Integer value) {
-            addCriterion("default =", value, "default");
+        public Criteria andIsDefaultEqualTo(Integer value) {
+            addCriterion("is_default =", value, "isDefault");
             return (Criteria) this;
         }
 
-        public Criteria andDefaultNotEqualTo(Integer value) {
-            addCriterion("default <>", value, "default");
+        public Criteria andIsDefaultNotEqualTo(Integer value) {
+            addCriterion("is_default <>", value, "isDefault");
             return (Criteria) this;
         }
 
-        public Criteria andDefaultGreaterThan(Integer value) {
-            addCriterion("default >", value, "default");
+        public Criteria andIsDefaultGreaterThan(Integer value) {
+            addCriterion("is_default >", value, "isDefault");
             return (Criteria) this;
         }
 
-        public Criteria andDefaultGreaterThanOrEqualTo(Integer value) {
-            addCriterion("default >=", value, "default");
+        public Criteria andIsDefaultGreaterThanOrEqualTo(Integer value) {
+            addCriterion("is_default >=", value, "isDefault");
             return (Criteria) this;
         }
 
-        public Criteria andDefaultLessThan(Integer value) {
-            addCriterion("default <", value, "default");
+        public Criteria andIsDefaultLessThan(Integer value) {
+            addCriterion("is_default <", value, "isDefault");
             return (Criteria) this;
         }
 
-        public Criteria andDefaultLessThanOrEqualTo(Integer value) {
-            addCriterion("default <=", value, "default");
+        public Criteria andIsDefaultLessThanOrEqualTo(Integer value) {
+            addCriterion("is_default <=", value, "isDefault");
             return (Criteria) this;
         }
 
-        public Criteria andDefaultLike(Integer value) {
-            addCriterion("default like", value, "default");
+        public Criteria andIsDefaultLike(Integer value) {
+            addCriterion("is_default like", value, "isDefault");
             return (Criteria) this;
         }
 
-        public Criteria andDefaultNotLike(Integer value) {
-            addCriterion("default not like", value, "default");
+        public Criteria andIsDefaultNotLike(Integer value) {
+            addCriterion("is_default not like", value, "isDefault");
             return (Criteria) this;
         }
 
-        public Criteria andDefaultIn(List<Integer> values) {
-            addCriterion("default in", values, "default");
+        public Criteria andIsDefaultIn(List<Integer> values) {
+            addCriterion("is_default in", values, "isDefault");
             return (Criteria) this;
         }
 
-        public Criteria andDefaultNotIn(List<Integer> values) {
-            addCriterion("default not in", values, "default");
+        public Criteria andIsDefaultNotIn(List<Integer> values) {
+            addCriterion("is_default not in", values, "isDefault");
             return (Criteria) this;
         }
 
-        public Criteria andDefaultBetween(Integer value1, Integer value2) {
-            addCriterion("default between", value1, value2, "default");
+        public Criteria andIsDefaultBetween(Integer value1, Integer value2) {
+            addCriterion("is_default between", value1, value2, "isDefault");
             return (Criteria) this;
         }
 
-        public Criteria andDefaultNotBetween(Integer value1, Integer value2) {
-            addCriterion("default not between", value1, value2, "default");
-            return (Criteria) this;
-        }
-
-
-        public Criteria andGmtUpdateEqualTo(LocalDateTime value) {
-            addCriterion("gmt_update =", value, "gmtUpdate");
-            return (Criteria) this;
-        }
-
-        public Criteria andGmtUpdateNotEqualTo(LocalDateTime value) {
-            addCriterion("gmt_update <>", value, "gmtUpdate");
-            return (Criteria) this;
-        }
-
-        public Criteria andGmtUpdateGreaterThan(LocalDateTime value) {
-            addCriterion("gmt_update >", value, "gmtUpdate");
-            return (Criteria) this;
-        }
-
-        public Criteria andGmtUpdateGreaterThanOrEqualTo(LocalDateTime value) {
-            addCriterion("gmt_update >=", value, "gmtUpdate");
-            return (Criteria) this;
-        }
-
-        public Criteria andGmtUpdateLessThan(LocalDateTime value) {
-            addCriterion("gmt_update <", value, "gmtUpdate");
-            return (Criteria) this;
-        }
-
-        public Criteria andGmtUpdateLessThanOrEqualTo(LocalDateTime value) {
-            addCriterion("gmt_update <=", value, "gmtUpdate");
-            return (Criteria) this;
-        }
-
-        public Criteria andGmtUpdateLike(LocalDateTime value) {
-            addCriterion("gmt_update like", value, "gmtUpdate");
-            return (Criteria) this;
-        }
-
-        public Criteria andGmtUpdateNotLike(LocalDateTime value) {
-            addCriterion("gmt_update not like", value, "gmtUpdate");
-            return (Criteria) this;
-        }
-
-        public Criteria andGmtUpdateIn(List<LocalDateTime> values) {
-            addCriterion("gmt_update in", values, "gmtUpdate");
-            return (Criteria) this;
-        }
-
-        public Criteria andGmtUpdateNotIn(List<LocalDateTime> values) {
-            addCriterion("gmt_update not in", values, "gmtUpdate");
-            return (Criteria) this;
-        }
-
-        public Criteria andGmtUpdateBetween(LocalDateTime value1, LocalDateTime value2) {
-            addCriterion("gmt_update between", value1, value2, "gmtUpdate");
-            return (Criteria) this;
-        }
-
-        public Criteria andGmtUpdateNotBetween(LocalDateTime value1, LocalDateTime value2) {
-            addCriterion("gmt_update not between", value1, value2, "gmtUpdate");
+        public Criteria andIsDefaultNotBetween(Integer value1, Integer value2) {
+            addCriterion("is_default not between", value1, value2, "isDefault");
             return (Criteria) this;
         }
 
@@ -781,16 +720,17 @@ public class UserAddressQuery extends BaseQuery implements Serializable {
 
     /**
      * This class corresponds to the database table user_address
-     */
-    public static class Criteria extends GeneratedCriteria {
-
+    */
+    public  static class Criteria extends GeneratedCriteria{
         protected Criteria() {
             super();
         }
     }
 
+
+
     @Override
-    public String toString() {
+    public String toString(){
         return ReflectionToStringBuilder.toString(this, ToStringStyle.DEFAULT_STYLE);
     }
 }

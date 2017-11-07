@@ -2,20 +2,19 @@ package com.takefree.dao;
 
 import com.takefree.model.SharePicDO;
 import com.takefree.query.SharePicQuery;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 /**
  * MyBatis Mapper for SharePic.
  */
-@Mapper
-@Repository
+ @Mapper
+ @Repository
 
 public interface SharePicMapper {
-
     /**
      * query count by query condition.
      */

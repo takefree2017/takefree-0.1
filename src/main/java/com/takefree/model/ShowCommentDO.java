@@ -1,9 +1,8 @@
 package com.takefree.model;
 
-import lombok.Data;
-
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import lombok.Data;
 
 @Data
 public class ShowCommentDO implements Serializable {
@@ -48,7 +47,7 @@ public class ShowCommentDO implements Serializable {
 
     /**
      * 最后修改时间
-     * show_comment.gmt_update
+     * show_comment.gmt_modified
      */
     private LocalDateTime gmtModified;
 

@@ -2,20 +2,19 @@ package com.takefree.dao;
 
 import com.takefree.model.UserInfoDO;
 import com.takefree.query.UserInfoQuery;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 /**
  * MyBatis Mapper for UserInfo.
  */
-@Mapper
-@Repository
+ @Mapper
+ @Repository
 
 public interface UserInfoMapper {
-
     /**
      * query count by query condition.
      */

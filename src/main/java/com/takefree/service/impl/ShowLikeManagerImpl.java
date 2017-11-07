@@ -6,6 +6,9 @@ import com.takefree.query.ShowLikeQuery;
 import com.takefree.dao.ext.ShowLikeExtMapper;
 import com.takefree.service.ShowLikeManager;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

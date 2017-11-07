@@ -6,6 +6,9 @@ import com.takefree.query.ShowCommentQuery;
 import com.takefree.dao.ext.ShowCommentExtMapper;
 import com.takefree.service.ShowCommentManager;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

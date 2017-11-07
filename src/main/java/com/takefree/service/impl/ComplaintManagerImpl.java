@@ -6,6 +6,9 @@ import com.takefree.query.ComplaintQuery;
 import com.takefree.dao.ext.ComplaintExtMapper;
 import com.takefree.service.ComplaintManager;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

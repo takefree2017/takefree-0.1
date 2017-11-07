@@ -436,67 +436,6 @@ public class CategoryInfoQuery extends BaseQuery implements Serializable {
             return (Criteria) this;
         }
 
-
-        public Criteria andGmtUpdateEqualTo(LocalDateTime value) {
-            addCriterion("gmt_update =", value, "gmtUpdate");
-            return (Criteria) this;
-        }
-
-        public Criteria andGmtUpdateNotEqualTo(LocalDateTime value) {
-            addCriterion("gmt_update <>", value, "gmtUpdate");
-            return (Criteria) this;
-        }
-
-        public Criteria andGmtUpdateGreaterThan(LocalDateTime value) {
-            addCriterion("gmt_update >", value, "gmtUpdate");
-            return (Criteria) this;
-        }
-
-        public Criteria andGmtUpdateGreaterThanOrEqualTo(LocalDateTime value) {
-            addCriterion("gmt_update >=", value, "gmtUpdate");
-            return (Criteria) this;
-        }
-
-        public Criteria andGmtUpdateLessThan(LocalDateTime value) {
-            addCriterion("gmt_update <", value, "gmtUpdate");
-            return (Criteria) this;
-        }
-
-        public Criteria andGmtUpdateLessThanOrEqualTo(LocalDateTime value) {
-            addCriterion("gmt_update <=", value, "gmtUpdate");
-            return (Criteria) this;
-        }
-
-        public Criteria andGmtUpdateLike(LocalDateTime value) {
-            addCriterion("gmt_update like", value, "gmtUpdate");
-            return (Criteria) this;
-        }
-
-        public Criteria andGmtUpdateNotLike(LocalDateTime value) {
-            addCriterion("gmt_update not like", value, "gmtUpdate");
-            return (Criteria) this;
-        }
-
-        public Criteria andGmtUpdateIn(List<LocalDateTime> values) {
-            addCriterion("gmt_update in", values, "gmtUpdate");
-            return (Criteria) this;
-        }
-
-        public Criteria andGmtUpdateNotIn(List<LocalDateTime> values) {
-            addCriterion("gmt_update not in", values, "gmtUpdate");
-            return (Criteria) this;
-        }
-
-        public Criteria andGmtUpdateBetween(LocalDateTime value1, LocalDateTime value2) {
-            addCriterion("gmt_update between", value1, value2, "gmtUpdate");
-            return (Criteria) this;
-        }
-
-        public Criteria andGmtUpdateNotBetween(LocalDateTime value1, LocalDateTime value2) {
-            addCriterion("gmt_update not between", value1, value2, "gmtUpdate");
-            return (Criteria) this;
-        }
-
         public Criteria andVersionIsNull() {
             addCriterion("version is null");
             return (Criteria) this;

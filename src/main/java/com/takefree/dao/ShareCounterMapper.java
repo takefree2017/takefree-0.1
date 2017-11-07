@@ -2,20 +2,19 @@ package com.takefree.dao;
 
 import com.takefree.model.ShareCounterDO;
 import com.takefree.query.ShareCounterQuery;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 /**
  * MyBatis Mapper for ShareCounter.
  */
-@Mapper
-@Repository
+ @Mapper
+ @Repository
 
 public interface ShareCounterMapper {
-
     /**
      * query count by query condition.
      */

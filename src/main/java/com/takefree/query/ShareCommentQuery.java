@@ -1,5 +1,6 @@
 package com.takefree.query;
 
+
 import com.takefree.common.BaseCriteria;
 import com.takefree.common.BaseQuery;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
@@ -11,7 +12,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public class ShareCommentQuery extends BaseQuery implements Serializable {
-
     private static final long serialVersionUID = 1L;
 
     public ShareCommentQuery() {
@@ -40,7 +40,7 @@ public class ShareCommentQuery extends BaseQuery implements Serializable {
     /**
      * This class corresponds to the database table share_comment
      */
-    protected abstract static class GeneratedCriteria extends BaseCriteria {
+         protected abstract static class GeneratedCriteria extends BaseCriteria {
 
         protected GeneratedCriteria() {
             super();
@@ -506,67 +506,6 @@ public class ShareCommentQuery extends BaseQuery implements Serializable {
             return (Criteria) this;
         }
 
-
-        public Criteria andGmtUpdateEqualTo(LocalDateTime value) {
-            addCriterion("gmt_update =", value, "gmtUpdate");
-            return (Criteria) this;
-        }
-
-        public Criteria andGmtUpdateNotEqualTo(LocalDateTime value) {
-            addCriterion("gmt_update <>", value, "gmtUpdate");
-            return (Criteria) this;
-        }
-
-        public Criteria andGmtUpdateGreaterThan(LocalDateTime value) {
-            addCriterion("gmt_update >", value, "gmtUpdate");
-            return (Criteria) this;
-        }
-
-        public Criteria andGmtUpdateGreaterThanOrEqualTo(LocalDateTime value) {
-            addCriterion("gmt_update >=", value, "gmtUpdate");
-            return (Criteria) this;
-        }
-
-        public Criteria andGmtUpdateLessThan(LocalDateTime value) {
-            addCriterion("gmt_update <", value, "gmtUpdate");
-            return (Criteria) this;
-        }
-
-        public Criteria andGmtUpdateLessThanOrEqualTo(LocalDateTime value) {
-            addCriterion("gmt_update <=", value, "gmtUpdate");
-            return (Criteria) this;
-        }
-
-        public Criteria andGmtUpdateLike(LocalDateTime value) {
-            addCriterion("gmt_update like", value, "gmtUpdate");
-            return (Criteria) this;
-        }
-
-        public Criteria andGmtUpdateNotLike(LocalDateTime value) {
-            addCriterion("gmt_update not like", value, "gmtUpdate");
-            return (Criteria) this;
-        }
-
-        public Criteria andGmtUpdateIn(List<LocalDateTime> values) {
-            addCriterion("gmt_update in", values, "gmtUpdate");
-            return (Criteria) this;
-        }
-
-        public Criteria andGmtUpdateNotIn(List<LocalDateTime> values) {
-            addCriterion("gmt_update not in", values, "gmtUpdate");
-            return (Criteria) this;
-        }
-
-        public Criteria andGmtUpdateBetween(LocalDateTime value1, LocalDateTime value2) {
-            addCriterion("gmt_update between", value1, value2, "gmtUpdate");
-            return (Criteria) this;
-        }
-
-        public Criteria andGmtUpdateNotBetween(LocalDateTime value1, LocalDateTime value2) {
-            addCriterion("gmt_update not between", value1, value2, "gmtUpdate");
-            return (Criteria) this;
-        }
-
         public Criteria andVersionIsNull() {
             addCriterion("version is null");
             return (Criteria) this;
@@ -641,16 +580,17 @@ public class ShareCommentQuery extends BaseQuery implements Serializable {
 
     /**
      * This class corresponds to the database table share_comment
-     */
-    public static class Criteria extends GeneratedCriteria {
-
+    */
+    public  static class Criteria extends GeneratedCriteria{
         protected Criteria() {
             super();
         }
     }
 
+
+
     @Override
-    public String toString() {
+    public String toString(){
         return ReflectionToStringBuilder.toString(this, ToStringStyle.DEFAULT_STYLE);
     }
 }

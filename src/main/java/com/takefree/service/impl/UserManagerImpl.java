@@ -4,8 +4,8 @@ import com.takefree.common.PageResult;
 import com.takefree.model.UserInfoDO;
 import com.takefree.query.UserInfoQuery;
 import com.takefree.dao.ext.UserInfoExtMapper;
-import com.takefree.service.UserInfoManager;
 
+import com.takefree.service.UserManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -18,7 +18,7 @@ import java.util.List;
 
 @Component
 
-public class UserInfoManagerImpl implements UserInfoManager{
+public class UserManagerImpl implements UserManager {
 
     
     @Autowired
@@ -108,4 +108,15 @@ public class UserInfoManagerImpl implements UserInfoManager{
     public int updateByPrimaryKeySelective(UserInfoDO record){
         return userInfoExtMapper.updateByPrimaryKeySelective(record);
     }
+
+    /**
+     * select by mobile.
+     */
+    @Override
+    public List<UserInfoDO> selectByMobile(String mobile){
+        UserInfoQuery userInfoQuery= new UserInfoQuery();
+        userInfoQuery.createCriteria().andMobileEqualTo(mobile);
+        return this.selectByQuery(userInfoQuery);
+    }
+
 }

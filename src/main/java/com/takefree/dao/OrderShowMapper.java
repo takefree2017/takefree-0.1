@@ -2,20 +2,19 @@ package com.takefree.dao;
 
 import com.takefree.model.OrderShowDO;
 import com.takefree.query.OrderShowQuery;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 /**
  * MyBatis Mapper for OrderShow.
  */
-@Mapper
-@Repository
+ @Mapper
+ @Repository
 
 public interface OrderShowMapper {
-
     /**
      * query count by query condition.
      */

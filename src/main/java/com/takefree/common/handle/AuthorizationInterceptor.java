@@ -3,13 +3,11 @@ package com.takefree.common.handle;
 /**
  * Created by gaoxiang on 2017/7/17.
  */
-
 import com.takefree.common.Exception.SimpleHttpException;
 import com.takefree.common.annotation.Authorization;
 import com.takefree.common.config.Constants;
 import com.takefree.common.entry.Token;
 import com.takefree.common.service.TokenManager;
-import com.takefree.common.entry.JsonObjectError;
 import com.takefree.common.web.constant.HttpStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.method.HandlerMethod;
@@ -40,15 +38,15 @@ public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
         // 如果验证 token 失败，并且方法注明了 Authorization，返回 401 错误
         if (method.getAnnotation(Authorization.class) != null) {
             // 从 header 中得到 token
-            String tokenKey = request.getHeader(Constants.HTTP_HEADER_AUTHORIZATION);
+            String tokenKey = request.getHeader(Constants.TAKEFREE_TOKEN);
             if(tokenKey==null){
-                tokenKey=request.getParameter(Constants.HTTP_HEADER_AUTHORIZATION);
+                tokenKey=request.getParameter(Constants.TAKEFREE_TOKEN);
             }
             if(tokenKey==null) {
                 Cookie[] cookies = request.getCookies();
                 if (null != cookies) {
                     for (Cookie cookie : cookies) {
-                        if (Constants.HTTP_HEADER_AUTHORIZATION.equals(cookie.getName())) {
+                        if (Constants.TAKEFREE_TOKEN.equals(cookie.getName())) {
                             tokenKey = cookie.getValue();
                         }
                     }
@@ -56,16 +54,15 @@ public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
             }
 
             if(tokenKey==null){
-                throw new SimpleHttpException(new JsonObjectError(HttpStatus.UNAUTHORIZED, "Unauthorized"));
+                throw new SimpleHttpException(HttpStatus.UNAUTHORIZED, "Unauthorized");
             }
             // 验证 token
             Token token = manager.getToken(tokenKey);
             if(token==null){
-                throw new SimpleHttpException(new JsonObjectError(HttpStatus.UNAUTHORIZED,"Unauthorized"));
+                throw new SimpleHttpException(HttpStatus.UNAUTHORIZED,"Unauthorized");
             }
 
-            request.setAttribute(Constants.HTTP_HEADER_AUTHORIZATION, token);
-            request.setAttribute(Constants.CURRENT_USER_ID, token.getUserId());
+            request.setAttribute(Constants.TAKEFREE_TOKEN, token);
             manager.refreshToken(token);
             return true;
         }

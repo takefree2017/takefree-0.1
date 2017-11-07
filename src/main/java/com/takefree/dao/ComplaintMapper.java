@@ -2,20 +2,19 @@ package com.takefree.dao;
 
 import com.takefree.model.ComplaintDO;
 import com.takefree.query.ComplaintQuery;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 /**
  * MyBatis Mapper for Complaint.
  */
-@Mapper
-@Repository
+ @Mapper
+ @Repository
 
 public interface ComplaintMapper {
-
     /**
      * query count by query condition.
      */

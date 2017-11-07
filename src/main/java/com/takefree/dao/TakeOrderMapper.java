@@ -2,20 +2,19 @@ package com.takefree.dao;
 
 import com.takefree.model.TakeOrderDO;
 import com.takefree.query.TakeOrderQuery;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 /**
  * MyBatis Mapper for TakeOrder.
  */
-@Mapper
-@Repository
+ @Mapper
+ @Repository
 
 public interface TakeOrderMapper {
-
     /**
      * query count by query condition.
      */
