@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.takefree.dao.ShowCounterMapper">
+<mapper namespace="com.takefree.mapper.ShowCounterMapper">
     <resultMap id="BaseResultMap" type="com.takefree.model.ShowCounterDO">
         <id column="show_id" jdbcType="BIGINT" property="ShowId" />
         <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />

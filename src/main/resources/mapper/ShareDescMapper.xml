@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.takefree.dao.ShareDescMapper">
+<mapper namespace="com.takefree.mapper.ShareDescMapper">
     <resultMap id="BaseResultMap" type="com.takefree.model.ShareDescDO">
         <id column="share_id" jdbcType="BIGINT" property="ShareId" />
         <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />

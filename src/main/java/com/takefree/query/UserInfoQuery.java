@@ -1,17 +1,16 @@
 package com.takefree.query;
 
-
 import com.takefree.common.BaseCriteria;
 import com.takefree.common.BaseQuery;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 import java.io.Serializable;
-
 import java.time.LocalDateTime;
 import java.util.List;
 
 public class UserInfoQuery extends BaseQuery implements Serializable {
+
     private static final long serialVersionUID = 1L;
 
     public UserInfoQuery() {
@@ -40,7 +39,7 @@ public class UserInfoQuery extends BaseQuery implements Serializable {
     /**
      * This class corresponds to the database table user_info
      */
-         protected abstract static class GeneratedCriteria extends BaseCriteria {
+    protected abstract static class GeneratedCriteria extends BaseCriteria {
 
         protected GeneratedCriteria() {
             super();
@@ -930,17 +929,16 @@ public class UserInfoQuery extends BaseQuery implements Serializable {
 
     /**
      * This class corresponds to the database table user_info
-    */
-    public  static class Criteria extends GeneratedCriteria{
+     */
+    public static class Criteria extends GeneratedCriteria {
+
         protected Criteria() {
             super();
         }
     }
 
-
-
     @Override
-    public String toString(){
+    public String toString() {
         return ReflectionToStringBuilder.toString(this, ToStringStyle.DEFAULT_STYLE);
     }
 }

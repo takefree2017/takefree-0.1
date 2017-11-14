@@ -1,7 +1,7 @@
 package com.takefree.common.entry;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import com.takefree.model.UserInfoDO;
+import com.takefree.model.UserDTO;
 
 import java.util.Date;
 
@@ -13,7 +13,7 @@ public class Token {
     private String key;
 
     @JsonView(ResultView.DetailView.class)
-    private UserInfoDO userInfoDO;
+    private UserDTO userDTO;
 
     @JsonView(ResultView.DetailView.class)
     private Date loginTime;
@@ -22,9 +22,9 @@ public class Token {
 
     }
 
-    public Token(String key, UserInfoDO userInfoDO, Date loginTime) {
+    public Token(String key, UserDTO userDTO, Date loginTime) {
         this.key = key;
-        this.userInfoDO = userInfoDO;
+        this.userDTO = userDTO;
         this.loginTime = loginTime;
     }
 
@@ -36,12 +36,12 @@ public class Token {
         this.key = key;
     }
 
-    public UserInfoDO getUserInfoDO() {
-        return userInfoDO;
+    public UserDTO getUserDTO() {
+        return userDTO;
     }
 
-    public void setUserInfoDO(UserInfoDO userInfoDO) {
-        this.userInfoDO = userInfoDO;
+    public void setUserDTO(UserDTO userDTO) {
+        this.userDTO = userDTO;
     }
 
     public Date getLoginTime() {

@@ -68,7 +68,7 @@ public class ExceptionHandler extends SimpleMappingExceptionResolver
             return buildError(HttpStatus.BAD_REQUEST,
                     "request body error!");
         }  else {
-            return buildError(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+            return buildError(HttpStatus.INTERNAL_SERVER_ERROR, "内部错误");
         }
     }
 

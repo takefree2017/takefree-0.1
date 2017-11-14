@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.takefree.dao.UserInfoMapper">
+<mapper namespace="com.takefree.mapper.UserInfoMapper">
     <resultMap id="BaseResultMap" type="com.takefree.model.UserInfoDO">
         <id column="id" jdbcType="BIGINT" property="id" />
         <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
@@ -181,6 +181,47 @@
             </if>
             <if test="version != null">
                 #{version,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+
+    <insert id="insertDescriptionSelective" parameterType="com.takefree.model.UserDescriptionDO">
+        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into user_description
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                user_id,
+            </if>
+            <if test="description != null" >
+                description,
+            </if>
+            <if test="version != null" >
+                version,
+            </if>
+            <if test="gmtCreate != null" >
+                gmt_create,
+            </if>
+            <if test="gmtModified != null" >
+                gmt_modified,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="description != null" >
+                #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="version != null" >
+                #{version,jdbcType=INTEGER},
+            </if>
+            <if test="gmtCreate != null" >
+                #{gmtCreate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="gmtModified != null" >
+                #{gmtModified,jdbcType=TIMESTAMP},
             </if>
         </trim>
     </insert>

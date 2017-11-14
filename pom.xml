@@ -44,6 +44,12 @@
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <optional>true</optional>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
             <exclusions>
                 <exclusion>
@@ -107,6 +113,12 @@
             <groupId>com.qianbao</groupId>
             <artifactId>qianbao-redis-client</artifactId>
             <version>2.1.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-jsr310</artifactId>
+            <version>2.9.0</version>
         </dependency>
 
         <dependency>
@@ -181,8 +193,8 @@
 
         <plugins>
             <!--<plugin>-->
-                <!--<groupId>org.springframework.boot</groupId>-->
-                <!--<artifactId>spring-boot-maven-plugin</artifactId>-->
+            <!--<groupId>org.springframework.boot</groupId>-->
+            <!--<artifactId>spring-boot-maven-plugin</artifactId>-->
             <!--</plugin>-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -207,7 +219,9 @@
                 </executions>
                 <configuration>
                     <!-- 根目录 -->
-                    <assembleDirectory>${project.build.directory}/${project.artifactId}-${project.version}-${profiles.active}</assembleDirectory>
+                    <assembleDirectory>
+                        ${project.build.directory}/${project.artifactId}-${project.version}-${profiles.active}
+                    </assembleDirectory>
                     <!-- 打包的jar，以及maven依赖的jar放到这个目录里面 -->
                     <repositoryName>lib</repositoryName>
                     <!-- 可执行脚本的目录 -->
@@ -240,7 +254,8 @@
                                 </extraArguments>
                             </jvmSettings>
                             <commandLineArguments>
-                                <commandLineArgument>--spring.config.location=./conf/application.properties</commandLineArgument>
+                                <commandLineArgument>--spring.config.location=./conf/application.properties
+                                </commandLineArgument>
                             </commandLineArguments>
 
                             <generatorConfigurations>
@@ -287,13 +302,22 @@
                         </goals>
                         <configuration>
                             <tasks>
-                                <chmod file="${release.dir}/jsw/${project.artifactId}/bin/${project.artifactId}" perm="+x"></chmod>
+                                <chmod file="${release.dir}/jsw/${project.artifactId}/bin/${project.artifactId}"
+                                       perm="+x"></chmod>
                                 <chmod file="${release.dir}/jsw/${project.artifactId}/bin/*linux*" perm="+x"></chmod>
                                 <chmod file="${release.dir}/jsw/${project.artifactId}/bin/*macosx*" perm="+x"></chmod>
                             </tasks>
                         </configuration>
                     </execution>
                 </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <fork>true</fork>
+                </configuration>
             </plugin>
         </plugins>
     </build>

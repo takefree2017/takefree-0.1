@@ -13,7 +13,7 @@ public class UserDescriptionDO implements Serializable {
      * 用户id, 主键
      * user_description.id
      */
-    private Long id;
+    private Long userId;
 
     /**
      * 用户简介

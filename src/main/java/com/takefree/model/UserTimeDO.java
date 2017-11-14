@@ -11,9 +11,9 @@ public class UserTimeDO implements Serializable {
 
     /**
      * 用户id, 主键
-     * user_time.id
+     * user_time.user_id
      */
-    private Long id;
+    private Long userId;
 
     /**
      * 用户创建时间
