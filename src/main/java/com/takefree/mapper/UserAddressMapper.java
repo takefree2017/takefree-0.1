@@ -1,62 +1,81 @@
 package com.takefree.mapper;
 
-import com.takefree.model.UserAddressDO;
+import com.takefree.model.UserAddress;
 import com.takefree.query.UserAddressQuery;
-
-import java.util.List;
-
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
-/**
- * MyBatis Mapper for UserAddress.
- */
- @Mapper
- @Repository
 
+import java.util.List;
+
+;
+
+@Mapper
+@Repository
 public interface UserAddressMapper {
     /**
-     * query count by query condition.
+     * This method corresponds to the database table user_address
+     * @mbg.generated
      */
-    int countByQuery(UserAddressQuery query);
+    long countByExample(UserAddressQuery example);
 
     /**
-     * delete by query condition.
+     * This method corresponds to the database table user_address
+     * @mbg.generated
      */
-    int deleteByQuery(UserAddressQuery query);
+    int deleteByExample(UserAddressQuery example);
 
     /**
-     * delete by primary key.
+     * This method corresponds to the database table user_address
+     * @mbg.generated
      */
-    int deleteByPrimaryKey(UserAddressDO record);
+    int deleteByPrimaryKey(Long id);
 
     /**
-     * insert selective.
+     * This method corresponds to the database table user_address
+     * @mbg.generated
      */
-    int insertSelective(UserAddressDO record);
+    int insert(UserAddress record);
 
     /**
-     * select by query condition.
+     * This method corresponds to the database table user_address
+     * @mbg.generated
      */
-    List<UserAddressDO> selectByQuery(UserAddressQuery query);
+    int insertSelective(UserAddress record);
 
     /**
-     * select by primary key.
+     * This method corresponds to the database table user_address
+     * @mbg.generated
      */
-    UserAddressDO selectByPrimaryKey(Long id);
+    List<UserAddress> selectByExample(UserAddressQuery example);
 
     /**
-     * update by query condition selective.
+     * This method corresponds to the database table user_address
+     * @mbg.generated
      */
-    int updateByQuerySelective(@Param("record") UserAddressDO record, @Param("query") UserAddressQuery query);
+    UserAddress selectByPrimaryKey(Long id);
 
     /**
-     * update by query condition.
+     * This method corresponds to the database table user_address
+     * @mbg.generated
      */
-    int updateByQuery(@Param("record") UserAddressDO record, @Param("query") UserAddressQuery query);
+    int updateByExampleSelective(@Param("record") UserAddress record, @Param("example") UserAddressQuery example);
 
     /**
-     * update by primary key selective.
+     * This method corresponds to the database table user_address
+     * @mbg.generated
      */
-    int updateByPrimaryKeySelective(UserAddressDO record);
+    int updateByExample(@Param("record") UserAddress record, @Param("example") UserAddressQuery example);
+
+    /**
+     * This method corresponds to the database table user_address
+     * @mbg.generated
+     */
+    int updateByPrimaryKeySelective(UserAddress record);
+
+    /**
+     * This method corresponds to the database table user_address
+     * @mbg.generated
+     */
+    int updateByPrimaryKey(UserAddress record);
 }

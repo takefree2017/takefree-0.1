@@ -1,62 +1,81 @@
 package com.takefree.mapper;
 
-import com.takefree.model.ShowCommentDO;
+import com.takefree.model.ShowComment;
 import com.takefree.query.ShowCommentQuery;
-
-import java.util.List;
-
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
-/**
- * MyBatis Mapper for ShowComment.
- */
- @Mapper
- @Repository
 
+import java.util.List;
+
+;
+
+@Mapper
+@Repository
 public interface ShowCommentMapper {
     /**
-     * query count by query condition.
+     * This method corresponds to the database table show_comment
+     * @mbg.generated
      */
-    int countByQuery(ShowCommentQuery query);
+    long countByExample(ShowCommentQuery example);
 
     /**
-     * delete by query condition.
+     * This method corresponds to the database table show_comment
+     * @mbg.generated
      */
-    int deleteByQuery(ShowCommentQuery query);
+    int deleteByExample(ShowCommentQuery example);
 
     /**
-     * delete by primary key.
+     * This method corresponds to the database table show_comment
+     * @mbg.generated
      */
-    int deleteByPrimaryKey(ShowCommentDO record);
+    int deleteByPrimaryKey(Long id);
 
     /**
-     * insert selective.
+     * This method corresponds to the database table show_comment
+     * @mbg.generated
      */
-    int insertSelective(ShowCommentDO record);
+    int insert(ShowComment record);
 
     /**
-     * select by query condition.
+     * This method corresponds to the database table show_comment
+     * @mbg.generated
      */
-    List<ShowCommentDO> selectByQuery(ShowCommentQuery query);
+    int insertSelective(ShowComment record);
 
     /**
-     * select by primary key.
+     * This method corresponds to the database table show_comment
+     * @mbg.generated
      */
-    ShowCommentDO selectByPrimaryKey(Long id);
+    List<ShowComment> selectByExample(ShowCommentQuery example);
 
     /**
-     * update by query condition selective.
+     * This method corresponds to the database table show_comment
+     * @mbg.generated
      */
-    int updateByQuerySelective(@Param("record") ShowCommentDO record, @Param("query") ShowCommentQuery query);
+    ShowComment selectByPrimaryKey(Long id);
 
     /**
-     * update by query condition.
+     * This method corresponds to the database table show_comment
+     * @mbg.generated
      */
-    int updateByQuery(@Param("record") ShowCommentDO record, @Param("query") ShowCommentQuery query);
+    int updateByExampleSelective(@Param("record") ShowComment record, @Param("example") ShowCommentQuery example);
 
     /**
-     * update by primary key selective.
+     * This method corresponds to the database table show_comment
+     * @mbg.generated
      */
-    int updateByPrimaryKeySelective(ShowCommentDO record);
+    int updateByExample(@Param("record") ShowComment record, @Param("example") ShowCommentQuery example);
+
+    /**
+     * This method corresponds to the database table show_comment
+     * @mbg.generated
+     */
+    int updateByPrimaryKeySelective(ShowComment record);
+
+    /**
+     * This method corresponds to the database table show_comment
+     * @mbg.generated
+     */
+    int updateByPrimaryKey(ShowComment record);
 }

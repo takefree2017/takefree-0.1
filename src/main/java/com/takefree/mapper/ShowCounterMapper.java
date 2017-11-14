@@ -1,62 +1,81 @@
 package com.takefree.mapper;
 
-import com.takefree.model.ShowCounterDO;
+import com.takefree.model.ShowCounter;
 import com.takefree.query.ShowCounterQuery;
-
-import java.util.List;
-
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
-/**
- * MyBatis Mapper for ShowCounter.
- */
- @Mapper
- @Repository
 
+import java.util.List;
+
+;
+
+@Mapper
+@Repository
 public interface ShowCounterMapper {
     /**
-     * query count by query condition.
+     * This method corresponds to the database table show_counter
+     * @mbg.generated
      */
-    int countByQuery(ShowCounterQuery query);
+    long countByExample(ShowCounterQuery example);
 
     /**
-     * delete by query condition.
+     * This method corresponds to the database table show_counter
+     * @mbg.generated
      */
-    int deleteByQuery(ShowCounterQuery query);
+    int deleteByExample(ShowCounterQuery example);
 
     /**
-     * delete by primary key.
+     * This method corresponds to the database table show_counter
+     * @mbg.generated
      */
-    int deleteByPrimaryKey(ShowCounterDO record);
+    int deleteByPrimaryKey(Long showId);
 
     /**
-     * insert selective.
+     * This method corresponds to the database table show_counter
+     * @mbg.generated
      */
-    int insertSelective(ShowCounterDO record);
+    int insert(ShowCounter record);
 
     /**
-     * select by query condition.
+     * This method corresponds to the database table show_counter
+     * @mbg.generated
      */
-    List<ShowCounterDO> selectByQuery(ShowCounterQuery query);
+    int insertSelective(ShowCounter record);
 
     /**
-     * select by primary key.
+     * This method corresponds to the database table show_counter
+     * @mbg.generated
      */
-    ShowCounterDO selectByPrimaryKey(Long id);
+    List<ShowCounter> selectByExample(ShowCounterQuery example);
 
     /**
-     * update by query condition selective.
+     * This method corresponds to the database table show_counter
+     * @mbg.generated
      */
-    int updateByQuerySelective(@Param("record") ShowCounterDO record, @Param("query") ShowCounterQuery query);
+    ShowCounter selectByPrimaryKey(Long showId);
 
     /**
-     * update by query condition.
+     * This method corresponds to the database table show_counter
+     * @mbg.generated
      */
-    int updateByQuery(@Param("record") ShowCounterDO record, @Param("query") ShowCounterQuery query);
+    int updateByExampleSelective(@Param("record") ShowCounter record, @Param("example") ShowCounterQuery example);
 
     /**
-     * update by primary key selective.
+     * This method corresponds to the database table show_counter
+     * @mbg.generated
      */
-    int updateByPrimaryKeySelective(ShowCounterDO record);
+    int updateByExample(@Param("record") ShowCounter record, @Param("example") ShowCounterQuery example);
+
+    /**
+     * This method corresponds to the database table show_counter
+     * @mbg.generated
+     */
+    int updateByPrimaryKeySelective(ShowCounter record);
+
+    /**
+     * This method corresponds to the database table show_counter
+     * @mbg.generated
+     */
+    int updateByPrimaryKey(ShowCounter record);
 }

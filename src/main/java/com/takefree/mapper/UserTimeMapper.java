@@ -1,62 +1,81 @@
 package com.takefree.mapper;
 
-import com.takefree.model.UserTimeDO;
+import com.takefree.model.UserTime;
 import com.takefree.query.UserTimeQuery;
-
-import java.util.List;
-
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
-/**
- * MyBatis Mapper for UserTime.
- */
- @Mapper
- @Repository
 
+import java.util.List;
+
+;
+
+@Mapper
+@Repository
 public interface UserTimeMapper {
     /**
-     * query count by query condition.
+     * This method corresponds to the database table user_time
+     * @mbg.generated
      */
-    int countByQuery(UserTimeQuery query);
+    long countByExample(UserTimeQuery example);
 
     /**
-     * delete by query condition.
+     * This method corresponds to the database table user_time
+     * @mbg.generated
      */
-    int deleteByQuery(UserTimeQuery query);
+    int deleteByExample(UserTimeQuery example);
 
     /**
-     * delete by primary key.
+     * This method corresponds to the database table user_time
+     * @mbg.generated
      */
-    int deleteByPrimaryKey(UserTimeDO record);
+    int deleteByPrimaryKey(Long userId);
 
     /**
-     * insert selective.
+     * This method corresponds to the database table user_time
+     * @mbg.generated
      */
-    int insertSelective(UserTimeDO record);
+    int insert(UserTime record);
 
     /**
-     * select by query condition.
+     * This method corresponds to the database table user_time
+     * @mbg.generated
      */
-    List<UserTimeDO> selectByQuery(UserTimeQuery query);
+    int insertSelective(UserTime record);
 
     /**
-     * select by primary key.
+     * This method corresponds to the database table user_time
+     * @mbg.generated
      */
-    UserTimeDO selectByPrimaryKey(Long userId);
+    List<UserTime> selectByExample(UserTimeQuery example);
 
     /**
-     * update by query condition selective.
+     * This method corresponds to the database table user_time
+     * @mbg.generated
      */
-    int updateByQuerySelective(@Param("record") UserTimeDO record, @Param("query") UserTimeQuery query);
+    UserTime selectByPrimaryKey(Long userId);
 
     /**
-     * update by query condition.
+     * This method corresponds to the database table user_time
+     * @mbg.generated
      */
-    int updateByQuery(@Param("record") UserTimeDO record, @Param("query") UserTimeQuery query);
+    int updateByExampleSelective(@Param("record") UserTime record, @Param("example") UserTimeQuery example);
 
     /**
-     * update by primary key selective.
+     * This method corresponds to the database table user_time
+     * @mbg.generated
      */
-    int updateByPrimaryKeySelective(UserTimeDO record);
+    int updateByExample(@Param("record") UserTime record, @Param("example") UserTimeQuery example);
+
+    /**
+     * This method corresponds to the database table user_time
+     * @mbg.generated
+     */
+    int updateByPrimaryKeySelective(UserTime record);
+
+    /**
+     * This method corresponds to the database table user_time
+     * @mbg.generated
+     */
+    int updateByPrimaryKey(UserTime record);
 }

@@ -1,62 +1,81 @@
 package com.takefree.mapper;
 
-import com.takefree.model.CategoryLikeDO;
+import com.takefree.model.CategoryLike;
 import com.takefree.query.CategoryLikeQuery;
-
-import java.util.List;
-
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
-/**
- * MyBatis Mapper for CategoryLike.
- */
- @Mapper
- @Repository
 
+import java.util.List;
+
+;
+
+@Mapper
+@Repository
 public interface CategoryLikeMapper {
     /**
-     * query count by query condition.
+     * This method corresponds to the database table category_like
+     * @mbg.generated
      */
-    int countByQuery(CategoryLikeQuery query);
+    long countByExample(CategoryLikeQuery example);
 
     /**
-     * delete by query condition.
+     * This method corresponds to the database table category_like
+     * @mbg.generated
      */
-    int deleteByQuery(CategoryLikeQuery query);
+    int deleteByExample(CategoryLikeQuery example);
 
     /**
-     * delete by primary key.
+     * This method corresponds to the database table category_like
+     * @mbg.generated
      */
-    int deleteByPrimaryKey(CategoryLikeDO record);
+    int deleteByPrimaryKey(Long id);
 
     /**
-     * insert selective.
+     * This method corresponds to the database table category_like
+     * @mbg.generated
      */
-    int insertSelective(CategoryLikeDO record);
+    int insert(CategoryLike record);
 
     /**
-     * select by query condition.
+     * This method corresponds to the database table category_like
+     * @mbg.generated
      */
-    List<CategoryLikeDO> selectByQuery(CategoryLikeQuery query);
+    int insertSelective(CategoryLike record);
 
     /**
-     * select by primary key.
+     * This method corresponds to the database table category_like
+     * @mbg.generated
      */
-    CategoryLikeDO selectByPrimaryKey(Long id);
+    List<CategoryLike> selectByExample(CategoryLikeQuery example);
 
     /**
-     * update by query condition selective.
+     * This method corresponds to the database table category_like
+     * @mbg.generated
      */
-    int updateByQuerySelective(@Param("record") CategoryLikeDO record, @Param("query") CategoryLikeQuery query);
+    CategoryLike selectByPrimaryKey(Long id);
 
     /**
-     * update by query condition.
+     * This method corresponds to the database table category_like
+     * @mbg.generated
      */
-    int updateByQuery(@Param("record") CategoryLikeDO record, @Param("query") CategoryLikeQuery query);
+    int updateByExampleSelective(@Param("record") CategoryLike record, @Param("example") CategoryLikeQuery example);
 
     /**
-     * update by primary key selective.
+     * This method corresponds to the database table category_like
+     * @mbg.generated
      */
-    int updateByPrimaryKeySelective(CategoryLikeDO record);
+    int updateByExample(@Param("record") CategoryLike record, @Param("example") CategoryLikeQuery example);
+
+    /**
+     * This method corresponds to the database table category_like
+     * @mbg.generated
+     */
+    int updateByPrimaryKeySelective(CategoryLike record);
+
+    /**
+     * This method corresponds to the database table category_like
+     * @mbg.generated
+     */
+    int updateByPrimaryKey(CategoryLike record);
 }

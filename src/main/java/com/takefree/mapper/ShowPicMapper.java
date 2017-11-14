@@ -1,62 +1,81 @@
 package com.takefree.mapper;
 
-import com.takefree.model.ShowPicDO;
+import com.takefree.model.ShowPic;
 import com.takefree.query.ShowPicQuery;
-
-import java.util.List;
-
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
-/**
- * MyBatis Mapper for ShowPic.
- */
- @Mapper
- @Repository
 
+import java.util.List;
+
+;
+
+@Mapper
+@Repository
 public interface ShowPicMapper {
     /**
-     * query count by query condition.
+     * This method corresponds to the database table show_pic
+     * @mbg.generated
      */
-    int countByQuery(ShowPicQuery query);
+    long countByExample(ShowPicQuery example);
 
     /**
-     * delete by query condition.
+     * This method corresponds to the database table show_pic
+     * @mbg.generated
      */
-    int deleteByQuery(ShowPicQuery query);
+    int deleteByExample(ShowPicQuery example);
 
     /**
-     * delete by primary key.
+     * This method corresponds to the database table show_pic
+     * @mbg.generated
      */
-    int deleteByPrimaryKey(ShowPicDO record);
+    int deleteByPrimaryKey(Long id);
 
     /**
-     * insert selective.
+     * This method corresponds to the database table show_pic
+     * @mbg.generated
      */
-    int insertSelective(ShowPicDO record);
+    int insert(ShowPic record);
 
     /**
-     * select by query condition.
+     * This method corresponds to the database table show_pic
+     * @mbg.generated
      */
-    List<ShowPicDO> selectByQuery(ShowPicQuery query);
+    int insertSelective(ShowPic record);
 
     /**
-     * select by primary key.
+     * This method corresponds to the database table show_pic
+     * @mbg.generated
      */
-    ShowPicDO selectByPrimaryKey(Long id);
+    List<ShowPic> selectByExample(ShowPicQuery example);
 
     /**
-     * update by query condition selective.
+     * This method corresponds to the database table show_pic
+     * @mbg.generated
      */
-    int updateByQuerySelective(@Param("record") ShowPicDO record, @Param("query") ShowPicQuery query);
+    ShowPic selectByPrimaryKey(Long id);
 
     /**
-     * update by query condition.
+     * This method corresponds to the database table show_pic
+     * @mbg.generated
      */
-    int updateByQuery(@Param("record") ShowPicDO record, @Param("query") ShowPicQuery query);
+    int updateByExampleSelective(@Param("record") ShowPic record, @Param("example") ShowPicQuery example);
 
     /**
-     * update by primary key selective.
+     * This method corresponds to the database table show_pic
+     * @mbg.generated
      */
-    int updateByPrimaryKeySelective(ShowPicDO record);
+    int updateByExample(@Param("record") ShowPic record, @Param("example") ShowPicQuery example);
+
+    /**
+     * This method corresponds to the database table show_pic
+     * @mbg.generated
+     */
+    int updateByPrimaryKeySelective(ShowPic record);
+
+    /**
+     * This method corresponds to the database table show_pic
+     * @mbg.generated
+     */
+    int updateByPrimaryKey(ShowPic record);
 }

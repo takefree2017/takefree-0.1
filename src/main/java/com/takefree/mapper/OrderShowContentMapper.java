@@ -1,62 +1,95 @@
 package com.takefree.mapper;
 
-import com.takefree.model.OrderShowContentDO;
+import com.takefree.model.OrderShowContent;
 import com.takefree.query.OrderShowContentQuery;
-
-import java.util.List;
-
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
-/**
- * MyBatis Mapper for OrderShowContent.
- */
- @Mapper
- @Repository
 
+import java.util.List;
+
+;
+
+@Mapper
+@Repository
 public interface OrderShowContentMapper {
     /**
-     * query count by query condition.
+     * This method corresponds to the database table order_show_content
+     * @mbg.generated
      */
-    int countByQuery(OrderShowContentQuery query);
+    long countByExample(OrderShowContentQuery example);
 
     /**
-     * delete by query condition.
+     * This method corresponds to the database table order_show_content
+     * @mbg.generated
      */
-    int deleteByQuery(OrderShowContentQuery query);
+    int deleteByExample(OrderShowContentQuery example);
 
     /**
-     * delete by primary key.
+     * This method corresponds to the database table order_show_content
+     * @mbg.generated
      */
-    int deleteByPrimaryKey(OrderShowContentDO record);
+    int deleteByPrimaryKey(Long orderShowId);
 
     /**
-     * insert selective.
+     * This method corresponds to the database table order_show_content
+     * @mbg.generated
      */
-    int insertSelective(OrderShowContentDO record);
+    int insert(OrderShowContent record);
 
     /**
-     * select by query condition.
+     * This method corresponds to the database table order_show_content
+     * @mbg.generated
      */
-    List<OrderShowContentDO> selectByQuery(OrderShowContentQuery query);
+    int insertSelective(OrderShowContent record);
 
     /**
-     * select by primary key.
+     * This method corresponds to the database table order_show_content
+     * @mbg.generated
      */
-    OrderShowContentDO selectByPrimaryKey(Long id);
+    List<OrderShowContent> selectByExampleWithBLOBs(OrderShowContentQuery example);
 
     /**
-     * update by query condition selective.
+     * This method corresponds to the database table order_show_content
+     * @mbg.generated
      */
-    int updateByQuerySelective(@Param("record") OrderShowContentDO record, @Param("query") OrderShowContentQuery query);
+    List<OrderShowContent> selectByExample(OrderShowContentQuery example);
 
     /**
-     * update by query condition.
+     * This method corresponds to the database table order_show_content
+     * @mbg.generated
      */
-    int updateByQuery(@Param("record") OrderShowContentDO record, @Param("query") OrderShowContentQuery query);
+    OrderShowContent selectByPrimaryKey(Long orderShowId);
 
     /**
-     * update by primary key selective.
+     * This method corresponds to the database table order_show_content
+     * @mbg.generated
      */
-    int updateByPrimaryKeySelective(OrderShowContentDO record);
+    int updateByExampleSelective(@Param("record") OrderShowContent record,
+                                 @Param("example") OrderShowContentQuery example);
+
+    /**
+     * This method corresponds to the database table order_show_content
+     * @mbg.generated
+     */
+    int updateByExampleWithBLOBs(@Param("record") OrderShowContent record,
+                                 @Param("example") OrderShowContentQuery example);
+
+    /**
+     * This method corresponds to the database table order_show_content
+     * @mbg.generated
+     */
+    int updateByExample(@Param("record") OrderShowContent record, @Param("example") OrderShowContentQuery example);
+
+    /**
+     * This method corresponds to the database table order_show_content
+     * @mbg.generated
+     */
+    int updateByPrimaryKeySelective(OrderShowContent record);
+
+    /**
+     * This method corresponds to the database table order_show_content
+     * @mbg.generated
+     */
+    int updateByPrimaryKeyWithBLOBs(OrderShowContent record);
 }

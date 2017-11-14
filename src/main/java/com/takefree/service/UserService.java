@@ -2,7 +2,7 @@ package com.takefree.service;
 
 import com.takefree.common.entry.Token;
 import com.takefree.model.UserDTO;
-import com.takefree.model.UserInfoDO;
+import com.takefree.model.UserInfo;
 
 import java.util.List;
 
@@ -11,7 +11,7 @@ import java.util.List;
  */
 public interface UserService {
 
-    UserInfoDO getUserInfoById(Long id);
+    UserInfo getUserInfoById(Long id);
 
     UserDTO getUserDetailById(Long id);
 
@@ -19,7 +19,7 @@ public interface UserService {
 
     void updateById(UserDTO userDTO);
 
-    List<UserInfoDO> getUserInfoByMobile(String mobile);
+    List<UserInfo> getUserInfoByMobile(String mobile);
 
     Token login(UserDTO userDTO) throws Exception;
 }

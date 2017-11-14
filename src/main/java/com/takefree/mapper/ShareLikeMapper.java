@@ -1,62 +1,81 @@
 package com.takefree.mapper;
 
-import com.takefree.model.ShareLikeDO;
+import com.takefree.model.ShareLike;
 import com.takefree.query.ShareLikeQuery;
-
-import java.util.List;
-
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
-/**
- * MyBatis Mapper for ShareLike.
- */
- @Mapper
- @Repository
 
+import java.util.List;
+
+;
+
+@Mapper
+@Repository
 public interface ShareLikeMapper {
     /**
-     * query count by query condition.
+     * This method corresponds to the database table share_like
+     * @mbg.generated
      */
-    int countByQuery(ShareLikeQuery query);
+    long countByExample(ShareLikeQuery example);
 
     /**
-     * delete by query condition.
+     * This method corresponds to the database table share_like
+     * @mbg.generated
      */
-    int deleteByQuery(ShareLikeQuery query);
+    int deleteByExample(ShareLikeQuery example);
 
     /**
-     * delete by primary key.
+     * This method corresponds to the database table share_like
+     * @mbg.generated
      */
-    int deleteByPrimaryKey(ShareLikeDO record);
+    int deleteByPrimaryKey(Long id);
 
     /**
-     * insert selective.
+     * This method corresponds to the database table share_like
+     * @mbg.generated
      */
-    int insertSelective(ShareLikeDO record);
+    int insert(ShareLike record);
 
     /**
-     * select by query condition.
+     * This method corresponds to the database table share_like
+     * @mbg.generated
      */
-    List<ShareLikeDO> selectByQuery(ShareLikeQuery query);
+    int insertSelective(ShareLike record);
 
     /**
-     * select by primary key.
+     * This method corresponds to the database table share_like
+     * @mbg.generated
      */
-    ShareLikeDO selectByPrimaryKey(Long id);
+    List<ShareLike> selectByExample(ShareLikeQuery example);
 
     /**
-     * update by query condition selective.
+     * This method corresponds to the database table share_like
+     * @mbg.generated
      */
-    int updateByQuerySelective(@Param("record") ShareLikeDO record, @Param("query") ShareLikeQuery query);
+    ShareLike selectByPrimaryKey(Long id);
 
     /**
-     * update by query condition.
+     * This method corresponds to the database table share_like
+     * @mbg.generated
      */
-    int updateByQuery(@Param("record") ShareLikeDO record, @Param("query") ShareLikeQuery query);
+    int updateByExampleSelective(@Param("record") ShareLike record, @Param("example") ShareLikeQuery example);
 
     /**
-     * update by primary key selective.
+     * This method corresponds to the database table share_like
+     * @mbg.generated
      */
-    int updateByPrimaryKeySelective(ShareLikeDO record);
+    int updateByExample(@Param("record") ShareLike record, @Param("example") ShareLikeQuery example);
+
+    /**
+     * This method corresponds to the database table share_like
+     * @mbg.generated
+     */
+    int updateByPrimaryKeySelective(ShareLike record);
+
+    /**
+     * This method corresponds to the database table share_like
+     * @mbg.generated
+     */
+    int updateByPrimaryKey(ShareLike record);
 }

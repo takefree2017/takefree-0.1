@@ -1,62 +1,81 @@
 package com.takefree.mapper;
 
-import com.takefree.model.OrderShowDO;
+import com.takefree.model.OrderShow;
 import com.takefree.query.OrderShowQuery;
-
-import java.util.List;
-
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
-/**
- * MyBatis Mapper for OrderShow.
- */
- @Mapper
- @Repository
 
+import java.util.List;
+
+;
+
+@Mapper
+@Repository
 public interface OrderShowMapper {
     /**
-     * query count by query condition.
+     * This method corresponds to the database table order_show
+     * @mbg.generated
      */
-    int countByQuery(OrderShowQuery query);
+    long countByExample(OrderShowQuery example);
 
     /**
-     * delete by query condition.
+     * This method corresponds to the database table order_show
+     * @mbg.generated
      */
-    int deleteByQuery(OrderShowQuery query);
+    int deleteByExample(OrderShowQuery example);
 
     /**
-     * delete by primary key.
+     * This method corresponds to the database table order_show
+     * @mbg.generated
      */
-    int deleteByPrimaryKey(OrderShowDO record);
+    int deleteByPrimaryKey(Long id);
 
     /**
-     * insert selective.
+     * This method corresponds to the database table order_show
+     * @mbg.generated
      */
-    int insertSelective(OrderShowDO record);
+    int insert(OrderShow record);
 
     /**
-     * select by query condition.
+     * This method corresponds to the database table order_show
+     * @mbg.generated
      */
-    List<OrderShowDO> selectByQuery(OrderShowQuery query);
+    int insertSelective(OrderShow record);
 
     /**
-     * select by primary key.
+     * This method corresponds to the database table order_show
+     * @mbg.generated
      */
-    OrderShowDO selectByPrimaryKey(Long id);
+    List<OrderShow> selectByExample(OrderShowQuery example);
 
     /**
-     * update by query condition selective.
+     * This method corresponds to the database table order_show
+     * @mbg.generated
      */
-    int updateByQuerySelective(@Param("record") OrderShowDO record, @Param("query") OrderShowQuery query);
+    OrderShow selectByPrimaryKey(Long id);
 
     /**
-     * update by query condition.
+     * This method corresponds to the database table order_show
+     * @mbg.generated
      */
-    int updateByQuery(@Param("record") OrderShowDO record, @Param("query") OrderShowQuery query);
+    int updateByExampleSelective(@Param("record") OrderShow record, @Param("example") OrderShowQuery example);
 
     /**
-     * update by primary key selective.
+     * This method corresponds to the database table order_show
+     * @mbg.generated
      */
-    int updateByPrimaryKeySelective(OrderShowDO record);
+    int updateByExample(@Param("record") OrderShow record, @Param("example") OrderShowQuery example);
+
+    /**
+     * This method corresponds to the database table order_show
+     * @mbg.generated
+     */
+    int updateByPrimaryKeySelective(OrderShow record);
+
+    /**
+     * This method corresponds to the database table order_show
+     * @mbg.generated
+     */
+    int updateByPrimaryKey(OrderShow record);
 }

@@ -1,62 +1,81 @@
 package com.takefree.mapper;
 
-import com.takefree.model.TakeOrderDO;
+import com.takefree.model.TakeOrder;
 import com.takefree.query.TakeOrderQuery;
-
-import java.util.List;
-
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
-/**
- * MyBatis Mapper for TakeOrder.
- */
- @Mapper
- @Repository
 
+import java.util.List;
+
+;
+
+@Mapper
+@Repository
 public interface TakeOrderMapper {
     /**
-     * query count by query condition.
+     * This method corresponds to the database table take_order
+     * @mbg.generated
      */
-    int countByQuery(TakeOrderQuery query);
+    long countByExample(TakeOrderQuery example);
 
     /**
-     * delete by query condition.
+     * This method corresponds to the database table take_order
+     * @mbg.generated
      */
-    int deleteByQuery(TakeOrderQuery query);
+    int deleteByExample(TakeOrderQuery example);
 
     /**
-     * delete by primary key.
+     * This method corresponds to the database table take_order
+     * @mbg.generated
      */
-    int deleteByPrimaryKey(TakeOrderDO record);
+    int deleteByPrimaryKey(Long id);
 
     /**
-     * insert selective.
+     * This method corresponds to the database table take_order
+     * @mbg.generated
      */
-    int insertSelective(TakeOrderDO record);
+    int insert(TakeOrder record);
 
     /**
-     * select by query condition.
+     * This method corresponds to the database table take_order
+     * @mbg.generated
      */
-    List<TakeOrderDO> selectByQuery(TakeOrderQuery query);
+    int insertSelective(TakeOrder record);
 
     /**
-     * select by primary key.
+     * This method corresponds to the database table take_order
+     * @mbg.generated
      */
-    TakeOrderDO selectByPrimaryKey(Long id);
+    List<TakeOrder> selectByExample(TakeOrderQuery example);
 
     /**
-     * update by query condition selective.
+     * This method corresponds to the database table take_order
+     * @mbg.generated
      */
-    int updateByQuerySelective(@Param("record") TakeOrderDO record, @Param("query") TakeOrderQuery query);
+    TakeOrder selectByPrimaryKey(Long id);
 
     /**
-     * update by query condition.
+     * This method corresponds to the database table take_order
+     * @mbg.generated
      */
-    int updateByQuery(@Param("record") TakeOrderDO record, @Param("query") TakeOrderQuery query);
+    int updateByExampleSelective(@Param("record") TakeOrder record, @Param("example") TakeOrderQuery example);
 
     /**
-     * update by primary key selective.
+     * This method corresponds to the database table take_order
+     * @mbg.generated
      */
-    int updateByPrimaryKeySelective(TakeOrderDO record);
+    int updateByExample(@Param("record") TakeOrder record, @Param("example") TakeOrderQuery example);
+
+    /**
+     * This method corresponds to the database table take_order
+     * @mbg.generated
+     */
+    int updateByPrimaryKeySelective(TakeOrder record);
+
+    /**
+     * This method corresponds to the database table take_order
+     * @mbg.generated
+     */
+    int updateByPrimaryKey(TakeOrder record);
 }

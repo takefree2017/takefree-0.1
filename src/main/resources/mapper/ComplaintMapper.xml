@@ -1,269 +1,669 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.takefree.mapper.ComplaintMapper">
-    <resultMap id="BaseResultMap" type="com.takefree.model.ComplaintDO">
-        <id column="id" jdbcType="BIGINT" property="id" />
-        <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
-        <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
-        <result column="share_id" jdbcType="BIGINT" property="shareId" />
-        <result column="submitter_id" jdbcType="BIGINT" property="submitterId" />
-        <result column="receiver_id" jdbcType="BIGINT" property="receiverId" />
-        <result column="type" jdbcType="TINYINT" property="type" />
-        <result column="content" jdbcType="VARCHAR" property="content" />
-        <result column="status" jdbcType="TINYINT" property="status" />
-        <result column="complaint_result" jdbcType="VARCHAR" property="complaintResult" />
-        <result column="version" jdbcType="INTEGER" property="version" />
-    </resultMap>
-
-    <sql id="Query_Where_Clause">
-        <where>
-            <foreach collection="oredCriteria" item="criteria" separator="or">
-                <if test="criteria.valid">
-                <trim prefix="(" prefixOverrides="and" suffix=")">
-                    <foreach collection="criteria.criteria" item="criterion">
-                        <choose>
-                            <when test="criterion.noValue">
-                                and ${criterion.condition}
-                            </when>
-                            <when test="criterion.singleValue">
-                                and ${criterion.condition} #{criterion.value}
-                            </when>
-                            <when test="criterion.betweenValue">
-                                and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                            </when>
-                            <when test="criterion.listValue">
-                                and ${criterion.condition}
-                            <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
-                                #{listItem}
-                            </foreach>
-                            </when>
-                        </choose>
-                    </foreach>
-                </trim>
-                </if>
+  <resultMap id="BaseResultMap" type="com.takefree.model.Complaint">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="share_id" jdbcType="BIGINT" property="shareId" />
+    <result column="submitter_id" jdbcType="BIGINT" property="submitterId" />
+    <result column="receiver_id" jdbcType="BIGINT" property="receiverId" />
+    <result column="type" jdbcType="TINYINT" property="type" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="complaint_result" jdbcType="VARCHAR" property="complaintResult" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="version" jdbcType="INTEGER" property="version" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
             </foreach>
-        </where>
-    </sql>
-
-    <sql id="Update_By_Query_Where_Clause">
-        <where>
-            <foreach collection="query.oredCriteria" item="criteria" separator="or">
-                <if test="criteria.valid">
-                    <trim prefix="(" prefixOverrides="and" suffix=")">
-                        <foreach collection="criteria.criteria" item="criterion">
-                            <choose>
-                                <when test="criterion.noValue">
-                                    and ${criterion.condition}
-                                </when>
-                                <when test="criterion.singleValue">
-                                    and ${criterion.condition} #{criterion.value}
-                                </when>
-                                <when test="criterion.betweenValue">
-                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                                </when>
-                                <when test="criterion.listValue">
-                                    and ${criterion.condition}
-                                    <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
-                                        #{listItem}
-                                    </foreach>
-                                </when>
-                            </choose>
-                        </foreach>
-                    </trim>
-                </if>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
             </foreach>
-        </where>
-    </sql>
-
-    <sql id="Base_Column_List">
-        id,gmt_create,gmt_modified,share_id,submitter_id,receiver_id,type,content,status,complaint_result,version
-    </sql>
-
-    <select id="selectByQuery" parameterType="com.takefree.query.ComplaintQuery" resultMap="BaseResultMap">
-        select
-        <if test="distinct">
-            distinct
+          </trim>
         </if>
-        <include refid="Base_Column_List" />
-            from complaint
-        <if test="_parameter != null">
-            <include refid="Query_Where_Clause" />
-        </if>
-        <if test="orderByClause != null">
-            order by ${orderByClause}
-        </if>
-        <include refid="MysqlDialectSuffix" />
-    </select>
-
-    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-        select <include refid="Base_Column_List" /> from complaint where id = #{Id,jdbcType=BIGINT}
-    </select>
-
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-        delete from complaint where id = #{Id,jdbcType=BIGINT}
-    </delete>
-
-    <delete id="deleteByQuery" parameterType="com.takefree.query.ComplaintQuery">
-        delete from complaint
-        <if test="_parameter != null">
-            <include refid="Query_Where_Clause" />
-        </if>
-    </delete>
-
-    <insert id="insertSelective" parameterType="com.takefree.model.ComplaintDO">
-        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
-            SELECT LAST_INSERT_ID()
-        </selectKey>
-        insert into complaint
-        <trim prefix="(" suffix=")" suffixOverrides=",">
-            gmt_create,gmt_modified,
-            <if test="shareId != null">
-                share_id,
-            </if>
-            <if test="submitterId != null">
-                submitter_id,
-            </if>
-            <if test="receiverId != null">
-                receiver_id,
-            </if>
-            <if test="type != null">
-                type,
-            </if>
-            <if test="content != null">
-                content,
-            </if>
-            <if test="status != null">
-                status,
-            </if>
-            <if test="complaintResult != null">
-                complaint_result,
-            </if>
-            <if test="version != null">
-                version,
-            </if>
-        </trim>
-        <trim prefix="values (" suffix=")" suffixOverrides=",">
-            now(),now(),
-            <if test="shareId != null">
-                #{shareId,jdbcType=BIGINT},
-            </if>
-            <if test="submitterId != null">
-                #{submitterId,jdbcType=BIGINT},
-            </if>
-            <if test="receiverId != null">
-                #{receiverId,jdbcType=BIGINT},
-            </if>
-            <if test="type != null">
-                #{type,jdbcType=TINYINT},
-            </if>
-            <if test="content != null">
-                #{content,jdbcType=VARCHAR},
-            </if>
-            <if test="status != null">
-                #{status,jdbcType=TINYINT},
-            </if>
-            <if test="complaintResult != null">
-                #{complaintResult,jdbcType=VARCHAR},
-            </if>
-            <if test="version != null">
-                #{version,jdbcType=INTEGER},
-            </if>
-        </trim>
-    </insert>
-
-    <select id="countByQuery" parameterType="com.takefree.query.ComplaintQuery" resultType="java.lang.Integer">
-        select count(*) from complaint
-        <if test="_parameter != null">
-            <include refid="Query_Where_Clause" />
-        </if>
-    </select>
-
-    <update id="updateByQuerySelective" parameterType="map">
-        update complaint
-        <set>
-            gmt_modified=now(),
-            <if test="record.shareId != null">
-                share_id = #{record.shareId,jdbcType=BIGINT},
-            </if>
-            <if test="record.submitterId != null">
-                submitter_id = #{record.submitterId,jdbcType=BIGINT},
-            </if>
-            <if test="record.receiverId != null">
-                receiver_id = #{record.receiverId,jdbcType=BIGINT},
-            </if>
-            <if test="record.type != null">
-                type = #{record.type,jdbcType=TINYINT},
-            </if>
-            <if test="record.content != null">
-                content = #{record.content,jdbcType=VARCHAR},
-            </if>
-            <if test="record.status != null">
-                status = #{record.status,jdbcType=TINYINT},
-            </if>
-            <if test="record.complaintResult != null">
-                complaint_result = #{record.complaintResult,jdbcType=VARCHAR},
-            </if>
-            <if test="record.version != null">
-                version = #{record.version,jdbcType=INTEGER},
-            </if>
-        </set>
-        <if test="_parameter != null">
-            <include refid="Update_By_Query_Where_Clause" />
-        </if>
-    </update>
-
-    <update id="updateByQuery" parameterType="map">
-        update complaint set
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    id, share_id, submitter_id, receiver_id, type, content, status, complaint_result, 
+    gmt_create, gmt_modified, version
+  </sql>
+  <select id="selectByExample" parameterType="com.takefree.query.ComplaintQuery" resultMap="BaseResultMap">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from complaint
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="rows != null">
+      <if test="offset != null">
+        limit ${offset}, ${rows}
+      </if>
+      <if test="offset == null">
+        limit ${rows}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    select 
+    <include refid="Base_Column_List" />
+    from complaint
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    delete from complaint
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.takefree.query.ComplaintQuery">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    delete from complaint
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.takefree.model.Complaint">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into complaint (share_id, submitter_id, receiver_id, 
+      type, content, status, 
+      complaint_result, gmt_create, gmt_modified, 
+      version)
+    values (#{shareId,jdbcType=BIGINT}, #{submitterId,jdbcType=BIGINT}, #{receiverId,jdbcType=BIGINT}, 
+      #{type,jdbcType=TINYINT}, #{content,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, 
+      #{complaintResult,jdbcType=VARCHAR}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, 
+      #{version,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.takefree.model.Complaint">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into complaint
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="shareId != null">
+        share_id,
+      </if>
+      <if test="submitterId != null">
+        submitter_id,
+      </if>
+      <if test="receiverId != null">
+        receiver_id,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="complaintResult != null">
+        complaint_result,
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create,
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="shareId != null">
+        #{shareId,jdbcType=BIGINT},
+      </if>
+      <if test="submitterId != null">
+        #{submitterId,jdbcType=BIGINT},
+      </if>
+      <if test="receiverId != null">
+        #{receiverId,jdbcType=BIGINT},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=TINYINT},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="complaintResult != null">
+        #{complaintResult,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtCreate != null">
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null">
+        #{version,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.takefree.query.ComplaintQuery" resultType="java.lang.Long">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    select count(*) from complaint
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    update complaint
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.shareId != null">
         share_id = #{record.shareId,jdbcType=BIGINT},
+      </if>
+      <if test="record.submitterId != null">
         submitter_id = #{record.submitterId,jdbcType=BIGINT},
+      </if>
+      <if test="record.receiverId != null">
         receiver_id = #{record.receiverId,jdbcType=BIGINT},
+      </if>
+      <if test="record.type != null">
         type = #{record.type,jdbcType=TINYINT},
+      </if>
+      <if test="record.content != null">
         content = #{record.content,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null">
         status = #{record.status,jdbcType=TINYINT},
+      </if>
+      <if test="record.complaintResult != null">
         complaint_result = #{record.complaintResult,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gmtCreate != null">
+        gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.gmtModified != null">
+        gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.version != null">
         version = #{record.version,jdbcType=INTEGER},
-        gmt_modified = now()
-        <if test="_parameter != null">
-            <include refid="Update_By_Query_Where_Clause" />
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    update complaint
+    set id = #{record.id,jdbcType=BIGINT},
+      share_id = #{record.shareId,jdbcType=BIGINT},
+      submitter_id = #{record.submitterId,jdbcType=BIGINT},
+      receiver_id = #{record.receiverId,jdbcType=BIGINT},
+      type = #{record.type,jdbcType=TINYINT},
+      content = #{record.content,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=TINYINT},
+      complaint_result = #{record.complaintResult,jdbcType=VARCHAR},
+      gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP},
+      version = #{record.version,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.takefree.model.Complaint">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    update complaint
+    <set>
+      <if test="shareId != null">
+        share_id = #{shareId,jdbcType=BIGINT},
+      </if>
+      <if test="submitterId != null">
+        submitter_id = #{submitterId,jdbcType=BIGINT},
+      </if>
+      <if test="receiverId != null">
+        receiver_id = #{receiverId,jdbcType=BIGINT},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=TINYINT},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="complaintResult != null">
+        complaint_result = #{complaintResult,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null">
+        version = #{version,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.takefree.model.Complaint">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    update complaint
+    set share_id = #{shareId,jdbcType=BIGINT},
+      submitter_id = #{submitterId,jdbcType=BIGINT},
+      receiver_id = #{receiverId,jdbcType=BIGINT},
+      type = #{type,jdbcType=TINYINT},
+      content = #{content,jdbcType=VARCHAR},
+      status = #{status,jdbcType=TINYINT},
+      complaint_result = #{complaintResult,jdbcType=VARCHAR},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      version = #{version,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <resultMap id="BaseResultMap" type="com.takefree.model.Complaint">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="share_id" jdbcType="BIGINT" property="shareId" />
+    <result column="submitter_id" jdbcType="BIGINT" property="submitterId" />
+    <result column="receiver_id" jdbcType="BIGINT" property="receiverId" />
+    <result column="type" jdbcType="TINYINT" property="type" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="complaint_result" jdbcType="VARCHAR" property="complaintResult" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="version" jdbcType="INTEGER" property="version" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
         </if>
-    </update>
-
-    <update id="updateByPrimaryKeySelective" parameterType="com.takefree.model.ComplaintDO">
-        update complaint
-        <set>
-            gmt_modified=now(),
-            <if test="shareId != null">
-                share_id = #{shareId,jdbcType=BIGINT},
-            </if>
-            <if test="submitterId != null">
-                submitter_id = #{submitterId,jdbcType=BIGINT},
-            </if>
-            <if test="receiverId != null">
-                receiver_id = #{receiverId,jdbcType=BIGINT},
-            </if>
-            <if test="type != null">
-                type = #{type,jdbcType=TINYINT},
-            </if>
-            <if test="content != null">
-                content = #{content,jdbcType=VARCHAR},
-            </if>
-            <if test="status != null">
-                status = #{status,jdbcType=TINYINT},
-            </if>
-            <if test="complaintResult != null">
-                complaint_result = #{complaintResult,jdbcType=VARCHAR},
-            </if>
-            <if test="version != null">
-                version = #{version,jdbcType=INTEGER},
-            </if>
-        </set>
-        where id = #{Id,jdbcType=BIGINT}
-    </update>
-
-    <sql id="MysqlDialectSuffix">
-        <if test="pageOffset &gt;= 0 and pageSize &gt; 0">
-            <![CDATA[ LIMIT #{pageOffset,jdbcType=INTEGER}, #{pageSize,jdbcType=INTEGER} ]]>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
         </if>
-    </sql>
-
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, share_id, submitter_id, receiver_id, type, content, status, complaint_result, 
+    gmt_create, gmt_modified, version
+  </sql>
+  <select id="selectByExample" parameterType="com.takefree.query.ComplaintQuery" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from complaint
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="rows != null">
+      <if test="offset != null">
+        limit ${offset}, ${rows}
+      </if>
+      <if test="offset == null">
+        limit ${rows}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from complaint
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from complaint
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.takefree.query.ComplaintQuery">
+    delete from complaint
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.takefree.model.Complaint">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into complaint (share_id, submitter_id, receiver_id, 
+      type, content, status, 
+      complaint_result, gmt_create, gmt_modified, 
+      version)
+    values (#{shareId,jdbcType=BIGINT}, #{submitterId,jdbcType=BIGINT}, #{receiverId,jdbcType=BIGINT}, 
+      #{type,jdbcType=TINYINT}, #{content,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, 
+      #{complaintResult,jdbcType=VARCHAR}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, 
+      #{version,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.takefree.model.Complaint">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into complaint
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="shareId != null">
+        share_id,
+      </if>
+      <if test="submitterId != null">
+        submitter_id,
+      </if>
+      <if test="receiverId != null">
+        receiver_id,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="complaintResult != null">
+        complaint_result,
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create,
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="shareId != null">
+        #{shareId,jdbcType=BIGINT},
+      </if>
+      <if test="submitterId != null">
+        #{submitterId,jdbcType=BIGINT},
+      </if>
+      <if test="receiverId != null">
+        #{receiverId,jdbcType=BIGINT},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=TINYINT},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="complaintResult != null">
+        #{complaintResult,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtCreate != null">
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null">
+        #{version,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.takefree.query.ComplaintQuery" resultType="java.lang.Long">
+    select count(*) from complaint
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update complaint
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.shareId != null">
+        share_id = #{record.shareId,jdbcType=BIGINT},
+      </if>
+      <if test="record.submitterId != null">
+        submitter_id = #{record.submitterId,jdbcType=BIGINT},
+      </if>
+      <if test="record.receiverId != null">
+        receiver_id = #{record.receiverId,jdbcType=BIGINT},
+      </if>
+      <if test="record.type != null">
+        type = #{record.type,jdbcType=TINYINT},
+      </if>
+      <if test="record.content != null">
+        content = #{record.content,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=TINYINT},
+      </if>
+      <if test="record.complaintResult != null">
+        complaint_result = #{record.complaintResult,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gmtCreate != null">
+        gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.gmtModified != null">
+        gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.version != null">
+        version = #{record.version,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update complaint
+    set id = #{record.id,jdbcType=BIGINT},
+      share_id = #{record.shareId,jdbcType=BIGINT},
+      submitter_id = #{record.submitterId,jdbcType=BIGINT},
+      receiver_id = #{record.receiverId,jdbcType=BIGINT},
+      type = #{record.type,jdbcType=TINYINT},
+      content = #{record.content,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=TINYINT},
+      complaint_result = #{record.complaintResult,jdbcType=VARCHAR},
+      gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP},
+      version = #{record.version,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.takefree.model.Complaint">
+    update complaint
+    <set>
+      <if test="shareId != null">
+        share_id = #{shareId,jdbcType=BIGINT},
+      </if>
+      <if test="submitterId != null">
+        submitter_id = #{submitterId,jdbcType=BIGINT},
+      </if>
+      <if test="receiverId != null">
+        receiver_id = #{receiverId,jdbcType=BIGINT},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=TINYINT},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="complaintResult != null">
+        complaint_result = #{complaintResult,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null">
+        version = #{version,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.takefree.model.Complaint">
+    update complaint
+    set share_id = #{shareId,jdbcType=BIGINT},
+      submitter_id = #{submitterId,jdbcType=BIGINT},
+      receiver_id = #{receiverId,jdbcType=BIGINT},
+      type = #{type,jdbcType=TINYINT},
+      content = #{content,jdbcType=VARCHAR},
+      status = #{status,jdbcType=TINYINT},
+      complaint_result = #{complaintResult,jdbcType=VARCHAR},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      version = #{version,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
 </mapper>

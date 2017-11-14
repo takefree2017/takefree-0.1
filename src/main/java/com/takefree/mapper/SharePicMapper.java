@@ -1,62 +1,81 @@
 package com.takefree.mapper;
 
-import com.takefree.model.SharePicDO;
+import com.takefree.model.SharePic;
 import com.takefree.query.SharePicQuery;
-
-import java.util.List;
-
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
-/**
- * MyBatis Mapper for SharePic.
- */
- @Mapper
- @Repository
 
+import java.util.List;
+
+;
+
+@Mapper
+@Repository
 public interface SharePicMapper {
     /**
-     * query count by query condition.
+     * This method corresponds to the database table share_pic
+     * @mbg.generated
      */
-    int countByQuery(SharePicQuery query);
+    long countByExample(SharePicQuery example);
 
     /**
-     * delete by query condition.
+     * This method corresponds to the database table share_pic
+     * @mbg.generated
      */
-    int deleteByQuery(SharePicQuery query);
+    int deleteByExample(SharePicQuery example);
 
     /**
-     * delete by primary key.
+     * This method corresponds to the database table share_pic
+     * @mbg.generated
      */
-    int deleteByPrimaryKey(SharePicDO record);
+    int deleteByPrimaryKey(Long id);
 
     /**
-     * insert selective.
+     * This method corresponds to the database table share_pic
+     * @mbg.generated
      */
-    int insertSelective(SharePicDO record);
+    int insert(SharePic record);
 
     /**
-     * select by query condition.
+     * This method corresponds to the database table share_pic
+     * @mbg.generated
      */
-    List<SharePicDO> selectByQuery(SharePicQuery query);
+    int insertSelective(SharePic record);
 
     /**
-     * select by primary key.
+     * This method corresponds to the database table share_pic
+     * @mbg.generated
      */
-    SharePicDO selectByPrimaryKey(Long id);
+    List<SharePic> selectByExample(SharePicQuery example);
 
     /**
-     * update by query condition selective.
+     * This method corresponds to the database table share_pic
+     * @mbg.generated
      */
-    int updateByQuerySelective(@Param("record") SharePicDO record, @Param("query") SharePicQuery query);
+    SharePic selectByPrimaryKey(Long id);
 
     /**
-     * update by query condition.
+     * This method corresponds to the database table share_pic
+     * @mbg.generated
      */
-    int updateByQuery(@Param("record") SharePicDO record, @Param("query") SharePicQuery query);
+    int updateByExampleSelective(@Param("record") SharePic record, @Param("example") SharePicQuery example);
 
     /**
-     * update by primary key selective.
+     * This method corresponds to the database table share_pic
+     * @mbg.generated
      */
-    int updateByPrimaryKeySelective(SharePicDO record);
+    int updateByExample(@Param("record") SharePic record, @Param("example") SharePicQuery example);
+
+    /**
+     * This method corresponds to the database table share_pic
+     * @mbg.generated
+     */
+    int updateByPrimaryKeySelective(SharePic record);
+
+    /**
+     * This method corresponds to the database table share_pic
+     * @mbg.generated
+     */
+    int updateByPrimaryKey(SharePic record);
 }

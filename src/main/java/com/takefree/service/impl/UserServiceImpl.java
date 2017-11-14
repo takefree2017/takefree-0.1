@@ -6,13 +6,13 @@ import com.takefree.common.service.TokenManager;
 import com.takefree.common.util.BeanUtils;
 import com.takefree.common.web.constant.HttpStatus;
 import com.takefree.mapper.UserDTOMapper;
-import com.takefree.mapper.ext.UserDescriptionExtMapper;
-import com.takefree.mapper.ext.UserInfoExtMapper;
-import com.takefree.mapper.ext.UserTimeExtMapper;
+import com.takefree.mapper.UserDescriptionMapper;
+import com.takefree.mapper.UserInfoMapper;
+import com.takefree.mapper.UserTimeMapper;
 import com.takefree.model.UserDTO;
-import com.takefree.model.UserDescriptionDO;
-import com.takefree.model.UserInfoDO;
-import com.takefree.model.UserTimeDO;
+import com.takefree.model.UserDescription;
+import com.takefree.model.UserInfo;
+import com.takefree.model.UserTime;
 import com.takefree.query.UserInfoQuery;
 import com.takefree.service.UserService;
 import com.xiaoleilu.hutool.crypto.SecureUtil;
@@ -21,6 +21,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -32,20 +33,20 @@ public class UserServiceImpl implements UserService {
     UserDTOMapper userDTOMapper;
 
     @Autowired
-    UserInfoExtMapper userInfoExtMapper;
+    UserInfoMapper userInfoMapper;
 
     @Autowired
-    UserDescriptionExtMapper userDescriptionExtMapper;
+    UserDescriptionMapper userDescriptionMapper;
 
     @Autowired
-    UserTimeExtMapper userTimeExtMapper;
+    UserTimeMapper userTimeMapper;
 
     @Autowired
     private TokenManager tokenManager;
 
     @Override
-    public UserInfoDO getUserInfoById(Long id) {
-        return userInfoExtMapper.selectByPrimaryKey(id);
+    public UserInfo getUserInfoById(Long id) {
+        return userInfoMapper.selectByPrimaryKey(id);
     }
 
     @Override
@@ -59,24 +60,24 @@ public class UserServiceImpl implements UserService {
         //密码MD5两次保存
         userDTO.setPassword(SecureUtil.md5(SecureUtil.md5(userDTO.getPassword())));
 
-        UserInfoDO userInfoDO=new UserInfoDO();
-        BeanUtils.copyPropertiesIgnoreNull(userDTO, userInfoDO);
-        int result=userInfoExtMapper.insertSelective(userInfoDO);
+        UserInfo userInfo=new UserInfo();
+        BeanUtils.copyPropertiesIgnoreNull(userDTO, userInfo);
+        int result=userInfoMapper.insertSelective(userInfo);
         if(result==0){
             return false;
         }
 
-        userDTO.setId(userInfoDO.getId());
+        userDTO.setId(userInfo.getId());
 
-        UserDescriptionDO userDescriptionDO=new UserDescriptionDO();
-        BeanUtils.copyPropertiesIgnoreNull(userDTO, userDescriptionDO);
-        userDescriptionDO.setUserId(userInfoDO.getId());
-        userDescriptionExtMapper.insertSelective(userDescriptionDO);
+        UserDescription userDescription=new UserDescription();
+        BeanUtils.copyPropertiesIgnoreNull(userDTO, userDescription);
+        userDescription.setUserId(userInfo.getId());
+        userDescriptionMapper.insertSelective(userDescription);
 
-        UserTimeDO userTimeDO=new UserTimeDO();
-        BeanUtils.copyPropertiesIgnoreNull(userDTO, userTimeDO);
-        userTimeDO.setUserId(userInfoDO.getId());
-        userTimeExtMapper.insertSelective(userTimeDO);
+        UserTime userTime=new UserTime();
+        BeanUtils.copyPropertiesIgnoreNull(userDTO, userTime);
+        userTime.setUserId(userInfo.getId());
+        userTimeMapper.insertSelective(userTime);
         return true;
     }
 
@@ -96,10 +97,10 @@ public class UserServiceImpl implements UserService {
         Token token=tokenManager.createToken(userDTO);
 
         if(token!=null) {
-            UserTimeDO userTimeDO=new UserTimeDO();
-            userTimeDO.setUserId(userDTO.getId());
-            userTimeDO.setLastloginTime(LocalDateTime.now());
-            userTimeExtMapper.updateByPrimaryKeySelective(userTimeDO);
+            UserTime userTime=new UserTime();
+            userTime.setUserId(userDTO.getId());
+            userTime.setLastloginTime(new Date());
+            userTimeMapper.updateByPrimaryKeySelective(userTime);
         }else{
             throw new SimpleHttpException(HttpStatus.INTERNAL_SERVER_ERROR, "内部错误");
         }
@@ -110,19 +111,19 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void updateById(UserDTO userDTO) {
-        UserInfoDO userInfoDO=new UserInfoDO();
-        BeanUtils.copyPropertiesIgnoreNull(userDTO,userInfoDO);
-        userInfoExtMapper.updateByPrimaryKeySelective(userInfoDO);
+        UserInfo userInfo=new UserInfo();
+        BeanUtils.copyPropertiesIgnoreNull(userDTO,userInfo);
+        userInfoMapper.updateByPrimaryKeySelective(userInfo);
         if(userDTO.getDescription() != null) {
-            UserDescriptionDO userDescriptionDO=new UserDescriptionDO();
-            BeanUtils.copyPropertiesIgnoreNull(userDTO, userDescriptionDO);
-            userDescriptionExtMapper.insertSelective(userDescriptionDO);
-            userDescriptionExtMapper.updateByPrimaryKeySelective(userDescriptionDO);
+            UserDescription userDescription=new UserDescription();
+            BeanUtils.copyPropertiesIgnoreNull(userDTO, userDescription);
+            userDescriptionMapper.insertSelective(userDescription);
+            userDescriptionMapper.updateByPrimaryKeySelective(userDescription);
         }
     }
 
     @Override
-    public List<UserInfoDO> getUserInfoByMobile(String mobile) {
+    public List<UserInfo> getUserInfoByMobile(String mobile) {
         if(mobile==null){
             return null;
         }
@@ -130,6 +131,6 @@ public class UserServiceImpl implements UserService {
         UserInfoQuery userInfoQuery=new UserInfoQuery();
         userInfoQuery.createCriteria().andMobileEqualTo(mobile);
 
-        return userInfoExtMapper.selectByQuery(userInfoQuery);
+        return userInfoMapper.selectByExample(userInfoQuery);
     }
 }

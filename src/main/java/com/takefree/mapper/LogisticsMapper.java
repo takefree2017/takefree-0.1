@@ -1,62 +1,81 @@
 package com.takefree.mapper;
 
-import com.takefree.model.LogisticsDO;
+import com.takefree.model.Logistics;
 import com.takefree.query.LogisticsQuery;
-
-import java.util.List;
-
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
-/**
- * MyBatis Mapper for Logistics.
- */
- @Mapper
- @Repository
 
+import java.util.List;
+
+;
+
+@Mapper
+@Repository
 public interface LogisticsMapper {
     /**
-     * query count by query condition.
+     * This method corresponds to the database table logistics
+     * @mbg.generated
      */
-    int countByQuery(LogisticsQuery query);
+    long countByExample(LogisticsQuery example);
 
     /**
-     * delete by query condition.
+     * This method corresponds to the database table logistics
+     * @mbg.generated
      */
-    int deleteByQuery(LogisticsQuery query);
+    int deleteByExample(LogisticsQuery example);
 
     /**
-     * delete by primary key.
+     * This method corresponds to the database table logistics
+     * @mbg.generated
      */
-    int deleteByPrimaryKey(LogisticsDO record);
+    int deleteByPrimaryKey(Long id);
 
     /**
-     * insert selective.
+     * This method corresponds to the database table logistics
+     * @mbg.generated
      */
-    int insertSelective(LogisticsDO record);
+    int insert(Logistics record);
 
     /**
-     * select by query condition.
+     * This method corresponds to the database table logistics
+     * @mbg.generated
      */
-    List<LogisticsDO> selectByQuery(LogisticsQuery query);
+    int insertSelective(Logistics record);
 
     /**
-     * select by primary key.
+     * This method corresponds to the database table logistics
+     * @mbg.generated
      */
-    LogisticsDO selectByPrimaryKey(Long id);
+    List<Logistics> selectByExample(LogisticsQuery example);
 
     /**
-     * update by query condition selective.
+     * This method corresponds to the database table logistics
+     * @mbg.generated
      */
-    int updateByQuerySelective(@Param("record") LogisticsDO record, @Param("query") LogisticsQuery query);
+    Logistics selectByPrimaryKey(Long id);
 
     /**
-     * update by query condition.
+     * This method corresponds to the database table logistics
+     * @mbg.generated
      */
-    int updateByQuery(@Param("record") LogisticsDO record, @Param("query") LogisticsQuery query);
+    int updateByExampleSelective(@Param("record") Logistics record, @Param("example") LogisticsQuery example);
 
     /**
-     * update by primary key selective.
+     * This method corresponds to the database table logistics
+     * @mbg.generated
      */
-    int updateByPrimaryKeySelective(LogisticsDO record);
+    int updateByExample(@Param("record") Logistics record, @Param("example") LogisticsQuery example);
+
+    /**
+     * This method corresponds to the database table logistics
+     * @mbg.generated
+     */
+    int updateByPrimaryKeySelective(Logistics record);
+
+    /**
+     * This method corresponds to the database table logistics
+     * @mbg.generated
+     */
+    int updateByPrimaryKey(Logistics record);
 }

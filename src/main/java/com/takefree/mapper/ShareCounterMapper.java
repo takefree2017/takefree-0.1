@@ -1,62 +1,81 @@
 package com.takefree.mapper;
 
-import com.takefree.model.ShareCounterDO;
+import com.takefree.model.ShareCounter;
 import com.takefree.query.ShareCounterQuery;
-
-import java.util.List;
-
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
-/**
- * MyBatis Mapper for ShareCounter.
- */
- @Mapper
- @Repository
 
+import java.util.List;
+
+;
+
+@Mapper
+@Repository
 public interface ShareCounterMapper {
     /**
-     * query count by query condition.
+     * This method corresponds to the database table share_counter
+     * @mbg.generated
      */
-    int countByQuery(ShareCounterQuery query);
+    long countByExample(ShareCounterQuery example);
 
     /**
-     * delete by query condition.
+     * This method corresponds to the database table share_counter
+     * @mbg.generated
      */
-    int deleteByQuery(ShareCounterQuery query);
+    int deleteByExample(ShareCounterQuery example);
 
     /**
-     * delete by primary key.
+     * This method corresponds to the database table share_counter
+     * @mbg.generated
      */
-    int deleteByPrimaryKey(ShareCounterDO record);
+    int deleteByPrimaryKey(Long shareId);
 
     /**
-     * insert selective.
+     * This method corresponds to the database table share_counter
+     * @mbg.generated
      */
-    int insertSelective(ShareCounterDO record);
+    int insert(ShareCounter record);
 
     /**
-     * select by query condition.
+     * This method corresponds to the database table share_counter
+     * @mbg.generated
      */
-    List<ShareCounterDO> selectByQuery(ShareCounterQuery query);
+    int insertSelective(ShareCounter record);
 
     /**
-     * select by primary key.
+     * This method corresponds to the database table share_counter
+     * @mbg.generated
      */
-    ShareCounterDO selectByPrimaryKey(Long id);
+    List<ShareCounter> selectByExample(ShareCounterQuery example);
 
     /**
-     * update by query condition selective.
+     * This method corresponds to the database table share_counter
+     * @mbg.generated
      */
-    int updateByQuerySelective(@Param("record") ShareCounterDO record, @Param("query") ShareCounterQuery query);
+    ShareCounter selectByPrimaryKey(Long shareId);
 
     /**
-     * update by query condition.
+     * This method corresponds to the database table share_counter
+     * @mbg.generated
      */
-    int updateByQuery(@Param("record") ShareCounterDO record, @Param("query") ShareCounterQuery query);
+    int updateByExampleSelective(@Param("record") ShareCounter record, @Param("example") ShareCounterQuery example);
 
     /**
-     * update by primary key selective.
+     * This method corresponds to the database table share_counter
+     * @mbg.generated
      */
-    int updateByPrimaryKeySelective(ShareCounterDO record);
+    int updateByExample(@Param("record") ShareCounter record, @Param("example") ShareCounterQuery example);
+
+    /**
+     * This method corresponds to the database table share_counter
+     * @mbg.generated
+     */
+    int updateByPrimaryKeySelective(ShareCounter record);
+
+    /**
+     * This method corresponds to the database table share_counter
+     * @mbg.generated
+     */
+    int updateByPrimaryKey(ShareCounter record);
 }

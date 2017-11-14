@@ -1,62 +1,81 @@
 package com.takefree.mapper;
 
-import com.takefree.model.ShareCategoryDO;
+import com.takefree.model.ShareCategory;
 import com.takefree.query.ShareCategoryQuery;
-
-import java.util.List;
-
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
-/**
- * MyBatis Mapper for ShareCategory.
- */
- @Mapper
- @Repository
 
+import java.util.List;
+
+;
+
+@Mapper
+@Repository
 public interface ShareCategoryMapper {
     /**
-     * query count by query condition.
+     * This method corresponds to the database table share_category
+     * @mbg.generated
      */
-    int countByQuery(ShareCategoryQuery query);
+    long countByExample(ShareCategoryQuery example);
 
     /**
-     * delete by query condition.
+     * This method corresponds to the database table share_category
+     * @mbg.generated
      */
-    int deleteByQuery(ShareCategoryQuery query);
+    int deleteByExample(ShareCategoryQuery example);
 
     /**
-     * delete by primary key.
+     * This method corresponds to the database table share_category
+     * @mbg.generated
      */
-    int deleteByPrimaryKey(ShareCategoryDO record);
+    int deleteByPrimaryKey(Long id);
 
     /**
-     * insert selective.
+     * This method corresponds to the database table share_category
+     * @mbg.generated
      */
-    int insertSelective(ShareCategoryDO record);
+    int insert(ShareCategory record);
 
     /**
-     * select by query condition.
+     * This method corresponds to the database table share_category
+     * @mbg.generated
      */
-    List<ShareCategoryDO> selectByQuery(ShareCategoryQuery query);
+    int insertSelective(ShareCategory record);
 
     /**
-     * select by primary key.
+     * This method corresponds to the database table share_category
+     * @mbg.generated
      */
-    ShareCategoryDO selectByPrimaryKey(Long id);
+    List<ShareCategory> selectByExample(ShareCategoryQuery example);
 
     /**
-     * update by query condition selective.
+     * This method corresponds to the database table share_category
+     * @mbg.generated
      */
-    int updateByQuerySelective(@Param("record") ShareCategoryDO record, @Param("query") ShareCategoryQuery query);
+    ShareCategory selectByPrimaryKey(Long id);
 
     /**
-     * update by query condition.
+     * This method corresponds to the database table share_category
+     * @mbg.generated
      */
-    int updateByQuery(@Param("record") ShareCategoryDO record, @Param("query") ShareCategoryQuery query);
+    int updateByExampleSelective(@Param("record") ShareCategory record, @Param("example") ShareCategoryQuery example);
 
     /**
-     * update by primary key selective.
+     * This method corresponds to the database table share_category
+     * @mbg.generated
      */
-    int updateByPrimaryKeySelective(ShareCategoryDO record);
+    int updateByExample(@Param("record") ShareCategory record, @Param("example") ShareCategoryQuery example);
+
+    /**
+     * This method corresponds to the database table share_category
+     * @mbg.generated
+     */
+    int updateByPrimaryKeySelective(ShareCategory record);
+
+    /**
+     * This method corresponds to the database table share_category
+     * @mbg.generated
+     */
+    int updateByPrimaryKey(ShareCategory record);
 }

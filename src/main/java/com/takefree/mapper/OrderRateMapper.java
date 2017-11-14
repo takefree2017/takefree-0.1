@@ -1,62 +1,81 @@
 package com.takefree.mapper;
 
-import com.takefree.model.OrderRateDO;
+import com.takefree.model.OrderRate;
 import com.takefree.query.OrderRateQuery;
-
-import java.util.List;
-
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
-/**
- * MyBatis Mapper for OrderRate.
- */
- @Mapper
- @Repository
 
+import java.util.List;
+
+;
+
+@Mapper
+@Repository
 public interface OrderRateMapper {
     /**
-     * query count by query condition.
+     * This method corresponds to the database table order_rate
+     * @mbg.generated
      */
-    int countByQuery(OrderRateQuery query);
+    long countByExample(OrderRateQuery example);
 
     /**
-     * delete by query condition.
+     * This method corresponds to the database table order_rate
+     * @mbg.generated
      */
-    int deleteByQuery(OrderRateQuery query);
+    int deleteByExample(OrderRateQuery example);
 
     /**
-     * delete by primary key.
+     * This method corresponds to the database table order_rate
+     * @mbg.generated
      */
-    int deleteByPrimaryKey(OrderRateDO record);
+    int deleteByPrimaryKey(Long id);
 
     /**
-     * insert selective.
+     * This method corresponds to the database table order_rate
+     * @mbg.generated
      */
-    int insertSelective(OrderRateDO record);
+    int insert(OrderRate record);
 
     /**
-     * select by query condition.
+     * This method corresponds to the database table order_rate
+     * @mbg.generated
      */
-    List<OrderRateDO> selectByQuery(OrderRateQuery query);
+    int insertSelective(OrderRate record);
 
     /**
-     * select by primary key.
+     * This method corresponds to the database table order_rate
+     * @mbg.generated
      */
-    OrderRateDO selectByPrimaryKey(Long id);
+    List<OrderRate> selectByExample(OrderRateQuery example);
 
     /**
-     * update by query condition selective.
+     * This method corresponds to the database table order_rate
+     * @mbg.generated
      */
-    int updateByQuerySelective(@Param("record") OrderRateDO record, @Param("query") OrderRateQuery query);
+    OrderRate selectByPrimaryKey(Long id);
 
     /**
-     * update by query condition.
+     * This method corresponds to the database table order_rate
+     * @mbg.generated
      */
-    int updateByQuery(@Param("record") OrderRateDO record, @Param("query") OrderRateQuery query);
+    int updateByExampleSelective(@Param("record") OrderRate record, @Param("example") OrderRateQuery example);
 
     /**
-     * update by primary key selective.
+     * This method corresponds to the database table order_rate
+     * @mbg.generated
      */
-    int updateByPrimaryKeySelective(OrderRateDO record);
+    int updateByExample(@Param("record") OrderRate record, @Param("example") OrderRateQuery example);
+
+    /**
+     * This method corresponds to the database table order_rate
+     * @mbg.generated
+     */
+    int updateByPrimaryKeySelective(OrderRate record);
+
+    /**
+     * This method corresponds to the database table order_rate
+     * @mbg.generated
+     */
+    int updateByPrimaryKey(OrderRate record);
 }

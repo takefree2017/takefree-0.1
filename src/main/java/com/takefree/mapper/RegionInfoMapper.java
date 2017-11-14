@@ -1,62 +1,81 @@
 package com.takefree.mapper;
 
-import com.takefree.model.RegionInfoDO;
+import com.takefree.model.RegionInfo;
 import com.takefree.query.RegionInfoQuery;
-
-import java.util.List;
-
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
-/**
- * MyBatis Mapper for RegionInfo.
- */
- @Mapper
- @Repository
 
+import java.util.List;
+
+;
+
+@Mapper
+@Repository
 public interface RegionInfoMapper {
     /**
-     * query count by query condition.
+     * This method corresponds to the database table region_info
+     * @mbg.generated
      */
-    int countByQuery(RegionInfoQuery query);
+    long countByExample(RegionInfoQuery example);
 
     /**
-     * delete by query condition.
+     * This method corresponds to the database table region_info
+     * @mbg.generated
      */
-    int deleteByQuery(RegionInfoQuery query);
+    int deleteByExample(RegionInfoQuery example);
 
     /**
-     * delete by primary key.
+     * This method corresponds to the database table region_info
+     * @mbg.generated
      */
-    int deleteByPrimaryKey(RegionInfoDO record);
+    int deleteByPrimaryKey(Long id);
 
     /**
-     * insert selective.
+     * This method corresponds to the database table region_info
+     * @mbg.generated
      */
-    int insertSelective(RegionInfoDO record);
+    int insert(RegionInfo record);
 
     /**
-     * select by query condition.
+     * This method corresponds to the database table region_info
+     * @mbg.generated
      */
-    List<RegionInfoDO> selectByQuery(RegionInfoQuery query);
+    int insertSelective(RegionInfo record);
 
     /**
-     * select by primary key.
+     * This method corresponds to the database table region_info
+     * @mbg.generated
      */
-    RegionInfoDO selectByPrimaryKey(Long id);
+    List<RegionInfo> selectByExample(RegionInfoQuery example);
 
     /**
-     * update by query condition selective.
+     * This method corresponds to the database table region_info
+     * @mbg.generated
      */
-    int updateByQuerySelective(@Param("record") RegionInfoDO record, @Param("query") RegionInfoQuery query);
+    RegionInfo selectByPrimaryKey(Long id);
 
     /**
-     * update by query condition.
+     * This method corresponds to the database table region_info
+     * @mbg.generated
      */
-    int updateByQuery(@Param("record") RegionInfoDO record, @Param("query") RegionInfoQuery query);
+    int updateByExampleSelective(@Param("record") RegionInfo record, @Param("example") RegionInfoQuery example);
 
     /**
-     * update by primary key selective.
+     * This method corresponds to the database table region_info
+     * @mbg.generated
      */
-    int updateByPrimaryKeySelective(RegionInfoDO record);
+    int updateByExample(@Param("record") RegionInfo record, @Param("example") RegionInfoQuery example);
+
+    /**
+     * This method corresponds to the database table region_info
+     * @mbg.generated
+     */
+    int updateByPrimaryKeySelective(RegionInfo record);
+
+    /**
+     * This method corresponds to the database table region_info
+     * @mbg.generated
+     */
+    int updateByPrimaryKey(RegionInfo record);
 }

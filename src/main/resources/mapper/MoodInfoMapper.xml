@@ -1,185 +1,415 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.takefree.mapper.MoodInfoMapper">
-    <resultMap id="BaseResultMap" type="com.takefree.model.MoodInfoDO">
-        <id column="id" jdbcType="BIGINT" property="id" />
-        <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
-        <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
-        <result column="mood_name" jdbcType="VARCHAR" property="moodName" />
-        <result column="icon_url" jdbcType="VARCHAR" property="iconUrl" />
-    </resultMap>
-
-    <sql id="Query_Where_Clause">
-        <where>
-            <foreach collection="oredCriteria" item="criteria" separator="or">
-                <if test="criteria.valid">
-                <trim prefix="(" prefixOverrides="and" suffix=")">
-                    <foreach collection="criteria.criteria" item="criterion">
-                        <choose>
-                            <when test="criterion.noValue">
-                                and ${criterion.condition}
-                            </when>
-                            <when test="criterion.singleValue">
-                                and ${criterion.condition} #{criterion.value}
-                            </when>
-                            <when test="criterion.betweenValue">
-                                and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                            </when>
-                            <when test="criterion.listValue">
-                                and ${criterion.condition}
-                            <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
-                                #{listItem}
-                            </foreach>
-                            </when>
-                        </choose>
-                    </foreach>
-                </trim>
-                </if>
+  <resultMap id="BaseResultMap" type="com.takefree.model.MoodInfo">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="mood_name" jdbcType="VARCHAR" property="moodName" />
+    <result column="icon_url" jdbcType="VARCHAR" property="iconUrl" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
             </foreach>
-        </where>
-    </sql>
-
-    <sql id="Update_By_Query_Where_Clause">
-        <where>
-            <foreach collection="query.oredCriteria" item="criteria" separator="or">
-                <if test="criteria.valid">
-                    <trim prefix="(" prefixOverrides="and" suffix=")">
-                        <foreach collection="criteria.criteria" item="criterion">
-                            <choose>
-                                <when test="criterion.noValue">
-                                    and ${criterion.condition}
-                                </when>
-                                <when test="criterion.singleValue">
-                                    and ${criterion.condition} #{criterion.value}
-                                </when>
-                                <when test="criterion.betweenValue">
-                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                                </when>
-                                <when test="criterion.listValue">
-                                    and ${criterion.condition}
-                                    <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
-                                        #{listItem}
-                                    </foreach>
-                                </when>
-                            </choose>
-                        </foreach>
-                    </trim>
-                </if>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
             </foreach>
-        </where>
-    </sql>
-
-    <sql id="Base_Column_List">
-        id,gmt_create,gmt_modified,mood_name,icon_url
-    </sql>
-
-    <select id="selectByQuery" parameterType="com.takefree.query.MoodInfoQuery" resultMap="BaseResultMap">
-        select
-        <if test="distinct">
-            distinct
+          </trim>
         </if>
-        <include refid="Base_Column_List" />
-            from mood_info
-        <if test="_parameter != null">
-            <include refid="Query_Where_Clause" />
-        </if>
-        <if test="orderByClause != null">
-            order by ${orderByClause}
-        </if>
-        <include refid="MysqlDialectSuffix" />
-    </select>
-
-    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-        select <include refid="Base_Column_List" /> from mood_info where id = #{Id,jdbcType=BIGINT}
-    </select>
-
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-        delete from mood_info where id = #{Id,jdbcType=BIGINT}
-    </delete>
-
-    <delete id="deleteByQuery" parameterType="com.takefree.query.MoodInfoQuery">
-        delete from mood_info
-        <if test="_parameter != null">
-            <include refid="Query_Where_Clause" />
-        </if>
-    </delete>
-
-    <insert id="insertSelective" parameterType="com.takefree.model.MoodInfoDO">
-        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
-            SELECT LAST_INSERT_ID()
-        </selectKey>
-        insert into mood_info
-        <trim prefix="(" suffix=")" suffixOverrides=",">
-            gmt_create,gmt_modified,
-            <if test="moodName != null">
-                mood_name,
-            </if>
-            <if test="iconUrl != null">
-                icon_url,
-            </if>
-        </trim>
-        <trim prefix="values (" suffix=")" suffixOverrides=",">
-            now(),now(),
-            <if test="moodName != null">
-                #{moodName,jdbcType=VARCHAR},
-            </if>
-            <if test="iconUrl != null">
-                #{iconUrl,jdbcType=VARCHAR},
-            </if>
-        </trim>
-    </insert>
-
-    <select id="countByQuery" parameterType="com.takefree.query.MoodInfoQuery" resultType="java.lang.Integer">
-        select count(*) from mood_info
-        <if test="_parameter != null">
-            <include refid="Query_Where_Clause" />
-        </if>
-    </select>
-
-    <update id="updateByQuerySelective" parameterType="map">
-        update mood_info
-        <set>
-            gmt_modified=now(),
-            <if test="record.moodName != null">
-                mood_name = #{record.moodName,jdbcType=VARCHAR},
-            </if>
-            <if test="record.iconUrl != null">
-                icon_url = #{record.iconUrl,jdbcType=VARCHAR},
-            </if>
-        </set>
-        <if test="_parameter != null">
-            <include refid="Update_By_Query_Where_Clause" />
-        </if>
-    </update>
-
-    <update id="updateByQuery" parameterType="map">
-        update mood_info set
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    id, mood_name, icon_url
+  </sql>
+  <select id="selectByExample" parameterType="com.takefree.query.MoodInfoQuery" resultMap="BaseResultMap">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from mood_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="rows != null">
+      <if test="offset != null">
+        limit ${offset}, ${rows}
+      </if>
+      <if test="offset == null">
+        limit ${rows}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    select 
+    <include refid="Base_Column_List" />
+    from mood_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    delete from mood_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.takefree.query.MoodInfoQuery">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    delete from mood_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.takefree.model.MoodInfo">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into mood_info (mood_name, icon_url)
+    values (#{moodName,jdbcType=VARCHAR}, #{iconUrl,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.takefree.model.MoodInfo">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into mood_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="moodName != null">
+        mood_name,
+      </if>
+      <if test="iconUrl != null">
+        icon_url,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="moodName != null">
+        #{moodName,jdbcType=VARCHAR},
+      </if>
+      <if test="iconUrl != null">
+        #{iconUrl,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.takefree.query.MoodInfoQuery" resultType="java.lang.Long">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    select count(*) from mood_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    update mood_info
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.moodName != null">
         mood_name = #{record.moodName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.iconUrl != null">
         icon_url = #{record.iconUrl,jdbcType=VARCHAR},
-        gmt_modified = now()
-        <if test="_parameter != null">
-            <include refid="Update_By_Query_Where_Clause" />
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    update mood_info
+    set id = #{record.id,jdbcType=INTEGER},
+      mood_name = #{record.moodName,jdbcType=VARCHAR},
+      icon_url = #{record.iconUrl,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.takefree.model.MoodInfo">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    update mood_info
+    <set>
+      <if test="moodName != null">
+        mood_name = #{moodName,jdbcType=VARCHAR},
+      </if>
+      <if test="iconUrl != null">
+        icon_url = #{iconUrl,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.takefree.model.MoodInfo">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    update mood_info
+    set mood_name = #{moodName,jdbcType=VARCHAR},
+      icon_url = #{iconUrl,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <resultMap id="BaseResultMap" type="com.takefree.model.MoodInfo">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="mood_name" jdbcType="VARCHAR" property="moodName" />
+    <result column="icon_url" jdbcType="VARCHAR" property="iconUrl" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
         </if>
-    </update>
-
-    <update id="updateByPrimaryKeySelective" parameterType="com.takefree.model.MoodInfoDO">
-        update mood_info
-        <set>
-            gmt_modified=now(),
-            <if test="moodName != null">
-                mood_name = #{moodName,jdbcType=VARCHAR},
-            </if>
-            <if test="iconUrl != null">
-                icon_url = #{iconUrl,jdbcType=VARCHAR},
-            </if>
-        </set>
-        where id = #{Id,jdbcType=BIGINT}
-    </update>
-
-    <sql id="MysqlDialectSuffix">
-        <if test="pageOffset &gt;= 0 and pageSize &gt; 0">
-            <![CDATA[ LIMIT #{pageOffset,jdbcType=INTEGER}, #{pageSize,jdbcType=INTEGER} ]]>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
         </if>
-    </sql>
-
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, mood_name, icon_url
+  </sql>
+  <select id="selectByExample" parameterType="com.takefree.query.MoodInfoQuery" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from mood_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="rows != null">
+      <if test="offset != null">
+        limit ${offset}, ${rows}
+      </if>
+      <if test="offset == null">
+        limit ${rows}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from mood_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from mood_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.takefree.query.MoodInfoQuery">
+    delete from mood_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.takefree.model.MoodInfo">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into mood_info (mood_name, icon_url)
+    values (#{moodName,jdbcType=VARCHAR}, #{iconUrl,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.takefree.model.MoodInfo">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into mood_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="moodName != null">
+        mood_name,
+      </if>
+      <if test="iconUrl != null">
+        icon_url,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="moodName != null">
+        #{moodName,jdbcType=VARCHAR},
+      </if>
+      <if test="iconUrl != null">
+        #{iconUrl,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.takefree.query.MoodInfoQuery" resultType="java.lang.Long">
+    select count(*) from mood_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update mood_info
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.moodName != null">
+        mood_name = #{record.moodName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.iconUrl != null">
+        icon_url = #{record.iconUrl,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update mood_info
+    set id = #{record.id,jdbcType=INTEGER},
+      mood_name = #{record.moodName,jdbcType=VARCHAR},
+      icon_url = #{record.iconUrl,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.takefree.model.MoodInfo">
+    update mood_info
+    <set>
+      <if test="moodName != null">
+        mood_name = #{moodName,jdbcType=VARCHAR},
+      </if>
+      <if test="iconUrl != null">
+        icon_url = #{iconUrl,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.takefree.model.MoodInfo">
+    update mood_info
+    set mood_name = #{moodName,jdbcType=VARCHAR},
+      icon_url = #{iconUrl,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
 </mapper>

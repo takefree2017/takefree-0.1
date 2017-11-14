@@ -1,62 +1,82 @@
 package com.takefree.mapper;
 
-import com.takefree.model.UserDescriptionDO;
+import com.takefree.model.UserDescription;
 import com.takefree.query.UserDescriptionQuery;
-
-import java.util.List;
-
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
-/**
- * MyBatis Mapper for UserDescription.
- */
- @Mapper
- @Repository
 
+import java.util.List;
+
+;
+
+@Mapper
+@Repository
 public interface UserDescriptionMapper {
     /**
-     * query count by query condition.
+     * This method corresponds to the database table user_description
+     * @mbg.generated
      */
-    int countByQuery(UserDescriptionQuery query);
+    long countByExample(UserDescriptionQuery example);
 
     /**
-     * delete by query condition.
+     * This method corresponds to the database table user_description
+     * @mbg.generated
      */
-    int deleteByQuery(UserDescriptionQuery query);
+    int deleteByExample(UserDescriptionQuery example);
 
     /**
-     * delete by primary key.
+     * This method corresponds to the database table user_description
+     * @mbg.generated
      */
-    int deleteByPrimaryKey(UserDescriptionDO record);
+    int deleteByPrimaryKey(Long userId);
 
     /**
-     * insert selective.
+     * This method corresponds to the database table user_description
+     * @mbg.generated
      */
-    int insertSelective(UserDescriptionDO record);
+    int insert(UserDescription record);
 
     /**
-     * select by query condition.
+     * This method corresponds to the database table user_description
+     * @mbg.generated
      */
-    List<UserDescriptionDO> selectByQuery(UserDescriptionQuery query);
+    int insertSelective(UserDescription record);
 
     /**
-     * select by primary key.
+     * This method corresponds to the database table user_description
+     * @mbg.generated
      */
-    UserDescriptionDO selectByPrimaryKey(Long userId);
+    List<UserDescription> selectByExample(UserDescriptionQuery example);
 
     /**
-     * update by query condition selective.
+     * This method corresponds to the database table user_description
+     * @mbg.generated
      */
-    int updateByQuerySelective(@Param("record") UserDescriptionDO record, @Param("query") UserDescriptionQuery query);
+    UserDescription selectByPrimaryKey(Long userId);
 
     /**
-     * update by query condition.
+     * This method corresponds to the database table user_description
+     * @mbg.generated
      */
-    int updateByQuery(@Param("record") UserDescriptionDO record, @Param("query") UserDescriptionQuery query);
+    int updateByExampleSelective(@Param("record") UserDescription record,
+                                 @Param("example") UserDescriptionQuery example);
 
     /**
-     * update by primary key selective.
+     * This method corresponds to the database table user_description
+     * @mbg.generated
      */
-    int updateByPrimaryKeySelective(UserDescriptionDO record);
+    int updateByExample(@Param("record") UserDescription record, @Param("example") UserDescriptionQuery example);
+
+    /**
+     * This method corresponds to the database table user_description
+     * @mbg.generated
+     */
+    int updateByPrimaryKeySelective(UserDescription record);
+
+    /**
+     * This method corresponds to the database table user_description
+     * @mbg.generated
+     */
+    int updateByPrimaryKey(UserDescription record);
 }

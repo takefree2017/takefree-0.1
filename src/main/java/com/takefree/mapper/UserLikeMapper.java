@@ -1,62 +1,81 @@
 package com.takefree.mapper;
 
-import com.takefree.model.UserLikeDO;
+import com.takefree.model.UserLike;
 import com.takefree.query.UserLikeQuery;
-
-import java.util.List;
-
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
-/**
- * MyBatis Mapper for UserLike.
- */
- @Mapper
- @Repository
 
+import java.util.List;
+
+;
+
+@Mapper
+@Repository
 public interface UserLikeMapper {
     /**
-     * query count by query condition.
+     * This method corresponds to the database table user_like
+     * @mbg.generated
      */
-    int countByQuery(UserLikeQuery query);
+    long countByExample(UserLikeQuery example);
 
     /**
-     * delete by query condition.
+     * This method corresponds to the database table user_like
+     * @mbg.generated
      */
-    int deleteByQuery(UserLikeQuery query);
+    int deleteByExample(UserLikeQuery example);
 
     /**
-     * delete by primary key.
+     * This method corresponds to the database table user_like
+     * @mbg.generated
      */
-    int deleteByPrimaryKey(UserLikeDO record);
+    int deleteByPrimaryKey(Long id);
 
     /**
-     * insert selective.
+     * This method corresponds to the database table user_like
+     * @mbg.generated
      */
-    int insertSelective(UserLikeDO record);
+    int insert(UserLike record);
 
     /**
-     * select by query condition.
+     * This method corresponds to the database table user_like
+     * @mbg.generated
      */
-    List<UserLikeDO> selectByQuery(UserLikeQuery query);
+    int insertSelective(UserLike record);
 
     /**
-     * select by primary key.
+     * This method corresponds to the database table user_like
+     * @mbg.generated
      */
-    UserLikeDO selectByPrimaryKey(Long id);
+    List<UserLike> selectByExample(UserLikeQuery example);
 
     /**
-     * update by query condition selective.
+     * This method corresponds to the database table user_like
+     * @mbg.generated
      */
-    int updateByQuerySelective(@Param("record") UserLikeDO record, @Param("query") UserLikeQuery query);
+    UserLike selectByPrimaryKey(Long id);
 
     /**
-     * update by query condition.
+     * This method corresponds to the database table user_like
+     * @mbg.generated
      */
-    int updateByQuery(@Param("record") UserLikeDO record, @Param("query") UserLikeQuery query);
+    int updateByExampleSelective(@Param("record") UserLike record, @Param("example") UserLikeQuery example);
 
     /**
-     * update by primary key selective.
+     * This method corresponds to the database table user_like
+     * @mbg.generated
      */
-    int updateByPrimaryKeySelective(UserLikeDO record);
+    int updateByExample(@Param("record") UserLike record, @Param("example") UserLikeQuery example);
+
+    /**
+     * This method corresponds to the database table user_like
+     * @mbg.generated
+     */
+    int updateByPrimaryKeySelective(UserLike record);
+
+    /**
+     * This method corresponds to the database table user_like
+     * @mbg.generated
+     */
+    int updateByPrimaryKey(UserLike record);
 }

@@ -1,62 +1,81 @@
 package com.takefree.mapper;
 
-import com.takefree.model.CategoryInfoDO;
+import com.takefree.model.CategoryInfo;
 import com.takefree.query.CategoryInfoQuery;
-
-import java.util.List;
-
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
-/**
- * MyBatis Mapper for CategoryInfo.
- */
- @Mapper
- @Repository
 
+import java.util.List;
+
+;
+
+@Mapper
+@Repository
 public interface CategoryInfoMapper {
     /**
-     * query count by query condition.
+     * This method corresponds to the database table category_info
+     * @mbg.generated
      */
-    int countByQuery(CategoryInfoQuery query);
+    long countByExample(CategoryInfoQuery example);
 
     /**
-     * delete by query condition.
+     * This method corresponds to the database table category_info
+     * @mbg.generated
      */
-    int deleteByQuery(CategoryInfoQuery query);
+    int deleteByExample(CategoryInfoQuery example);
 
     /**
-     * delete by primary key.
+     * This method corresponds to the database table category_info
+     * @mbg.generated
      */
-    int deleteByPrimaryKey(CategoryInfoDO record);
+    int deleteByPrimaryKey(Long id);
 
     /**
-     * insert selective.
+     * This method corresponds to the database table category_info
+     * @mbg.generated
      */
-    int insertSelective(CategoryInfoDO record);
+    int insert(CategoryInfo record);
 
     /**
-     * select by query condition.
+     * This method corresponds to the database table category_info
+     * @mbg.generated
      */
-    List<CategoryInfoDO> selectByQuery(CategoryInfoQuery query);
+    int insertSelective(CategoryInfo record);
 
     /**
-     * select by primary key.
+     * This method corresponds to the database table category_info
+     * @mbg.generated
      */
-    CategoryInfoDO selectByPrimaryKey(Long id);
+    List<CategoryInfo> selectByExample(CategoryInfoQuery example);
 
     /**
-     * update by query condition selective.
+     * This method corresponds to the database table category_info
+     * @mbg.generated
      */
-    int updateByQuerySelective(@Param("record") CategoryInfoDO record, @Param("query") CategoryInfoQuery query);
+    CategoryInfo selectByPrimaryKey(Long id);
 
     /**
-     * update by query condition.
+     * This method corresponds to the database table category_info
+     * @mbg.generated
      */
-    int updateByQuery(@Param("record") CategoryInfoDO record, @Param("query") CategoryInfoQuery query);
+    int updateByExampleSelective(@Param("record") CategoryInfo record, @Param("example") CategoryInfoQuery example);
 
     /**
-     * update by primary key selective.
+     * This method corresponds to the database table category_info
+     * @mbg.generated
      */
-    int updateByPrimaryKeySelective(CategoryInfoDO record);
+    int updateByExample(@Param("record") CategoryInfo record, @Param("example") CategoryInfoQuery example);
+
+    /**
+     * This method corresponds to the database table category_info
+     * @mbg.generated
+     */
+    int updateByPrimaryKeySelective(CategoryInfo record);
+
+    /**
+     * This method corresponds to the database table category_info
+     * @mbg.generated
+     */
+    int updateByPrimaryKey(CategoryInfo record);
 }

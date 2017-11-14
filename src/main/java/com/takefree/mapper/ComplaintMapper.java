@@ -1,62 +1,81 @@
 package com.takefree.mapper;
 
-import com.takefree.model.ComplaintDO;
+import com.takefree.model.Complaint;
 import com.takefree.query.ComplaintQuery;
-
-import java.util.List;
-
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
-/**
- * MyBatis Mapper for Complaint.
- */
- @Mapper
- @Repository
 
+import java.util.List;
+
+;
+
+@Mapper
+@Repository
 public interface ComplaintMapper {
     /**
-     * query count by query condition.
+     * This method corresponds to the database table complaint
+     * @mbg.generated
      */
-    int countByQuery(ComplaintQuery query);
+    long countByExample(ComplaintQuery example);
 
     /**
-     * delete by query condition.
+     * This method corresponds to the database table complaint
+     * @mbg.generated
      */
-    int deleteByQuery(ComplaintQuery query);
+    int deleteByExample(ComplaintQuery example);
 
     /**
-     * delete by primary key.
+     * This method corresponds to the database table complaint
+     * @mbg.generated
      */
-    int deleteByPrimaryKey(ComplaintDO record);
+    int deleteByPrimaryKey(Long id);
 
     /**
-     * insert selective.
+     * This method corresponds to the database table complaint
+     * @mbg.generated
      */
-    int insertSelective(ComplaintDO record);
+    int insert(Complaint record);
 
     /**
-     * select by query condition.
+     * This method corresponds to the database table complaint
+     * @mbg.generated
      */
-    List<ComplaintDO> selectByQuery(ComplaintQuery query);
+    int insertSelective(Complaint record);
 
     /**
-     * select by primary key.
+     * This method corresponds to the database table complaint
+     * @mbg.generated
      */
-    ComplaintDO selectByPrimaryKey(Long id);
+    List<Complaint> selectByExample(ComplaintQuery example);
 
     /**
-     * update by query condition selective.
+     * This method corresponds to the database table complaint
+     * @mbg.generated
      */
-    int updateByQuerySelective(@Param("record") ComplaintDO record, @Param("query") ComplaintQuery query);
+    Complaint selectByPrimaryKey(Long id);
 
     /**
-     * update by query condition.
+     * This method corresponds to the database table complaint
+     * @mbg.generated
      */
-    int updateByQuery(@Param("record") ComplaintDO record, @Param("query") ComplaintQuery query);
+    int updateByExampleSelective(@Param("record") Complaint record, @Param("example") ComplaintQuery example);
 
     /**
-     * update by primary key selective.
+     * This method corresponds to the database table complaint
+     * @mbg.generated
      */
-    int updateByPrimaryKeySelective(ComplaintDO record);
+    int updateByExample(@Param("record") Complaint record, @Param("example") ComplaintQuery example);
+
+    /**
+     * This method corresponds to the database table complaint
+     * @mbg.generated
+     */
+    int updateByPrimaryKeySelective(Complaint record);
+
+    /**
+     * This method corresponds to the database table complaint
+     * @mbg.generated
+     */
+    int updateByPrimaryKey(Complaint record);
 }

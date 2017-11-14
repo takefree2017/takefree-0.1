@@ -1,62 +1,82 @@
 package com.takefree.mapper;
 
-import com.takefree.model.TakeApplicationDO;
+import com.takefree.model.TakeApplication;
 import com.takefree.query.TakeApplicationQuery;
-
-import java.util.List;
-
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
-/**
- * MyBatis Mapper for TakeApplication.
- */
- @Mapper
- @Repository
 
+import java.util.List;
+
+;
+
+@Mapper
+@Repository
 public interface TakeApplicationMapper {
     /**
-     * query count by query condition.
+     * This method corresponds to the database table take_application
+     * @mbg.generated
      */
-    int countByQuery(TakeApplicationQuery query);
+    long countByExample(TakeApplicationQuery example);
 
     /**
-     * delete by query condition.
+     * This method corresponds to the database table take_application
+     * @mbg.generated
      */
-    int deleteByQuery(TakeApplicationQuery query);
+    int deleteByExample(TakeApplicationQuery example);
 
     /**
-     * delete by primary key.
+     * This method corresponds to the database table take_application
+     * @mbg.generated
      */
-    int deleteByPrimaryKey(TakeApplicationDO record);
+    int deleteByPrimaryKey(Long id);
 
     /**
-     * insert selective.
+     * This method corresponds to the database table take_application
+     * @mbg.generated
      */
-    int insertSelective(TakeApplicationDO record);
+    int insert(TakeApplication record);
 
     /**
-     * select by query condition.
+     * This method corresponds to the database table take_application
+     * @mbg.generated
      */
-    List<TakeApplicationDO> selectByQuery(TakeApplicationQuery query);
+    int insertSelective(TakeApplication record);
 
     /**
-     * select by primary key.
+     * This method corresponds to the database table take_application
+     * @mbg.generated
      */
-    TakeApplicationDO selectByPrimaryKey(Long id);
+    List<TakeApplication> selectByExample(TakeApplicationQuery example);
 
     /**
-     * update by query condition selective.
+     * This method corresponds to the database table take_application
+     * @mbg.generated
      */
-    int updateByQuerySelective(@Param("record") TakeApplicationDO record, @Param("query") TakeApplicationQuery query);
+    TakeApplication selectByPrimaryKey(Long id);
 
     /**
-     * update by query condition.
+     * This method corresponds to the database table take_application
+     * @mbg.generated
      */
-    int updateByQuery(@Param("record") TakeApplicationDO record, @Param("query") TakeApplicationQuery query);
+    int updateByExampleSelective(@Param("record") TakeApplication record,
+                                 @Param("example") TakeApplicationQuery example);
 
     /**
-     * update by primary key selective.
+     * This method corresponds to the database table take_application
+     * @mbg.generated
      */
-    int updateByPrimaryKeySelective(TakeApplicationDO record);
+    int updateByExample(@Param("record") TakeApplication record, @Param("example") TakeApplicationQuery example);
+
+    /**
+     * This method corresponds to the database table take_application
+     * @mbg.generated
+     */
+    int updateByPrimaryKeySelective(TakeApplication record);
+
+    /**
+     * This method corresponds to the database table take_application
+     * @mbg.generated
+     */
+    int updateByPrimaryKey(TakeApplication record);
 }

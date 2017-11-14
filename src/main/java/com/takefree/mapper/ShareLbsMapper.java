@@ -1,62 +1,81 @@
 package com.takefree.mapper;
 
-import com.takefree.model.ShareLbsDO;
+import com.takefree.model.ShareLbs;
 import com.takefree.query.ShareLbsQuery;
-
-import java.util.List;
-
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
-/**
- * MyBatis Mapper for ShareLbs.
- */
- @Mapper
- @Repository
 
+import java.util.List;
+
+;
+
+@Mapper
+@Repository
 public interface ShareLbsMapper {
     /**
-     * query count by query condition.
+     * This method corresponds to the database table share_lbs
+     * @mbg.generated
      */
-    int countByQuery(ShareLbsQuery query);
+    long countByExample(ShareLbsQuery example);
 
     /**
-     * delete by query condition.
+     * This method corresponds to the database table share_lbs
+     * @mbg.generated
      */
-    int deleteByQuery(ShareLbsQuery query);
+    int deleteByExample(ShareLbsQuery example);
 
     /**
-     * delete by primary key.
+     * This method corresponds to the database table share_lbs
+     * @mbg.generated
      */
-    int deleteByPrimaryKey(ShareLbsDO record);
+    int deleteByPrimaryKey(Long shareId);
 
     /**
-     * insert selective.
+     * This method corresponds to the database table share_lbs
+     * @mbg.generated
      */
-    int insertSelective(ShareLbsDO record);
+    int insert(ShareLbs record);
 
     /**
-     * select by query condition.
+     * This method corresponds to the database table share_lbs
+     * @mbg.generated
      */
-    List<ShareLbsDO> selectByQuery(ShareLbsQuery query);
+    int insertSelective(ShareLbs record);
 
     /**
-     * select by primary key.
+     * This method corresponds to the database table share_lbs
+     * @mbg.generated
      */
-    ShareLbsDO selectByPrimaryKey(Long id);
+    List<ShareLbs> selectByExample(ShareLbsQuery example);
 
     /**
-     * update by query condition selective.
+     * This method corresponds to the database table share_lbs
+     * @mbg.generated
      */
-    int updateByQuerySelective(@Param("record") ShareLbsDO record, @Param("query") ShareLbsQuery query);
+    ShareLbs selectByPrimaryKey(Long shareId);
 
     /**
-     * update by query condition.
+     * This method corresponds to the database table share_lbs
+     * @mbg.generated
      */
-    int updateByQuery(@Param("record") ShareLbsDO record, @Param("query") ShareLbsQuery query);
+    int updateByExampleSelective(@Param("record") ShareLbs record, @Param("example") ShareLbsQuery example);
 
     /**
-     * update by primary key selective.
+     * This method corresponds to the database table share_lbs
+     * @mbg.generated
      */
-    int updateByPrimaryKeySelective(ShareLbsDO record);
+    int updateByExample(@Param("record") ShareLbs record, @Param("example") ShareLbsQuery example);
+
+    /**
+     * This method corresponds to the database table share_lbs
+     * @mbg.generated
+     */
+    int updateByPrimaryKeySelective(ShareLbs record);
+
+    /**
+     * This method corresponds to the database table share_lbs
+     * @mbg.generated
+     */
+    int updateByPrimaryKey(ShareLbs record);
 }

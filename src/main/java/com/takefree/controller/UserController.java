@@ -11,7 +11,7 @@ import com.takefree.common.service.TokenManager;
 import com.takefree.common.util.JsonObjectUtils;
 import com.takefree.common.web.constant.HttpStatus;
 import com.takefree.model.UserDTO;
-import com.takefree.model.UserInfoDO;
+import com.takefree.model.UserInfo;
 import com.takefree.query.UserInfoQuery;
 import com.takefree.service.UserService;
 import org.apache.commons.lang3.StringUtils;
@@ -131,11 +131,11 @@ public class UserController {
     @RequestMapping(value = "/user/brief/{userId}",method = RequestMethod.GET)
     @ResponseBody
     @JsonView(ResultView.BriefView.class)
-    public JsonSimpleObject<UserInfoDO> getUserBrief(@PathVariable Long userId) throws Exception{
-        UserInfoDO userInfoDO = userService.getUserInfoById(userId);
-        if(userInfoDO == null){
+    public JsonSimpleObject<UserInfo> getUserBrief(@PathVariable Long userId) throws Exception{
+        UserInfo userInfo = userService.getUserInfoById(userId);
+        if(userInfo == null){
             throw new SimpleHttpException(HttpStatus.NOT_FOUND,"user not found");
         }
-        return JsonObjectUtils.buildSimpleObjectSuccess(userInfoDO);
+        return JsonObjectUtils.buildSimpleObjectSuccess(userInfo);
     }
 }

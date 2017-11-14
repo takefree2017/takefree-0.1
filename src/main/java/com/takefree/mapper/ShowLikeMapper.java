@@ -1,62 +1,81 @@
 package com.takefree.mapper;
 
-import com.takefree.model.ShowLikeDO;
+import com.takefree.model.ShowLike;
 import com.takefree.query.ShowLikeQuery;
-
-import java.util.List;
-
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
-/**
- * MyBatis Mapper for ShowLike.
- */
- @Mapper
- @Repository
 
+import java.util.List;
+
+;
+
+@Mapper
+@Repository
 public interface ShowLikeMapper {
     /**
-     * query count by query condition.
+     * This method corresponds to the database table show_like
+     * @mbg.generated
      */
-    int countByQuery(ShowLikeQuery query);
+    long countByExample(ShowLikeQuery example);
 
     /**
-     * delete by query condition.
+     * This method corresponds to the database table show_like
+     * @mbg.generated
      */
-    int deleteByQuery(ShowLikeQuery query);
+    int deleteByExample(ShowLikeQuery example);
 
     /**
-     * delete by primary key.
+     * This method corresponds to the database table show_like
+     * @mbg.generated
      */
-    int deleteByPrimaryKey(ShowLikeDO record);
+    int deleteByPrimaryKey(Long id);
 
     /**
-     * insert selective.
+     * This method corresponds to the database table show_like
+     * @mbg.generated
      */
-    int insertSelective(ShowLikeDO record);
+    int insert(ShowLike record);
 
     /**
-     * select by query condition.
+     * This method corresponds to the database table show_like
+     * @mbg.generated
      */
-    List<ShowLikeDO> selectByQuery(ShowLikeQuery query);
+    int insertSelective(ShowLike record);
 
     /**
-     * select by primary key.
+     * This method corresponds to the database table show_like
+     * @mbg.generated
      */
-    ShowLikeDO selectByPrimaryKey(Long id);
+    List<ShowLike> selectByExample(ShowLikeQuery example);
 
     /**
-     * update by query condition selective.
+     * This method corresponds to the database table show_like
+     * @mbg.generated
      */
-    int updateByQuerySelective(@Param("record") ShowLikeDO record, @Param("query") ShowLikeQuery query);
+    ShowLike selectByPrimaryKey(Long id);
 
     /**
-     * update by query condition.
+     * This method corresponds to the database table show_like
+     * @mbg.generated
      */
-    int updateByQuery(@Param("record") ShowLikeDO record, @Param("query") ShowLikeQuery query);
+    int updateByExampleSelective(@Param("record") ShowLike record, @Param("example") ShowLikeQuery example);
 
     /**
-     * update by primary key selective.
+     * This method corresponds to the database table show_like
+     * @mbg.generated
      */
-    int updateByPrimaryKeySelective(ShowLikeDO record);
+    int updateByExample(@Param("record") ShowLike record, @Param("example") ShowLikeQuery example);
+
+    /**
+     * This method corresponds to the database table show_like
+     * @mbg.generated
+     */
+    int updateByPrimaryKeySelective(ShowLike record);
+
+    /**
+     * This method corresponds to the database table show_like
+     * @mbg.generated
+     */
+    int updateByPrimaryKey(ShowLike record);
 }

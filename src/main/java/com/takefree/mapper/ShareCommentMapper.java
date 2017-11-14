@@ -1,62 +1,81 @@
 package com.takefree.mapper;
 
-import com.takefree.model.ShareCommentDO;
+import com.takefree.model.ShareComment;
 import com.takefree.query.ShareCommentQuery;
-
-import java.util.List;
-
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
-/**
- * MyBatis Mapper for ShareComment.
- */
- @Mapper
- @Repository
 
+import java.util.List;
+
+;
+
+@Mapper
+@Repository
 public interface ShareCommentMapper {
     /**
-     * query count by query condition.
+     * This method corresponds to the database table share_comment
+     * @mbg.generated
      */
-    int countByQuery(ShareCommentQuery query);
+    long countByExample(ShareCommentQuery example);
 
     /**
-     * delete by query condition.
+     * This method corresponds to the database table share_comment
+     * @mbg.generated
      */
-    int deleteByQuery(ShareCommentQuery query);
+    int deleteByExample(ShareCommentQuery example);
 
     /**
-     * delete by primary key.
+     * This method corresponds to the database table share_comment
+     * @mbg.generated
      */
-    int deleteByPrimaryKey(ShareCommentDO record);
+    int deleteByPrimaryKey(Long id);
 
     /**
-     * insert selective.
+     * This method corresponds to the database table share_comment
+     * @mbg.generated
      */
-    int insertSelective(ShareCommentDO record);
+    int insert(ShareComment record);
 
     /**
-     * select by query condition.
+     * This method corresponds to the database table share_comment
+     * @mbg.generated
      */
-    List<ShareCommentDO> selectByQuery(ShareCommentQuery query);
+    int insertSelective(ShareComment record);
 
     /**
-     * select by primary key.
+     * This method corresponds to the database table share_comment
+     * @mbg.generated
      */
-    ShareCommentDO selectByPrimaryKey(Long id);
+    List<ShareComment> selectByExample(ShareCommentQuery example);
 
     /**
-     * update by query condition selective.
+     * This method corresponds to the database table share_comment
+     * @mbg.generated
      */
-    int updateByQuerySelective(@Param("record") ShareCommentDO record, @Param("query") ShareCommentQuery query);
+    ShareComment selectByPrimaryKey(Long id);
 
     /**
-     * update by query condition.
+     * This method corresponds to the database table share_comment
+     * @mbg.generated
      */
-    int updateByQuery(@Param("record") ShareCommentDO record, @Param("query") ShareCommentQuery query);
+    int updateByExampleSelective(@Param("record") ShareComment record, @Param("example") ShareCommentQuery example);
 
     /**
-     * update by primary key selective.
+     * This method corresponds to the database table share_comment
+     * @mbg.generated
      */
-    int updateByPrimaryKeySelective(ShareCommentDO record);
+    int updateByExample(@Param("record") ShareComment record, @Param("example") ShareCommentQuery example);
+
+    /**
+     * This method corresponds to the database table share_comment
+     * @mbg.generated
+     */
+    int updateByPrimaryKeySelective(ShareComment record);
+
+    /**
+     * This method corresponds to the database table share_comment
+     * @mbg.generated
+     */
+    int updateByPrimaryKey(ShareComment record);
 }

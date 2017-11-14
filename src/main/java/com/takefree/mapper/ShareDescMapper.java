@@ -1,62 +1,99 @@
 package com.takefree.mapper;
 
-import com.takefree.model.ShareDescDO;
+import com.takefree.model.ShareDesc;
 import com.takefree.query.ShareDescQuery;
-
-import java.util.List;
-
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
-/**
- * MyBatis Mapper for ShareDesc.
- */
- @Mapper
- @Repository
 
+import java.util.List;
+
+;
+
+@Mapper
+@Repository
 public interface ShareDescMapper {
     /**
-     * query count by query condition.
+     * This method corresponds to the database table share_desc
+     * @mbg.generated
      */
-    int countByQuery(ShareDescQuery query);
+    long countByExample(ShareDescQuery example);
 
     /**
-     * delete by query condition.
+     * This method corresponds to the database table share_desc
+     * @mbg.generated
      */
-    int deleteByQuery(ShareDescQuery query);
+    int deleteByExample(ShareDescQuery example);
 
     /**
-     * delete by primary key.
+     * This method corresponds to the database table share_desc
+     * @mbg.generated
      */
-    int deleteByPrimaryKey(ShareDescDO record);
+    int deleteByPrimaryKey(Long shareId);
 
     /**
-     * insert selective.
+     * This method corresponds to the database table share_desc
+     * @mbg.generated
      */
-    int insertSelective(ShareDescDO record);
+    int insert(ShareDesc record);
 
     /**
-     * select by query condition.
+     * This method corresponds to the database table share_desc
+     * @mbg.generated
      */
-    List<ShareDescDO> selectByQuery(ShareDescQuery query);
+    int insertSelective(ShareDesc record);
 
     /**
-     * select by primary key.
+     * This method corresponds to the database table share_desc
+     * @mbg.generated
      */
-    ShareDescDO selectByPrimaryKey(Long id);
+    List<ShareDesc> selectByExampleWithBLOBs(ShareDescQuery example);
 
     /**
-     * update by query condition selective.
+     * This method corresponds to the database table share_desc
+     * @mbg.generated
      */
-    int updateByQuerySelective(@Param("record") ShareDescDO record, @Param("query") ShareDescQuery query);
+    List<ShareDesc> selectByExample(ShareDescQuery example);
 
     /**
-     * update by query condition.
+     * This method corresponds to the database table share_desc
+     * @mbg.generated
      */
-    int updateByQuery(@Param("record") ShareDescDO record, @Param("query") ShareDescQuery query);
+    ShareDesc selectByPrimaryKey(Long shareId);
 
     /**
-     * update by primary key selective.
+     * This method corresponds to the database table share_desc
+     * @mbg.generated
      */
-    int updateByPrimaryKeySelective(ShareDescDO record);
+    int updateByExampleSelective(@Param("record") ShareDesc record, @Param("example") ShareDescQuery example);
+
+    /**
+     * This method corresponds to the database table share_desc
+     * @mbg.generated
+     */
+    int updateByExampleWithBLOBs(@Param("record") ShareDesc record, @Param("example") ShareDescQuery example);
+
+    /**
+     * This method corresponds to the database table share_desc
+     * @mbg.generated
+     */
+    int updateByExample(@Param("record") ShareDesc record, @Param("example") ShareDescQuery example);
+
+    /**
+     * This method corresponds to the database table share_desc
+     * @mbg.generated
+     */
+    int updateByPrimaryKeySelective(ShareDesc record);
+
+    /**
+     * This method corresponds to the database table share_desc
+     * @mbg.generated
+     */
+    int updateByPrimaryKeyWithBLOBs(ShareDesc record);
+
+    /**
+     * This method corresponds to the database table share_desc
+     * @mbg.generated
+     */
+    int updateByPrimaryKey(ShareDesc record);
 }

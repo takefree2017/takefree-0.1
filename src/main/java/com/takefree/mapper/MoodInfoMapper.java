@@ -1,62 +1,81 @@
 package com.takefree.mapper;
 
-import com.takefree.model.MoodInfoDO;
+import com.takefree.model.MoodInfo;
 import com.takefree.query.MoodInfoQuery;
-
-import java.util.List;
-
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
-/**
- * MyBatis Mapper for MoodInfo.
- */
- @Mapper
- @Repository
 
+import java.util.List;
+
+;
+
+@Mapper
+@Repository
 public interface MoodInfoMapper {
     /**
-     * query count by query condition.
+     * This method corresponds to the database table mood_info
+     * @mbg.generated
      */
-    int countByQuery(MoodInfoQuery query);
+    long countByExample(MoodInfoQuery example);
 
     /**
-     * delete by query condition.
+     * This method corresponds to the database table mood_info
+     * @mbg.generated
      */
-    int deleteByQuery(MoodInfoQuery query);
+    int deleteByExample(MoodInfoQuery example);
 
     /**
-     * delete by primary key.
+     * This method corresponds to the database table mood_info
+     * @mbg.generated
      */
-    int deleteByPrimaryKey(MoodInfoDO record);
+    int deleteByPrimaryKey(Integer id);
 
     /**
-     * insert selective.
+     * This method corresponds to the database table mood_info
+     * @mbg.generated
      */
-    int insertSelective(MoodInfoDO record);
+    int insert(MoodInfo record);
 
     /**
-     * select by query condition.
+     * This method corresponds to the database table mood_info
+     * @mbg.generated
      */
-    List<MoodInfoDO> selectByQuery(MoodInfoQuery query);
+    int insertSelective(MoodInfo record);
 
     /**
-     * select by primary key.
+     * This method corresponds to the database table mood_info
+     * @mbg.generated
      */
-    MoodInfoDO selectByPrimaryKey(Long id);
+    List<MoodInfo> selectByExample(MoodInfoQuery example);
 
     /**
-     * update by query condition selective.
+     * This method corresponds to the database table mood_info
+     * @mbg.generated
      */
-    int updateByQuerySelective(@Param("record") MoodInfoDO record, @Param("query") MoodInfoQuery query);
+    MoodInfo selectByPrimaryKey(Integer id);
 
     /**
-     * update by query condition.
+     * This method corresponds to the database table mood_info
+     * @mbg.generated
      */
-    int updateByQuery(@Param("record") MoodInfoDO record, @Param("query") MoodInfoQuery query);
+    int updateByExampleSelective(@Param("record") MoodInfo record, @Param("example") MoodInfoQuery example);
 
     /**
-     * update by primary key selective.
+     * This method corresponds to the database table mood_info
+     * @mbg.generated
      */
-    int updateByPrimaryKeySelective(MoodInfoDO record);
+    int updateByExample(@Param("record") MoodInfo record, @Param("example") MoodInfoQuery example);
+
+    /**
+     * This method corresponds to the database table mood_info
+     * @mbg.generated
+     */
+    int updateByPrimaryKeySelective(MoodInfo record);
+
+    /**
+     * This method corresponds to the database table mood_info
+     * @mbg.generated
+     */
+    int updateByPrimaryKey(MoodInfo record);
 }

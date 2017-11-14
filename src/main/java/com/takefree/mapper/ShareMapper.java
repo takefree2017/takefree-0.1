@@ -1,62 +1,81 @@
 package com.takefree.mapper;
 
-import com.takefree.model.ShareDO;
+import com.takefree.model.Share;
 import com.takefree.query.ShareQuery;
-
-import java.util.List;
-
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
-/**
- * MyBatis Mapper for ShareDTO.
- */
- @Mapper
- @Repository
 
+import java.util.List;
+
+;
+
+@Mapper
+@Repository
 public interface ShareMapper {
     /**
-     * query count by query condition.
+     * This method corresponds to the database table share
+     * @mbg.generated
      */
-    int countByQuery(ShareQuery query);
+    long countByExample(ShareQuery example);
 
     /**
-     * delete by query condition.
+     * This method corresponds to the database table share
+     * @mbg.generated
      */
-    int deleteByQuery(ShareQuery query);
+    int deleteByExample(ShareQuery example);
 
     /**
-     * delete by primary key.
+     * This method corresponds to the database table share
+     * @mbg.generated
      */
-    int deleteByPrimaryKey(ShareDO record);
+    int deleteByPrimaryKey(Long id);
 
     /**
-     * insert selective.
+     * This method corresponds to the database table share
+     * @mbg.generated
      */
-    int insertSelective(ShareDO record);
+    int insert(Share record);
 
     /**
-     * select by query condition.
+     * This method corresponds to the database table share
+     * @mbg.generated
      */
-    List<ShareDO> selectByQuery(ShareQuery query);
+    int insertSelective(Share record);
 
     /**
-     * select by primary key.
+     * This method corresponds to the database table share
+     * @mbg.generated
      */
-    ShareDO selectByPrimaryKey(Long id);
+    List<Share> selectByExample(ShareQuery example);
 
     /**
-     * update by query condition selective.
+     * This method corresponds to the database table share
+     * @mbg.generated
      */
-    int updateByQuerySelective(@Param("record") ShareDO record, @Param("query") ShareQuery query);
+    Share selectByPrimaryKey(Long id);
 
     /**
-     * update by query condition.
+     * This method corresponds to the database table share
+     * @mbg.generated
      */
-    int updateByQuery(@Param("record") ShareDO record, @Param("query") ShareQuery query);
+    int updateByExampleSelective(@Param("record") Share record, @Param("example") ShareQuery example);
 
     /**
-     * update by primary key selective.
+     * This method corresponds to the database table share
+     * @mbg.generated
      */
-    int updateByPrimaryKeySelective(ShareDO record);
+    int updateByExample(@Param("record") Share record, @Param("example") ShareQuery example);
+
+    /**
+     * This method corresponds to the database table share
+     * @mbg.generated
+     */
+    int updateByPrimaryKeySelective(Share record);
+
+    /**
+     * This method corresponds to the database table share
+     * @mbg.generated
+     */
+    int updateByPrimaryKey(Share record);
 }
