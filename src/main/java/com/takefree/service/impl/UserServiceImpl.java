@@ -5,22 +5,21 @@ import com.takefree.common.entry.Token;
 import com.takefree.common.service.TokenManager;
 import com.takefree.common.util.BeanUtils;
 import com.takefree.common.web.constant.HttpStatus;
-import com.takefree.mapper.UserDTOMapper;
-import com.takefree.mapper.UserDescriptionMapper;
-import com.takefree.mapper.UserInfoMapper;
-import com.takefree.mapper.UserTimeMapper;
-import com.takefree.model.UserDTO;
-import com.takefree.model.UserDescription;
-import com.takefree.model.UserInfo;
-import com.takefree.model.UserTime;
-import com.takefree.query.UserInfoQuery;
+import com.takefree.dto.mapper.UserDTOMapper;
+import com.takefree.dto.model.UserDTO;
+import com.takefree.pojo.mapper.UserDescriptionMapper;
+import com.takefree.pojo.mapper.UserInfoMapper;
+import com.takefree.pojo.mapper.UserTimeMapper;
+import com.takefree.pojo.model.UserDescription;
+import com.takefree.pojo.model.UserInfo;
+import com.takefree.pojo.model.UserTime;
+import com.takefree.pojo.query.UserInfoQuery;
 import com.takefree.service.UserService;
 import com.xiaoleilu.hutool.crypto.SecureUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -45,8 +44,14 @@ public class UserServiceImpl implements UserService {
     private TokenManager tokenManager;
 
     @Override
-    public UserInfo getUserInfoById(Long id) {
-        return userInfoMapper.selectByPrimaryKey(id);
+    public UserDTO getUserInfoById(Long id) {
+        UserInfo userInfo=userInfoMapper.selectByPrimaryKey(id);
+        if(userInfo==null){
+            return null;
+        }
+        UserDTO userDTO=new UserDTO();
+        BeanUtils.copyPropertiesIgnoreNull(userInfo,userDTO);
+        return userDTO;
     }
 
     @Override
@@ -82,7 +87,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @Transactional
     public Token login(UserDTO userDTO) throws Exception{
         List<UserDTO> userDTOS =userDTOMapper.SelectByMobile(userDTO.getMobile());
         if(userDTOS.size() == 0) {
@@ -93,7 +97,7 @@ public class UserServiceImpl implements UserService {
         }
 
         userDTO = userDTOS.get(0);
-        userDTO.setLastloginTime(LocalDateTime.now());
+        userDTO.setLastloginTime(new Date());
         Token token=tokenManager.createToken(userDTO);
 
         if(token!=null) {
@@ -106,6 +110,11 @@ public class UserServiceImpl implements UserService {
         }
 
         return token;
+    }
+
+    @Override
+    public Boolean logout(Token token) throws Exception{
+        return tokenManager.deleteToken(token);
     }
 
     @Override

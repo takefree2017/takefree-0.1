@@ -5,7 +5,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
 import com.takefree.common.entry.Token;
 import com.takefree.common.service.TokenManager;
-import com.takefree.model.UserDTO;
+import com.takefree.dto.model.UserDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -61,7 +61,7 @@ public class RedisTokenManager implements TokenManager {
         token.getUserDTO().setPassword(null);
         // 存储到 redis 并设置过期时间
         try {
-            redisClient.setex(namespace, token.getKey(), ttl, JSON.toJSONString(token));
+            redisClient.setex(namespace, token.getToken(), ttl, JSON.toJSONString(token));
             return true;
         } catch (Exception e) {
             logger.error("", e);
@@ -71,8 +71,8 @@ public class RedisTokenManager implements TokenManager {
 
     public Token createToken(UserDTO userDTO) {
         // 使用 uuid 作为源 token
-        String key = UUID.randomUUID().toString().replace("-", "");
-        Token token = new Token(key, userDTO, new Date());
+        String tokenId = UUID.randomUUID().toString().replace("-", "");
+        Token token = new Token(tokenId, userDTO, new Date());
 
         if(saveToken(token)){
             return token;
@@ -105,7 +105,7 @@ public class RedisTokenManager implements TokenManager {
 
         try {
             // 如果验证成功，说明此用户进行了一次有效操作，延长 token 的过期时间
-            redisClient.expire(namespace, token.getKey(), ttl);
+            redisClient.expire(namespace, token.getToken(), ttl);
             return true;
         } catch (Exception e) {
             logger.error("", e);
@@ -119,12 +119,12 @@ public class RedisTokenManager implements TokenManager {
         }
 
         try {
-            Token redisToken=this.getToken(token.getKey());
+            Token redisToken=this.getToken(token.getToken());
             if (redisToken==null||!token.getUserDTO().getId().equals(redisToken.getUserDTO().getId())) {
                 return false;
             }
             // 如果验证成功，说明此用户进行了一次有效操作，延长 token 的过期时间
-            redisClient.expire(namespace, token.getKey(), ttl);
+            redisClient.expire(namespace, token.getToken(), ttl);
             return true;
         } catch (Exception e) {
             logger.error("", e);
@@ -132,9 +132,9 @@ public class RedisTokenManager implements TokenManager {
         }
     }
 
-    public boolean deleteToken(String key) {
+    public boolean deleteToken(Token token) {
         try {
-            redisClient.del(namespace,key);
+            redisClient.del(namespace,token.getToken());
             return true;
         } catch (Exception e) {
             logger.error("", e);

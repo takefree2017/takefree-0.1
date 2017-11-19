@@ -1,16 +1,18 @@
 package com.takefree.common.entry;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import com.takefree.model.UserDTO;
+import com.takefree.dto.model.UserDTO;
+import lombok.Data;
 
 import java.util.Date;
 
 /**
  * Created by gaoxiang on 2017/11/4.
  */
+@Data
 public class Token {
     @JsonView(ResultView.DetailView.class)
-    private String key;
+    private String token;
 
     @JsonView(ResultView.DetailView.class)
     private UserDTO userDTO;
@@ -22,33 +24,9 @@ public class Token {
 
     }
 
-    public Token(String key, UserDTO userDTO, Date loginTime) {
-        this.key = key;
+    public Token(String token, UserDTO userDTO, Date loginTime) {
+        this.token = token;
         this.userDTO = userDTO;
-        this.loginTime = loginTime;
-    }
-
-    public String getKey() {
-        return key;
-    }
-
-    public void setKey(String key) {
-        this.key = key;
-    }
-
-    public UserDTO getUserDTO() {
-        return userDTO;
-    }
-
-    public void setUserDTO(UserDTO userDTO) {
-        this.userDTO = userDTO;
-    }
-
-    public Date getLoginTime() {
-        return loginTime;
-    }
-
-    public void setLoginTime(Date loginTime) {
         this.loginTime = loginTime;
     }
 

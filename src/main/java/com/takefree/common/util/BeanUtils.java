@@ -22,4 +22,12 @@ public abstract class BeanUtils extends org.springframework.beans.BeanUtils {
                 .filter(propertyName -> wrappedSource.getPropertyValue(propertyName) == null)
                 .toArray(String[]::new);
     }
+
+    public static String[] getNotNullPropertyNames(Object source) {
+        final BeanWrapper wrappedSource = new BeanWrapperImpl(source);
+        return Stream.of(wrappedSource.getPropertyDescriptors())
+                     .map(FeatureDescriptor::getName)
+                     .filter(propertyName -> wrappedSource.getPropertyValue(propertyName) != null)
+                     .toArray(String[]::new);
+    }
 }

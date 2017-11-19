@@ -1,8 +1,8 @@
 package com.takefree.service;
 
 import com.takefree.common.entry.Token;
-import com.takefree.model.UserDTO;
-import com.takefree.model.UserInfo;
+import com.takefree.dto.model.UserDTO;
+import com.takefree.pojo.model.UserInfo;
 
 import java.util.List;
 
@@ -11,7 +11,7 @@ import java.util.List;
  */
 public interface UserService {
 
-    UserInfo getUserInfoById(Long id);
+    UserDTO getUserInfoById(Long id);
 
     UserDTO getUserDetailById(Long id);
 
@@ -22,4 +22,6 @@ public interface UserService {
     List<UserInfo> getUserInfoByMobile(String mobile);
 
     Token login(UserDTO userDTO) throws Exception;
+
+    Boolean logout(Token token) throws Exception;
 }

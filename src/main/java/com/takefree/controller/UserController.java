@@ -10,9 +10,7 @@ import com.takefree.common.entry.Token;
 import com.takefree.common.service.TokenManager;
 import com.takefree.common.util.JsonObjectUtils;
 import com.takefree.common.web.constant.HttpStatus;
-import com.takefree.model.UserDTO;
-import com.takefree.model.UserInfo;
-import com.takefree.query.UserInfoQuery;
+import com.takefree.dto.model.UserDTO;
 import com.takefree.service.UserService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +38,7 @@ public class UserController {
     @RequestMapping(value = "/user",method = RequestMethod.POST)
     @ResponseBody
     @JsonView(ResultView.DetailView.class)
-    public JsonSimpleObject<UserDTO> create(@Valid @RequestBody UserDTO userDTO, HttpServletResponse httpServletResponse) throws Exception{
+    public JsonSimpleObject<UserDTO> createUser(@Valid @RequestBody UserDTO userDTO) throws Exception{
         //检查手机是否已经注册
         if(userService.getUserInfoByMobile(userDTO.getMobile()).size() > 0){
             throw new SimpleHttpException(HttpStatus.BAD_REQUEST,"手机号已经注册");
@@ -71,15 +69,26 @@ public class UserController {
         }
 
         Token token=userService.login(userDTO);
-        httpServletResponse.addCookie(new Cookie(Constants.TAKEFREE_TOKEN, token.getKey()));
+        httpServletResponse.addCookie(new Cookie(Constants.TAKEFREE_TOKEN, token.getToken()));
         return JsonObjectUtils.buildSimpleObjectSuccess(token);
+    }
+
+    /**
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value = "/logout",method = RequestMethod.DELETE)
+    @ResponseBody
+    @Authorization
+    public JsonSimpleObject<Token> logout(@RequestAttribute(Constants.TAKEFREE_TOKEN) Token token) throws Exception{
+        userService.logout(token);
+        return JsonObjectUtils.buildSimpleObjectSuccess("");
     }
 
 
     /**
      * 更新user
      * @param userDTO,mobile和password不能通过本接口修改
-     * @param httpServletResponse
      * @return
      * @throws Exception
      */
@@ -87,7 +96,7 @@ public class UserController {
     @ResponseBody
     @Authorization
     @JsonView(ResultView.DetailView.class)
-    public JsonSimpleObject update(@RequestAttribute(Constants.TAKEFREE_TOKEN) Token token, @RequestBody UserDTO userDTO, HttpServletResponse httpServletResponse) throws Exception{
+    public JsonSimpleObject updateUser(@RequestAttribute(Constants.TAKEFREE_TOKEN) Token token, @RequestBody UserDTO userDTO) throws Exception{
         if(userDTO.getMobile() != null){
             throw new SimpleHttpException(HttpStatus.FORBIDDEN, "不能通过此接口修改手机号");
         }
@@ -131,11 +140,11 @@ public class UserController {
     @RequestMapping(value = "/user/brief/{userId}",method = RequestMethod.GET)
     @ResponseBody
     @JsonView(ResultView.BriefView.class)
-    public JsonSimpleObject<UserInfo> getUserBrief(@PathVariable Long userId) throws Exception{
-        UserInfo userInfo = userService.getUserInfoById(userId);
-        if(userInfo == null){
+    public JsonSimpleObject<UserDTO> getUserBrief(@PathVariable Long userId) throws Exception{
+        UserDTO user = userService.getUserInfoById(userId);
+        if(user == null){
             throw new SimpleHttpException(HttpStatus.NOT_FOUND,"user not found");
         }
-        return JsonObjectUtils.buildSimpleObjectSuccess(userInfo);
+        return JsonObjectUtils.buildSimpleObjectSuccess(user);
     }
 }
