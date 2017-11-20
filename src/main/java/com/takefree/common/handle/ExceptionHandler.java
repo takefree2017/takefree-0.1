@@ -45,7 +45,7 @@ public class ExceptionHandler extends SimpleMappingExceptionResolver
     @org.springframework.web.bind.annotation.ExceptionHandler
     public ModelAndView resolveException(HttpServletRequest request,
                                          HttpServletResponse response, Object o, Exception e) {
-        LOG.warn(request.getRequestURI() + " ExceptionHandler FOUND. "  + e.toString(),e);
+        LOG.warn(request.getRequestURI() + " ExceptionHandler FOUND. "  + e.toString());
         if (e instanceof SimpleHttpException){
             SimpleHttpException simpleHttpException=(SimpleHttpException) e;
             return buildError(simpleHttpException.getHttpStatus(),simpleHttpException.getMesasge());
@@ -68,6 +68,7 @@ public class ExceptionHandler extends SimpleMappingExceptionResolver
             return buildError(HttpStatus.BAD_REQUEST,
                     "request body error!");
         }  else {
+            LOG.error("",e);
             return buildError(HttpStatus.INTERNAL_SERVER_ERROR, "内部错误");
         }
     }

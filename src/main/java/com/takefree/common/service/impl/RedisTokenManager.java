@@ -1,6 +1,6 @@
 package com.takefree.common.service.impl;
 
-import com.alibaba.boot.dubbo.annotation.DubboConsumer;
+import com.alibaba.dubbo.config.annotation.Reference;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
 import com.takefree.common.entry.Token;
@@ -23,7 +23,7 @@ import org.springframework.validation.annotation.Validated;
 public class RedisTokenManager implements TokenManager {
     Logger logger = LoggerFactory.getLogger(RedisTokenManager.class);
 
-    @DubboConsumer(timeout = 10000)
+    @Reference(version = "1.0.0")
     private RedisClient redisClient;
 
     @NotNull
