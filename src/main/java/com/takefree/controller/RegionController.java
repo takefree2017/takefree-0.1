@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * Created by gaoxiang on 2017/11/4.
  */
 @Controller
-@RequestMapping(value = "category")
+@RequestMapping(value = "/regioninfo")
 public class RegionController {
     @Autowired
     RegionService regionService;
@@ -23,7 +23,7 @@ public class RegionController {
      *
      * @return
      */
-    @RequestMapping(value = "/regioninfo",method = RequestMethod.GET)
+    @RequestMapping(value = "",method = RequestMethod.GET)
     @ResponseBody
     public JsonObjectList<RegionInfo> getAllRegionInfo(){
         return JsonObjectUtils.buildListSuccess(regionService.getAll());
