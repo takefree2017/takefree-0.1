@@ -289,7 +289,7 @@
       version = version + 1
     where share_id = #{shareId,jdbcType=BIGINT}
   </update>
-  <update id="addViewCount" parameterType="java.lang.Long">
+  <update id="addViewCount">
     <!--
       WARNING - @mbg.generated
     -->
