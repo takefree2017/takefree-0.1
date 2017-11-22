@@ -49,7 +49,7 @@
         </foreach>
     </sql>
     <sql id="Base_Column_List">
-    share.*,share_counter.view_count,share_counter.like_count,share_counter.apply_count,share_counter.comment_count,owner.nick_name as owner_nick_name
+    share.*,share_counter.view_count,share_counter.like_count,share_counter.apply_count,share_counter.comment_count,owner.nick_name as owner_nick_name,owner.small_icon as owner_small_icon
   </sql>
     <sql id="Detail_Column_List">
     share_desc.description,share_lbs.longitude,share_lbs.latitude,share_lbs.lbs_description

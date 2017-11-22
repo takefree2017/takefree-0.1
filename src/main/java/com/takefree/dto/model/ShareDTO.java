@@ -37,9 +37,14 @@ public class ShareDTO implements Serializable {
     /**
      * 分享者昵称
      */
-
     @JsonView(ResultView.BriefView.class)
     private String ownerNickName;
+
+    /**
+     * 分享者昵称
+     */
+    @JsonView(ResultView.BriefView.class)
+    private String ownerSmallIcon;
 
     /**
      * 首页图片url
