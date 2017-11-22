@@ -264,7 +264,6 @@ public class ShareServiceImpl implements ShareService {
             shareDTOQuery.limit(size);
         }
 
-
         ShareDTOQuery.Criteria criteria = shareDTOQuery.createCriteria();
         criteria.andReceivedUserEqualTo(userId);
 
@@ -278,6 +277,7 @@ public class ShareServiceImpl implements ShareService {
     }
 
     @Override
+    @Transactional
     public boolean updateViewInfo(ShareDTO shareDTO,Long userId){
         if(userId!=null&&shareDTO.getOwnerId()==userId){
             /**
