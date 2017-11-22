@@ -113,18 +113,20 @@ public class ShareController {
     @RequestMapping(value = "/{id}",method = RequestMethod.GET)
     @ResponseBody
     @JsonView(ResultView.DetailView.class)
-    public JsonSimpleObject<ShareDTO> get(@RequestAttribute(Constants.TAKEFREE_TOKEN) Token token,@Required @PathVariable Long id) throws Exception{
+    public JsonSimpleObject<ShareDTO> get(@RequestAttribute(value=Constants.TAKEFREE_TOKEN,required = false) Token token,@Required @PathVariable Long id) throws Exception{
         ShareDTO shareDTO=shareService.getShareDetailById(id);
         if(shareDTO==null){
             throw new SimpleHttpException(HttpStatus.NOT_FOUND, "分享不存在");
         }
 
+        Long userId=null;
         if(token!=null){
-            shareService.updateViewInfo(shareDTO,token.getUserDTO().getId());
+            userId=token.getUserDTO().getId();
         }
+
+        shareService.updateViewInfo(shareDTO,userId);
         return JsonObjectUtils.buildSimpleObjectSuccess(shareDTO);
     }
-
 
     /**
      * 按发布人，状态筛选
