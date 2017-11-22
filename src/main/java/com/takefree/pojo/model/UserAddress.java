@@ -51,7 +51,7 @@ public class UserAddress implements Serializable {
      * 是否默认地址, 0不是默认1默认地址
      * @mbg.generated
      */
-    private Byte isDefault;
+    private Integer isDefault;
 
     /**
      * 记录插入时间

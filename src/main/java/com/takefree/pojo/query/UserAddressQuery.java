@@ -630,52 +630,52 @@ public class UserAddressQuery {
             return (Criteria) this;
         }
 
-        public Criteria andIsDefaultEqualTo(Byte value) {
+        public Criteria andIsDefaultEqualTo(Integer value) {
             addCriterion("is_default =", value, "isDefault");
             return (Criteria) this;
         }
 
-        public Criteria andIsDefaultNotEqualTo(Byte value) {
+        public Criteria andIsDefaultNotEqualTo(Integer value) {
             addCriterion("is_default <>", value, "isDefault");
             return (Criteria) this;
         }
 
-        public Criteria andIsDefaultGreaterThan(Byte value) {
+        public Criteria andIsDefaultGreaterThan(Integer value) {
             addCriterion("is_default >", value, "isDefault");
             return (Criteria) this;
         }
 
-        public Criteria andIsDefaultGreaterThanOrEqualTo(Byte value) {
+        public Criteria andIsDefaultGreaterThanOrEqualTo(Integer value) {
             addCriterion("is_default >=", value, "isDefault");
             return (Criteria) this;
         }
 
-        public Criteria andIsDefaultLessThan(Byte value) {
+        public Criteria andIsDefaultLessThan(Integer value) {
             addCriterion("is_default <", value, "isDefault");
             return (Criteria) this;
         }
 
-        public Criteria andIsDefaultLessThanOrEqualTo(Byte value) {
+        public Criteria andIsDefaultLessThanOrEqualTo(Integer value) {
             addCriterion("is_default <=", value, "isDefault");
             return (Criteria) this;
         }
 
-        public Criteria andIsDefaultIn(List<Byte> values) {
+        public Criteria andIsDefaultIn(List<Integer> values) {
             addCriterion("is_default in", values, "isDefault");
             return (Criteria) this;
         }
 
-        public Criteria andIsDefaultNotIn(List<Byte> values) {
+        public Criteria andIsDefaultNotIn(List<Integer> values) {
             addCriterion("is_default not in", values, "isDefault");
             return (Criteria) this;
         }
 
-        public Criteria andIsDefaultBetween(Byte value1, Byte value2) {
+        public Criteria andIsDefaultBetween(Integer value1, Integer value2) {
             addCriterion("is_default between", value1, value2, "isDefault");
             return (Criteria) this;
         }
 
-        public Criteria andIsDefaultNotBetween(Byte value1, Byte value2) {
+        public Criteria andIsDefaultNotBetween(Integer value1, Integer value2) {
             addCriterion("is_default not between", value1, value2, "isDefault");
             return (Criteria) this;
         }
