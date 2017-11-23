@@ -133,34 +133,46 @@ public class ShareDTO implements Serializable {
     private Integer applyCount;
 
     /**
-     * 最后申请时间
+     * 新申请次数
      */
-    @JsonView(ResultView.AllView.class)
-    private Date lastApplyTime;
+    @JsonView(ResultView.BriefView.class)
+    private Integer newApplyCount;
 
-    /**
-     * 最后查看申请时间
-     */
-    @JsonView(ResultView.AllView.class)
-    private Date lastApplyViewTime;
+//    /**
+//     * 最后申请时间
+//     */
+//    @JsonView(ResultView.AllView.class)
+//    private Date lastApplyTime;
+//
+//    /**
+//     * 最后查看申请时间
+//     */
+//    @JsonView(ResultView.AllView.class)
+//    private Date lastApplyViewTime;
 
     /**
      * 评论
      */
     @JsonView(ResultView.BriefView.class)
-    private Integer commnetCount;
+    private Integer commentCount;
 
     /**
-     * 最后评论时间
+     * 新评论
      */
-    @JsonView(ResultView.AllView.class)
-    private Date lastCommnetTime;
+    @JsonView(ResultView.BriefView.class)
+    private Integer newCommentCount;
 
-    /**
-     * 最后查看评论时间
-     */
-    @JsonView(ResultView.AllView.class)
-    private Date lastCommnetViewTime;
+//    /**
+//     * 最后评论时间
+//     */
+//    @JsonView(ResultView.AllView.class)
+//    private Date lastCommnetTime;
+//
+//    /**
+//     * 最后查看评论时间
+//     */
+//    @JsonView(ResultView.AllView.class)
+//    private Date lastCommnetViewTime;
 
     /**
      * 经度

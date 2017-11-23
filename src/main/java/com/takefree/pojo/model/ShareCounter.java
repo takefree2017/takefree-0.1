@@ -36,10 +36,22 @@ public class ShareCounter implements Serializable {
     private Integer applyCount;
 
     /**
+     * 新申请次数
+     * @mbg.generated
+     */
+    private Integer newApplyCount;
+
+    /**
      * 评论次数
      * @mbg.generated
      */
     private Integer commentCount;
+
+    /**
+     * 新评论次数
+     * @mbg.generated
+     */
+    private Integer newCommentCount;
 
     /**
      * 记录插入时间

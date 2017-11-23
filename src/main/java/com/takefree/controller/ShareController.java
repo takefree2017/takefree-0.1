@@ -112,7 +112,7 @@ public class ShareController {
      */
     @RequestMapping(value = "/{id}",method = RequestMethod.GET)
     @ResponseBody
-    @JsonView(ResultView.DetailView.class)
+//    @JsonView(ResultView.DetailView.class)
     public JsonSimpleObject<ShareDTO> get(@RequestAttribute(value=Constants.TAKEFREE_TOKEN,required = false) Token token,@Required @PathVariable Long id) throws Exception{
         ShareDTO shareDTO=shareService.getShareDetailById(id);
         if(shareDTO==null){
