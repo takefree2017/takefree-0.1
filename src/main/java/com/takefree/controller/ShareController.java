@@ -29,7 +29,7 @@ import java.util.List;
 @RequestMapping(value = "/share")
 public class ShareController {
     @Autowired
-    ShareService shareService;
+    private ShareService shareService;
 
     /**
      * 新建
