@@ -13,5 +13,7 @@ public class ResultView {
 
     public interface DetailView extends BriefView {}
 
+    public interface UserFollowerView extends BriefView {}
+
     public interface AllView extends DetailView {}
 }
