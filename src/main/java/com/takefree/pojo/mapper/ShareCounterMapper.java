@@ -89,4 +89,6 @@ public interface ShareCounterMapper {
 
     int addViewCount(@Param("shareId") Long shareId,@Param("number") Integer number);
 
+    int addCommentCount(@Param("shareId") Long shareId,@Param("number") Integer number);
+
 }

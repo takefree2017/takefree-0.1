@@ -659,6 +659,186 @@ public class ShareCounterQuery {
             addCriterion("version not between", value1, value2, "version");
             return (Criteria) this;
         }
+
+        public Criteria andCommentCountIsNull() {
+            addCriterion("comment_count is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommentCountIsNotNull() {
+            addCriterion("comment_count is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommentCountEqualTo(Integer value) {
+            addCriterion("comment_count =", value, "commentCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommentCountNotEqualTo(Integer value) {
+            addCriterion("comment_count <>", value, "commentCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommentCountGreaterThan(Integer value) {
+            addCriterion("comment_count >", value, "commentCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommentCountGreaterThanOrEqualTo(Integer value) {
+            addCriterion("comment_count >=", value, "commentCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommentCountLessThan(Integer value) {
+            addCriterion("comment_count <", value, "commentCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommentCountLessThanOrEqualTo(Integer value) {
+            addCriterion("comment_count <=", value, "commentCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommentCountIn(List<Integer> values) {
+            addCriterion("comment_count in", values, "commentCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommentCountNotIn(List<Integer> values) {
+            addCriterion("comment_count not in", values, "commentCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommentCountBetween(Integer value1, Integer value2) {
+            addCriterion("comment_count between", value1, value2, "commentCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommentCountNotBetween(Integer value1, Integer value2) {
+            addCriterion("comment_count not between", value1, value2, "commentCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andNewCommentCountIsNull() {
+            addCriterion("new_comment_count is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andNewCommentCountIsNotNull() {
+            addCriterion("new_comment_count is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andNewCommentCountEqualTo(Integer value) {
+            addCriterion("new_comment_count =", value, "newCommentCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andNewCommentCountNotEqualTo(Integer value) {
+            addCriterion("new_comment_count <>", value, "newCommentCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andNewCommentCountGreaterThan(Integer value) {
+            addCriterion("new_comment_count >", value, "newCommentCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andNewCommentCountGreaterThanOrEqualTo(Integer value) {
+            addCriterion("new_comment_count >=", value, "newCommentCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andNewCommentCountLessThan(Integer value) {
+            addCriterion("new_comment_count <", value, "newCommentCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andNewCommentCountLessThanOrEqualTo(Integer value) {
+            addCriterion("new_comment_count <=", value, "newCommentCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andNewCommentCountIn(List<Integer> values) {
+            addCriterion("new_comment_count in", values, "newCommentCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andNewCommentCountNotIn(List<Integer> values) {
+            addCriterion("new_comment_count not in", values, "newCommentCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andNewCommentCountBetween(Integer value1, Integer value2) {
+            addCriterion("new_comment_count between", value1, value2, "newCommentCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andNewCommentCountNotBetween(Integer value1, Integer value2) {
+            addCriterion("new_comment_count not between", value1, value2, "newCommentCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andNewApplyCountIsNull() {
+            addCriterion("new_apply_count is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andNewApplyCountIsNotNull() {
+            addCriterion("new_apply_count is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andNewApplyCountEqualTo(Integer value) {
+            addCriterion("new_apply_count =", value, "newApplyCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andNewApplyCountNotEqualTo(Integer value) {
+            addCriterion("new_apply_count <>", value, "newApplyCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andNewApplyCountGreaterThan(Integer value) {
+            addCriterion("new_apply_count >", value, "newApplyCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andNewApplyCountGreaterThanOrEqualTo(Integer value) {
+            addCriterion("new_apply_count >=", value, "newApplyCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andNewApplyCountLessThan(Integer value) {
+            addCriterion("new_apply_count <", value, "newApplyCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andNewApplyCountLessThanOrEqualTo(Integer value) {
+            addCriterion("new_apply_count <=", value, "newApplyCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andNewApplyCountIn(List<Integer> values) {
+            addCriterion("new_apply_count in", values, "newApplyCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andNewApplyCountNotIn(List<Integer> values) {
+            addCriterion("new_apply_count not in", values, "newApplyCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andNewApplyCountBetween(Integer value1, Integer value2) {
+            addCriterion("new_apply_count between", value1, value2, "newApplyCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andNewApplyCountNotBetween(Integer value1, Integer value2) {
+            addCriterion("new_apply_count not between", value1, value2, "newApplyCount");
+            return (Criteria) this;
+        }
     }
 
     /**
