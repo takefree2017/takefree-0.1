@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping(value = "/regioninfo")
 public class RegionController {
     @Autowired
-    RegionService regionService;
+    private RegionService regionService;
 
     /**
      *
