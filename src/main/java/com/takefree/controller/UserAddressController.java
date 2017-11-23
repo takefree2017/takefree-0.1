@@ -24,7 +24,7 @@ import java.util.List;
 @Controller
 public class UserAddressController {
     @Autowired
-    UserAddressService userAddressService;
+    private UserAddressService userAddressService;
 
     /**
      * 注意如果新增为默认地址则需要将原默认地址设置为非默认
