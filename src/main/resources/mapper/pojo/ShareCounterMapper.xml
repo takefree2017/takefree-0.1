@@ -12,6 +12,9 @@
     <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
     <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
     <result column="version" jdbcType="INTEGER" property="version" />
+    <result column="comment_count" jdbcType="INTEGER" property="commentCount" />
+    <result column="new_comment_count" jdbcType="INTEGER" property="newCommentCount" />
+    <result column="new_apply_count" jdbcType="INTEGER" property="newApplyCount" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <!--
@@ -81,7 +84,8 @@
     <!--
       WARNING - @mbg.generated
     -->
-    share_id, view_count, like_count, apply_count, gmt_create, gmt_modified, version
+    share_id, view_count, like_count, apply_count, gmt_create, gmt_modified, version,
+    comment_count, new_comment_count, new_apply_count
   </sql>
   <select id="selectByExample" parameterType="com.takefree.pojo.query.ShareCounterQuery" resultMap="BaseResultMap">
     <!--
@@ -137,12 +141,14 @@
     <!--
       WARNING - @mbg.generated
     -->
-    insert into share_counter (share_id, view_count, like_count, 
-      apply_count, gmt_create, gmt_modified, 
-      version)
-    values (#{shareId,jdbcType=BIGINT}, #{viewCount,jdbcType=INTEGER}, #{likeCount,jdbcType=INTEGER}, 
-      #{applyCount,jdbcType=INTEGER}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, 
-      #{version,jdbcType=INTEGER})
+    insert into share_counter (share_id, view_count, like_count,
+    apply_count, gmt_create, gmt_modified,
+    version, comment_count, new_comment_count,
+    new_apply_count)
+    values (#{shareId,jdbcType=BIGINT}, #{viewCount,jdbcType=INTEGER}, #{likeCount,jdbcType=INTEGER},
+    #{applyCount,jdbcType=INTEGER}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP},
+    #{version,jdbcType=INTEGER}, #{commentCount,jdbcType=INTEGER}, #{newCommentCount,jdbcType=INTEGER},
+    #{newApplyCount,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.takefree.pojo.model.ShareCounter">
     <!--
@@ -171,6 +177,15 @@
       <if test="version != null">
         version,
       </if>
+      <if test="commentCount != null">
+        comment_count,
+      </if>
+      <if test="newCommentCount != null">
+        new_comment_count,
+      </if>
+      <if test="newApplyCount != null">
+        new_apply_count,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="shareId != null">
@@ -193,6 +208,15 @@
       </if>
       <if test="version != null">
         #{version,jdbcType=INTEGER},
+      </if>
+      <if test="commentCount != null">
+        #{commentCount,jdbcType=INTEGER},
+      </if>
+      <if test="newCommentCount != null">
+        #{newCommentCount,jdbcType=INTEGER},
+      </if>
+      <if test="newApplyCount != null">
+        #{newApplyCount,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -229,6 +253,15 @@
       <if test="record.gmtModified != null">
         gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP},
       </if>
+      <if test="record.commentCount != null">
+        comment_count = #{record.commentCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.newCommentCount != null">
+        new_comment_count = #{record.newCommentCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.newApplyCount != null">
+        new_apply_count = #{record.newApplyCount,jdbcType=INTEGER},
+      </if>
       version = version+1
     </set>
     <if test="_parameter != null">
@@ -241,12 +274,15 @@
     -->
     update share_counter
     set share_id = #{record.shareId,jdbcType=BIGINT},
-      view_count = #{record.viewCount,jdbcType=INTEGER},
-      like_count = #{record.likeCount,jdbcType=INTEGER},
-      apply_count = #{record.applyCount,jdbcType=INTEGER},
-      gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
-      gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP},
-      version = version+1
+        view_count = #{record.viewCount,jdbcType=INTEGER},
+        like_count = #{record.likeCount,jdbcType=INTEGER},
+        apply_count = #{record.applyCount,jdbcType=INTEGER},
+        gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
+        gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP},
+        comment_count = #{record.commentCount,jdbcType=INTEGER},
+        new_comment_count = #{record.newCommentCount,jdbcType=INTEGER},
+        new_apply_count = #{record.newApplyCount,jdbcType=INTEGER},
+        version = version+1
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -272,6 +308,15 @@
       <if test="gmtModified != null">
         gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
       </if>
+      <if test="commentCount != null">
+        comment_count = #{commentCount,jdbcType=INTEGER},
+      </if>
+      <if test="newCommentCount != null">
+        new_comment_count = #{newCommentCount,jdbcType=INTEGER},
+      </if>
+      <if test="newApplyCount != null">
+        new_apply_count = #{newApplyCount,jdbcType=INTEGER},
+      </if>
       version = version + 1
     </set>
     where share_id = #{shareId,jdbcType=BIGINT}
@@ -286,6 +331,9 @@
       apply_count = #{applyCount,jdbcType=INTEGER},
       gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
       gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+    comment_count = #{commentCount,jdbcType=INTEGER},
+    new_comment_count = #{newCommentCount,jdbcType=INTEGER},
+    new_apply_count = #{newApplyCount,jdbcType=INTEGER},
       version = version + 1
     where share_id = #{shareId,jdbcType=BIGINT}
   </update>
@@ -316,6 +364,18 @@
     update share_counter
     set
     apply_count = apply_count + #{number,jdbcType=INTEGER},
+    new_apply_count = new_apply_count + #{number,jdbcType=INTEGER},
+    version = version + 1
+    where share_id = #{shareId,jdbcType=BIGINT}
+  </update>
+  <update id="addCommentCount" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    update share_counter
+    set
+    comment_count = comment_count + #{number,jdbcType=INTEGER},
+    new_comment_count = new_comment_count + #{number,jdbcType=INTEGER},
     version = version + 1
     where share_id = #{shareId,jdbcType=BIGINT}
   </update>
