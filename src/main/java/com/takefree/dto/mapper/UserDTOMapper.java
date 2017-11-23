@@ -1,6 +1,7 @@
 package com.takefree.dto.mapper;
 
 import com.takefree.dto.model.UserDTO;
+import com.takefree.dto.query.UserDTOQuery;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
@@ -13,13 +14,11 @@ import java.util.List;
 @Repository
 @Mapper
 public interface UserDTOMapper {
-    @Select("SELECT user_info.*,user_description.description,user_time.lastlogin_time " +
-            "FROM user_info,user_description,user_time " +
-            "WHERE user_info.id = #{id} and user_info.id=user_description.user_id and user_info.id=user_time.user_id ")
-    public UserDTO SelectById(Long id);
+    public UserDTO selectDetailById(Long id);
 
-    @Select("SELECT user_info.*,user_description.description,user_time.lastlogin_time " +
-            "FROM user_info,user_description,user_time " +
-            "WHERE user_info.mobile = #{mobile} and user_info.id=user_description.user_id and user_info.id=user_time.user_id ")
-    public List<UserDTO> SelectByMobile(String mobile);
+    public List<UserDTO> selectByMobile(String mobile);
+
+    public List<UserDTO> selectFollowerByFolloweeId(UserDTOQuery userDTOQuery);
+
+    public List<UserDTO> selectFolloweeByFollowerId(UserDTOQuery userDTOQuery);
 }

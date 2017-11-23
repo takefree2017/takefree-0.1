@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonView;
 import com.takefree.common.Exception.SimpleHttpException;
 import com.takefree.common.annotation.Authorization;
 import com.takefree.common.config.Constants;
+import com.takefree.common.entry.JsonObjectList;
 import com.takefree.common.entry.JsonSimpleObject;
 import com.takefree.common.entry.ResultView;
 import com.takefree.common.entry.Token;
@@ -38,7 +39,7 @@ public class UserController {
     @RequestMapping(value = "/user",method = RequestMethod.POST)
     @ResponseBody
     @JsonView(ResultView.DetailView.class)
-    public JsonSimpleObject<UserDTO> createUser(@Valid @RequestBody UserDTO userDTO) throws Exception{
+    public JsonSimpleObject<UserDTO> create(@Valid @RequestBody UserDTO userDTO) throws Exception{
         //检查手机是否已经注册
         if(userService.getUserInfoByMobile(userDTO.getMobile()).size() > 0){
             throw new SimpleHttpException(HttpStatus.BAD_REQUEST,"手机号已经注册");
@@ -85,7 +86,6 @@ public class UserController {
         return JsonObjectUtils.buildSimpleObjectSuccess("");
     }
 
-
     /**
      * 更新user
      * @param userDTO,mobile和password不能通过本接口修改
@@ -96,7 +96,7 @@ public class UserController {
     @ResponseBody
     @Authorization
     @JsonView(ResultView.DetailView.class)
-    public JsonSimpleObject updateUser(@RequestAttribute(Constants.TAKEFREE_TOKEN) Token token, @RequestBody UserDTO userDTO) throws Exception{
+    public JsonSimpleObject update(@RequestAttribute(Constants.TAKEFREE_TOKEN) Token token, @RequestBody UserDTO userDTO) throws Exception{
         if(userDTO.getMobile() != null){
             throw new SimpleHttpException(HttpStatus.FORBIDDEN, "不能通过此接口修改手机号");
         }
@@ -140,11 +140,43 @@ public class UserController {
     @RequestMapping(value = "/user/brief/{userId}",method = RequestMethod.GET)
     @ResponseBody
     @JsonView(ResultView.BriefView.class)
-    public JsonSimpleObject<UserDTO> getUserBrief(@PathVariable Long userId) throws Exception{
+    public JsonSimpleObject<UserDTO> getBrief(@PathVariable Long userId) throws Exception{
         UserDTO user = userService.getUserInfoById(userId);
         if(user == null){
             throw new SimpleHttpException(HttpStatus.NOT_FOUND,"user not found");
         }
         return JsonObjectUtils.buildSimpleObjectSuccess(user);
+    }
+
+    /**
+     *
+     * @param token
+     * @param pageNo
+     * @param pageSize
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value = "/user/follower",method = RequestMethod.GET)
+    @ResponseBody
+    @JsonView(ResultView.UserFollowerView.class)
+    @Authorization
+    public JsonObjectList<UserDTO> getFollower(@RequestAttribute(Constants.TAKEFREE_TOKEN) Token token,Integer pageNo,Integer pageSize) throws Exception{
+        return JsonObjectUtils.buildListSuccess(userService.getFollowerByFolloweeId(pageNo,pageSize,token.getUserDTO().getId()));
+    }
+
+    /**
+     *
+     * @param token
+     * @param pageNo
+     * @param pageSize
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping(value = "/user/followee",method = RequestMethod.GET)
+    @ResponseBody
+    @JsonView(ResultView.BriefView.class)
+    @Authorization
+    public JsonObjectList<UserDTO> getFollowee(@RequestAttribute(Constants.TAKEFREE_TOKEN) Token token,Integer pageNo,Integer pageSize) throws Exception{
+        return JsonObjectUtils.buildListSuccess(userService.getFolloweeByFollowerId(pageNo,pageSize,token.getUserDTO().getId()));
     }
 }

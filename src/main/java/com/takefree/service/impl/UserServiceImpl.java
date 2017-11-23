@@ -7,6 +7,8 @@ import com.takefree.common.util.BeanUtils;
 import com.takefree.common.web.constant.HttpStatus;
 import com.takefree.dto.mapper.UserDTOMapper;
 import com.takefree.dto.model.UserDTO;
+import com.takefree.dto.query.UserDTOQuery;
+import com.takefree.enums.UserStatusEnum;
 import com.takefree.pojo.mapper.UserDescriptionMapper;
 import com.takefree.pojo.mapper.UserInfoMapper;
 import com.takefree.pojo.mapper.UserTimeMapper;
@@ -14,6 +16,7 @@ import com.takefree.pojo.model.UserDescription;
 import com.takefree.pojo.model.UserInfo;
 import com.takefree.pojo.model.UserTime;
 import com.takefree.pojo.query.UserInfoQuery;
+import com.takefree.service.UserLikeService;
 import com.takefree.service.UserService;
 import com.xiaoleilu.hutool.crypto.SecureUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,19 +32,22 @@ import java.util.List;
 @Service
 public class UserServiceImpl implements UserService {
     @Autowired
-    UserDTOMapper userDTOMapper;
+    private UserDTOMapper userDTOMapper;
 
     @Autowired
-    UserInfoMapper userInfoMapper;
+    private UserInfoMapper userInfoMapper;
 
     @Autowired
-    UserDescriptionMapper userDescriptionMapper;
+    private UserDescriptionMapper userDescriptionMapper;
 
     @Autowired
-    UserTimeMapper userTimeMapper;
+    private UserTimeMapper userTimeMapper;
 
     @Autowired
     private TokenManager tokenManager;
+
+    @Autowired
+    private UserLikeService userLikeService;
 
     @Override
     public UserDTO getUserInfoById(Long id) {
@@ -56,7 +62,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO getUserDetailById(Long id) {
-        return userDTOMapper.SelectById(id);
+        return userDTOMapper.selectDetailById(id);
     }
 
     @Override
@@ -88,9 +94,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Token login(UserDTO userDTO) throws Exception{
-        List<UserDTO> userDTOS =userDTOMapper.SelectByMobile(userDTO.getMobile());
+        List<UserDTO> userDTOS =userDTOMapper.selectByMobile(userDTO.getMobile());
         if(userDTOS.size() == 0) {
             throw new SimpleHttpException(HttpStatus.BAD_REQUEST, "手机号错误");
+        }
+        if(userDTOS.get(0).getStatus() != UserStatusEnum.ACTIVE.getCode()){
+            throw new SimpleHttpException(HttpStatus.BAD_REQUEST, "用户无效");
         }
         if(!userDTO.getPassword().equals(userDTOS.get(0).getPassword())){
             throw new SimpleHttpException(HttpStatus.BAD_REQUEST, "手机号或密码错误");
@@ -141,5 +150,51 @@ public class UserServiceImpl implements UserService {
         userInfoQuery.createCriteria().andMobileEqualTo(mobile);
 
         return userInfoMapper.selectByExample(userInfoQuery);
+    }
+
+    @Override
+    public List<UserDTO> getFollowerByFolloweeId(Integer pageNo,Integer pageSize,Long followeeId){
+        UserDTOQuery userDTOQuery=new UserDTOQuery();
+        if (pageNo != null && pageSize != null) {
+            userDTOQuery.page(pageNo, pageSize);
+        }
+
+        if (pageNo == null && pageSize != null) {
+            userDTOQuery.limit(pageSize);
+        }
+
+        UserDTOQuery.Criteria criteria=userDTOQuery.createCriteria();
+
+        criteria.andFolloweeIdEqualTo(followeeId);
+
+        List<UserDTO> followers=userDTOMapper.selectFollowerByFolloweeId(userDTOQuery);
+
+        for(UserDTO follower:followers){
+            //判断like我的人，是否也被我like
+            if(userLikeService.getByFollowerAndFollowee(followeeId,follower.getId())!=null){
+                follower.setIsFollowee(true);
+            }else{
+                follower.setIsFollowee(false);
+            }
+        }
+        return followers;
+    }
+
+    @Override
+    public List<UserDTO> getFolloweeByFollowerId(Integer pageNo,Integer pageSize,Long followerId){
+        UserDTOQuery userDTOQuery=new UserDTOQuery();
+        if (pageNo != null && pageSize != null) {
+            userDTOQuery.page(pageNo, pageSize);
+        }
+
+        if (pageNo == null && pageSize != null) {
+            userDTOQuery.limit(pageSize);
+        }
+
+        UserDTOQuery.Criteria criteria=userDTOQuery.createCriteria();
+
+        criteria.andFollowerIdEqualTo(followerId);
+
+        return userDTOMapper.selectFolloweeByFollowerId(userDTOQuery);
     }
 }

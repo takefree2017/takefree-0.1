@@ -24,4 +24,8 @@ public interface UserService {
     Token login(UserDTO userDTO) throws Exception;
 
     Boolean logout(Token token) throws Exception;
+
+    List<UserDTO> getFollowerByFolloweeId(Integer pageNo,Integer pageSize,Long followeeId);
+
+    List<UserDTO> getFolloweeByFollowerId(Integer pageNo,Integer pageSize,Long followerId);
 }
