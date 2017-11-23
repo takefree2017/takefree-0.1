@@ -22,10 +22,10 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(value = "/like/share")
 public class ShareLikeController {
     @Autowired
-    ShareLikeService shareLikeService;
+    private ShareLikeService shareLikeService;
 
     @Autowired
-    ShareService shareService;
+    private ShareService shareService;
 
     /**
      * 新建
@@ -33,7 +33,7 @@ public class ShareLikeController {
     @RequestMapping(value = "",method = RequestMethod.POST)
     @ResponseBody
     @Authorization
-    public JsonSimpleObject<ShareLike> createShare(@RequestAttribute(Constants.TAKEFREE_TOKEN) Token token,@RequestParam Long shareId) throws Exception{
+    public JsonSimpleObject<ShareLike> create(@RequestAttribute(Constants.TAKEFREE_TOKEN) Token token,@RequestParam Long shareId) throws Exception{
         if(shareService.getShareInfoById(shareId)==null){
             throw new SimpleHttpException(HttpStatus.BAD_REQUEST, "分享不存在");
         }
