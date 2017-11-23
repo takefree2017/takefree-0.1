@@ -19,6 +19,9 @@
         <result column="view_count" jdbcType="INTEGER" property="viewCount"/>
         <result column="like_count" jdbcType="INTEGER" property="likeCount"/>
         <result column="apply_count" jdbcType="INTEGER" property="applyCount"/>
+        <result column="new_apply_count" jdbcType="INTEGER" property="newApplyCount"/>
+        <result column="comment_count" jdbcType="INTEGER" property="commentCount"/>
+        <result column="new_comment_count" jdbcType="INTEGER" property="newCommentCount"/>
         <result column="longitude" jdbcType="DECIMAL" property="longitude"/>
         <result column="latitude" jdbcType="DECIMAL" property="latitude"/>
         <result column="lbs_description" jdbcType="VARCHAR" property="lbsDescription"/>
@@ -49,11 +52,11 @@
         </foreach>
     </sql>
     <sql id="Base_Column_List">
-    share.*,share_counter.view_count,share_counter.like_count,share_counter.apply_count,share_counter.comment_count,owner.nick_name as owner_nick_name,owner.small_icon as owner_small_icon
-  </sql>
+    share.*,share_counter.view_count,share_counter.like_count,share_counter.apply_count,share_counter.new_apply_count,share_counter.comment_count,share_counter.new_comment_count,owner.nick_name as owner_nick_name,owner.small_icon as owner_small_icon
+    </sql>
     <sql id="Detail_Column_List">
-    share_desc.description,share_lbs.longitude,share_lbs.latitude,share_lbs.lbs_description
-  </sql>
+        <include refid="Base_Column_List"/>,share_desc.description,share_lbs.longitude,share_lbs.latitude,share_lbs.lbs_description
+   </sql>
 
     <select id="selectShareInfoListByExample" parameterType="com.takefree.dto.query.ShareDTOQuery"
             resultMap="BaseResultMap">
@@ -178,7 +181,7 @@
     </select>
 
     <select id="selectShareDetailById" parameterType="java.lang.Long" resultMap="BaseResultMap">
-        select<include refid="Base_Column_List"/>,
+        select
         <include refid="Detail_Column_List"/>
         from share,share_counter,user_info as owner,share_desc,share_lbs
         where share.id=share_counter.share_id
