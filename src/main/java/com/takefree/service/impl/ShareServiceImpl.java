@@ -22,25 +22,25 @@ import java.util.List;
 @Service
 public class ShareServiceImpl implements ShareService {
     @Autowired
-    ShareDTOMapper shareDTOMapper;
+    private ShareDTOMapper shareDTOMapper;
 
     @Autowired
-    ShareMapper shareMapper;
+    private ShareMapper shareMapper;
 
     @Autowired
-    ShareCategoryMapper shareCategoryMapper;
+    private ShareCategoryMapper shareCategoryMapper;
 
     @Autowired
-    ShareDescMapper shareDescMapper;
+    private ShareDescMapper shareDescMapper;
 
     @Autowired
-    ShareLbsMapper shareLbsMapper;
+    private ShareLbsMapper shareLbsMapper;
 
     @Autowired
-    ShareCounterMapper shareCounterMapper;
+    private ShareCounterMapper shareCounterMapper;
 
     @Autowired
-    SharePicMapper sharePicMapper;
+    private SharePicMapper sharePicMapper;
 
     @Override
     @Transactional
@@ -279,13 +279,15 @@ public class ShareServiceImpl implements ShareService {
     @Override
     @Transactional
     public boolean updateViewInfo(ShareDTO shareDTO,Long userId){
+        //发布人查看
         if(userId!=null&&shareDTO.getOwnerId()==userId){
-            /**
-             * 更新owner查看时间
-             * TODO...
-             */
+            ShareCounter shareCouter=new ShareCounter();
+            shareCouter.setShareId(shareDTO.getId());
+            shareCouter.setNewApplyCount(0);
+            shareCouter.setNewCommentCount(0);
+            shareCounterMapper.updateByPrimaryKeySelective(shareCouter);
             return true;
-        }else{
+        }else{ //其他人查看
             shareCounterMapper.addViewCount(shareDTO.getId(),1);
             return true;
         }

@@ -17,7 +17,7 @@ import java.util.List;
 @Service
 public class UserAddressServiceImpl implements UserAddressService {
     @Autowired
-    UserAddressMapper userAddressMapper;
+    private UserAddressMapper userAddressMapper;
 
     @Override
     public UserAddress getUserAddressById(Long id) {

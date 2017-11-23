@@ -17,10 +17,10 @@ import java.util.List;
 @Service
 public class ShareLikeServiceImpl implements ShareLikeService {
     @Autowired
-    ShareLikeMapper shareLikeMapper;
+    private ShareLikeMapper shareLikeMapper;
 
     @Autowired
-    ShareCounterMapper shareCounterMapper;
+    private ShareCounterMapper shareCounterMapper;
 
     @Override
     @Transactional
