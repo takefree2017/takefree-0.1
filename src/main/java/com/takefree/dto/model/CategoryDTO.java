@@ -1,15 +1,7 @@
 package com.takefree.dto.model;
 
-import com.fasterxml.jackson.annotation.JsonView;
-import com.takefree.common.entry.ResultView;
 import lombok.Data;
-import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.NotBlank;
-
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 
 @Data
@@ -41,5 +33,5 @@ public class CategoryDTO implements Serializable {
      */
     private Long parentCategoryId;
 
-    private List<CategoryDTO> categoryDTOList;
+    private List<CategoryDTO> subCategoryList;
 }

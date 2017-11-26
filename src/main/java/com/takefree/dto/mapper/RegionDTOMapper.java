@@ -1,6 +1,7 @@
 package com.takefree.dto.mapper;
 
-import com.takefree.dto.model.CategoryDTO;
+import com.takefree.dto.model.RegionDTO;
+
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -11,6 +12,6 @@ import java.util.List;
  */
 @Repository
 @Mapper
-public interface CategoryDTOMapper {
-	List<CategoryDTO> getAll();
+public interface RegionDTOMapper {
+	List<RegionDTO> getAll();
 }

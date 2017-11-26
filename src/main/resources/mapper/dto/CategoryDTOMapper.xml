@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.takefree.pojo.mapper.CategoryInfoMapper">
-  <resultMap id="BaseResultMap" type="com.takefree.pojo.model.CategoryInfo">
-    <!--
-      WARNING - @mbg.generated
-    -->
+<mapper namespace="com.takefree.dto.mapper.CategoryDTOMapper">
+  <resultMap id="BaseResultMap" type="com.takefree.dto.model.CategoryDTO">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="category_name" jdbcType="VARCHAR" property="categoryName" />
     <result column="layer" jdbcType="TINYINT" property="layer" />
     <result column="parent_category_id" jdbcType="BIGINT" property="parentCategoryId" />
-    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+     
+  <!--    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
     <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
     <result column="version" jdbcType="INTEGER" property="version" />
+      -->
   </resultMap>
   <sql id="Example_Where_Clause">
     <!--
@@ -109,13 +108,13 @@
     </if>
   </select>
  
-   <select id="getAll" resultMap="BaseResultMap">
+   <select id="getAll"  resultMap="BaseResultMap">
     <!--
       WARNING - @mbg.generated
     -->
     select 
     <include refid="Base_Column_List" />
-    from category_info
+    from category_info order by id
    </select>
  
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">

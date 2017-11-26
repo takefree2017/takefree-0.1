@@ -1,18 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.takefree.pojo.mapper.CategoryInfoMapper">
-  <resultMap id="BaseResultMap" type="com.takefree.pojo.model.CategoryInfo">
-    <!--
-      WARNING - @mbg.generated
-    -->
+<mapper namespace="com.takefree.dto.mapper.RegionDTOMapper">
+  <resultMap id="BaseResultMap" type="com.takefree.dto.model.RegionDTO">
     <id column="id" jdbcType="BIGINT" property="id" />
-    <result column="category_name" jdbcType="VARCHAR" property="categoryName" />
+    <result column="region_name" jdbcType="VARCHAR" property="regionName" />
     <result column="layer" jdbcType="TINYINT" property="layer" />
-    <result column="parent_category_id" jdbcType="BIGINT" property="parentCategoryId" />
-    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
-    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
-    <result column="version" jdbcType="INTEGER" property="version" />
-  </resultMap>
+    <result column="parent_region_id" jdbcType="BIGINT" property="parentRegionId" />
+     
+   </resultMap>
   <sql id="Example_Where_Clause">
     <!--
       WARNING - @mbg.generated
@@ -81,9 +76,9 @@
     <!--
       WARNING - @mbg.generated
     -->
-    id, category_name, layer, parent_category_id, gmt_create, gmt_modified, version
+    id, region_name, layer, parent_region_id, gmt_create, gmt_modified, version
   </sql>
-  <select id="selectByExample" parameterType="com.takefree.pojo.query.CategoryInfoQuery" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.takefree.pojo.query.RegionInfoQuery" resultMap="BaseResultMap">
     <!--
       WARNING - @mbg.generated
     -->
@@ -92,7 +87,7 @@
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from category_info
+    from region_info
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -109,13 +104,13 @@
     </if>
   </select>
  
-   <select id="getAll" resultMap="BaseResultMap">
+   <select id="getAll"  resultMap="BaseResultMap">
     <!--
       WARNING - @mbg.generated
     -->
     select 
     <include refid="Base_Column_List" />
-    from category_info
+    from region_info order by id
    </select>
  
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
@@ -124,56 +119,56 @@
     -->
     select 
     <include refid="Base_Column_List" />
-    from category_info
+    from region_info
     where id = #{id,jdbcType=BIGINT}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     <!--
       WARNING - @mbg.generated
     -->
-    delete from category_info
+    delete from region_info
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="com.takefree.pojo.query.CategoryInfoQuery">
+  <delete id="deleteByExample" parameterType="com.takefree.pojo.query.RegionInfoQuery">
     <!--
       WARNING - @mbg.generated
     -->
-    delete from category_info
+    delete from region_info
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.takefree.pojo.model.CategoryInfo">
+  <insert id="insert" parameterType="com.takefree.pojo.model.RegionInfo">
     <!--
       WARNING - @mbg.generated
     -->
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into category_info (category_name, layer, parent_category_id, 
+    insert into region_info (region_name, layer, parent_region_id, 
       gmt_create, gmt_modified, version
       )
-    values (#{categoryName,jdbcType=VARCHAR}, #{layer,jdbcType=TINYINT}, #{parentCategoryId,jdbcType=BIGINT}, 
+    values (#{regionName,jdbcType=VARCHAR}, #{layer,jdbcType=TINYINT}, #{parentregionId,jdbcType=BIGINT}, 
       #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, #{version,jdbcType=INTEGER}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.takefree.pojo.model.CategoryInfo">
+  <insert id="insertSelective" parameterType="com.takefree.pojo.model.RegionInfo">
     <!--
       WARNING - @mbg.generated
     -->
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into category_info
+    insert into region_info
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="categoryName != null">
-        category_name,
+      <if test="regionName != null">
+        region_name,
       </if>
       <if test="layer != null">
         layer,
       </if>
-      <if test="parentCategoryId != null">
-        parent_category_id,
+      <if test="parentRegionId != null">
+        parent_region_id,
       </if>
       <if test="gmtCreate != null">
         gmt_create,
@@ -186,14 +181,14 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="categoryName != null">
-        #{categoryName,jdbcType=VARCHAR},
+      <if test="regionName != null">
+        #{regionName,jdbcType=VARCHAR},
       </if>
       <if test="layer != null">
         #{layer,jdbcType=TINYINT},
       </if>
-      <if test="parentCategoryId != null">
-        #{parentCategoryId,jdbcType=BIGINT},
+      <if test="parentregionId != null">
+        #{parentregionId,jdbcType=BIGINT},
       </if>
       <if test="gmtCreate != null">
         #{gmtCreate,jdbcType=TIMESTAMP},
@@ -206,11 +201,11 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.takefree.pojo.query.CategoryInfoQuery" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="com.takefree.pojo.query.RegionInfoQuery" resultType="java.lang.Long">
     <!--
       WARNING - @mbg.generated
     -->
-    select count(*) from category_info
+    select count(*) from region_info
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -219,19 +214,19 @@
     <!--
       WARNING - @mbg.generated
     -->
-    update category_info
+    update region_info
     <set>
       <if test="record.id != null">
         id = #{record.id,jdbcType=BIGINT},
       </if>
-      <if test="record.categoryName != null">
-        category_name = #{record.categoryName,jdbcType=VARCHAR},
+      <if test="record.regionName != null">
+        region_name = #{record.regionName,jdbcType=VARCHAR},
       </if>
       <if test="record.layer != null">
         layer = #{record.layer,jdbcType=TINYINT},
       </if>
-      <if test="record.parentCategoryId != null">
-        parent_category_id = #{record.parentCategoryId,jdbcType=BIGINT},
+      <if test="record.parentregionId != null">
+        parent_region_id = #{record.parentregionId,jdbcType=BIGINT},
       </if>
       <if test="record.gmtCreate != null">
         gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
@@ -249,11 +244,11 @@
     <!--
       WARNING - @mbg.generated
     -->
-    update category_info
+    update region_info
     set id = #{record.id,jdbcType=BIGINT},
-      category_name = #{record.categoryName,jdbcType=VARCHAR},
+      region_name = #{record.regionName,jdbcType=VARCHAR},
       layer = #{record.layer,jdbcType=TINYINT},
-      parent_category_id = #{record.parentCategoryId,jdbcType=BIGINT},
+      parent_region_id = #{record.parentregionId,jdbcType=BIGINT},
       gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
       gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP},
       version = version+1
@@ -261,20 +256,20 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.takefree.pojo.model.CategoryInfo">
+  <update id="updateByPrimaryKeySelective" parameterType="com.takefree.pojo.model.RegionInfo">
     <!--
       WARNING - @mbg.generated
     -->
-    update category_info
+    update region_info
     <set>
-      <if test="categoryName != null">
-        category_name = #{categoryName,jdbcType=VARCHAR},
+      <if test="regionName != null">
+        region_name = #{regionName,jdbcType=VARCHAR},
       </if>
       <if test="layer != null">
         layer = #{layer,jdbcType=TINYINT},
       </if>
-      <if test="parentCategoryId != null">
-        parent_category_id = #{parentCategoryId,jdbcType=BIGINT},
+      <if test="parentregionId != null">
+        parent_region_id = #{parentregionId,jdbcType=BIGINT},
       </if>
       <if test="gmtCreate != null">
         gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
@@ -286,14 +281,14 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.takefree.pojo.model.CategoryInfo">
+  <update id="updateByPrimaryKey" parameterType="com.takefree.pojo.model.RegionInfo">
     <!--
       WARNING - @mbg.generated
     -->
-    update category_info
-    set category_name = #{categoryName,jdbcType=VARCHAR},
+    update region_info
+    set region_name = #{regionName,jdbcType=VARCHAR},
       layer = #{layer,jdbcType=TINYINT},
-      parent_category_id = #{parentCategoryId,jdbcType=BIGINT},
+      parent_region_id = #{parentregionId,jdbcType=BIGINT},
       gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
       gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
       version = version + 1

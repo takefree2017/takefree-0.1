@@ -1,9 +1,11 @@
 package com.takefree.pojo.mapper;
 
+import com.takefree.dto.model.CategoryDTO;
 import com.takefree.pojo.model.CategoryInfo;
 import com.takefree.pojo.query.CategoryInfoQuery;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -12,7 +14,11 @@ import java.util.List;
 @Mapper
 @Repository
 public interface CategoryInfoMapper {
-    /**
+   
+//	@Select("SELECT id,category_name as categoryName from category_info" )
+	List<CategoryInfo> getAll();
+	
+	/**
      * This method corresponds to the database table category_info
      * @mbg.generated
      */
