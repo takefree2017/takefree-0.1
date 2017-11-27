@@ -21,7 +21,11 @@ public interface UserService {
 
     List<UserInfo> getUserInfoByMobile(String mobile);
 
-    Token login(UserDTO userDTO) throws Exception;
+    Token loginByPassword(String mobile,String password) throws Exception;
+
+    boolean sendLoginSms(String mobile) throws Exception;
+
+    Token loginBySms(String mobile,String smsCode) throws Exception;
 
     Boolean logout(Token token) throws Exception;
 
