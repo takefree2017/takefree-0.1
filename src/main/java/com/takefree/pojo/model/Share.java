@@ -53,11 +53,11 @@ public class Share implements Serializable {
      */
     private Date publishTime;
 
-    /**
-     * 获得该分享的用户id
-     * @mbg.generated
-     */
-    private Long takerId;
+//    /**
+//     * 获得该分享的用户id
+//     * @mbg.generated
+//     */
+//    private Long takerId;
 
     /**
      * 记录插入时间
@@ -100,7 +100,6 @@ public class Share implements Serializable {
         sb.append(", shareDescPreview=").append(shareDescPreview);
         sb.append(", status=").append(status);
         sb.append(", publishTime=").append(publishTime);
-        sb.append(", takerId=").append(takerId);
         sb.append(", gmtCreate=").append(gmtCreate);
         sb.append(", gmtModified=").append(gmtModified);
         sb.append(", version=").append(version);

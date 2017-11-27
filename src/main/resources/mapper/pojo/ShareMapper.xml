@@ -12,7 +12,6 @@
     <result column="share_desc_preview" jdbcType="VARCHAR" property="shareDescPreview" />
     <result column="status" jdbcType="TINYINT" property="status" />
     <result column="publish_time" jdbcType="TIMESTAMP" property="publishTime" />
-    <result column="taker_id" jdbcType="BIGINT" property="takerId" />
     <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
     <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
     <result column="version" jdbcType="INTEGER" property="version" />
@@ -85,7 +84,7 @@
     <!--
       WARNING - @mbg.generated
     -->
-    id, owner_id, pic_homepage, title, share_desc_preview, status, publish_time, taker_id, 
+    id, owner_id, pic_homepage, title, share_desc_preview, status, publish_time,
     gmt_create, gmt_modified, version
   </sql>
   <select id="selectByExample" parameterType="com.takefree.pojo.query.ShareQuery" resultMap="BaseResultMap">
@@ -151,7 +150,7 @@
       version)
     values (#{ownerId,jdbcType=BIGINT}, #{picHomepage,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, 
       #{shareDescPreview,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, #{publishTime,jdbcType=TIMESTAMP}, 
-      #{takerId,jdbcType=BIGINT}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, 
+      #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP},
       #{version,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.takefree.pojo.model.Share">
@@ -181,9 +180,6 @@
       <if test="publishTime != null">
         publish_time,
       </if>
-      <if test="takerId != null">
-        taker_id,
-      </if>
       <if test="gmtCreate != null">
         gmt_create,
       </if>
@@ -212,9 +208,6 @@
       </if>
       <if test="publishTime != null">
         #{publishTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="takerId != null">
-        #{takerId,jdbcType=BIGINT},
       </if>
       <if test="gmtCreate != null">
         #{gmtCreate,jdbcType=TIMESTAMP},
@@ -263,9 +256,6 @@
       <if test="record.publishTime != null">
         publish_time = #{record.publishTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.takerId != null">
-        taker_id = #{record.takerId,jdbcType=BIGINT},
-      </if>
       <if test="record.gmtCreate != null">
         gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
       </if>
@@ -290,7 +280,6 @@
       share_desc_preview = #{record.shareDescPreview,jdbcType=VARCHAR},
       status = #{record.status,jdbcType=TINYINT},
       publish_time = #{record.publishTime,jdbcType=TIMESTAMP},
-      taker_id = #{record.takerId,jdbcType=BIGINT},
       gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
       gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP},
       version = version+1
@@ -322,9 +311,6 @@
       <if test="publishTime != null">
         publish_time = #{publishTime,jdbcType=TIMESTAMP},
       </if>
-      <if test="takerId != null">
-        taker_id = #{takerId,jdbcType=BIGINT},
-      </if>
       <if test="gmtCreate != null">
         gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
       </if>
@@ -346,7 +332,6 @@
       share_desc_preview = #{shareDescPreview,jdbcType=VARCHAR},
       status = #{status,jdbcType=TINYINT},
       publish_time = #{publishTime,jdbcType=TIMESTAMP},
-      taker_id = #{takerId,jdbcType=BIGINT},
       gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
       gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
       version = version + 1

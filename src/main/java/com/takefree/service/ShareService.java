@@ -18,7 +18,7 @@ public interface ShareService {
 
     boolean deleteById(Long id);
 
-    List<ShareDTO> getShareInfoList(Integer page,Integer size,Long maxId,Long ownerId,Long takerId,Integer status);
+    List<ShareDTO> getShareInfoList(Integer page,Integer size,Long maxId,Long ownerId,Integer status);
 
     /**
      * 用户喜欢列表

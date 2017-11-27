@@ -142,7 +142,7 @@ public class ShareController {
     @ResponseBody
     @JsonView(ResultView.BriefView.class)
     public JsonObjectList<ShareDTO> getShareList(Integer pageNo,Integer pageSize,Long maxId,Integer status,Long ownerId) throws Exception{
-        List<ShareDTO> shareDTOS=shareService.getShareInfoList(pageNo,pageSize,maxId,ownerId,null,status);
+        List<ShareDTO> shareDTOS=shareService.getShareInfoList(pageNo,pageSize,maxId,ownerId,status);
         return JsonObjectUtils.buildListSuccess(shareDTOS);
     }
 

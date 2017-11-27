@@ -690,66 +690,6 @@ public class ShareQuery {
             return (Criteria) this;
         }
 
-        public Criteria andTakerIdIsNull() {
-            addCriterion("taker_id is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andTakerIdIsNotNull() {
-            addCriterion("taker_id is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andTakerIdEqualTo(Long value) {
-            addCriterion("taker_id =", value, "takerId");
-            return (Criteria) this;
-        }
-
-        public Criteria andTakerIdNotEqualTo(Long value) {
-            addCriterion("taker_id <>", value, "takerId");
-            return (Criteria) this;
-        }
-
-        public Criteria andTakerIdGreaterThan(Long value) {
-            addCriterion("taker_id >", value, "takerId");
-            return (Criteria) this;
-        }
-
-        public Criteria andTakerIdGreaterThanOrEqualTo(Long value) {
-            addCriterion("taker_id >=", value, "takerId");
-            return (Criteria) this;
-        }
-
-        public Criteria andTakerIdLessThan(Long value) {
-            addCriterion("taker_id <", value, "takerId");
-            return (Criteria) this;
-        }
-
-        public Criteria andTakerIdLessThanOrEqualTo(Long value) {
-            addCriterion("taker_id <=", value, "takerId");
-            return (Criteria) this;
-        }
-
-        public Criteria andTakerIdIn(List<Long> values) {
-            addCriterion("taker_id in", values, "takerId");
-            return (Criteria) this;
-        }
-
-        public Criteria andTakerIdNotIn(List<Long> values) {
-            addCriterion("taker_id not in", values, "takerId");
-            return (Criteria) this;
-        }
-
-        public Criteria andTakerIdBetween(Long value1, Long value2) {
-            addCriterion("taker_id between", value1, value2, "takerId");
-            return (Criteria) this;
-        }
-
-        public Criteria andTakerIdNotBetween(Long value1, Long value2) {
-            addCriterion("taker_id not between", value1, value2, "takerId");
-            return (Criteria) this;
-        }
-
         public Criteria andGmtCreateIsNull() {
             addCriterion("gmt_create is null");
             return (Criteria) this;
