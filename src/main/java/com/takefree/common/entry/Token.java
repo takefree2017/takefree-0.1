@@ -20,6 +20,9 @@ public class Token {
     @JsonView(ResultView.DetailView.class)
     private Date loginTime;
 
+//    @JsonView(ResultView.DetailView.class)
+//    private Boolean isActive=true;
+
     public Token(){
 
     }
