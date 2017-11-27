@@ -2,11 +2,14 @@ package com.takefree.controller;
 
 import com.takefree.common.entry.JsonObjectBase;
 import com.takefree.common.util.JsonObjectUtils;
+import com.takefree.common.web.constant.HttpStatus;
 import com.takefree.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
@@ -16,7 +19,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping(value = "category")
 public class CategoryController {
     @Autowired
-    private CategoryService categoryService;
+    CategoryService categoryService;
+    
+    @Value("${takefree.categoryinfo.version}")
+	private int lastVersion;
+    
     /**
      *
      * @param version
@@ -24,14 +31,16 @@ public class CategoryController {
      */
     @RequestMapping(value = "",method = RequestMethod.GET)
     @ResponseBody
-    public JsonObjectBase getAllCategoryInfo(Integer version){
-//        if(version!=null){
-//            if(version>=lastVersion) {
-//                JsonObjectBase jsonObjectBase = JsonObjectUtils.buildSimpleObjectSuccess("").setStatus(
-//                        HttpStatus.NOT_MODIFIED);
-//                return jsonObjectBase;
-//            }
-//        }
+    public JsonObjectBase getAllCategoryInfo(@RequestParam(value="version",required=false)Integer version){
+        if(version!=null){
+        	
+            if(version>=lastVersion) {
+                JsonObjectBase jsonObjectBase = JsonObjectUtils.buildSimpleObjectSuccess("");
+                jsonObjectBase.setStatus(HttpStatus.NOT_MODIFIED.code());
+                return jsonObjectBase;
+            }
+        }
         return JsonObjectUtils.buildSimpleObjectSuccess(categoryService.getAll());
+  
     }
 }

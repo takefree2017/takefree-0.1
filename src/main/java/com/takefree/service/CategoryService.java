@@ -2,8 +2,7 @@ package com.takefree.service;
 
 
 import com.takefree.dto.model.CategoryDTO;
-import com.takefree.pojo.model.ShareLike;
-
+import com.takefree.pojo.model.CategoryInfo;
 import java.util.List;
 
 /**
