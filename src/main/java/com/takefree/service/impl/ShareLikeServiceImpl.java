@@ -26,7 +26,7 @@ public class ShareLikeServiceImpl implements ShareLikeService {
     @Transactional
     public ShareLike create(ShareLike shareLike) {
         int i=shareLikeMapper.insertSelective(shareLike);
-        shareCounterMapper.addLikeCount(shareLike.getShareId(),i);
+        shareCounterMapper.changeLikeCount(shareLike.getShareId(),i);
         return shareLike;
     }
 
@@ -35,7 +35,7 @@ public class ShareLikeServiceImpl implements ShareLikeService {
         ShareLikeQuery shareLikeQuery=new ShareLikeQuery();
         shareLikeQuery.createCriteria().andShareIdEqualTo(shareId).andUserIdEqualTo(userId);
         int i=shareLikeMapper.deleteByExample(shareLikeQuery);
-        shareCounterMapper.addLikeCount(shareId,-i);
+        shareCounterMapper.changeLikeCount(shareId,-i);
         return true;
     }
 

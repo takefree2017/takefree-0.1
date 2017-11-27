@@ -288,7 +288,7 @@ public class ShareServiceImpl implements ShareService {
             shareCounterMapper.updateByPrimaryKeySelective(shareCouter);
             return true;
         }else{ //其他人查看
-            shareCounterMapper.addViewCount(shareDTO.getId(),1);
+            shareCounterMapper.changeViewCount(shareDTO.getId(),1);
             return true;
         }
     }
