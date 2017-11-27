@@ -24,33 +24,33 @@ public interface ShareService {
      * 用户喜欢列表
      * @param page
      * @param size
-     * @param userId
+     * @param likerId
      * @param ownerId
      * @param status
      * @return
      */
-    List<ShareDTO> getLikeShareInfoList(Integer page,Integer size,Long userId,Long ownerId,Integer status);
+    List<ShareDTO> getLikeShareInfoList(Integer page,Integer size,Long likerId,Long ownerId,Integer status);
 
     /**
      * 用户申请列表
      * @param page
      * @param size
-     * @param userId
+     * @param applierId
      * @param ownerId
      * @param status
      * @return
      */
-    List<ShareDTO> getApplyShareInfoList(Integer page,Integer size,Long userId,Long ownerId,Integer status);
+    List<ShareDTO> getApplyShareInfoList(Integer page,Integer size,Long applierId,Long ownerId,Integer status);
 
     /**
      * 用户收货列表
      * @param page
      * @param size
-     * @param userId
+     * @param reveiverId
      * @param ownerId
      * @return
      */
-    List<ShareDTO> getReceivedShareInfoList(Integer page,Integer size,Long userId,Long ownerId);
+    List<ShareDTO> getReceivedShareInfoList(Integer page,Integer size,Long reveiverId,Long ownerId);
 
     /**
      * 更新查看信息，非owner查看数加1，owner本人则更新查看申请和评论时间
