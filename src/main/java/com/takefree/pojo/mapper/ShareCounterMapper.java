@@ -80,15 +80,33 @@ public interface ShareCounterMapper {
     /**
      *
      * @param shareId
-     * @param number 负数是为删除
+     * @param number 整数增加，负数减少
      * @return
      */
-    int addLikeCount(@Param("shareId") Long shareId,@Param("number") Integer number);
+    int changeLikeCount(@Param("shareId") Long shareId,@Param("number") Integer number);
 
-    int addApplyCount(@Param("shareId") Long shareId,@Param("number") Integer number);
+    /**
+     *
+     * @param shareId
+     * @param number 整数增加，负数减少
+     * @return
+     */
+    int changeApplyCount(@Param("shareId") Long shareId,@Param("number") Integer number);
 
-    int addViewCount(@Param("shareId") Long shareId,@Param("number") Integer number);
+    /**
+     *
+     * @param shareId
+     * @param number 整数增加，负数减少
+     * @return
+     */
+    int changeViewCount(@Param("shareId") Long shareId,@Param("number") Integer number);
 
-    int addCommentCount(@Param("shareId") Long shareId,@Param("number") Integer number);
+    /**
+     *
+     * @param shareId
+     * @param number 整数增加，负数减少
+     * @return
+     */
+    int changeCommentCount(@Param("shareId") Long shareId,@Param("number") Integer number);
 
 }

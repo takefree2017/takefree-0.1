@@ -337,7 +337,7 @@
       version = version + 1
     where share_id = #{shareId,jdbcType=BIGINT}
   </update>
-  <update id="addViewCount">
+  <update id="changeViewCount">
     <!--
       WARNING - @mbg.generated
     -->
@@ -347,7 +347,7 @@
     version = version + 1
     where share_id = #{shareId,jdbcType=BIGINT}
   </update>
-  <update id="addLikeCount" >
+  <update id="changeLikeCount" >
     <!--
       WARNING - @mbg.generated
     -->
@@ -357,7 +357,7 @@
     version = version + 1
     where share_id = #{shareId,jdbcType=BIGINT}
   </update>
-  <update id="addApplyCount" >
+  <update id="changeApplyCount" >
     <!--
       WARNING - @mbg.generated
     -->
@@ -368,7 +368,7 @@
     version = version + 1
     where share_id = #{shareId,jdbcType=BIGINT}
   </update>
-  <update id="addCommentCount" >
+  <update id="changeCommentCount" >
     <!--
       WARNING - @mbg.generated
     -->
