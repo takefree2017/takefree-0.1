@@ -75,7 +75,7 @@ public class UserDTO implements Serializable {
      * 用户状态:10未激活/20已激活
      * user_info.status
      */
-    @JsonView(ResultView.AllView.class)
+    @JsonView(ResultView.DetailView.class)
     private Integer status;
 
     /**
