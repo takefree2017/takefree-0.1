@@ -6,6 +6,7 @@ import com.alibaba.fastjson.TypeReference;
 import com.takefree.common.entry.Token;
 import com.takefree.common.service.TokenManager;
 import com.takefree.dto.model.UserDTO;
+import lombok.Data;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -18,7 +19,8 @@ import com.qianbao.redis.service.RedisClient;
 import org.springframework.validation.annotation.Validated;
 
 @Service
-@ConfigurationProperties("token.redis")
+@ConfigurationProperties("takefree.token")
+@Data
 @Validated
 public class RedisTokenManager implements TokenManager {
     Logger logger = LoggerFactory.getLogger(RedisTokenManager.class);
@@ -27,10 +29,10 @@ public class RedisTokenManager implements TokenManager {
     private RedisClient redisClient;
 
     @NotNull
-    private String namespace;
+    private String redisNamespace;
 
     @NotNull
-    private Integer ttl;
+    private Integer redisTtl;
 
     public RedisClient getRedisClient() {
         return redisClient;
@@ -41,19 +43,19 @@ public class RedisTokenManager implements TokenManager {
     }
 
     public String getNamespace() {
-        return namespace;
+        return redisNamespace;
     }
 
     public void setNamespace(String namespace) {
-        this.namespace = namespace;
+        this.redisNamespace = namespace;
     }
 
     public Integer getTtl() {
-        return ttl;
+        return redisTtl;
     }
 
     public void setTtl(Integer ttl) {
-        this.ttl = ttl;
+        this.redisTtl = ttl;
     }
 
     private boolean saveToken(Token token){
@@ -61,7 +63,7 @@ public class RedisTokenManager implements TokenManager {
         token.getUserDTO().setPassword(null);
         // 存储到 redis 并设置过期时间
         try {
-            redisClient.setex(namespace, token.getToken(), ttl, JSON.toJSONString(token));
+            redisClient.setex(redisNamespace, token.getToken(), redisTtl, JSON.toJSONString(token));
             return true;
         } catch (Exception e) {
             logger.error("", e);
@@ -87,7 +89,7 @@ public class RedisTokenManager implements TokenManager {
 
     public Token getToken(String key) {
         try {
-            String tokenString = redisClient.get(namespace, key);
+            String tokenString = redisClient.get(redisNamespace, key);
             if (tokenString != null) {
                 return JSON.parseObject(tokenString,new TypeReference<Token>(){});
             }
@@ -105,7 +107,7 @@ public class RedisTokenManager implements TokenManager {
 
         try {
             // 如果验证成功，说明此用户进行了一次有效操作，延长 token 的过期时间
-            redisClient.expire(namespace, token.getToken(), ttl);
+            redisClient.expire(redisNamespace, token.getToken(), redisTtl);
             return true;
         } catch (Exception e) {
             logger.error("", e);
@@ -124,7 +126,7 @@ public class RedisTokenManager implements TokenManager {
                 return false;
             }
             // 如果验证成功，说明此用户进行了一次有效操作，延长 token 的过期时间
-            redisClient.expire(namespace, token.getToken(), ttl);
+            redisClient.expire(redisNamespace, token.getToken(), redisTtl);
             return true;
         } catch (Exception e) {
             logger.error("", e);
@@ -134,7 +136,7 @@ public class RedisTokenManager implements TokenManager {
 
     public boolean deleteToken(Token token) {
         try {
-            redisClient.del(namespace,token.getToken());
+            redisClient.del(redisNamespace,token.getToken());
             return true;
         } catch (Exception e) {
             logger.error("", e);
