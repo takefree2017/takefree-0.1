@@ -2,8 +2,10 @@ package com.takefree.service.impl;
 
 import com.takefree.common.Exception.SimpleHttpException;
 import com.takefree.common.entry.Token;
+import com.takefree.common.service.SmsService;
 import com.takefree.common.service.TokenManager;
 import com.takefree.common.util.BeanUtils;
+import com.takefree.common.util.Util;
 import com.takefree.common.web.constant.HttpStatus;
 import com.takefree.dto.mapper.UserDTOMapper;
 import com.takefree.dto.model.UserDTO;
@@ -47,7 +49,14 @@ public class UserServiceImpl implements UserService {
     private TokenManager tokenManager;
 
     @Autowired
+    private SmsService smsService;
+
+    @Autowired
     private UserLikeService userLikeService;
+
+    private static String loginSmsTemplete="TakeFree 登录验证码$code$，请在5分钟内使用。";
+
+    private static String loginSmsReidsPrefix="LOGIN";
 
     @Override
     public UserDTO getUserInfoById(Long id) {
@@ -69,7 +78,7 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public boolean create(UserDTO userDTO) {
         //密码MD5两次保存
-        userDTO.setPassword(SecureUtil.md5(SecureUtil.md5(userDTO.getPassword())));
+        userDTO.setPassword(Util.encryptPassword(userDTO.getPassword()));
 
         UserInfo userInfo=new UserInfo();
         BeanUtils.copyPropertiesIgnoreNull(userDTO, userInfo);
@@ -93,19 +102,38 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Token login(UserDTO userDTO) throws Exception{
-        List<UserDTO> userDTOS =userDTOMapper.selectByMobile(userDTO.getMobile());
+    public Token loginByPassword(String mobile,String passord) throws Exception{
+        List<UserDTO> userDTOS =userDTOMapper.selectByMobile(mobile);
         if(userDTOS.size() == 0) {
             throw new SimpleHttpException(HttpStatus.BAD_REQUEST, "手机号错误");
         }
         if(userDTOS.get(0).getStatus() != UserStatusEnum.ACTIVE.getCode()){
-            throw new SimpleHttpException(HttpStatus.BAD_REQUEST, "用户无效");
+            throw new SimpleHttpException(HttpStatus.BAD_REQUEST, "用户未激活，请用短信方式激活");
         }
-        if(!userDTO.getPassword().equals(userDTOS.get(0).getPassword())){
+        if(!Util.encryptPassword(passord).equals(userDTOS.get(0).getPassword())){
             throw new SimpleHttpException(HttpStatus.BAD_REQUEST, "手机号或密码错误");
         }
 
-        userDTO = userDTOS.get(0);
+        UserDTO userDTO = userDTOS.get(0);
+
+        return login(userDTO);
+    }
+
+    @Override
+    public Token loginBySms(String mobile,String smsCode) throws Exception{
+        List<UserDTO> userDTOS =userDTOMapper.selectByMobile(mobile);
+        if(userDTOS.size() == 0) {
+            throw new SimpleHttpException(HttpStatus.BAD_REQUEST, "手机号错误");
+        }
+        UserDTO userDTO = userDTOS.get(0);
+        if(smsService.checkCode(mobile,loginSmsReidsPrefix,smsCode)){
+            return login(userDTO);
+        }else{
+            throw new SimpleHttpException(HttpStatus.BAD_REQUEST, "验证码错误");
+        }
+    }
+
+    private Token login(UserDTO userDTO) throws Exception{
         userDTO.setLastloginTime(new Date());
         Token token=tokenManager.createToken(userDTO);
 
@@ -118,8 +146,27 @@ public class UserServiceImpl implements UserService {
             throw new SimpleHttpException(HttpStatus.INTERNAL_SERVER_ERROR, "内部错误");
         }
 
+        //首次登陆
+//        if(userDTO.getStatus() != UserStatusEnum.ACTIVE.getCode()){
+//            token.setIsActive(false);
+//            UserInfo userInfo=new UserInfo();
+//            userInfo.setId(userDTO.getId());
+//            userInfo.setStatus(UserStatusEnum.ACTIVE.getCode());
+//            userInfoMapper.updateByPrimaryKeySelective(userInfo);
+//        }
+
         return token;
     }
+
+    @Override
+    public boolean sendLoginSms(String mobile) throws Exception{
+        List<UserDTO> userDTOS =userDTOMapper.selectByMobile(mobile);
+        if(userDTOS.size() == 0) {
+            throw new SimpleHttpException(HttpStatus.BAD_REQUEST, "手机号错误");
+        }
+        return smsService.sendCode(mobile,loginSmsReidsPrefix,loginSmsTemplete);
+    }
+
 
     @Override
     public Boolean logout(Token token) throws Exception{
