@@ -14,11 +14,8 @@ import com.takefree.pojo.model.UserLike;
 import com.takefree.service.UserLikeService;
 import com.takefree.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Required;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Date;
 
 /**
  * Created by gaoxiang on 2017/11/4.
