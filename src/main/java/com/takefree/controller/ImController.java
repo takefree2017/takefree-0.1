@@ -56,13 +56,10 @@ public class ImController {
 //    @Authorization
     public Object createUser(@RequestBody User user) throws SimpleHttpException{ 
 
-    	if (user == null) {
-    		throw new SimpleHttpException(HttpStatus.BAD_REQUEST, "用户id或密码不能为空"); 
+    	if (user.getUsername() == null) {
+    		throw new SimpleHttpException(HttpStatus.BAD_REQUEST, "用户id不能为空"); 
 		}
         RegisterUsers users = new RegisterUsers();
-//        User user = new User();
-//        user.setUsername(id2);
-//        user.setPassword(SecureUtil.md5(password));//用takefree端密码再做一次md5生成环信端密码,所以手机端与环信通信应该是3次md5
         users.add(user);
 		return easemobIMUsers.createNewIMUserSingle(users);
     }
