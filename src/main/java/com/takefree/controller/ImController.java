@@ -6,6 +6,8 @@ import io.swagger.client.model.User;
 
 import java.util.Random;
 
+import javax.annotation.security.RolesAllowed;
+
 //import org.slf4j.Logger;
 //import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -36,6 +38,7 @@ public class ImController {
 
    @RequestMapping(value = "test",method = RequestMethod.GET)
    @ResponseBody   
+   @RolesAllowed("ROLE_ADMIN")
    public Object test() { 
    	   RegisterUsers users = new RegisterUsers();
        User user = new User();
