@@ -248,4 +248,16 @@ public interface IMUserAPI {
 	 *      70chatroommgmt
 	 */
 	Object getIMUserAllChatRooms(String userName);
+	
+	/**
+	 * 发送消息 <br>
+	 * POST
+	 * 
+	 * @param userName
+	 *            用戶名或用戶ID
+	 * @return
+	 * @see http://docs.easemob.com/doku.php?id=start:100serverintegration:
+	 *      70chatroommgmt
+	 */
+	Object sendMsg(String from,String to,String msg);
 }

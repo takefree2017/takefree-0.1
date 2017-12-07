@@ -34,20 +34,6 @@ public class ImController {
 
 //    private static final Logger logger = LoggerFactory.getLogger(ImController.class);
     private EasemobIMUsers easemobIMUsers = new EasemobIMUsers();
-
-
-   @RequestMapping(value = "test",method = RequestMethod.GET)
-   @ResponseBody   
-   @RolesAllowed("ROLE_ADMIN")
-   public Object test() { 
-   	   RegisterUsers users = new RegisterUsers();
-       User user = new User();
-       user.setUsername("test" + new Random().nextInt(500));
-       user.setPassword(SecureUtil.md5("dddffff"));//用takefree端密码再做一次md5生成环信端密码,所以手机端与环信通信应该是3次md5
-       users.add(user);
-	   return easemobIMUsers.createNewIMUserSingle(users);
-   }
-    
     
     /**
      *
@@ -123,19 +109,28 @@ public class ImController {
     public JsonObjectBase getFriend(@RequestAttribute("id") String id) {
         return JsonObjectUtils.buildSimpleObjectSuccess(easemobIMUsers.getFriends(id));
     }
+
+    /**
+    *
+    * 发消息
+    */
+    @RequestMapping(value = "sendmsg/{from}/{to}/{msg}",method = RequestMethod.GET)
+    @ResponseBody   
+ //   @RolesAllowed("ROLE_ADMIN")
+//    public Object sendMsg(@RequestAttribute("from") String from,@RequestAttribute("to") String to,@RequestAttribute("msg") String msg) { 
+    public Object sendMsg(@PathVariable("from") String from,@PathVariable("to") String to,@PathVariable("msg") String msg) { 
+ 	   return easemobIMUsers.sendMsg(from, to, msg);
+    }
     
-//  public void getUserByName() {
-//  String userName = "stringa";
-//  Object result = easemobIMUsers.getIMUserByUserName(userName);
-//  logger.info(result.toString());
-//}
-//
-//
-//public void gerUsers() {
-//  Object result = easemobIMUsers.getIMUsersBatch(5L, null);
-//  logger.info(result.toString());
-//}
-
-
-
+    /**
+    *
+    * 获取环信端用户离线消息数
+    */
+    @RequestMapping(value = "msgcount/{id}",method = RequestMethod.GET)
+    @ResponseBody   
+ //   @RolesAllowed("ROLE_ADMIN")
+    public Object msgCount(@PathVariable("id") String id) { 
+ 	   return easemobIMUsers.getOfflineMsgCount(id);
+    }
+     
 }
