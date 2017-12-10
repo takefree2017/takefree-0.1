@@ -6,6 +6,8 @@ import com.takefree.pojo.model.ShareCategory;
 import com.takefree.pojo.model.SharePic;
 import lombok.Data;
 import org.hibernate.validator.constraints.NotBlank;
+
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -41,7 +43,7 @@ public class ShareDTO implements Serializable {
     private String ownerNickName;
 
     /**
-     * 分享者昵称
+     * 分享者小图像
      */
     @JsonView(ResultView.BriefView.class)
     private String ownerSmallIcon;
@@ -115,6 +117,19 @@ public class ShareDTO implements Serializable {
     private String description;
 
     /**
+     * 数量
+     */
+    @JsonView(ResultView.BriefView.class)
+    @NotNull
+    private Integer number;
+
+    /**
+     * 送出数量
+     */
+    @JsonView(ResultView.BriefView.class)
+    private Integer takeNumber;
+
+    /**
      * 打开次数
      */
     @JsonView(ResultView.BriefView.class)
@@ -137,18 +152,6 @@ public class ShareDTO implements Serializable {
      */
     @JsonView(ResultView.BriefView.class)
     private Integer newApplyCount;
-
-//    /**
-//     * 最后申请时间
-//     */
-//    @JsonView(ResultView.AllView.class)
-//    private Date lastApplyTime;
-//
-//    /**
-//     * 最后查看申请时间
-//     */
-//    @JsonView(ResultView.AllView.class)
-//    private Date lastApplyViewTime;
 
     /**
      * 评论

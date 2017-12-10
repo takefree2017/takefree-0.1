@@ -60,16 +60,34 @@ public class TakeOrder implements Serializable {
     private Long addressId;
 
     /**
-     * 物品或分享当前状态, 10初始状态; 20发布者已填运单号; 30申请人已评价; 40申请人已显摆; 40已评价并已显摆
+     * 物品或分享当前状态, 10初始状态; 20 完成
      * @mbg.generated
      */
     private Integer status;
 
     /**
+     * 物流状态。10,无物流信息；20，物流中；30已收货
+     * @mbg.generated
+     */
+    private Integer logisticsStatus;
+
+    /**
+     * 订单评价状态 10未评价，20已评价
+     * @mbg.generated
+     */
+    private Integer rateStatus;
+
+    /**
+     * 显摆状态 10:未显摆 20:已显摆
+     * @mbg.generated
+     */
+    private Integer showStatus;
+
+    /**
      * 记录插入时间
      * @mbg.generated
      */
-    private Date gmtCreate;
+    private Integer gmtCreate;
 
     /**
      * 最后修改时间

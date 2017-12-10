@@ -87,6 +87,7 @@ public interface ShareCounterMapper {
 
     /**
      *
+     * TODO 只适用新增加申请，删除需要优化
      * @param shareId
      * @param number 整数增加，负数减少
      * @return
@@ -103,10 +104,26 @@ public interface ShareCounterMapper {
 
     /**
      *
+     * TODO 只适用新增回复，删除需要优化
      * @param shareId
      * @param number 整数增加，负数减少
      * @return
      */
     int changeCommentCount(@Param("shareId") Long shareId,@Param("number") Integer number);
+
+    /**
+     * @param shareId
+     * @param number 整数增加，负数减少
+     * @return
+     */
+    int changeNumber(@Param("shareId") Long shareId,@Param("number") Integer number);
+
+    /**
+     *
+     * @param shareId
+     * @param number 整数增加，负数减少
+     * @return
+     */
+    int changeTakeNumber(@Param("shareId") Long shareId,@Param("number") Integer number);
 
 }

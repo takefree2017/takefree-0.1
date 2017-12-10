@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.*;
  * Created by gaoxiang on 2017/11/4.
  */
 @Controller
-@RequestMapping(value = "/like/user")
+@RequestMapping
 public class UserLikeController {
     @Autowired
     private UserService userService;
@@ -32,7 +32,7 @@ public class UserLikeController {
     /**
      * 新建
      */
-    @RequestMapping(value = "",method = RequestMethod.POST)
+    @RequestMapping(value = "/userlike",method = RequestMethod.POST)
     @ResponseBody
     @Authorization
     public JsonSimpleObject<UserLike> create(@RequestAttribute(Constants.TAKEFREE_TOKEN) Token token, @RequestParam Long folleweeId) throws Exception{
@@ -71,7 +71,7 @@ public class UserLikeController {
      * @return
      * @throws Exception
      */
-    @RequestMapping(value = "/{id}",method = RequestMethod.DELETE)
+    @RequestMapping(value = "/userlike/{id}",method = RequestMethod.DELETE)
     @ResponseBody
     @Authorization
     public JsonSimpleObject<UserLike> deleteById(@RequestAttribute(Constants.TAKEFREE_TOKEN) Token token, @PathVariable Long id) throws Exception{
@@ -96,10 +96,10 @@ public class UserLikeController {
      * @return
      * @throws Exception
      */
-    @RequestMapping(value = "",method = RequestMethod.DELETE)
+    @RequestMapping(value = "/userlike",method = RequestMethod.DELETE)
     @ResponseBody
     @Authorization
-    public JsonSimpleObject<UserLike> deleteByFolloweeId(@RequestAttribute(Constants.TAKEFREE_TOKEN) Token token, @RequestParam Long folleweeId) throws Exception{
+    public JsonSimpleObject<UserLike> deleteByFolloweeId(@RequestAttribute(Constants.TAKEFREE_TOKEN) Token token, @RequestParam(required=true) Long folleweeId) throws Exception{
         UserLike userLike=userLikeService.getByFollowerAndFollowee(token.getUserDTO().getId(),folleweeId);
         if(userLike==null){
             throw new SimpleHttpException(HttpStatus.BAD_REQUEST, "未关注");

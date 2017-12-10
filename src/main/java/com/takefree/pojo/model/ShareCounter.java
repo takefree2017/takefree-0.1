@@ -18,6 +18,18 @@ public class ShareCounter implements Serializable {
     private Long shareId;
 
     /**
+     * 数量
+     * @mbg.generated
+     */
+    private Integer number;
+
+    /**
+     * 送出数量
+     * @mbg.generated
+     */
+    private Integer takeNumber;
+
+    /**
      * 打开次数
      * @mbg.generated
      */

@@ -17,6 +17,9 @@
     <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
     <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
     <result column="version" jdbcType="INTEGER" property="version" />
+    <result column="logistics_status" jdbcType="INTEGER" property="logisticsStatus" />
+    <result column="rate_status" jdbcType="INTEGER" property="rateStatus" />
+    <result column="show_status" jdbcType="INTEGER" property="showStatus" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <!--
@@ -87,7 +90,7 @@
       WARNING - @mbg.generated
     -->
     id, share_id, owner_id, applicant_id, application_id, take_time, take_type, address_id, 
-    status, gmt_create, gmt_modified, version
+    status, gmt_create, gmt_modified, version, logistics_status, rate_status, show_status
   </sql>
   <select id="selectByExample" parameterType="com.takefree.pojo.query.TakeOrderQuery" resultMap="BaseResultMap">
     <!--
@@ -146,14 +149,16 @@
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into take_order (share_id, owner_id, applicant_id, 
-      application_id, take_time, take_type, 
-      address_id, status, gmt_create, 
-      gmt_modified, version)
-    values (#{shareId,jdbcType=BIGINT}, #{ownerId,jdbcType=BIGINT}, #{applicantId,jdbcType=BIGINT}, 
-      #{applicationId,jdbcType=BIGINT}, #{takeTime,jdbcType=TIMESTAMP}, #{takeType,jdbcType=TINYINT}, 
-      #{addressId,jdbcType=BIGINT}, #{status,jdbcType=TINYINT}, #{gmtCreate,jdbcType=TIMESTAMP}, 
-      #{gmtModified,jdbcType=TIMESTAMP}, #{version,jdbcType=INTEGER})
+    insert into take_order (share_id, owner_id, applicant_id,
+    application_id, take_time, take_type,
+    address_id, status, gmt_create,
+    gmt_modified, version, logistics_status,
+    rate_status, show_status)
+    values (#{shareId,jdbcType=BIGINT}, #{ownerId,jdbcType=BIGINT}, #{applicantId,jdbcType=BIGINT},
+    #{applicationId,jdbcType=BIGINT}, #{takeTime,jdbcType=TIMESTAMP}, #{takeType,jdbcType=TINYINT},
+    #{addressId,jdbcType=BIGINT}, #{status,jdbcType=TINYINT}, #{gmtCreate,jdbcType=TIMESTAMP},
+    #{gmtModified,jdbcType=TIMESTAMP}, #{version,jdbcType=INTEGER}, #{logisticsStatus,jdbcType=TINYINT},
+    #{rateStatus,jdbcType=TINYINT}, #{showStatus,jdbcType=TINYINT})
   </insert>
   <insert id="insertSelective" parameterType="com.takefree.pojo.model.TakeOrder">
     <!--
@@ -197,6 +202,15 @@
       <if test="version != null">
         version,
       </if>
+      <if test="logisticsStatus != null">
+        logistics_status,
+      </if>
+      <if test="rateStatus != null">
+        rate_status,
+      </if>
+      <if test="showStatus != null">
+        show_status,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="shareId != null">
@@ -231,6 +245,15 @@
       </if>
       <if test="version != null">
         #{version,jdbcType=INTEGER},
+      </if>
+      <if test="logisticsStatus != null">
+        #{logisticsStatus,jdbcType=TINYINT},
+      </if>
+      <if test="rateStatus != null">
+        #{rateStatus,jdbcType=TINYINT},
+      </if>
+      <if test="showStatus != null">
+        #{showStatus,jdbcType=TINYINT},
       </if>
     </trim>
   </insert>
@@ -282,6 +305,15 @@
       <if test="record.gmtModified != null">
         gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP},
       </if>
+      <if test="record.logisticsStatus != null">
+        logistics_status = #{record.logisticsStatus,jdbcType=TINYINT},
+      </if>
+      <if test="record.rateStatus != null">
+        rate_status = #{record.rateStatus,jdbcType=TINYINT},
+      </if>
+      <if test="record.showStatus != null">
+        show_status = #{record.showStatus,jdbcType=TINYINT},
+      </if>
       version = version+1
     </set>
     <if test="_parameter != null">
@@ -304,6 +336,9 @@
       status = #{record.status,jdbcType=TINYINT},
       gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
       gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP},
+      logistics_status = #{record.logisticsStatus,jdbcType=TINYINT},
+      rate_status = #{record.rateStatus,jdbcType=TINYINT},
+      show_status = #{record.showStatus,jdbcType=TINYINT}，
       version = version+1
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -345,6 +380,15 @@
       <if test="gmtModified != null">
         gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
       </if>
+      <if test="logisticsStatus != null">
+        logistics_status = #{logisticsStatus,jdbcType=TINYINT},
+      </if>
+      <if test="rateStatus != null">
+        rate_status = #{rateStatus,jdbcType=TINYINT},
+      </if>
+      <if test="showStatus != null">
+        show_status = #{showStatus,jdbcType=TINYINT},
+      </if>
       version = version + 1
     </set>
     where id = #{id,jdbcType=BIGINT}
@@ -364,7 +408,19 @@
       status = #{status,jdbcType=TINYINT},
       gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
       gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      logistics_status = #{logisticsStatus,jdbcType=TINYINT},
+      rate_status = #{rateStatus,jdbcType=TINYINT},
+      show_status = #{showStatus,jdbcType=TINYINT}，
       version = version + 1
     where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <update id="insertOrders" parameterType="com.takefree.pojo.query.TakeApplicationQuery">
+    insert into take_order(application_id,share_id,owner_id,applicant_id,take_type,address_id)
+    SELECT id as application_id,share_id,owner_id,applicant_id,apply_type,address_id
+    FROM take_application
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
   </update>
 </mapper>

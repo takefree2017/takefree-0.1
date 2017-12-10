@@ -1,5 +1,8 @@
 package com.takefree.service.impl;
 
+import com.takefree.dto.mapper.ShareDTOMapper;
+import com.takefree.dto.model.ShareDTO;
+import com.takefree.dto.query.ShareDTOQuery;
 import com.takefree.pojo.mapper.ShareCounterMapper;
 import com.takefree.pojo.mapper.ShareLikeMapper;
 import com.takefree.pojo.model.ShareLike;
@@ -22,6 +25,9 @@ public class ShareLikeServiceImpl implements ShareLikeService {
     @Autowired
     private ShareCounterMapper shareCounterMapper;
 
+    @Autowired
+    private ShareDTOMapper shareDTOMapper;
+
     @Override
     @Transactional
     public ShareLike create(ShareLike shareLike) {
@@ -35,12 +41,13 @@ public class ShareLikeServiceImpl implements ShareLikeService {
         ShareLikeQuery shareLikeQuery=new ShareLikeQuery();
         shareLikeQuery.createCriteria().andShareIdEqualTo(shareId).andUserIdEqualTo(userId);
         int i=shareLikeMapper.deleteByExample(shareLikeQuery);
+        //TODO 修改恢复数量有bug，无论是否新申请都将新申请数量减1
         shareCounterMapper.changeLikeCount(shareId,-i);
         return true;
     }
 
     @Override
-    public List<ShareLike> getList(Integer page, Integer size, Long maxId, Long shareId, Long userId) {
+    public List<ShareLike> getShareLikes(Integer page, Integer size, Long maxId, Long shareId, Long userId) {
         ShareLikeQuery shareLikeQuery=new ShareLikeQuery();
         if (page != null && size != null) {
             shareLikeQuery.page(page, size);
@@ -72,5 +79,31 @@ public class ShareLikeServiceImpl implements ShareLikeService {
             criteria.andUserIdEqualTo(userId);
         }
         return shareLikeMapper.countByExample(shareLikeQuery);
+    }
+
+
+    @Override
+    public List<ShareDTO> getUserLikeShareInfos(Integer page, Integer size, Long userId, Long ownerId, Integer shareStatus){
+        ShareDTOQuery shareDTOQuery = new ShareDTOQuery();
+        if (page != null && size != null) {
+            shareDTOQuery.page(page, size);
+        }
+        if (page == null && size != null) {
+            shareDTOQuery.limit(size);
+        }
+
+
+        ShareDTOQuery.Criteria criteria = shareDTOQuery.createCriteria();
+        criteria.andLikeUserEqualTo(userId);
+        if (shareStatus != null) {
+            criteria.andStatusEqualTo(shareStatus);
+        }
+        if (ownerId != null) {
+            criteria.andOwnerIdEqualTo(ownerId);
+        }
+
+        shareDTOQuery.setOrderByClause("share_like.id desc");
+
+        return shareDTOMapper.selectLikeShareInfoListByExample(shareDTOQuery);
     }
 }

@@ -15,6 +15,8 @@
         <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified"/>
         <result column="version" jdbcType="INTEGER" property="version"/>
         <result column="category_id" jdbcType="BIGINT" property="categoryId"/>
+        <result column="number" jdbcType="INTEGER" property="number"/>
+        <result column="take_number" jdbcType="INTEGER" property="takeNumber"/>
         <result column="view_count" jdbcType="INTEGER" property="viewCount"/>
         <result column="like_count" jdbcType="INTEGER" property="likeCount"/>
         <result column="apply_count" jdbcType="INTEGER" property="applyCount"/>
@@ -51,7 +53,7 @@
         </foreach>
     </sql>
     <sql id="Base_Column_List">
-    share.*,share_counter.view_count,share_counter.like_count,share_counter.apply_count,share_counter.new_apply_count,share_counter.comment_count,share_counter.new_comment_count,owner.nick_name as owner_nick_name,owner.small_icon as owner_small_icon
+    share.*,share_counter.view_count,share_counter.number, share_counter.take_number,share_counter.like_count,share_counter.apply_count,share_counter.new_apply_count,share_counter.comment_count,share_counter.new_comment_count,owner.nick_name as owner_nick_name,owner.small_icon as owner_small_icon
     </sql>
     <sql id="Detail_Column_List">
         <include refid="Base_Column_List"/>,share_desc.description,share_lbs.longitude,share_lbs.latitude,share_lbs.lbs_description
@@ -112,7 +114,7 @@
         </if>
     </select>
 
-    <select id="selectApplyShareInfoListByExample" parameterType="com.takefree.dto.query.ShareDTOQuery"
+    <select id="selectApplyShareInfoListByExample" parameterType="com.takefree.pojo.query.TakeApplicationQuery"
             resultMap="BaseResultMap">
         select
         <if test="distinct">

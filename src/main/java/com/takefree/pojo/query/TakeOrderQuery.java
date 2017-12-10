@@ -721,62 +721,62 @@ public class TakeOrderQuery {
         }
 
         public Criteria andStatusIsNull() {
-            addCriterion("status is null");
+            addCriterion("take_order.status is null");
             return (Criteria) this;
         }
 
         public Criteria andStatusIsNotNull() {
-            addCriterion("status is not null");
+            addCriterion("take_order.status is not null");
             return (Criteria) this;
         }
 
         public Criteria andStatusEqualTo(Integer value) {
-            addCriterion("status =", value, "status");
+            addCriterion("take_order.status =", value, "status");
             return (Criteria) this;
         }
 
         public Criteria andStatusNotEqualTo(Integer value) {
-            addCriterion("status <>", value, "status");
+            addCriterion("take_order.status <>", value, "status");
             return (Criteria) this;
         }
 
         public Criteria andStatusGreaterThan(Integer value) {
-            addCriterion("status >", value, "status");
+            addCriterion("take_order.status >", value, "status");
             return (Criteria) this;
         }
 
         public Criteria andStatusGreaterThanOrEqualTo(Integer value) {
-            addCriterion("status >=", value, "status");
+            addCriterion("take_order.status >=", value, "status");
             return (Criteria) this;
         }
 
         public Criteria andStatusLessThan(Integer value) {
-            addCriterion("status <", value, "status");
+            addCriterion("take_order.status <", value, "status");
             return (Criteria) this;
         }
 
         public Criteria andStatusLessThanOrEqualTo(Integer value) {
-            addCriterion("status <=", value, "status");
+            addCriterion("take_order.status <=", value, "status");
             return (Criteria) this;
         }
 
         public Criteria andStatusIn(List<Integer> values) {
-            addCriterion("status in", values, "status");
+            addCriterion("take_order.status in", values, "status");
             return (Criteria) this;
         }
 
         public Criteria andStatusNotIn(List<Integer> values) {
-            addCriterion("status not in", values, "status");
+            addCriterion("take_order.status not in", values, "status");
             return (Criteria) this;
         }
 
         public Criteria andStatusBetween(Integer value1, Integer value2) {
-            addCriterion("status between", value1, value2, "status");
+            addCriterion("take_order.status between", value1, value2, "status");
             return (Criteria) this;
         }
 
         public Criteria andStatusNotBetween(Integer value1, Integer value2) {
-            addCriterion("status not between", value1, value2, "status");
+            addCriterion("take_order.status not between", value1, value2, "status");
             return (Criteria) this;
         }
 
@@ -957,6 +957,186 @@ public class TakeOrderQuery {
 
         public Criteria andVersionNotBetween(Integer value1, Integer value2) {
             addCriterion("version not between", value1, value2, "version");
+            return (Criteria) this;
+        }
+
+        public Criteria andLogisticsStatusIsNull() {
+            addCriterion("logistics_status is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andLogisticsStatusIsNotNull() {
+            addCriterion("logistics_status is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andLogisticsStatusEqualTo(Byte value) {
+            addCriterion("logistics_status =", value, "logisticsStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andLogisticsStatusNotEqualTo(Byte value) {
+            addCriterion("logistics_status <>", value, "logisticsStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andLogisticsStatusGreaterThan(Byte value) {
+            addCriterion("logistics_status >", value, "logisticsStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andLogisticsStatusGreaterThanOrEqualTo(Byte value) {
+            addCriterion("logistics_status >=", value, "logisticsStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andLogisticsStatusLessThan(Byte value) {
+            addCriterion("logistics_status <", value, "logisticsStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andLogisticsStatusLessThanOrEqualTo(Byte value) {
+            addCriterion("logistics_status <=", value, "logisticsStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andLogisticsStatusIn(List<Byte> values) {
+            addCriterion("logistics_status in", values, "logisticsStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andLogisticsStatusNotIn(List<Byte> values) {
+            addCriterion("logistics_status not in", values, "logisticsStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andLogisticsStatusBetween(Byte value1, Byte value2) {
+            addCriterion("logistics_status between", value1, value2, "logisticsStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andLogisticsStatusNotBetween(Byte value1, Byte value2) {
+            addCriterion("logistics_status not between", value1, value2, "logisticsStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andRateStatusIsNull() {
+            addCriterion("rate_status is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRateStatusIsNotNull() {
+            addCriterion("rate_status is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRateStatusEqualTo(Byte value) {
+            addCriterion("rate_status =", value, "rateStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andRateStatusNotEqualTo(Byte value) {
+            addCriterion("rate_status <>", value, "rateStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andRateStatusGreaterThan(Byte value) {
+            addCriterion("rate_status >", value, "rateStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andRateStatusGreaterThanOrEqualTo(Byte value) {
+            addCriterion("rate_status >=", value, "rateStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andRateStatusLessThan(Byte value) {
+            addCriterion("rate_status <", value, "rateStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andRateStatusLessThanOrEqualTo(Byte value) {
+            addCriterion("rate_status <=", value, "rateStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andRateStatusIn(List<Byte> values) {
+            addCriterion("rate_status in", values, "rateStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andRateStatusNotIn(List<Byte> values) {
+            addCriterion("rate_status not in", values, "rateStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andRateStatusBetween(Byte value1, Byte value2) {
+            addCriterion("rate_status between", value1, value2, "rateStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andRateStatusNotBetween(Byte value1, Byte value2) {
+            addCriterion("rate_status not between", value1, value2, "rateStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andShowStatusIsNull() {
+            addCriterion("show_status is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andShowStatusIsNotNull() {
+            addCriterion("show_status is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andShowStatusEqualTo(Byte value) {
+            addCriterion("show_status =", value, "showStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andShowStatusNotEqualTo(Byte value) {
+            addCriterion("show_status <>", value, "showStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andShowStatusGreaterThan(Byte value) {
+            addCriterion("show_status >", value, "showStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andShowStatusGreaterThanOrEqualTo(Byte value) {
+            addCriterion("show_status >=", value, "showStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andShowStatusLessThan(Byte value) {
+            addCriterion("show_status <", value, "showStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andShowStatusLessThanOrEqualTo(Byte value) {
+            addCriterion("show_status <=", value, "showStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andShowStatusIn(List<Byte> values) {
+            addCriterion("show_status in", values, "showStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andShowStatusNotIn(List<Byte> values) {
+            addCriterion("show_status not in", values, "showStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andShowStatusBetween(Byte value1, Byte value2) {
+            addCriterion("show_status between", value1, value2, "showStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andShowStatusNotBetween(Byte value1, Byte value2) {
+            addCriterion("show_status not between", value1, value2, "showStatus");
             return (Criteria) this;
         }
     }

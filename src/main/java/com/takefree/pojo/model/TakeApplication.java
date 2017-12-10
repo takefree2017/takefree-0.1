@@ -2,6 +2,7 @@ package com.takefree.pojo.model;
 
 import lombok.Data;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -21,6 +22,7 @@ public class TakeApplication implements Serializable {
      * 分享id
      * @mbg.generated
      */
+    @NotNull(message="分享id不能为空")
     private Long shareId;
 
     /**
@@ -45,12 +47,14 @@ public class TakeApplication implements Serializable {
      * 交易类型, 10邮寄到付; 20见面交易; 30支持两种
      * @mbg.generated
      */
+    @NotNull(message="交易方式不能为空")
     private Byte applyType;
 
     /**
      * 申请者邮寄地址id
      * @mbg.generated
      */
+    //@NotNull(message="地址不能为空")
     private Long addressId;
 
     /**

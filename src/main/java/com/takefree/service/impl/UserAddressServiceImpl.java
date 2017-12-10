@@ -25,7 +25,7 @@ public class UserAddressServiceImpl implements UserAddressService {
     }
 
     @Override
-    public List<UserAddress> getUserAddressByCondition(Long userId,Integer isDefault) {
+    public List<UserAddress> getUserAddresss(Long userId,Integer isDefault) {
         UserAddressQuery userAddressQuery = new UserAddressQuery();
         UserAddressQuery.Criteria criteria = userAddressQuery.createCriteria();
         criteria.andUserIdEqualTo(userId);

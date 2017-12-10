@@ -94,4 +94,25 @@
             </if>
         </if>
     </select>
+    <select id="selectShareApllyUsers" parameterType="com.takefree.pojo.query.TakeApplicationQuery"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from user_info,take_application
+        WHERE user_info.id = take_application.applicant_id
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+        <if test="rows != null">
+            <if test="offset != null">
+                limit ${offset}, ${rows}
+            </if>
+            <if test="offset == null">
+                limit ${rows}
+            </if>
+        </if>
+    </select>
 </mapper>

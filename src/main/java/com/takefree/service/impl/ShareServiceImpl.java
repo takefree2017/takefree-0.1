@@ -3,12 +3,14 @@ package com.takefree.service.impl;
 import com.takefree.common.util.BeanUtils;
 import com.takefree.dto.mapper.ShareDTOMapper;
 import com.takefree.dto.model.ShareDTO;
+import com.takefree.dto.model.UserDTO;
 import com.takefree.dto.query.ShareDTOQuery;
 import com.takefree.enums.ShareStatusEnum;
 import com.takefree.pojo.mapper.*;
 import com.takefree.pojo.model.*;
 import com.takefree.pojo.query.ShareCategoryQuery;
 import com.takefree.pojo.query.SharePicQuery;
+import com.takefree.service.ShareApplyService;
 import com.takefree.service.ShareService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,6 +43,9 @@ public class ShareServiceImpl implements ShareService {
 
     @Autowired
     private SharePicMapper sharePicMapper;
+
+    @Autowired
+    private ShareApplyService applyService;
 
     @Override
     @Transactional
@@ -112,7 +117,7 @@ public class ShareServiceImpl implements ShareService {
 
     @Override
     @Transactional
-    public ShareDTO updateById(ShareDTO shareDTO) {
+    public ShareDTO updateByIdSelective(ShareDTO shareDTO) {
         Share shareInfo = new Share();
         BeanUtils.copyPropertiesIgnoreNull(shareDTO, shareInfo);
         shareMapper.updateByPrimaryKeySelective(shareInfo);
@@ -171,11 +176,13 @@ public class ShareServiceImpl implements ShareService {
         share.setId(id);
         share.setStatus(ShareStatusEnum.DELETE.getCode());
         shareMapper.updateByPrimaryKeySelective(share);
+
+        applyService.updateAllReject(id);
         return true;
     }
 
     @Override
-    public List<ShareDTO> getShareInfoList(Integer page,Integer size,Long maxId,Long ownerId,Integer status) {
+    public List<ShareDTO> getShareInfos(Integer page,Integer size,Long maxId,Long ownerId,Integer status) {
         ShareDTOQuery shareDTOQuery = new ShareDTOQuery();
         if (page != null && size != null) {
             shareDTOQuery.page(page, size);
@@ -203,57 +210,7 @@ public class ShareServiceImpl implements ShareService {
     }
 
     @Override
-    public List<ShareDTO> getLikeShareInfoList(Integer page,Integer size,Long likerId,Long ownerId,Integer status){
-        ShareDTOQuery shareDTOQuery = new ShareDTOQuery();
-        if (page != null && size != null) {
-            shareDTOQuery.page(page, size);
-        }
-        if (page == null && size != null) {
-            shareDTOQuery.limit(size);
-        }
-
-
-        ShareDTOQuery.Criteria criteria = shareDTOQuery.createCriteria();
-        criteria.andLikeUserEqualTo(likerId);
-        if (status != null) {
-            criteria.andStatusEqualTo(status);
-        }
-        if (ownerId != null) {
-            criteria.andOwnerIdEqualTo(ownerId);
-        }
-
-        shareDTOQuery.setOrderByClause("share_like.id desc");
-
-        return shareDTOMapper.selectLikeShareInfoListByExample(shareDTOQuery);
-    }
-
-    @Override
-    public List<ShareDTO> getApplyShareInfoList(Integer page,Integer size,Long applierId,Long ownerId,Integer status){
-        ShareDTOQuery shareDTOQuery = new ShareDTOQuery();
-        if (page != null && size != null) {
-            shareDTOQuery.page(page, size);
-        }
-        if (page == null && size != null) {
-            shareDTOQuery.limit(size);
-        }
-
-
-        ShareDTOQuery.Criteria criteria = shareDTOQuery.createCriteria();
-        criteria.andApplyUserEqualTo(applierId);
-        if (status != null) {
-            criteria.andStatusEqualTo(status);
-        }
-        if (ownerId != null) {
-            criteria.andOwnerIdEqualTo(ownerId);
-        }
-
-        shareDTOQuery.setOrderByClause("share_application.id desc");
-
-        return shareDTOMapper.selectApplyShareInfoListByExample(shareDTOQuery);
-    }
-
-    @Override
-    public List<ShareDTO> getReceivedShareInfoList(Integer page,Integer size,Long reveiverId,Long ownerId){
+    public List<ShareDTO> getReceivedShareInfos(Integer page,Integer size,Long reveiverId,Long ownerId){
         ShareDTOQuery shareDTOQuery = new ShareDTOQuery();
         if (page != null && size != null) {
             shareDTOQuery.page(page, size);
@@ -263,6 +220,7 @@ public class ShareServiceImpl implements ShareService {
         }
 
         ShareDTOQuery.Criteria criteria = shareDTOQuery.createCriteria();
+        //TODO...
         criteria.andReceivedUserEqualTo(reveiverId);
 
         if (ownerId != null) {

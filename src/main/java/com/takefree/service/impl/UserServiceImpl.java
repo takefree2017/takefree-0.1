@@ -105,10 +105,10 @@ public class UserServiceImpl implements UserService {
     public Token loginByPassword(String mobile,String passord) throws Exception{
         List<UserDTO> userDTOS =userDTOMapper.selectByMobile(mobile);
         if(userDTOS.size() == 0) {
-            throw new SimpleHttpException(HttpStatus.BAD_REQUEST, "手机号错误");
+            throw new SimpleHttpException(HttpStatus.BAD_REQUEST, "手机号未注册");
         }
         if(userDTOS.get(0).getStatus() != UserStatusEnum.ACTIVE.getCode()){
-            throw new SimpleHttpException(HttpStatus.BAD_REQUEST, "用户未激活，请用短信方式激活");
+            throw new SimpleHttpException(HttpStatus.BAD_REQUEST, "用户未激活，请用短信方式登录激活");
         }
         if(!Util.encryptPassword(passord).equals(userDTOS.get(0).getPassword())){
             throw new SimpleHttpException(HttpStatus.BAD_REQUEST, "手机号或密码错误");
@@ -123,7 +123,7 @@ public class UserServiceImpl implements UserService {
     public Token loginBySms(String mobile,String smsCode) throws Exception{
         List<UserDTO> userDTOS =userDTOMapper.selectByMobile(mobile);
         if(userDTOS.size() == 0) {
-            throw new SimpleHttpException(HttpStatus.BAD_REQUEST, "手机号错误");
+            throw new SimpleHttpException(HttpStatus.BAD_REQUEST, "手机号未注册");
         }
         UserDTO userDTO = userDTOS.get(0);
         if(smsService.checkCode(mobile,loginSmsReidsPrefix,smsCode)){
@@ -162,7 +162,7 @@ public class UserServiceImpl implements UserService {
     public boolean sendLoginSms(String mobile) throws Exception{
         List<UserDTO> userDTOS =userDTOMapper.selectByMobile(mobile);
         if(userDTOS.size() == 0) {
-            throw new SimpleHttpException(HttpStatus.BAD_REQUEST, "手机号错误");
+            throw new SimpleHttpException(HttpStatus.BAD_REQUEST, "手机号未注册");
         }
         return smsService.sendCode(mobile,loginSmsReidsPrefix,loginSmsTemplete);
     }
@@ -200,7 +200,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<UserDTO> getFollowerByFolloweeId(Integer pageNo,Integer pageSize,Long followeeId){
+    public List<UserDTO> getFollowersByFolloweeId(Integer pageNo,Integer pageSize,Long followeeId){
         UserDTOQuery userDTOQuery=new UserDTOQuery();
         if (pageNo != null && pageSize != null) {
             userDTOQuery.page(pageNo, pageSize);
@@ -228,7 +228,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<UserDTO> getFolloweeByFollowerId(Integer pageNo,Integer pageSize,Long followerId){
+    public List<UserDTO> getFolloweesByFollowerId(Integer pageNo,Integer pageSize,Long followerId){
         UserDTOQuery userDTOQuery=new UserDTOQuery();
         if (pageNo != null && pageSize != null) {
             userDTOQuery.page(pageNo, pageSize);

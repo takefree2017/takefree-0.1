@@ -38,7 +38,7 @@ public class ShareController {
     @ResponseBody
     @Authorization
     @JsonView(ResultView.BriefView.class)
-    public JsonSimpleObject<ShareDTO> createShare(@RequestAttribute(Constants.TAKEFREE_TOKEN) Token token,@RequestBody ShareDTO shareDTO) throws Exception{
+    public JsonSimpleObject<ShareDTO> createShare(@RequestAttribute(Constants.TAKEFREE_TOKEN) Token token,@Valid @RequestBody ShareDTO shareDTO) throws Exception{
         if(shareDTO.getId()!=null){
             throw new SimpleHttpException(HttpStatus.BAD_REQUEST, "分享已经存在");
         }
@@ -64,7 +64,7 @@ public class ShareController {
         }
 
         shareDTO.setId(id);
-        shareService.updateById(shareDTO);
+        shareService.updateByIdSelective(shareDTO);
         return JsonObjectUtils.buildSimpleObjectSuccess(shareDTO);
     }
 
@@ -79,7 +79,7 @@ public class ShareController {
     @ResponseBody
     @Authorization
     @JsonView(ResultView.BriefView.class)
-    public JsonSimpleObject<ShareDTO> publish(@RequestAttribute(Constants.TAKEFREE_TOKEN) Token token,@Valid @RequestBody ShareDTO shareDTO) throws Exception{
+    public JsonSimpleObject<ShareDTO> publishShare(@RequestAttribute(Constants.TAKEFREE_TOKEN) Token token,@Valid @RequestBody ShareDTO shareDTO) throws Exception{
         shareDTO.setStatus(ShareStatusEnum.PUBLISH.getCode());
         shareDTO.setPublishTime(new Date());
         if(shareDTO.getId()==null){ //不存在新建
@@ -95,7 +95,7 @@ public class ShareController {
     @RequestMapping(value = "/{id}",method = RequestMethod.DELETE)
     @ResponseBody
     @Authorization
-    public JsonSimpleObject delete(@RequestAttribute(Constants.TAKEFREE_TOKEN) Token token,@Required @PathVariable Long id) throws Exception{
+    public JsonSimpleObject deleteShare(@RequestAttribute(Constants.TAKEFREE_TOKEN) Token token,@Required @PathVariable Long id) throws Exception{
         ShareDTO shareDTO=shareService.getShareInfoById(id);
         if(shareDTO==null){
             throw new SimpleHttpException(HttpStatus.NOT_FOUND, "分享不存在");
@@ -113,7 +113,7 @@ public class ShareController {
     @RequestMapping(value = "/{id}",method = RequestMethod.GET)
     @ResponseBody
 //    @JsonView(ResultView.DetailView.class)
-    public JsonSimpleObject<ShareDTO> get(@RequestAttribute(value=Constants.TAKEFREE_TOKEN,required = false) Token token,@Required @PathVariable Long id) throws Exception{
+    public JsonSimpleObject<ShareDTO> getShare(@RequestAttribute(value=Constants.TAKEFREE_TOKEN,required = false) Token token,@Required @PathVariable Long id) throws Exception{
         ShareDTO shareDTO=shareService.getShareDetailById(id);
         if(shareDTO==null){
             throw new SimpleHttpException(HttpStatus.NOT_FOUND, "分享不存在");
@@ -141,46 +141,11 @@ public class ShareController {
     @RequestMapping(value = "",method = RequestMethod.GET)
     @ResponseBody
     @JsonView(ResultView.BriefView.class)
-    public JsonObjectList<ShareDTO> getShareList(Integer pageNo,Integer pageSize,Long maxId,Integer status,Long ownerId) throws Exception{
-        List<ShareDTO> shareDTOS=shareService.getShareInfoList(pageNo,pageSize,maxId,ownerId,status);
+    public JsonObjectList<ShareDTO> getShares(Integer pageNo,Integer pageSize,Long maxId,Integer status,Long ownerId) throws Exception{
+        List<ShareDTO> shareDTOS=shareService.getShareInfos(pageNo,pageSize,maxId,ownerId,status);
         return JsonObjectUtils.buildListSuccess(shareDTOS);
     }
 
-    /**
-     * @param token
-     * @param pageNo 可选
-     * @param pageSize 可选
-     * @param status 10(草稿),20(发布中),30(已完成),40(作废)
-     * @param ownerId 可选
-     * @return
-     * @throws Exception
-     */
-    @JsonView(ResultView.BriefView.class)
-    @RequestMapping(value = "/like",method = RequestMethod.GET)
-    @ResponseBody
-    @Authorization
-    public JsonObjectList<ShareDTO> getUserLikeShareInfoList(@RequestAttribute(Constants.TAKEFREE_TOKEN) Token token,Integer pageNo,Integer pageSize,Integer status,Long ownerId) throws Exception{
-        List<ShareDTO> shareDTOS=shareService.getLikeShareInfoList(pageNo,pageSize,token.getUserDTO().getId(),ownerId,status);
-        return JsonObjectUtils.buildListSuccess(shareDTOS);
-    }
-
-    /**
-     * @param token
-     * @param pageNo 可选
-     * @param pageSize 可选
-     * @param status 10(草稿),20(发布中),30(已完成),40(作废)
-     * @param ownerId 可选
-     * @return
-     * @throws Exception
-     */
-    @JsonView(ResultView.BriefView.class)
-    @RequestMapping(value = "/apply",method = RequestMethod.GET)
-    @ResponseBody
-    @Authorization
-    public JsonObjectList<ShareDTO> getUserApplyShareInfoList(@RequestAttribute(Constants.TAKEFREE_TOKEN) Token token,Integer pageNo,Integer pageSize,Integer status,Long ownerId) throws Exception{
-        List<ShareDTO> shareDTOS=shareService.getApplyShareInfoList(pageNo,pageSize,token.getUserDTO().getId(),ownerId,status);
-        return JsonObjectUtils.buildListSuccess(shareDTOS);
-    }
 
     /**
      *
@@ -191,11 +156,12 @@ public class ShareController {
      * @return
      * @throws Exception
      */
+    @JsonView(ResultView.BriefView.class)
     @RequestMapping(value = "/received",method = RequestMethod.GET)
     @ResponseBody
     @Authorization
-    public JsonObjectList<ShareDTO> getShareReceived(@RequestAttribute(Constants.TAKEFREE_TOKEN) Token token,Integer pageNo,Integer pageSize,Long ownerId) throws Exception{
-        List<ShareDTO> shareDTOS=shareService.getReceivedShareInfoList(pageNo,pageSize,token.getUserDTO().getId(),ownerId);
+    public JsonObjectList<ShareDTO> getReceivedShareInfos(@RequestAttribute(Constants.TAKEFREE_TOKEN) Token token,Integer pageNo,Integer pageSize,Long ownerId) throws Exception{
+        List<ShareDTO> shareDTOS=shareService.getReceivedShareInfos(pageNo,pageSize,token.getUserDTO().getId(),ownerId);
         return JsonObjectUtils.buildListSuccess(shareDTOS);
     }
 

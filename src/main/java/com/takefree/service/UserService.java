@@ -29,7 +29,7 @@ public interface UserService {
 
     Boolean logout(Token token) throws Exception;
 
-    List<UserDTO> getFollowerByFolloweeId(Integer pageNo,Integer pageSize,Long followeeId);
+    List<UserDTO> getFollowersByFolloweeId(Integer pageNo,Integer pageSize,Long followeeId);
 
-    List<UserDTO> getFolloweeByFollowerId(Integer pageNo,Integer pageSize,Long followerId);
+    List<UserDTO> getFolloweesByFollowerId(Integer pageNo,Integer pageSize,Long followerId);
 }

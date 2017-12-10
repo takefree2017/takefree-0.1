@@ -14,7 +14,7 @@ public interface UserAddressService {
 
     UserAddress getUserAddressById(Long id);
 
-    List<UserAddress> getUserAddressByCondition(Long userId,Integer isDefault);
+    List<UserAddress> getUserAddresss(Long userId,Integer isDefault);
 
     int create(UserAddress userAddress);
 

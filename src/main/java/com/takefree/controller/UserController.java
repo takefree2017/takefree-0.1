@@ -32,16 +32,18 @@ public class UserController {
     private TokenManager tokenManager;
 
     /**
-     * 新增,必须字段通过Valid检查
+     *
      */
     @RequestMapping(value = "/user", method = RequestMethod.POST)
     @ResponseBody
+    @Authorization
     @JsonView(ResultView.DetailView.class)
-    public JsonSimpleObject<UserDTO> create(@Valid @RequestBody UserDTO userDTO) throws Exception {
+    public JsonSimpleObject<UserDTO> createUser(@RequestAttribute(Constants.TAKEFREE_TOKEN) Token token,@Valid @RequestBody UserDTO userDTO) throws Exception {
         //检查手机是否已经注册
         if (userService.getUserInfoByMobile(userDTO.getMobile()).size() > 0) {
             throw new SimpleHttpException(HttpStatus.BAD_REQUEST, "手机号已经注册");
         }
+        userDTO.setEndorserId(token.getUserDTO().getId());
         boolean result = userService.create(userDTO);
         if (result) {
             return JsonObjectUtils.buildSimpleObjectSuccess(userDTO);
@@ -63,7 +65,9 @@ public class UserController {
     public JsonSimpleObject<Token> loginByPassword(@RequestParam String mobile, @RequestParam String password,
                                                    HttpServletResponse httpServletResponse) throws Exception {
         Token token = userService.loginByPassword(mobile, password);
-        httpServletResponse.addCookie(new Cookie(Constants.TAKEFREE_TOKEN, token.getToken()));
+        Cookie cookie=new Cookie(Constants.TAKEFREE_TOKEN, token.getToken());
+        cookie.setPath("/");
+        httpServletResponse.addCookie(cookie);
         return JsonObjectUtils.buildSimpleObjectSuccess(token);
     }
 
@@ -80,7 +84,9 @@ public class UserController {
     public JsonSimpleObject<Token> loginBySms(@RequestParam String mobile, @RequestParam String smsCode,
                                               HttpServletResponse httpServletResponse) throws Exception {
         Token token = userService.loginBySms(mobile, smsCode);
-        httpServletResponse.addCookie(new Cookie(Constants.TAKEFREE_TOKEN, token.getToken()));
+        Cookie cookie=new Cookie(Constants.TAKEFREE_TOKEN, token.getToken());
+        cookie.setPath("/");
+        httpServletResponse.addCookie(cookie);
         return JsonObjectUtils.buildSimpleObjectSuccess(token);
     }
 
@@ -122,7 +128,7 @@ public class UserController {
     @ResponseBody
     @Authorization
     @JsonView(ResultView.DetailView.class)
-    public JsonSimpleObject update(@RequestAttribute(Constants.TAKEFREE_TOKEN) Token token,
+    public JsonSimpleObject updateUser(@RequestAttribute(Constants.TAKEFREE_TOKEN) Token token,
                                    @RequestBody UserDTO userDTO) throws Exception {
         if (userDTO.getMobile() != null) {
             throw new SimpleHttpException(HttpStatus.FORBIDDEN, "不能通过此接口修改手机号");
@@ -169,7 +175,7 @@ public class UserController {
     @RequestMapping(value = "/user/brief/{userId}", method = RequestMethod.GET)
     @ResponseBody
     @JsonView(ResultView.BriefView.class)
-    public JsonSimpleObject<UserDTO> getBrief(@PathVariable Long userId) throws Exception {
+    public JsonSimpleObject<UserDTO> getUserBrief(@PathVariable Long userId) throws Exception {
         UserDTO user = userService.getUserInfoById(userId);
         if (user == null) {
             throw new SimpleHttpException(HttpStatus.NOT_FOUND, "user not found");
@@ -188,10 +194,10 @@ public class UserController {
     @ResponseBody
     @JsonView(ResultView.UserFollowerView.class)
     @Authorization
-    public JsonObjectList<UserDTO> getFollower(@RequestAttribute(Constants.TAKEFREE_TOKEN) Token token, Integer pageNo,
+    public JsonObjectList<UserDTO> getFollowers(@RequestAttribute(Constants.TAKEFREE_TOKEN) Token token, Integer pageNo,
                                                Integer pageSize) throws Exception {
         return JsonObjectUtils.buildListSuccess(
-                userService.getFollowerByFolloweeId(pageNo, pageSize, token.getUserDTO().getId()));
+                userService.getFollowersByFolloweeId(pageNo, pageSize, token.getUserDTO().getId()));
     }
 
     /**
@@ -205,9 +211,9 @@ public class UserController {
     @ResponseBody
     @JsonView(ResultView.BriefView.class)
     @Authorization
-    public JsonObjectList<UserDTO> getFollowee(@RequestAttribute(Constants.TAKEFREE_TOKEN) Token token, Integer pageNo,
+    public JsonObjectList<UserDTO> getFollowees(@RequestAttribute(Constants.TAKEFREE_TOKEN) Token token, Integer pageNo,
                                                Integer pageSize) throws Exception {
         return JsonObjectUtils.buildListSuccess(
-                userService.getFolloweeByFollowerId(pageNo, pageSize, token.getUserDTO().getId()));
+                userService.getFolloweesByFollowerId(pageNo, pageSize, token.getUserDTO().getId()));
     }
 }

@@ -36,7 +36,7 @@ public class UserAddressController {
     @RequestMapping(value = "/user/address",method = RequestMethod.POST)
     @ResponseBody
     @Authorization
-    public JsonSimpleObject<UserAddress> create(@RequestAttribute(Constants.TAKEFREE_TOKEN) Token token,@Valid @RequestBody UserAddress userAddress) throws Exception{
+    public JsonSimpleObject<UserAddress> createUserAddress(@RequestAttribute(Constants.TAKEFREE_TOKEN) Token token,@Valid @RequestBody UserAddress userAddress) throws Exception{
         userAddress.setUserId(token.getUserDTO().getId());
 
         userAddressService.create(userAddress);
@@ -54,7 +54,7 @@ public class UserAddressController {
     @RequestMapping(value = "/user/address/{id}",method = RequestMethod.DELETE)
     @ResponseBody
     @Authorization
-    public JsonSimpleObject<UserAddress> delete(@RequestAttribute(Constants.TAKEFREE_TOKEN) Token token,@Required @PathVariable Long id) throws Exception{
+    public JsonSimpleObject<UserAddress> deleteUserAddress(@RequestAttribute(Constants.TAKEFREE_TOKEN) Token token,@Required @PathVariable Long id) throws Exception{
         UserAddress userAddress=userAddressService.getUserAddressById(id);
         if(userAddress==null){
             throw new SimpleHttpException(HttpStatus.NOT_FOUND,"user address not found");
@@ -77,7 +77,7 @@ public class UserAddressController {
     @RequestMapping(value = "/user/address/{id}",method = RequestMethod.GET)
     @ResponseBody
     @Authorization
-    public JsonSimpleObject<UserAddress> get(@RequestAttribute(Constants.TAKEFREE_TOKEN) Token token,@Required @PathVariable Long id) throws Exception{
+    public JsonSimpleObject<UserAddress> getUserAddress(@RequestAttribute(Constants.TAKEFREE_TOKEN) Token token,@Required @PathVariable Long id) throws Exception{
         UserAddress userAddress=userAddressService.getUserAddressById(id);
         if(userAddress==null){
             throw new SimpleHttpException(HttpStatus.NOT_FOUND,"user address not found");
@@ -97,8 +97,8 @@ public class UserAddressController {
     @RequestMapping(value = "/user/address",method = RequestMethod.GET)
     @ResponseBody
     @Authorization
-    public JsonObjectList<UserAddress> get(@RequestAttribute(Constants.TAKEFREE_TOKEN) Token token,Integer isDefault) throws Exception{
-        List<UserAddress> userAddresses=userAddressService.getUserAddressByCondition(token.getUserDTO().getId(),isDefault);
+    public JsonObjectList<UserAddress> getUserAddresss(@RequestAttribute(Constants.TAKEFREE_TOKEN) Token token,Integer isDefault) throws Exception{
+        List<UserAddress> userAddresses=userAddressService.getUserAddresss(token.getUserDTO().getId(),isDefault);
 
         return JsonObjectUtils.buildListSuccess(userAddresses);
     }
@@ -113,7 +113,7 @@ public class UserAddressController {
     @RequestMapping(value = "/user/address/{id}",method = RequestMethod.PUT)
     @ResponseBody
     @Authorization
-    public JsonSimpleObject<UserAddress> update(@RequestAttribute(Constants.TAKEFREE_TOKEN) Token token,@Required @PathVariable Long id,@Required @RequestBody UserAddress userAddress) throws Exception{
+    public JsonSimpleObject<UserAddress> updateUserAddress(@RequestAttribute(Constants.TAKEFREE_TOKEN) Token token,@Required @PathVariable Long id,@Required @RequestBody UserAddress userAddress) throws Exception{
         UserAddress oldUserAddress=userAddressService.getUserAddressById(id);
         if(oldUserAddress==null){
             throw new SimpleHttpException(HttpStatus.NOT_FOUND,"user address not found");

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.takefree.dto.mapper.TakeOrderDTOMapper">
+  <resultMap id="BaseResultMap" type="com.takefree.dto.model.TakeOrderDTO">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="share_id" jdbcType="BIGINT" property="shareId" />
+    <result column="owner_id" jdbcType="BIGINT" property="ownerId" />
+    <result column="applicant_id" jdbcType="BIGINT" property="applicantId" />
+    <result column="application_id" jdbcType="BIGINT" property="applicationId" />
+    <result column="take_time" jdbcType="TIMESTAMP" property="takeTime" />
+    <result column="take_type" jdbcType="TINYINT" property="takeType" />
+    <result column="address_id" jdbcType="BIGINT" property="addressId" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="version" jdbcType="INTEGER" property="version" />
+    <result column="logistics_status" jdbcType="INTEGER" property="logisticsStatus" />
+    <result column="rate_status" jdbcType="INTEGER" property="rateStatus" />
+    <result column="show_status" jdbcType="INTEGER" property="showStatus" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+        </if>
+      </foreach>
+  </sql>
+  <sql id="Base_Column_List">
+    take_order.id, take_order.share_id, take_order.owner_id, take_order.applicant_id, take_order.application_id,
+    take_order.take_time, take_order.take_type, take_order.address_id,take_order.status,take_order.gmt_create,
+    take_order.gmt_modified, take_order.version, take_order.logistics_status, take_order.rate_status,take_order.show_status,
+    owner.nick_name as owner_nick_name,owner.small_icon as owner_small_icon,
+    applicant.nick_name as applicant_nick_name,applicant.small_icon as applicant_small_icon,
+    share.pic_homepage as share_pic_homepage
+  </sql>
+  <select id="selectByExample" parameterType="com.takefree.pojo.query.TakeOrderQuery" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from take_order,user_info owner,user_info applicant,share
+    where
+    take_order.share_id=share.id
+    and take_order.owner_id=owner.id
+    and take_order.applicant_id=applicant.id
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="rows != null">
+      <if test="offset != null">
+        limit ${offset}, ${rows}
+      </if>
+      <if test="offset == null">
+        limit ${rows}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from take_order,user_info as owner,user_info as applicant,share
+    where
+    take_order.share_id=share.id
+    and take_order.owner_id=owner.id
+    and take_order.applicant_id=applicant.id
+    and take_order.id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from take_order
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+</mapper>

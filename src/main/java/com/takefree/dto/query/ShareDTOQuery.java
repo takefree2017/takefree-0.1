@@ -875,13 +875,8 @@ public class ShareDTOQuery {
             return (Criteria) this;
         }
 
-        public Criteria andApplyUserEqualTo(Long value) {
-            addCriterion("take_application.applicant_id =", value, "version");
-            return (Criteria) this;
-        }
-
         public Criteria andReceivedUserEqualTo(Long value) {
-            addCriterion("take_application.applicant_id =", value, "version");
+            addCriterion("take_order.applicant_id =", value, "version");
             return (Criteria) this;
         }
     }

@@ -1,6 +1,7 @@
 package com.takefree.pojo.mapper;
 
 import com.takefree.pojo.model.TakeOrder;
+import com.takefree.pojo.query.TakeApplicationQuery;
 import com.takefree.pojo.query.TakeOrderQuery;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -76,4 +77,6 @@ public interface TakeOrderMapper {
      * @mbg.generated
      */
     int updateByPrimaryKey(TakeOrder record);
+
+    int insertOrders(TakeApplicationQuery takeApplicationQuery);
 }

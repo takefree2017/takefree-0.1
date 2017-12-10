@@ -2,6 +2,7 @@ package com.takefree.dto.mapper;
 
 import com.takefree.dto.model.ShareDTO;
 import com.takefree.dto.query.ShareDTOQuery;
+import com.takefree.pojo.query.TakeApplicationQuery;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
@@ -22,7 +23,7 @@ public interface ShareDTOMapper {
 
     public List<ShareDTO> selectLikeShareInfoListByExample(ShareDTOQuery shareDTOQuery);
 
-    public List<ShareDTO> selectApplyShareInfoListByExample(ShareDTOQuery shareDTOQuery);
+    public List<ShareDTO> selectApplyShareInfoListByExample(TakeApplicationQuery takeApplicationQuery);
 
     public List<ShareDTO> selectReceivedShareInfoListByExample(ShareDTOQuery shareDTOQuery);
 }
