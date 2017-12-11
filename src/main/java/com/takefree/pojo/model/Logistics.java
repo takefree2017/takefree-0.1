@@ -1,6 +1,7 @@
 package com.takefree.pojo.model;
 
 import lombok.Data;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -21,12 +22,14 @@ public class Logistics implements Serializable {
      * take成交单号
      * @mbg.generated
      */
+    @NotEmpty(message="订单号不能为空")
     private Long orderId;
 
     /**
      * 物流单号
      * @mbg.generated
      */
+    @NotEmpty(message="物流单号不能为空")
     private String logisticsNumber;
 
     /**

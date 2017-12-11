@@ -15,7 +15,7 @@ import com.takefree.pojo.model.TakeOrder;
 import com.takefree.pojo.query.TakeApplicationQuery;
 import com.takefree.pojo.query.TakeOrderQuery;
 import com.takefree.service.TakeApplicationService;
-import com.takefree.service.ShareOrderService;
+import com.takefree.service.TakeOrderService;
 import com.takefree.service.ShareService;
 import com.takefree.vo.CreateOrderForm;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +28,7 @@ import java.util.List;
  * Created by gaoxiang on 2017/12/10.
  */
 @Service
-public class ShareOrderServiceImpl implements ShareOrderService {
+public class TakeOrderServiceImpl implements TakeOrderService {
     @Autowired
     private ShareService shareService;
 
@@ -106,6 +106,12 @@ public class ShareOrderServiceImpl implements ShareOrderService {
         //TODO...权限检查
         return takeOrderMapper.updateByPrimaryKeySelective(takeOrder);
     }
+
+    @Override
+    public TakeOrderDTO getById(Long id){
+        return takeOrderDTOMapper.selectByPrimaryKey(id);
+    }
+
 
     @Override
     public List<TakeOrderDTO> getOrders(Integer page, Integer size,Long shareId, Long ownerId, Long applicantId, Integer orderStatus) throws Exception{

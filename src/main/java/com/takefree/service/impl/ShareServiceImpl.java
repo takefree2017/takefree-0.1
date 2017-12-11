@@ -3,14 +3,14 @@ package com.takefree.service.impl;
 import com.takefree.common.util.BeanUtils;
 import com.takefree.dto.mapper.ShareDTOMapper;
 import com.takefree.dto.model.ShareDTO;
-import com.takefree.dto.model.UserDTO;
 import com.takefree.dto.query.ShareDTOQuery;
 import com.takefree.enums.ShareStatusEnum;
 import com.takefree.pojo.mapper.*;
 import com.takefree.pojo.model.*;
 import com.takefree.pojo.query.ShareCategoryQuery;
 import com.takefree.pojo.query.SharePicQuery;
-import com.takefree.service.ShareApplyService;
+import com.takefree.pojo.query.TakeApplicationQuery;
+import com.takefree.service.TakeApplicationService;
 import com.takefree.service.ShareService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -45,7 +45,7 @@ public class ShareServiceImpl implements ShareService {
     private SharePicMapper sharePicMapper;
 
     @Autowired
-    private ShareApplyService applyService;
+    private TakeApplicationService applyService;
 
     @Override
     @Transactional
@@ -248,4 +248,55 @@ public class ShareServiceImpl implements ShareService {
             return true;
         }
     }
+
+    @Override
+    public List<ShareDTO> getApplyShareInfos(Integer page, Integer size, Long applierId, Long ownerId, Integer applyStatus){
+        TakeApplicationQuery takeApplicationQuery = new TakeApplicationQuery();
+        if (page != null && size != null) {
+            takeApplicationQuery.page(page, size);
+        }
+        if (page == null && size != null) {
+            takeApplicationQuery.limit(size);
+        }
+
+
+        TakeApplicationQuery.Criteria criteria = takeApplicationQuery.createCriteria();
+        criteria.andApplicantIdEqualTo(applierId);
+        if (applyStatus != null) {
+            criteria.andStatusEqualTo(applyStatus);
+        }
+        if (ownerId != null) {
+            criteria.andOwnerIdEqualTo(ownerId);
+        }
+
+        takeApplicationQuery.setOrderByClause("take_application.id desc");
+
+        return shareDTOMapper.selectApplyShareInfoListByExample(takeApplicationQuery);
+    }
+
+    @Override
+    public List<ShareDTO> getUserLikeShareInfos(Integer page, Integer size, Long userId, Long ownerId, Integer shareStatus){
+        ShareDTOQuery shareDTOQuery = new ShareDTOQuery();
+        if (page != null && size != null) {
+            shareDTOQuery.page(page, size);
+        }
+        if (page == null && size != null) {
+            shareDTOQuery.limit(size);
+        }
+
+
+        ShareDTOQuery.Criteria criteria = shareDTOQuery.createCriteria();
+        criteria.andLikeUserEqualTo(userId);
+        if (shareStatus != null) {
+            criteria.andStatusEqualTo(shareStatus);
+        }
+        if (ownerId != null) {
+            criteria.andOwnerIdEqualTo(ownerId);
+        }
+
+        shareDTOQuery.setOrderByClause("share_like.id desc");
+
+        return shareDTOMapper.selectLikeShareInfoListByExample(shareDTOQuery);
+    }
+
 }

@@ -1,11 +1,14 @@
 package com.takefree.service.impl;
 
 import com.takefree.dto.mapper.ShareDTOMapper;
+import com.takefree.dto.mapper.TakeApplicationDTOMapper;
 import com.takefree.dto.mapper.UserDTOMapper;
+import com.takefree.dto.model.TakeApplicationDTO;
 import com.takefree.dto.model.UserDTO;
 import com.takefree.enums.ApplyStatusEnum;
 import com.takefree.pojo.mapper.ShareCounterMapper;
 import com.takefree.pojo.mapper.TakeApplicationMapper;
+import com.takefree.pojo.model.TakeApplication;
 import com.takefree.pojo.query.TakeApplicationQuery;
 import com.takefree.service.TakeApplicationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +20,7 @@ import java.util.List;
  * Created by gaoxiang on 2017/12/10.
  */
 @Service
-public class TakeApplicationService implements TakeApplicationService {
+public class TakeApplicationServiceImpl implements TakeApplicationService {
     @Autowired
     private ShareDTOMapper shareDTOMapper;
 
@@ -28,10 +31,13 @@ public class TakeApplicationService implements TakeApplicationService {
     private TakeApplicationMapper takeApplicationMapper;
 
     @Autowired
+    private TakeApplicationDTOMapper takeApplicationDTOMapper;
+
+    @Autowired
     private UserDTOMapper userDTOMapper;
 
     @Override
-    public com.takefree.pojo.model.TakeApplication create(com.takefree.pojo.model.TakeApplication takeApplication) {
+    public TakeApplication create(TakeApplication takeApplication) {
         takeApplicationMapper.insertSelective(takeApplication);
         shareCounterMapper.changeApplyCount(takeApplication.getShareId(),1);
         return takeApplication;
@@ -45,8 +51,13 @@ public class TakeApplicationService implements TakeApplicationService {
     }
 
     @Override
-    public com.takefree.pojo.model.TakeApplication getById(Long id) {
-        return takeApplicationMapper.selectByPrimaryKey(id);
+    public long updateById(TakeApplication takeApplication) {
+        return takeApplicationMapper.updateByPrimaryKeySelective(takeApplication);
+    }
+
+    @Override
+    public TakeApplicationDTO getById(Long id) {
+        return takeApplicationDTOMapper.selectByPrimaryKey(id);
     }
 
     @Override
@@ -60,7 +71,7 @@ public class TakeApplicationService implements TakeApplicationService {
 
     @Override
     public long updateAllReject(Long shareId) {
-        com.takefree.pojo.model.TakeApplication takeApplication=new com.takefree.pojo.model.TakeApplication();
+        TakeApplication takeApplication=new TakeApplication();
         takeApplication.setStatus(ApplyStatusEnum.REJECT.getCode());
 
         TakeApplicationQuery takeApplicationQuery=new TakeApplicationQuery();
@@ -70,7 +81,6 @@ public class TakeApplicationService implements TakeApplicationService {
 
         return takeApplicationMapper.updateByExampleSelective(takeApplication,takeApplicationQuery);
     }
-
 
 
     @Override
@@ -92,5 +102,37 @@ public class TakeApplicationService implements TakeApplicationService {
         takeApplicationQuery.setOrderByClause("take_application.id desc");
 
         return userDTOMapper.selectShareApllyUsers(takeApplicationQuery);
+    }
+
+    @Override
+    public List<TakeApplicationDTO> getApplys(Integer page, Integer size, Long shareId, Long ownerId, Long applicantId, Integer orderStatus) throws Exception{
+        TakeApplicationQuery takeApplicationQuery=new TakeApplicationQuery();
+        if (page != null && size != null) {
+            takeApplicationQuery.page(page, size);
+        }
+
+        if (page == null && size != null) {
+            takeApplicationQuery.limit(size);
+        }
+
+        TakeApplicationQuery.Criteria criteria = takeApplicationQuery.createCriteria();
+        if (shareId != null) {
+            criteria.andShareIdEqualTo(shareId);
+        }
+
+        if (ownerId != null) {
+            criteria.andOwnerIdEqualTo(ownerId);
+        }
+
+        if(applicantId!=null){
+            criteria.andApplicantIdEqualTo(applicantId);
+        }
+
+        if (orderStatus != null) {
+            criteria.andStatusEqualTo(orderStatus);
+        }
+        takeApplicationQuery.setOrderByClause("take_application.id desc");
+
+        return takeApplicationDTOMapper.selectByExample(takeApplicationQuery);
     }
 }

@@ -1,7 +1,6 @@
 package com.takefree.service;
 
-
-import com.takefree.dto.model.ShareDTO;
+import com.takefree.dto.model.ShareLikeDTO;
 import com.takefree.pojo.model.ShareLike;
 
 import java.util.List;
@@ -23,7 +22,7 @@ public interface ShareLikeService {
      * @param userId 可为NULL
      * @return
      */
-    List<ShareLike> getShareLikes(Integer page,Integer size,Long maxId,Long shareId,Long userId);
+    List<ShareLikeDTO> getShareLikes(Integer page, Integer size, Long maxId, Long shareId, Long userId);
 
     /**
      *
@@ -33,16 +32,7 @@ public interface ShareLikeService {
      */
     long getCount(Long shareId,Long userId);
 
-    /**
-     * 用户喜欢列表
-     * @param page 可为NULL
-     * @param size 可为NULL
-     * @param userId
-     * @param ownerId 可为NULL
-     * @param shareStatus 可为NULL
-     * @return
-     */
-    List<ShareDTO> getUserLikeShareInfos(Integer page, Integer size, Long userId, Long ownerId, Integer shareStatus);
+
 
 
 }

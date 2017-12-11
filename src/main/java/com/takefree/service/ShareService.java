@@ -20,6 +20,18 @@ public interface ShareService {
 
     List<ShareDTO> getShareInfos(Integer page,Integer size,Long maxId,Long ownerId,Integer status);
 
+    /**
+     * 用户喜欢列表
+     * @param page 可为NULL
+     * @param size 可为NULL
+     * @param userId
+     * @param ownerId 可为NULL
+     * @param shareStatus 可为NULL
+     * @return
+     */
+    List<ShareDTO> getUserLikeShareInfos(Integer page, Integer size, Long userId, Long ownerId, Integer shareStatus);
+
+    List<ShareDTO> getApplyShareInfos(Integer page, Integer size, Long applierId, Long ownerId, Integer applyStatus);
 
     /**
      * 用户收货列表

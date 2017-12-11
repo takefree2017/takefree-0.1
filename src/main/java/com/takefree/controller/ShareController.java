@@ -10,9 +10,11 @@ import com.takefree.common.entry.ResultView;
 import com.takefree.common.entry.Token;
 import com.takefree.common.util.JsonObjectUtils;
 import com.takefree.common.web.constant.HttpStatus;
+import com.takefree.dto.model.TakeOrderDTO;
 import com.takefree.enums.ShareStatusEnum;
 import com.takefree.dto.model.ShareDTO;
 import com.takefree.service.ShareService;
+import com.takefree.service.TakeOrderService;
 import org.apache.logging.log4j.core.config.plugins.validation.constraints.Required;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,15 +28,18 @@ import java.util.List;
  * Created by gaoxiang on 2017/11/4.
  */
 @Controller
-@RequestMapping(value = "/share")
+@RequestMapping
 public class ShareController {
     @Autowired
     private ShareService shareService;
 
+    @Autowired
+    private TakeOrderService takeOrderService;
+
     /**
      * 新建
      */
-    @RequestMapping(value = "",method = RequestMethod.POST)
+    @RequestMapping(value = "/share",method = RequestMethod.POST)
     @ResponseBody
     @Authorization
     @JsonView(ResultView.BriefView.class)
@@ -50,7 +55,7 @@ public class ShareController {
     /**
      * 更新
      */
-    @RequestMapping(value = "/{id}",method = RequestMethod.PUT)
+    @RequestMapping(value = "/share/{id}",method = RequestMethod.PUT)
     @ResponseBody
     @Authorization
     @JsonView(ResultView.BriefView.class)
@@ -75,7 +80,7 @@ public class ShareController {
      * @return
      * @throws Exception
      */
-    @RequestMapping(value = "/publish",method = RequestMethod.POST)
+    @RequestMapping(value = "/share/publish",method = RequestMethod.POST)
     @ResponseBody
     @Authorization
     @JsonView(ResultView.BriefView.class)
@@ -92,7 +97,7 @@ public class ShareController {
     /**
      * 删除，非物理删除。status=40
      */
-    @RequestMapping(value = "/{id}",method = RequestMethod.DELETE)
+    @RequestMapping(value = "/share/{id}",method = RequestMethod.DELETE)
     @ResponseBody
     @Authorization
     public JsonSimpleObject deleteShare(@RequestAttribute(Constants.TAKEFREE_TOKEN) Token token,@Required @PathVariable Long id) throws Exception{
@@ -110,7 +115,7 @@ public class ShareController {
      * @return
      * @throws Exception
      */
-    @RequestMapping(value = "/{id}",method = RequestMethod.GET)
+    @RequestMapping(value = "/share/{id}",method = RequestMethod.GET)
     @ResponseBody
 //    @JsonView(ResultView.DetailView.class)
     public JsonSimpleObject<ShareDTO> getShare(@RequestAttribute(value=Constants.TAKEFREE_TOKEN,required = false) Token token,@Required @PathVariable Long id) throws Exception{
@@ -138,7 +143,7 @@ public class ShareController {
      * @return
      * @throws Exception
      */
-    @RequestMapping(value = "",method = RequestMethod.GET)
+    @RequestMapping(value = "/share",method = RequestMethod.GET)
     @ResponseBody
     @JsonView(ResultView.BriefView.class)
     public JsonObjectList<ShareDTO> getShares(Integer pageNo,Integer pageSize,Long maxId,Integer status,Long ownerId) throws Exception{
@@ -157,7 +162,7 @@ public class ShareController {
      * @throws Exception
      */
     @JsonView(ResultView.BriefView.class)
-    @RequestMapping(value = "/received",method = RequestMethod.GET)
+    @RequestMapping(value = "/share/takein",method = RequestMethod.GET)
     @ResponseBody
     @Authorization
     public JsonObjectList<ShareDTO> getReceivedShareInfos(@RequestAttribute(Constants.TAKEFREE_TOKEN) Token token,Integer pageNo,Integer pageSize,Long ownerId) throws Exception{
@@ -165,4 +170,62 @@ public class ShareController {
         return JsonObjectUtils.buildListSuccess(shareDTOS);
     }
 
+    /**
+     * 获取用户喜欢的分享
+     * @param token
+     * @param pageNo 可选
+     * @param pageSize 可选
+     * @param shareStatus 10(草稿),20(发布中),30(已完成),40(作废)
+     * @param ownerId 可选
+     * @return
+     * @throws Exception
+     */
+    @JsonView(ResultView.BriefView.class)
+    @RequestMapping(value = "/share/like",method = RequestMethod.GET)
+    @ResponseBody
+    @Authorization
+    public JsonObjectList<ShareDTO> getUserLikeShareInfos(@RequestAttribute(Constants.TAKEFREE_TOKEN) Token token, Integer pageNo, Integer pageSize, Integer shareStatus, Long ownerId) throws Exception{
+        List<ShareDTO> shareDTOS=shareService.getUserLikeShareInfos(pageNo, pageSize, token.getUserDTO().getId(), ownerId, shareStatus);
+        return JsonObjectUtils.buildListSuccess(shareDTOS);
+    }
+
+    /**
+     * 获取用户分享的申请
+     * @param token
+     * @param pageNo 可选
+     * @param pageSize 可选
+     * @param applyStatus 可选 10(init),20(success),30(reject)
+     * @param ownerId 可选,默认不需要
+     * @return
+     * @throws Exception
+     */
+    @JsonView(ResultView.BriefView.class)
+    @RequestMapping(value = "/share/apply",method = RequestMethod.GET)
+    @ResponseBody
+    @Authorization
+    public JsonObjectList<ShareDTO> getUserApplyShareInfos(@RequestAttribute(Constants.TAKEFREE_TOKEN) Token token, Integer pageNo, Integer pageSize, Integer applyStatus, Long ownerId) throws Exception{
+        List<ShareDTO> shareDTOS=shareService.getApplyShareInfos(pageNo, pageSize, token.getUserDTO().getId(), ownerId, applyStatus);
+        return JsonObjectUtils.buildListSuccess(shareDTOS);
+    }
+
+    /**
+     * 获取用户发出的分享
+     * @param token
+     * @param pageNo 可选
+     * @param pageSize 可选
+     * @return
+     * @throws Exception
+     */
+    //@JsonView(ResultView.AllView.class)
+    @RequestMapping(value = "/share/takeout",method = RequestMethod.GET)
+    @ResponseBody
+    @Authorization
+    public JsonObjectList<ShareDTO> getTakeOutShares(@RequestAttribute(Constants.TAKEFREE_TOKEN) Token token, Integer pageNo, Integer pageSize) throws Exception{
+        List<ShareDTO> shareDTOS=shareService.getShareInfos(pageNo, pageSize, null, token.getUserDTO().getId(), ShareStatusEnum.FINISH.getCode());
+        for (ShareDTO shareDTO:shareDTOS) {
+            List<TakeOrderDTO> takeOrderDTOS= takeOrderService.getOrders(null, null, shareDTO.getId(), null, null, null);
+            shareDTO.setTakeOrderDTOS(takeOrderDTOS);
+        }
+        return JsonObjectUtils.buildListSuccess(shareDTOS);
+    }
 }

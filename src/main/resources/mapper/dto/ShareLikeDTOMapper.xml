@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.takefree.dto.mapper.ShareLikeDTOMapper">
+  <resultMap id="BaseResultMap" type="com.takefree.dto.model.ShareLikeDTO">
+  </resultMap>
+  <sql id="Example_Where_Clause">
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+        </if>
+      </foreach>
+  </sql>
+  <sql id="Base_Column_List">
+    share_like.id, share_like.share_id, share_like.user_id, share_like.gmt_create, share_like.gmt_modified, share_like.version,
+    owner.nick_name as owner_nick_name,owner.small_icon as owner_small_icon,
+    user.nick_name as user_nick_name,user.small_icon as user_small_icon,
+    share.owner_id,share.pic_homepage as share_pic_homepage,share.status as share_status
+  </sql>
+  <select id="selectByExample" parameterType="com.takefree.pojo.query.ShareLikeQuery" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from share_like,user_info owner,user_info user,share
+    where share_like.share_id=share.id
+    and share.owner_id=owner.id
+    and share_like.user_id=user.id
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="rows != null">
+      <if test="offset != null">
+        limit ${offset}, ${rows}
+      </if>
+      <if test="offset == null">
+        limit ${rows}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from share_like,user_info owner,user_info user,share
+    where share_like.share_id=share.id
+    and share.owner_id=owner.id
+    and share_like.user_id=user.id
+  </select>
+</mapper>

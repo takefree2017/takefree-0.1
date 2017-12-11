@@ -4,7 +4,6 @@ import com.takefree.dto.model.UserDTO;
 import com.takefree.dto.query.UserDTOQuery;
 import com.takefree.pojo.query.TakeApplicationQuery;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

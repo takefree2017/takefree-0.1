@@ -13,10 +13,6 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
-/**
- * This class corresponds to the database table share
- * @mbg.generated do_not_delete_during_merge
- */
 @Data
 public class ShareDTO implements Serializable {
     /**
@@ -206,5 +202,11 @@ public class ShareDTO implements Serializable {
      */
     @JsonView(ResultView.DetailView.class)
     private List<ShareCategory> categories;
+
+    /**
+     * 订单
+     */
+    @JsonView(ResultView.AllView.class)
+    private List<TakeOrderDTO> takeOrderDTOS;
 
 }
