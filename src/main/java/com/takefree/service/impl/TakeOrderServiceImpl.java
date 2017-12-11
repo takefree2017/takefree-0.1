@@ -6,17 +6,15 @@ import com.takefree.common.web.constant.HttpStatus;
 import com.takefree.dto.mapper.TakeOrderDTOMapper;
 import com.takefree.dto.model.ShareDTO;
 import com.takefree.dto.model.TakeOrderDTO;
-import com.takefree.dto.query.ShareDTOQuery;
 import com.takefree.enums.ApplyStatusEnum;
 import com.takefree.enums.ShareStatusEnum;
 import com.takefree.pojo.mapper.ShareCounterMapper;
 import com.takefree.pojo.mapper.TakeApplicationMapper;
 import com.takefree.pojo.mapper.TakeOrderMapper;
-import com.takefree.pojo.model.TakeApplication;
 import com.takefree.pojo.model.TakeOrder;
 import com.takefree.pojo.query.TakeApplicationQuery;
 import com.takefree.pojo.query.TakeOrderQuery;
-import com.takefree.service.ShareApplyService;
+import com.takefree.service.TakeApplicationService;
 import com.takefree.service.ShareOrderService;
 import com.takefree.service.ShareService;
 import com.takefree.vo.CreateOrderForm;
@@ -38,7 +36,7 @@ public class ShareOrderServiceImpl implements ShareOrderService {
     private ShareCounterMapper shareCounterMapper;
 
     @Autowired
-    private ShareApplyService shareApplyService;
+    private TakeApplicationService takeApplicationService;
 
     @Autowired
     private TakeApplicationMapper takeApplicationMapper;
@@ -88,11 +86,11 @@ public class ShareOrderServiceImpl implements ShareOrderService {
         updateShare.setTakeNumber(shareInfo.getTakeNumber() + createOrderForm.getUsers().size());
         shareService.updateByIdSelective(updateShare);
 
-        TakeApplication takeApplication=new TakeApplication();
+        com.takefree.pojo.model.TakeApplication takeApplication=new com.takefree.pojo.model.TakeApplication();
         takeApplication.setStatus(ApplyStatusEnum.SUCCESS.getCode());
         takeApplicationMapper.updateByExampleSelective(takeApplication,takeApplicationQuery);
 
-        shareApplyService.updateAllReject(createOrderForm.getShareId());
+        this.takeApplicationService.updateAllReject(createOrderForm.getShareId());
         return count;
     }
 
