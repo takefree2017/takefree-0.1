@@ -7,7 +7,7 @@
     -->
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="share_id" jdbcType="BIGINT" property="shareId" />
-    <result column="sequence" jdbcType="TINYINT" property="sequence" />
+    <result column="sequence" jdbcType="INTEGER" property="sequence" />
     <result column="pic_url" jdbcType="VARCHAR" property="picUrl" />
   </resultMap>
   <sql id="Example_Where_Clause">

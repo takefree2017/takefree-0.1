@@ -213,7 +213,7 @@
       <if test="version != null">
         #{version,jdbcType=INTEGER},
       </if>
-      <!--默认值设置'' -->
+      <!--gaoxiang 默认值设置'' -->
       <if test="description == null">
         '',
       </if>

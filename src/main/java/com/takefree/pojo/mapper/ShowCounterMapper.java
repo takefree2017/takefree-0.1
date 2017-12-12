@@ -76,4 +76,29 @@ public interface ShowCounterMapper {
      * @mbg.generated
      */
     int updateByPrimaryKey(ShowCounter record);
+
+    /**
+     *
+     * @param showId
+     * @param number 整数增加，负数减少
+     * @return
+     */
+    int changeLikeCount(@Param("showId") Long showId,@Param("number") Integer number);
+
+    /**
+     *
+     * @param showId
+     * @param number 整数增加，负数减少
+     * @return
+     */
+    int changeViewCount(@Param("showId") Long showId,@Param("number") Integer number);
+
+    /**
+     *
+     * TODO... 只适用新增回复，删除需要优化
+     * @param showId
+     * @param number 整数增加，负数减少
+     * @return
+     */
+    int changeCommentCount(@Param("showId") Long showId,@Param("number") Integer number);
 }

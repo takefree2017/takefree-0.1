@@ -289,4 +289,35 @@
     version = version + 1
     where show_id = #{showId,jdbcType=BIGINT}
   </update>
+
+  <update id="changeViewCount">
+    <!--
+          gaoxiang
+    -->
+    update show_counter
+    set
+    view_count = view_count + #{number,jdbcType=INTEGER},
+    version = version + 1
+    where show_id = #{showId,jdbcType=BIGINT}
+  </update>
+  <update id="changeLikeCount" >
+    <!--
+          gaoxiang
+    -->
+    update show_counter
+    set
+    like_count = like_count + #{number,jdbcType=INTEGER},
+    version = version + 1
+    where show_id = #{showId,jdbcType=BIGINT}
+  </update>
+  <update id="changeCommentCount" >
+    <!--
+          gaoxiang
+    -->
+    update show_counter
+    set
+    comment_count = comment_count + #{number,jdbcType=INTEGER},
+    version = version + 1
+    where show_id = #{showId,jdbcType=BIGINT}
+  </update>
 </mapper>

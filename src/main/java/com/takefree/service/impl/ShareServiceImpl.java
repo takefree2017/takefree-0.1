@@ -120,7 +120,9 @@ public class ShareServiceImpl implements ShareService {
     public ShareDTO updateByIdSelective(ShareDTO shareDTO) {
         Share shareInfo = new Share();
         BeanUtils.copyPropertiesIgnoreNull(shareDTO, shareInfo);
-        shareMapper.updateByPrimaryKeySelective(shareInfo);
+        if(BeanUtils.getNotNullPropertyNames(shareInfo).length>2) {
+            shareMapper.updateByPrimaryKeySelective(shareInfo);
+        }
 
         ShareDesc shareDesc = new ShareDesc();
         shareDesc.setShareId(shareDTO.getId());

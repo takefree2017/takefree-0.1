@@ -26,7 +26,7 @@ public class ShowPic implements Serializable {
      * 同一显摆中一组图片的顺序
      * @mbg.generated
      */
-    private Byte sequence;
+    private Integer sequence;
 
     /**
      * 图片url

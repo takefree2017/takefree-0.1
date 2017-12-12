@@ -65,7 +65,6 @@ public class TakeOrderDTO implements Serializable {
 
     /**
      * 分享送出时间
-
      */
     private Date takeTime;
 

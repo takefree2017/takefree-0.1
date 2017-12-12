@@ -42,6 +42,11 @@ public class OrderShow implements Serializable {
     private Integer moodId;
 
     /**
+     * 首页图片
+     */
+    private String picHomepage;
+
+    /**
      * 显摆缩略描述
      * @mbg.generated
      */

@@ -14,6 +14,7 @@
     <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
     <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
     <result column="version" jdbcType="INTEGER" property="version" />
+    <result column="pic_homepage" jdbcType="VARCHAR" property="picHomepage" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <!--
@@ -83,8 +84,8 @@
     <!--
       WARNING - @mbg.generated
     -->
-    id, order_id, receiver_id, giver_id, mood_id, show_content_preview, gmt_create, gmt_modified, 
-    version
+    id, order_id, receiver_id, giver_id, mood_id, show_content_preview, gmt_create, gmt_modified,
+    version, pic_homepage
   </sql>
   <select id="selectByExample" parameterType="com.takefree.pojo.query.OrderShowQuery" resultMap="BaseResultMap">
     <!--
@@ -115,7 +116,7 @@
     <!--
       WARNING - @mbg.generated
     -->
-    select 
+    select
     <include refid="Base_Column_List" />
     from order_show
     where id = #{id,jdbcType=BIGINT}
@@ -143,12 +144,14 @@
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into order_show (order_id, receiver_id, giver_id, 
-      mood_id, show_content_preview, gmt_create, 
-      gmt_modified, version)
-    values (#{orderId,jdbcType=BIGINT}, #{receiverId,jdbcType=BIGINT}, #{giverId,jdbcType=BIGINT}, 
-      #{moodId,jdbcType=INTEGER}, #{showContentPreview,jdbcType=VARCHAR}, #{gmtCreate,jdbcType=TIMESTAMP}, 
-      #{gmtModified,jdbcType=TIMESTAMP}, #{version,jdbcType=INTEGER})
+    insert into order_show (order_id, receiver_id, giver_id,
+    mood_id, show_content_preview, gmt_create,
+    gmt_modified, version, pic_homepage
+    )
+    values (#{orderId,jdbcType=BIGINT}, #{receiverId,jdbcType=BIGINT}, #{giverId,jdbcType=BIGINT},
+    #{moodId,jdbcType=INTEGER}, #{showContentPreview,jdbcType=VARCHAR}, #{gmtCreate,jdbcType=TIMESTAMP},
+    #{gmtModified,jdbcType=TIMESTAMP}, #{version,jdbcType=INTEGER}, #{picHomepage,jdbcType=VARCHAR}
+    )
   </insert>
   <insert id="insertSelective" parameterType="com.takefree.pojo.model.OrderShow">
     <!--
@@ -183,6 +186,9 @@
       <if test="version != null">
         version,
       </if>
+      <if test="picHomepage != null">
+        pic_homepage,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="orderId != null">
@@ -208,6 +214,9 @@
       </if>
       <if test="version != null">
         #{version,jdbcType=INTEGER},
+      </if>
+      <if test="picHomepage != null">
+        #{picHomepage,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -250,7 +259,10 @@
       <if test="record.gmtModified != null">
         gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP},
       </if>
-      version = version+1
+      <if test="record.picHomepage != null">
+        pic_homepage = #{record.picHomepage,jdbcType=VARCHAR},
+      </if>
+      version = version + 1
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -262,14 +274,15 @@
     -->
     update order_show
     set id = #{record.id,jdbcType=BIGINT},
-      order_id = #{record.orderId,jdbcType=BIGINT},
-      receiver_id = #{record.receiverId,jdbcType=BIGINT},
-      giver_id = #{record.giverId,jdbcType=BIGINT},
-      mood_id = #{record.moodId,jdbcType=INTEGER},
-      show_content_preview = #{record.showContentPreview,jdbcType=VARCHAR},
-      gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
-      gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP},
-      version = version+1
+    order_id = #{record.orderId,jdbcType=BIGINT},
+    receiver_id = #{record.receiverId,jdbcType=BIGINT},
+    giver_id = #{record.giverId,jdbcType=BIGINT},
+    mood_id = #{record.moodId,jdbcType=INTEGER},
+    show_content_preview = #{record.showContentPreview,jdbcType=VARCHAR},
+    gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
+    gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP},
+    pic_homepage = #{record.picHomepage,jdbcType=VARCHAR},
+    version = version + 1
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -301,6 +314,9 @@
       <if test="gmtModified != null">
         gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
       </if>
+      <if test="picHomepage != null">
+        pic_homepage = #{picHomepage,jdbcType=VARCHAR},
+      </if>
       version = version + 1
     </set>
     where id = #{id,jdbcType=BIGINT}
@@ -311,13 +327,14 @@
     -->
     update order_show
     set order_id = #{orderId,jdbcType=BIGINT},
-      receiver_id = #{receiverId,jdbcType=BIGINT},
-      giver_id = #{giverId,jdbcType=BIGINT},
-      mood_id = #{moodId,jdbcType=INTEGER},
-      show_content_preview = #{showContentPreview,jdbcType=VARCHAR},
-      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
-      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
-      version = version + 1
+    receiver_id = #{receiverId,jdbcType=BIGINT},
+    giver_id = #{giverId,jdbcType=BIGINT},
+    mood_id = #{moodId,jdbcType=INTEGER},
+    show_content_preview = #{showContentPreview,jdbcType=VARCHAR},
+    gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+    gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+    pic_homepage = #{picHomepage,jdbcType=VARCHAR},
+    version = version + 1,
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

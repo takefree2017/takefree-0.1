@@ -42,7 +42,6 @@ public class ShareController {
     @RequestMapping(value = "/share",method = RequestMethod.POST)
     @ResponseBody
     @Authorization
-    @JsonView(ResultView.BriefView.class)
     public JsonSimpleObject<ShareDTO> createShare(@RequestAttribute(Constants.TAKEFREE_TOKEN) Token token,@Valid @RequestBody ShareDTO shareDTO) throws Exception{
         if(shareDTO.getId()!=null){
             throw new SimpleHttpException(HttpStatus.BAD_REQUEST, "分享已经存在");
@@ -58,8 +57,7 @@ public class ShareController {
     @RequestMapping(value = "/share/{id}",method = RequestMethod.PUT)
     @ResponseBody
     @Authorization
-    @JsonView(ResultView.BriefView.class)
-    public JsonSimpleObject<ShareDTO> updateShare(@RequestAttribute(Constants.TAKEFREE_TOKEN) Token token,@RequestParam Long id,@RequestBody ShareDTO shareDTO) throws Exception{
+    public JsonSimpleObject updateShare(@RequestAttribute(Constants.TAKEFREE_TOKEN) Token token,@Required @PathVariable Long id,@RequestBody ShareDTO shareDTO) throws Exception{
         ShareDTO oldShareDTO=shareService.getShareInfoById(id);
         if(oldShareDTO==null){
             throw new SimpleHttpException(HttpStatus.NOT_FOUND, "分享不存在");
@@ -70,7 +68,7 @@ public class ShareController {
 
         shareDTO.setId(id);
         shareService.updateByIdSelective(shareDTO);
-        return JsonObjectUtils.buildSimpleObjectSuccess(shareDTO);
+        return JsonObjectUtils.buildSimpleObjectSuccess(null);
     }
 
     /**

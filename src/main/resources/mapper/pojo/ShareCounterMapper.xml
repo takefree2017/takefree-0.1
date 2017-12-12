@@ -367,7 +367,7 @@
   </update>
   <update id="changeViewCount">
     <!--
-      WARNING - @mbg.generated
+      gaoxiang
     -->
     update share_counter
     set
@@ -377,7 +377,7 @@
   </update>
   <update id="changeLikeCount" >
     <!--
-      WARNING - @mbg.generated
+      gaoxiang
     -->
     update share_counter
     set
@@ -387,7 +387,7 @@
   </update>
   <update id="changeApplyCount" >
     <!--
-      WARNING - @mbg.generated
+      gaoxiang
     -->
     update share_counter
     set
@@ -398,7 +398,7 @@
   </update>
   <update id="changeCommentCount" >
     <!--
-      WARNING - @mbg.generated
+      gaoxiang
     -->
     update share_counter
     set
@@ -410,7 +410,7 @@
 
   <update id="changeNumberCount" >
     <!--
-      WARNING - @mbg.generated
+      gaoxiang
     -->
     update share_counter
     set
