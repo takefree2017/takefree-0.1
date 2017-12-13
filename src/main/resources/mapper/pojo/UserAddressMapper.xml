@@ -7,6 +7,8 @@
     -->
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
     <result column="province_id" jdbcType="INTEGER" property="provinceId" />
     <result column="city_id" jdbcType="INTEGER" property="cityId" />
     <result column="postcode" jdbcType="VARCHAR" property="postcode" />
@@ -84,8 +86,8 @@
     <!--
       WARNING - @mbg.generated
     -->
-    id, user_id, province_id, city_id, postcode, address, is_default, gmt_create, gmt_modified, 
-    version
+    id, user_id, user_name, phone, province_id, city_id, postcode, address, is_default,
+    gmt_create, gmt_modified, version
   </sql>
   <select id="selectByExample" parameterType="com.takefree.pojo.query.UserAddressQuery" resultMap="BaseResultMap">
     <!--
@@ -144,11 +146,11 @@
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into user_address (user_id, province_id, city_id, 
+    insert into user_address (user_id,user_name, phone,  province_id, city_id,
       postcode, address, is_default, 
       gmt_create, gmt_modified, version
       )
-    values (#{userId,jdbcType=BIGINT}, #{provinceId,jdbcType=INTEGER}, #{cityId,jdbcType=INTEGER}, 
+    values (#{userId,jdbcType=BIGINT}, #{userName,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{provinceId,jdbcType=INTEGER}, #{cityId,jdbcType=INTEGER},
       #{postcode,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{isDefault,jdbcType=TINYINT}, 
       #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, #{version,jdbcType=INTEGER}
       )
@@ -164,6 +166,12 @@
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="userId != null">
         user_id,
+      </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="phone != null">
+        phone,
       </if>
       <if test="provinceId != null">
         province_id,
@@ -193,6 +201,12 @@
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="userId != null">
         #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
       </if>
       <if test="provinceId != null">
         #{provinceId,jdbcType=INTEGER},
@@ -241,6 +255,12 @@
       <if test="record.userId != null">
         user_id = #{record.userId,jdbcType=BIGINT},
       </if>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=BIGINT},
+      </if>
+      <if test="record.userName != null">
+        user_name = #{record.userName,jdbcType=VARCHAR},
+      </if>
       <if test="record.provinceId != null">
         province_id = #{record.provinceId,jdbcType=INTEGER},
       </if>
@@ -275,6 +295,8 @@
     update user_address
     set id = #{record.id,jdbcType=BIGINT},
       user_id = #{record.userId,jdbcType=BIGINT},
+      user_name = #{record.userName,jdbcType=VARCHAR},
+      phone = #{record.phone,jdbcType=VARCHAR},
       province_id = #{record.provinceId,jdbcType=INTEGER},
       city_id = #{record.cityId,jdbcType=INTEGER},
       postcode = #{record.postcode,jdbcType=VARCHAR},
@@ -295,6 +317,12 @@
     <set>
       <if test="userId != null">
         user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
       </if>
       <if test="provinceId != null">
         province_id = #{provinceId,jdbcType=INTEGER},
@@ -327,6 +355,8 @@
     -->
     update user_address
     set user_id = #{userId,jdbcType=BIGINT},
+      user_name = #{userName,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
       province_id = #{provinceId,jdbcType=INTEGER},
       city_id = #{cityId,jdbcType=INTEGER},
       postcode = #{postcode,jdbcType=VARCHAR},

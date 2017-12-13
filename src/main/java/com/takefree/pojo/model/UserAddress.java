@@ -1,9 +1,8 @@
 package com.takefree.pojo.model;
 
-import lombok.Data;
-
 import java.io.Serializable;
 import java.util.Date;
+import lombok.Data;
 
 /**
  * This class corresponds to the database table user_address
@@ -22,6 +21,16 @@ public class UserAddress implements Serializable {
      * @mbg.generated
      */
     private Long userId;
+
+    /**
+     * @mbg.generated
+     */
+    private String userName;
+
+    /**
+     * @mbg.generated
+     */
+    private String phone;
 
     /**
      * 省份id
@@ -89,6 +98,8 @@ public class UserAddress implements Serializable {
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
         sb.append(", userId=").append(userId);
+        sb.append(", userName=").append(userName);
+        sb.append(", phone=").append(phone);
         sb.append(", provinceId=").append(provinceId);
         sb.append(", cityId=").append(cityId);
         sb.append(", postcode=").append(postcode);
