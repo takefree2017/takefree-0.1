@@ -117,9 +117,12 @@ public class UserAddressController {
         UserAddress oldUserAddress=userAddressService.getUserAddressById(id);
         if(oldUserAddress==null){
             throw new SimpleHttpException(HttpStatus.NOT_FOUND,"user address not found");
-        }else if(!oldUserAddress.getUserId().equals(token.getUserDTO().getId())){
-            throw new SimpleHttpException(HttpStatus.FORBIDDEN,"无权限");
         }
+
+        //发送人需要根据地址id查询收货地址
+//        else if(!oldUserAddress.getUserId().equals(token.getUserDTO().getId())){
+//            throw new SimpleHttpException(HttpStatus.FORBIDDEN,"无权限");
+//        }
 
         userAddress.setUserId(token.getUserDTO().getId());
         userAddress.setId(id);

@@ -6,6 +6,7 @@ import com.takefree.common.web.constant.HttpStatus;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * @author gaoxiang
@@ -25,7 +26,7 @@ public class JsonObjectBase implements Serializable {
     private String message = "操作成功";
 
     @JsonView(ResultView.ResultDataView.class)
-    private long timestamp= System.currentTimeMillis();
+    private Date timestamp = new Date();
 
     @JsonView(ResultView.ResultDataView.class)
     private String info;

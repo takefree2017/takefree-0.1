@@ -1,5 +1,6 @@
 package com.takefree.dto.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.takefree.common.entry.ResultView;
 import lombok.Data;
@@ -132,4 +133,18 @@ public class UserDTO implements Serializable {
      */
     @JsonView(ResultView.DetailView.class)
     private Date lastloginTime;
+
+    /**
+     * @mbg.generated
+     */
+    @JsonView(ResultView.BriefView.class)
+    private Integer sex;
+
+    /**
+     * @mbg.generated
+     */
+    @JsonView(ResultView.DetailView.class)
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private Date birthday;
+
 }

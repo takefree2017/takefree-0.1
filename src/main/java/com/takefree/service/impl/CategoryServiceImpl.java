@@ -3,6 +3,8 @@ package com.takefree.service.impl;
 import com.takefree.common.util.BeanUtils;
 import com.takefree.dto.mapper.CategoryDTOMapper;
 import com.takefree.dto.model.CategoryDTO;
+import com.takefree.pojo.mapper.CategoryInfoMapper;
+import com.takefree.pojo.model.CategoryInfo;
 import com.takefree.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,10 +19,15 @@ public class CategoryServiceImpl implements CategoryService {
     @Autowired
     private CategoryDTOMapper categoryDTOMapper;
 
-//    @Autowired
-//    private CategoryInfoMapper categoryInfoMapper;
-    
-    public List<CategoryDTO> getAll(){
+    @Autowired
+    private CategoryInfoMapper categoryInfoMapper;
+
+	@Override
+	public CategoryInfo getCategoryInfoById(Long id) {
+		return categoryInfoMapper.selectByPrimaryKey(id);
+	}
+
+	public List<CategoryDTO> getAll(){
 
     	List<CategoryDTO> lCategoryDTOs = new ArrayList<CategoryDTO>();//返回的分层目类
     	List<CategoryDTO> lcd_shi_tmp = new ArrayList<CategoryDTO>();//二级目类暂存
