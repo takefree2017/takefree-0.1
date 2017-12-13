@@ -99,7 +99,7 @@ public class UserLikeController {
     @RequestMapping(value = "/userlike",method = RequestMethod.DELETE)
     @ResponseBody
     @Authorization
-    public JsonSimpleObject<UserLike> deleteByFolloweeId(@RequestAttribute(Constants.TAKEFREE_TOKEN) Token token, @RequestParam(required=true) Long folleweeId) throws Exception{
+    public JsonSimpleObject<UserLike> deleteByFolloweeId(@RequestAttribute(Constants.TAKEFREE_TOKEN) Token token, @RequestParam Long folleweeId) throws Exception{
         UserLike userLike=userLikeService.getByFollowerAndFollowee(token.getUserDTO().getId(),folleweeId);
         if(userLike==null){
             throw new SimpleHttpException(HttpStatus.BAD_REQUEST, "未关注");

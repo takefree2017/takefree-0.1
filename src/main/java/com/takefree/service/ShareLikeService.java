@@ -32,7 +32,4 @@ public interface ShareLikeService {
      */
     long getCount(Long shareId,Long userId);
 
-
-
-
 }

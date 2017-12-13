@@ -13,7 +13,6 @@ import com.takefree.dto.model.TakeOrderDTO;
 import com.takefree.pojo.model.OrderShow;
 import com.takefree.service.OrderShowService;
 import com.takefree.service.TakeOrderService;
-import org.apache.logging.log4j.core.config.plugins.validation.constraints.Required;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -74,7 +73,7 @@ public class ShowController {
     @RequestMapping(value = "/show/{id}", method = RequestMethod.PUT)
     @ResponseBody
     @Authorization
-    public JsonSimpleObject updateShow(@RequestAttribute(Constants.TAKEFREE_TOKEN) Token token, @Required @PathVariable Long id,
+    public JsonSimpleObject updateShow(@RequestAttribute(Constants.TAKEFREE_TOKEN) Token token, @PathVariable Long id,
                                        @RequestBody OrderShowDTO orderShowDTO) throws Exception {
         OrderShow orderShow = orderShowService.getShowInfoById(id);
         if (orderShow == null) {
@@ -99,8 +98,7 @@ public class ShowController {
     @RequestMapping(value = "/show/{id}", method = RequestMethod.DELETE)
     @ResponseBody
     @Authorization
-    public JsonSimpleObject deleteShow(@RequestAttribute(Constants.TAKEFREE_TOKEN) Token token,
-                                       @Required @PathVariable Long id) throws Exception {
+    public JsonSimpleObject deleteShow(@RequestAttribute(Constants.TAKEFREE_TOKEN) Token token,@PathVariable Long id) throws Exception {
         OrderShow orderShow = orderShowService.getShowInfoById(id);
         if (orderShow == null) {
             throw new SimpleHttpException(HttpStatus.NOT_FOUND, "显摆不存在");
@@ -123,9 +121,7 @@ public class ShowController {
      */
     @RequestMapping(value = "/show/{id}", method = RequestMethod.GET)
     @ResponseBody
-    public JsonSimpleObject<OrderShowDTO> getShowDetail(
-            @RequestAttribute(value = Constants.TAKEFREE_TOKEN, required = false) Token token,
-            @Required @PathVariable Long id) throws Exception {
+    public JsonSimpleObject<OrderShowDTO> getShowDetail(@RequestAttribute(value = Constants.TAKEFREE_TOKEN, required = false) Token token,@PathVariable Long id) throws Exception {
         OrderShowDTO orderShowDTO = orderShowService.getShowDTODetailById(id);
         if (orderShowDTO == null) {
             throw new SimpleHttpException(HttpStatus.NOT_FOUND, "显摆不存在");

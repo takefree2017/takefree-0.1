@@ -10,7 +10,6 @@ import com.takefree.common.util.JsonObjectUtils;
 import com.takefree.common.web.constant.HttpStatus;
 import com.takefree.pojo.model.UserAddress;
 import com.takefree.service.UserAddressService;
-import org.apache.logging.log4j.core.config.plugins.validation.constraints.Required;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -54,7 +53,7 @@ public class UserAddressController {
     @RequestMapping(value = "/user/address/{id}",method = RequestMethod.DELETE)
     @ResponseBody
     @Authorization
-    public JsonSimpleObject<UserAddress> deleteUserAddress(@RequestAttribute(Constants.TAKEFREE_TOKEN) Token token,@Required @PathVariable Long id) throws Exception{
+    public JsonSimpleObject<UserAddress> deleteUserAddress(@RequestAttribute(Constants.TAKEFREE_TOKEN) Token token,@PathVariable Long id) throws Exception{
         UserAddress userAddress=userAddressService.getUserAddressById(id);
         if(userAddress==null){
             throw new SimpleHttpException(HttpStatus.NOT_FOUND,"user address not found");
@@ -77,7 +76,7 @@ public class UserAddressController {
     @RequestMapping(value = "/user/address/{id}",method = RequestMethod.GET)
     @ResponseBody
     @Authorization
-    public JsonSimpleObject<UserAddress> getUserAddress(@RequestAttribute(Constants.TAKEFREE_TOKEN) Token token,@Required @PathVariable Long id) throws Exception{
+    public JsonSimpleObject<UserAddress> getUserAddress(@RequestAttribute(Constants.TAKEFREE_TOKEN) Token token,@PathVariable Long id) throws Exception{
         UserAddress userAddress=userAddressService.getUserAddressById(id);
         if(userAddress==null){
             throw new SimpleHttpException(HttpStatus.NOT_FOUND,"user address not found");
@@ -113,7 +112,7 @@ public class UserAddressController {
     @RequestMapping(value = "/user/address/{id}",method = RequestMethod.PUT)
     @ResponseBody
     @Authorization
-    public JsonSimpleObject<UserAddress> updateUserAddress(@RequestAttribute(Constants.TAKEFREE_TOKEN) Token token,@Required @PathVariable Long id,@Required @RequestBody UserAddress userAddress) throws Exception{
+    public JsonSimpleObject<UserAddress> updateUserAddress(@RequestAttribute(Constants.TAKEFREE_TOKEN) Token token,@PathVariable Long id,@RequestBody UserAddress userAddress) throws Exception{
         UserAddress oldUserAddress=userAddressService.getUserAddressById(id);
         if(oldUserAddress==null){
             throw new SimpleHttpException(HttpStatus.NOT_FOUND,"user address not found");

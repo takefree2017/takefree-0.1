@@ -59,12 +59,12 @@
       </if>
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List" />
-    from share_like,user_info owner,user_info user,share
-    where share_like.share_id=share.id
-    and share.owner_id=owner.id
-    and share_like.user_id=user.id
-  </select>
+  <!--<select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">-->
+    <!--select-->
+    <!--<include refid="Base_Column_List" />-->
+    <!--from share_like,user_info owner,user_info user,share-->
+    <!--where share_like.share_id=share.id-->
+    <!--and share.owner_id=owner.id-->
+    <!--and share_like.user_id=user.id-->
+  <!--</select>-->
 </mapper>

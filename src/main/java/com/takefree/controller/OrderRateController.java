@@ -11,7 +11,6 @@ import com.takefree.dto.model.TakeOrderDTO;
 import com.takefree.pojo.model.OrderRate;
 import com.takefree.service.OrderRateService;
 import com.takefree.service.TakeOrderService;
-import org.apache.logging.log4j.core.config.plugins.validation.constraints.Required;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -67,7 +66,7 @@ public class OrderRateController {
     @RequestMapping(value = "/rate/{id}",method = RequestMethod.POST)
     @ResponseBody
     @Authorization
-    public JsonSimpleObject updateOrderRate(@RequestAttribute(Constants.TAKEFREE_TOKEN) Token token,@Required @PathVariable Long id,@RequestBody OrderRate orderRate) throws Exception{
+    public JsonSimpleObject updateOrderRate(@RequestAttribute(Constants.TAKEFREE_TOKEN) Token token,@PathVariable Long id,@RequestBody OrderRate orderRate) throws Exception{
         OrderRate orderRate1=orderRateService.getById(id);
 
         if(orderRate1==null){
@@ -92,7 +91,7 @@ public class OrderRateController {
     @RequestMapping(value = "/rate/{id}",method = RequestMethod.DELETE)
     @ResponseBody
     @Authorization
-    public JsonSimpleObject deleteOrderRate(@RequestAttribute(Constants.TAKEFREE_TOKEN) Token token,@Required @PathVariable Long id) throws Exception{
+    public JsonSimpleObject deleteOrderRate(@RequestAttribute(Constants.TAKEFREE_TOKEN) Token token,@PathVariable Long id) throws Exception{
         /**
          * TODO...权限判断
          */
@@ -111,7 +110,7 @@ public class OrderRateController {
     @RequestMapping(value = "/rate",method = RequestMethod.GET)
     @ResponseBody
     @Authorization
-    public JsonSimpleObject<OrderRate> getOrderRate(@RequestAttribute(value=Constants.TAKEFREE_TOKEN,required = false) Token token, @Required Long orderId) throws Exception{
+    public JsonSimpleObject<OrderRate> getOrderRate(@RequestAttribute(value=Constants.TAKEFREE_TOKEN,required = false) Token token, @RequestParam Long orderId) throws Exception{
         /**
          * TODO...权限判断
          */

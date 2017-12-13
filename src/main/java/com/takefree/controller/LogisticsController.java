@@ -3,22 +3,14 @@ package com.takefree.controller;
 import com.takefree.common.Exception.SimpleHttpException;
 import com.takefree.common.annotation.Authorization;
 import com.takefree.common.config.Constants;
-import com.takefree.common.entry.JsonObjectList;
 import com.takefree.common.entry.JsonSimpleObject;
 import com.takefree.common.entry.Token;
 import com.takefree.common.util.JsonObjectUtils;
 import com.takefree.common.web.constant.HttpStatus;
-import com.takefree.dto.model.ShareDTO;
-import com.takefree.dto.model.ShareLikeDTO;
 import com.takefree.dto.model.TakeOrderDTO;
 import com.takefree.pojo.model.Logistics;
-import com.takefree.pojo.model.ShareLike;
-import com.takefree.pojo.model.TakeOrder;
 import com.takefree.service.LogisticsService;
-import com.takefree.service.ShareLikeService;
-import com.takefree.service.ShareService;
 import com.takefree.service.TakeOrderService;
-import org.apache.logging.log4j.core.config.plugins.validation.constraints.Required;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -74,7 +66,7 @@ public class LogisticsController {
     @RequestMapping(value = "/logistics/{id}",method = RequestMethod.POST)
     @ResponseBody
     @Authorization
-    public JsonSimpleObject updateLogistics(@RequestAttribute(Constants.TAKEFREE_TOKEN) Token token,@Required @PathVariable Long id,@RequestBody Logistics logistics) throws Exception{
+    public JsonSimpleObject updateLogistics(@RequestAttribute(Constants.TAKEFREE_TOKEN) Token token,@PathVariable Long id,@RequestBody Logistics logistics) throws Exception{
         Logistics logistics1=logisticsService.getById(id);
 
         if(logistics1==null){
@@ -99,7 +91,7 @@ public class LogisticsController {
     @RequestMapping(value = "/logistics/{id}",method = RequestMethod.DELETE)
     @ResponseBody
     @Authorization
-    public JsonSimpleObject deleteLogistics(@RequestAttribute(Constants.TAKEFREE_TOKEN) Token token,@Required @PathVariable Long id) throws Exception{
+    public JsonSimpleObject deleteLogistics(@RequestAttribute(Constants.TAKEFREE_TOKEN) Token token,@PathVariable Long id) throws Exception{
         /**
          * TODO...权限判断
          */
@@ -118,7 +110,7 @@ public class LogisticsController {
     @RequestMapping(value = "/logistics",method = RequestMethod.GET)
     @ResponseBody
     @Authorization
-    public JsonSimpleObject<Logistics> getLogistics(@RequestAttribute(value=Constants.TAKEFREE_TOKEN,required = false) Token token, @Required Long orderId) throws Exception{
+    public JsonSimpleObject<Logistics> getLogistics(@RequestAttribute(value=Constants.TAKEFREE_TOKEN,required = false) Token token, @RequestParam Long orderId) throws Exception{
         /**
          * TODO...权限判断
          */

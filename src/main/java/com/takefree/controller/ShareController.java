@@ -15,7 +15,6 @@ import com.takefree.enums.ShareStatusEnum;
 import com.takefree.dto.model.ShareDTO;
 import com.takefree.service.ShareService;
 import com.takefree.service.TakeOrderService;
-import org.apache.logging.log4j.core.config.plugins.validation.constraints.Required;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -57,7 +56,7 @@ public class ShareController {
     @RequestMapping(value = "/share/{id}",method = RequestMethod.PUT)
     @ResponseBody
     @Authorization
-    public JsonSimpleObject updateShare(@RequestAttribute(Constants.TAKEFREE_TOKEN) Token token,@Required @PathVariable Long id,@RequestBody ShareDTO shareDTO) throws Exception{
+    public JsonSimpleObject updateShare(@RequestAttribute(Constants.TAKEFREE_TOKEN) Token token,@PathVariable Long id,@RequestBody ShareDTO shareDTO) throws Exception{
         ShareDTO oldShareDTO=shareService.getShareInfoById(id);
         if(oldShareDTO==null){
             throw new SimpleHttpException(HttpStatus.NOT_FOUND, "分享不存在");
@@ -98,7 +97,7 @@ public class ShareController {
     @RequestMapping(value = "/share/{id}",method = RequestMethod.DELETE)
     @ResponseBody
     @Authorization
-    public JsonSimpleObject deleteShare(@RequestAttribute(Constants.TAKEFREE_TOKEN) Token token,@Required @PathVariable Long id) throws Exception{
+    public JsonSimpleObject deleteShare(@RequestAttribute(Constants.TAKEFREE_TOKEN) Token token,@PathVariable Long id) throws Exception{
         ShareDTO shareDTO=shareService.getShareInfoById(id);
         if(shareDTO==null){
             throw new SimpleHttpException(HttpStatus.NOT_FOUND, "分享不存在");
@@ -116,7 +115,7 @@ public class ShareController {
     @RequestMapping(value = "/share/{id}",method = RequestMethod.GET)
     @ResponseBody
 //    @JsonView(ResultView.DetailView.class)
-    public JsonSimpleObject<ShareDTO> getShare(@RequestAttribute(value=Constants.TAKEFREE_TOKEN,required = false) Token token,@Required @PathVariable Long id) throws Exception{
+    public JsonSimpleObject<ShareDTO> getShare(@RequestAttribute(value=Constants.TAKEFREE_TOKEN,required = false) Token token,@PathVariable Long id) throws Exception{
         ShareDTO shareDTO=shareService.getShareDetailById(id);
         if(shareDTO==null){
             throw new SimpleHttpException(HttpStatus.NOT_FOUND, "分享不存在");
