@@ -3,7 +3,7 @@ package com.takefree.im;
 /**
  * Created by gaoxiang on 2017/7/7.
  */
-public interface SmsService {
+public interface SmsApi {
 	//按模板发手机短信
     public boolean send(String receiver, String template,String kvs) throws Exception;
     //发手机验证码

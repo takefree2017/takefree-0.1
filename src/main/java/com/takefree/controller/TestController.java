@@ -1,6 +1,6 @@
 package com.takefree.controller;
 
-import com.takefree.im.SmsService;
+import com.takefree.im.SmsApi;
 import com.takefree.dto.model.ShareDTO;
 import com.takefree.service.ShareService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +19,7 @@ public class TestController {
     @Autowired
     private ShareService shareService;
     @Autowired
-    SmsService ss;
+    SmsApi ss;
     /**
      * 新建
      * @throws Exception 
