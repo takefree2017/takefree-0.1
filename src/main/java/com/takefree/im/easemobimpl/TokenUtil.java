@@ -8,19 +8,15 @@ import lombok.Data;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.stereotype.Service;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Map;
 import java.util.Properties;
 
-import javax.validation.constraints.NotNull;
 
 //@ConfigurationProperties(ignoreUnknownFields = true, prefix = "huanxin")
 //@ConfigurationProperties("huanxin")
+
 public class TokenUtil {
 
     public static String grant_type;
@@ -29,6 +25,8 @@ public class TokenUtil {
     private static Token BODY;
     private static AuthenticationApi API = new AuthenticationApi();
     private static String ACCESS_TOKEN;
+    private static String ADMIN_TOKEN;
+	private static String SMS_TOKEN;
     private static Double EXPIREDAT = -1D;
     private static final Logger logger = LoggerFactory.getLogger(TokenUtil.class);
 
@@ -77,6 +75,22 @@ public class TokenUtil {
     private static Boolean isExpired() {
         return System.currentTimeMillis() > EXPIREDAT;
     }
+
+    public static String getADMIN_TOKEN() {
+		return ADMIN_TOKEN;
+	}
+
+	public static void setADMIN_TOKEN(String aDMIN_TOKEN) {
+		ADMIN_TOKEN = aDMIN_TOKEN;
+	}
+
+	public static String getSMS_TOKEN() {
+		return SMS_TOKEN;
+	}
+
+	public static void setSMS_TOKEN(String sMS_TOKEN) {
+		SMS_TOKEN = sMS_TOKEN;
+	}
 
 }
 

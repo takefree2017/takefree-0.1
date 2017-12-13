@@ -1,12 +1,8 @@
 package com.takefree.controller;
 
-import io.swagger.client.model.NewPassword;
 import io.swagger.client.model.RegisterUsers;
 import io.swagger.client.model.User;
 
-import java.util.Random;
-
-import javax.annotation.security.RolesAllowed;
 
 //import org.slf4j.Logger;
 //import org.slf4j.LoggerFactory;
@@ -25,7 +21,7 @@ import com.takefree.common.entry.JsonObjectBase;
 import com.takefree.common.util.JsonObjectUtils;
 import com.takefree.common.web.constant.HttpStatus;
 import com.takefree.im.easemobimpl.EasemobIMUsers;
-import com.xiaoleilu.hutool.crypto.SecureUtil;
+
 
 
 @Controller
@@ -53,17 +49,17 @@ public class ImController {
 		return easemobIMUsers.createNewIMUserSingle(users);
     }
 
-    /**
-    *
-    * 改环信端用户密码
-    */
-    @RequestMapping(value = "/{id}",method = RequestMethod.PUT)
-    @ResponseBody   
-//    @Authorization  
-    public Object changePassword(@PathVariable("id") String id,@RequestParam String password) {
-        NewPassword psd = new NewPassword().newpassword(SecureUtil.md5(password));
-        return easemobIMUsers.modifyIMUserPasswordWithAdminToken(id, psd);
-    }
+//    /**
+//    *
+//    * 改环信端用户密码
+//    */
+//    @RequestMapping(value = "/{id}",method = RequestMethod.PUT)
+//    @ResponseBody   
+////    @Authorization  
+//    public Object changePassword(@PathVariable("id") String id,@RequestParam String password) {
+//        NewPassword psd = new NewPassword().newpassword(SecureUtil.md5(password));
+//        return easemobIMUsers.modifyIMUserPasswordWithAdminToken(id, psd);
+//    }
 
     /**
     *
