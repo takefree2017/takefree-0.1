@@ -146,7 +146,7 @@ public class UserServiceImpl implements UserService {
             throw new SimpleHttpException(HttpStatus.INTERNAL_SERVER_ERROR, "内部错误");
         }
 
-        //首次登陆
+        //首次登陆,直接让前端调用接口确认是否激活
 //        if(userDTO.getStatus() != UserStatusEnum.ACTIVE.getCode()){
 //            token.setIsActive(false);
 //            UserInfo userInfo=new UserInfo();

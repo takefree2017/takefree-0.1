@@ -73,7 +73,7 @@ public class UserController {
 
     /**
      * 登录
-     *
+     * 首次登陆不默认激活,让前端调用修改接口决定是否激活
      * @param httpServletResponse
      * @return
      * @throws Exception
