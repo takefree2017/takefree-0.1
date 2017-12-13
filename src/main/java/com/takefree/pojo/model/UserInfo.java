@@ -1,9 +1,8 @@
 package com.takefree.pojo.model;
 
-import lombok.Data;
-
 import java.io.Serializable;
 import java.util.Date;
+import lombok.Data;
 
 /**
  * This class corresponds to the database table user_info
@@ -90,6 +89,22 @@ public class UserInfo implements Serializable {
     private Date gmtModified;
 
     /**
+     * 站内信uuid
+     * @mbg.generated
+     */
+    private String imUuid;
+
+    /**
+     * @mbg.generated
+     */
+    private Integer sex;
+
+    /**
+     * @mbg.generated
+     */
+    private Date birthday;
+
+    /**
      * This field corresponds to the database table user_info
      * @mbg.generated
      */
@@ -118,6 +133,9 @@ public class UserInfo implements Serializable {
         sb.append(", version=").append(version);
         sb.append(", gmtCreate=").append(gmtCreate);
         sb.append(", gmtModified=").append(gmtModified);
+        sb.append(", imUuid=").append(imUuid);
+        sb.append(", sex=").append(sex);
+        sb.append(", birthday=").append(birthday);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

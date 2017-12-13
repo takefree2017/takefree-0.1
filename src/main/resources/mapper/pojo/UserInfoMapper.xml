@@ -18,6 +18,8 @@
     <result column="version" jdbcType="INTEGER" property="version" />
     <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
     <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="sex" jdbcType="TINYINT" property="sex" />
+    <result column="birthday" jdbcType="DATE" property="birthday" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <!--
@@ -88,7 +90,7 @@
       WARNING - @mbg.generated
     -->
     id, nick_name, real_name, mobile, email, endorser_id, password, status, small_icon, 
-    big_icon, version, gmt_create, gmt_modified
+    big_icon, version, gmt_create, gmt_modified, sex, birthday
   </sql>
   <select id="selectByExample" parameterType="com.takefree.pojo.query.UserInfoQuery" resultMap="BaseResultMap">
     <!--
@@ -150,12 +152,13 @@
     insert into user_info (nick_name, real_name, mobile, 
       email, endorser_id, password, 
       status, small_icon, big_icon, 
-      version, gmt_create, gmt_modified
+      version, gmt_create, gmt_modified, sex, birthday
       )
     values (#{nickName,jdbcType=VARCHAR}, #{realName,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, 
       #{email,jdbcType=VARCHAR}, #{endorserId,jdbcType=BIGINT}, #{password,jdbcType=VARCHAR}, 
       #{status,jdbcType=TINYINT}, #{smallIcon,jdbcType=VARCHAR}, #{bigIcon,jdbcType=VARCHAR}, 
-      #{version,jdbcType=INTEGER}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}
+      #{version,jdbcType=INTEGER}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP},
+      #{sex,jdbcType=TINYINT}, #{birthday,jdbcType=DATE})}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.takefree.pojo.model.UserInfo">
@@ -203,6 +206,12 @@
       <if test="gmtModified != null">
         gmt_modified,
       </if>
+      <if test="sex != null">
+        sex,
+      </if>
+      <if test="birthday != null">
+        birthday,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="nickName != null">
@@ -240,6 +249,12 @@
       </if>
       <if test="gmtModified != null">
         #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sex != null">
+        #{sex,jdbcType=TINYINT},
+      </if>
+      <if test="birthday != null">
+        #{birthday,jdbcType=DATE},
       </if>
     </trim>
   </insert>
@@ -288,13 +303,19 @@
       <if test="record.bigIcon != null">
         big_icon = #{record.bigIcon,jdbcType=VARCHAR},
       </if>
-      version = version+1
       <if test="record.gmtCreate != null">
         gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
       </if>
       <if test="record.gmtModified != null">
         gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP},
       </if>
+      <if test="record.sex != null">
+        sex = #{record.sex,jdbcType=TINYINT},
+      </if>
+      <if test="record.birthday != null">
+        birthday = #{record.birthday,jdbcType=DATE},
+      </if>
+        version = version+1
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -315,9 +336,11 @@
       status = #{record.status,jdbcType=TINYINT},
       small_icon = #{record.smallIcon,jdbcType=VARCHAR},
       big_icon = #{record.bigIcon,jdbcType=VARCHAR},
-      version = version+1,
       gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
-      gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP}
+      gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP},
+      sex = #{record.sex,jdbcType=TINYINT},
+      birthday = #{record.birthday,jdbcType=DATE},
+      version = version+1
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -355,13 +378,19 @@
       <if test="bigIcon != null">
         big_icon = #{bigIcon,jdbcType=VARCHAR},
       </if>
-      version = version + 1
       <if test="gmtCreate != null">
         gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
       </if>
       <if test="gmtModified != null">
         gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
       </if>
+      <if test="sex != null">
+        sex = #{sex,jdbcType=TINYINT},
+      </if>
+      <if test="birthday != null">
+        birthday = #{birthday,jdbcType=DATE},
+      </if>
+        version = version + 1
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
@@ -379,9 +408,11 @@
       status = #{status,jdbcType=TINYINT},
       small_icon = #{smallIcon,jdbcType=VARCHAR},
       big_icon = #{bigIcon,jdbcType=VARCHAR},
-      version = version + 1,
       gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
-      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      sex = #{sex,jdbcType=TINYINT},
+      birthday = #{birthday,jdbcType=DATE},
+      version = version + 1
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>
