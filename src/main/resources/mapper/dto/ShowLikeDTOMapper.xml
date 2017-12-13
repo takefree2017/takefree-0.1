@@ -29,8 +29,8 @@
       </foreach>
   </sql>
   <sql id="Base_Column_List">
-    id, show_id, user_id, gmt_create, gmt_modified, version ,
-    user.nick_name as user_nick_name, user.small_icon as user_small_icon
+    show_like.id, show_like.show_id, show_like.user_id, show_like.gmt_create, show_like.gmt_modified, show_like.version ,
+    user_info.nick_name as user_nick_name, user_info.small_icon as user_small_icon
   </sql>
   <select id="selectByExample" parameterType="com.takefree.pojo.query.ShowLikeQuery" resultMap="BaseResultMap">
     select
@@ -38,8 +38,8 @@
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from order_show_like,user_info owner
-    where order_show_like.user_id=user.id
+    from show_like,user_info
+    where show_like.user_id=user_info.id
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>

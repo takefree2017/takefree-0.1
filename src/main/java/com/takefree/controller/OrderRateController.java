@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -39,8 +40,8 @@ public class OrderRateController {
     @RequestMapping(value = "/rate",method = RequestMethod.POST)
     @ResponseBody
     @Authorization
-    public JsonSimpleObject<OrderRate> createOrderRate(@RequestAttribute(Constants.TAKEFREE_TOKEN) Token token,@RequestBody OrderRate orderRate) throws Exception{
-        TakeOrderDTO takeOrderDTO=takeOrderService.getById(orderRate.getOrderId());
+    public JsonSimpleObject<OrderRate> createOrderRate(@RequestAttribute(Constants.TAKEFREE_TOKEN) Token token,@Valid @RequestBody OrderRate orderRate) throws Exception{
+        TakeOrderDTO takeOrderDTO=takeOrderService.getTakeOrderDTOById(orderRate.getOrderId());
 
         if(takeOrderDTO==null){
             throw new SimpleHttpException(HttpStatus.BAD_REQUEST, "订单不存在");
@@ -63,7 +64,7 @@ public class OrderRateController {
      * @return
      * @throws Exception
      */
-    @RequestMapping(value = "/rate/{id}",method = RequestMethod.POST)
+    @RequestMapping(value = "/rate/{id}",method = RequestMethod.PUT)
     @ResponseBody
     @Authorization
     public JsonSimpleObject updateOrderRate(@RequestAttribute(Constants.TAKEFREE_TOKEN) Token token,@PathVariable Long id,@RequestBody OrderRate orderRate) throws Exception{

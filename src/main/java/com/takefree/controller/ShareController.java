@@ -220,7 +220,7 @@ public class ShareController {
     public JsonObjectList<ShareDTO> getTakeOutShares(@RequestAttribute(Constants.TAKEFREE_TOKEN) Token token, Integer pageNo, Integer pageSize) throws Exception{
         List<ShareDTO> shareDTOS=shareService.getShareInfos(pageNo, pageSize, null, token.getUserDTO().getId(), ShareStatusEnum.FINISH.getCode());
         for (ShareDTO shareDTO:shareDTOS) {
-            List<TakeOrderDTO> takeOrderDTOS= takeOrderService.getOrders(null, null, shareDTO.getId(), null, null, null);
+            List<TakeOrderDTO> takeOrderDTOS= takeOrderService.getTakeOrderDTOs(null, null, shareDTO.getId(), null, null, null);
             shareDTO.setTakeOrderDTOS(takeOrderDTOS);
         }
         return JsonObjectUtils.buildListSuccess(shareDTOS);

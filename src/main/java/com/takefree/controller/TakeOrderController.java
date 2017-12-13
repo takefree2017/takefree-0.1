@@ -56,7 +56,7 @@ public class TakeOrderController {
     @ResponseBody
     @Authorization
     public JsonSimpleObject getOrder(@RequestAttribute(Constants.TAKEFREE_TOKEN) Token token,@PathVariable("id") Long orderId) throws Exception{
-        TakeOrderDTO takeOrderDTO=takeOrderService.getById(orderId);
+        TakeOrderDTO takeOrderDTO=takeOrderService.getTakeOrderDTOById(orderId);
         if(takeOrderDTO==null){
             throw new SimpleHttpException(HttpStatus.NOT_FOUND, "无此订单");
         }
@@ -85,7 +85,7 @@ public class TakeOrderController {
             }
         }
 
-        List<TakeOrderDTO> shareDTOS= takeOrderService.getOrders(pageNo, pageSize, shareId, null, applyUserId, status);
+        List<TakeOrderDTO> shareDTOS= takeOrderService.getTakeOrderDTOs(pageNo, pageSize, shareId, null, applyUserId, status);
         return JsonObjectUtils.buildListSuccess(shareDTOS);
     }
 }

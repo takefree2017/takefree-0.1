@@ -43,7 +43,7 @@ public class ShowController {
     @Authorization
     public JsonSimpleObject<OrderShowService> createShow(@RequestAttribute(Constants.TAKEFREE_TOKEN) Token token, @Valid @RequestBody OrderShowDTO orderShowDTO)
             throws Exception {
-        TakeOrderDTO takeOrder=takeOrderService.getById(orderShowDTO.getOrderId());
+        TakeOrderDTO takeOrder=takeOrderService.getTakeOrderDTOById(orderShowDTO.getOrderId());
         if(takeOrder==null){
             throw new SimpleHttpException(HttpStatus.BAD_REQUEST, "订单不存在");
         }

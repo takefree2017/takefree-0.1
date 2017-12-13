@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -39,13 +40,13 @@ public class LogisticsController {
     @RequestMapping(value = "/logistics",method = RequestMethod.POST)
     @ResponseBody
     @Authorization
-    public JsonSimpleObject<Logistics> createLogistics(@RequestAttribute(Constants.TAKEFREE_TOKEN) Token token,@RequestBody Logistics logistics) throws Exception{
-        TakeOrderDTO takeOrderDTO=takeOrderService.getById(logistics.getOrderId());
+    public JsonSimpleObject<Logistics> createLogistics(@RequestAttribute(Constants.TAKEFREE_TOKEN) Token token,@Valid @RequestBody Logistics logistics) throws Exception{
+        TakeOrderDTO takeOrderDTO=takeOrderService.getTakeOrderDTOById(logistics.getOrderId());
 
         if(takeOrderDTO==null){
             throw new SimpleHttpException(HttpStatus.BAD_REQUEST, "订单不存在");
         }else if(takeOrderDTO.getApplicantId().equals(token.getUserDTO().getId())){
-            throw new SimpleHttpException(HttpStatus.FORBIDDEN, "无权限");
+            throw new SimpleHttpException(HttpStatus.FORBIDDEN, "非送出人无权限");
         }
 
         if(logisticsService.getByOrderId(logistics.getOrderId()).size()>0){
@@ -63,7 +64,7 @@ public class LogisticsController {
      * @return
      * @throws Exception
      */
-    @RequestMapping(value = "/logistics/{id}",method = RequestMethod.POST)
+    @RequestMapping(value = "/logistics/{id}",method = RequestMethod.PUT)
     @ResponseBody
     @Authorization
     public JsonSimpleObject updateLogistics(@RequestAttribute(Constants.TAKEFREE_TOKEN) Token token,@PathVariable Long id,@RequestBody Logistics logistics) throws Exception{

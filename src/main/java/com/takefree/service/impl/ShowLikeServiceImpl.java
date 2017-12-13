@@ -28,7 +28,7 @@ public class ShowLikeServiceImpl implements ShowLikeService {
 
     @Override
     public ShowLike create(ShowLike showLike) {
-        int i=showLikeMapper.insert(showLike);
+        int i=showLikeMapper.insertSelective(showLike);
         showCounterMapper.changeLikeCount(showLike.getShowId(),i);
         return showLike;
     }

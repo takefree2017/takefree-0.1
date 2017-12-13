@@ -17,7 +17,7 @@ public interface TakeOrderService {
 
     long updateByIdSelected(Token token,TakeOrder takeOrder) throws Exception;
 
-    TakeOrderDTO getById(Long id);
+    TakeOrderDTO getTakeOrderDTOById(Long id);
 
-    List<TakeOrderDTO> getOrders(Integer page, Integer size, Long shareId, Long ownerId, Long applicantId, Integer orderStatus) throws Exception;
+    List<TakeOrderDTO> getTakeOrderDTOs(Integer page, Integer size, Long shareId, Long ownerId, Long applicantId, Integer orderStatus) throws Exception;
 }

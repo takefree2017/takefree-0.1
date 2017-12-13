@@ -1,7 +1,9 @@
 package com.takefree.pojo.model;
 
 import lombok.Data;
+import org.hibernate.validator.constraints.NotEmpty;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
@@ -20,6 +22,7 @@ public class OrderRate implements Serializable {
      * take成交单号
      * @mbg.generated
      */
+    @NotNull(message="订单号不能为空")
     private Long orderId;
 
     /**
@@ -32,7 +35,8 @@ public class OrderRate implements Serializable {
      * 评价, 1好评 0差评
      * @mbg.generated
      */
-    private Byte rate;
+//    @NotEmpty(message="评价不能为空")
+    private Integer rate;
 
     /**
      * 评价内容

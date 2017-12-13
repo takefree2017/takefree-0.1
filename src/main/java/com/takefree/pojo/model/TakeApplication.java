@@ -48,7 +48,7 @@ public class TakeApplication implements Serializable {
      * @mbg.generated
      */
     @NotNull(message="交易方式不能为空")
-    private Byte applyType;
+    private Integer applyType;
 
     /**
      * 申请者邮寄地址id

@@ -61,6 +61,7 @@ public class UserAddressServiceImpl implements UserAddressService {
     }
 
     //清除默认地址
+    @Transactional
     private int clearDefaultAddress(Long userId) {
         UserAddress userAddressExapmle = new UserAddress();
         userAddressExapmle.setIsDefault(UserAddressDefaultEnum.NOT_DEFAULT.getCode());

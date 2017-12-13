@@ -108,13 +108,13 @@ public class TakeOrderServiceImpl implements TakeOrderService {
     }
 
     @Override
-    public TakeOrderDTO getById(Long id){
+    public TakeOrderDTO getTakeOrderDTOById(Long id){
         return takeOrderDTOMapper.selectByPrimaryKey(id);
     }
 
 
     @Override
-    public List<TakeOrderDTO> getOrders(Integer page, Integer size,Long shareId, Long ownerId, Long applicantId, Integer orderStatus) throws Exception{
+    public List<TakeOrderDTO> getTakeOrderDTOs(Integer page, Integer size,Long shareId, Long ownerId, Long applicantId, Integer orderStatus) throws Exception{
         TakeOrderQuery takeOrderQuery=new TakeOrderQuery();
         if (page != null && size != null) {
             takeOrderQuery.page(page, size);
