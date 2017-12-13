@@ -125,7 +125,10 @@ public class LogisticsController {
          * TODO...权限判断
          */
         List<Logistics> logistics=logisticsService.getByOrderId(orderId);
-
-        return JsonObjectUtils.buildSimpleObjectSuccess(logistics.get(0));
+        if(logistics.size()>0) {
+            return JsonObjectUtils.buildSimpleObjectSuccess(logistics.get(0));
+        }else{
+            return JsonObjectUtils.buildSimpleObjectSuccess(null);
+        }
     }
 }

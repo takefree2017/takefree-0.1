@@ -35,7 +35,7 @@ public class OrderRate implements Serializable {
      * 评价, 1好评 0差评
      * @mbg.generated
      */
-//    @NotEmpty(message="评价不能为空")
+    @NotNull(message="好评、差评必须选")
     private Integer rate;
 
     /**

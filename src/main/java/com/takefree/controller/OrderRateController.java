@@ -48,13 +48,14 @@ public class OrderRateController {
         }
 
         if(takeOrderDTO.getApplicantId()!=(token.getUserDTO().getId())){
-            throw new SimpleHttpException(HttpStatus.FORBIDDEN, "无权限");
+            throw new SimpleHttpException(HttpStatus.FORBIDDEN, "只能接收人评价");
         }
 
         if(orderRateService.getByOrderId(orderRate.getOrderId()).size()>0){
-            throw new SimpleHttpException(HttpStatus.BAD_REQUEST, "已记录订单号");
+            throw new SimpleHttpException(HttpStatus.BAD_REQUEST, "已评价");
         }
 
+        orderRate.setReceiverId(takeOrderDTO.getApplicantId());
         orderRateService.create(orderRate);
         return JsonObjectUtils.buildSimpleObjectSuccess(orderRate);
     }
