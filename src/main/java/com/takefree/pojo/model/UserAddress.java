@@ -3,6 +3,9 @@ package com.takefree.pojo.model;
 import java.io.Serializable;
 import java.util.Date;
 import lombok.Data;
+import org.hibernate.validator.constraints.NotEmpty;
+
+import javax.validation.constraints.NotNull;
 
 /**
  * This class corresponds to the database table user_address
@@ -20,11 +23,13 @@ public class UserAddress implements Serializable {
      * 用户id
      * @mbg.generated
      */
+    @NotNull(message="用户id不能为空")
     private Long userId;
 
     /**
      * @mbg.generated
      */
+    @NotNull(message="用户姓名不能为空")
     private String userName;
 
     /**
