@@ -25,7 +25,6 @@ import java.util.List;
  */
 @Controller
 public class ShowController {
-
     @Autowired
     private OrderShowService orderShowService;
 
@@ -151,7 +150,7 @@ public class ShowController {
     @RequestMapping(value = "/show", method = RequestMethod.GET)
     @ResponseBody
     public JsonObjectList<OrderShowDTO> getShows(Integer pageNo, Integer pageSize, Long maxId,Long shareId, Long orderId, Long receiverId, Long giverId) throws Exception {
-        List<OrderShowDTO> shareDTOS = orderShowService.getShowDTOs(pageNo, pageSize, maxId, shareId, orderId, receiverId, giverId);
-        return JsonObjectUtils.buildListSuccess(shareDTOS);
+        List<OrderShowDTO> orderShowDTOS = orderShowService.getShowDTOs(pageNo, pageSize, maxId, shareId, orderId, receiverId, giverId);
+        return JsonObjectUtils.buildListSuccess(orderShowDTOS);
     }
 }
