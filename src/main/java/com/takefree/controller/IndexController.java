@@ -30,6 +30,14 @@ public class IndexController {
     @Autowired
     private OrderShowService orderShowService;
 
+    /**
+     * 返回share+show列表，按时间排序。show只显示发布中的
+     * @param pageSize
+     * @param maxShareId
+     * @param maxShowId
+     * @return
+     * @throws Exception
+     */
     @RequestMapping(value = "/index",method = RequestMethod.GET)
     @ResponseBody
     public JsonObjectList<Object> getShares(@RequestParam Integer pageSize, Long maxShareId, Long maxShowId) throws Exception{
@@ -74,7 +82,6 @@ public class IndexController {
                 break;
             }
         }
-
 
         return JsonObjectUtils.buildListSuccess(result);
     }
