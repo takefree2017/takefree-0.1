@@ -39,17 +39,31 @@ public class TakeOrderController {
     @ResponseBody
     @Authorization
     public JsonSimpleObject deleteOrder(@RequestAttribute(Constants.TAKEFREE_TOKEN) Token token,@PathVariable("id") Long orderId) throws Exception{
-        takeOrderService.deleteById(orderId);
-        return JsonObjectUtils.buildSimpleObjectSuccess(null);
+        /*
+         * TODO...权限校验
+         */
+        int row=takeOrderService.deleteById(orderId);
+        if(row==0) {
+            throw new SimpleHttpException(HttpStatus.NOT_FOUND, "无此记录");
+        }else{
+            return JsonObjectUtils.buildSimpleObjectSuccess(null);
+        }
     }
 
     @RequestMapping(value = "/order/{id}",method = RequestMethod.PUT)
     @ResponseBody
     @Authorization
     public JsonSimpleObject<TakeOrderDTO> updateOrder(@RequestAttribute(Constants.TAKEFREE_TOKEN) Token token,@PathVariable("id") Long orderId, @RequestBody TakeOrder takeOrder) throws Exception{
+        /*
+         * TODO...权限校验
+         */
         takeOrder.setId(orderId);
-        takeOrderService.updateByIdSelected(token, takeOrder);
-        return JsonObjectUtils.buildSimpleObjectSuccess(null);
+        int row=takeOrderService.updateByIdSelected(token, takeOrder);
+        if(row==0) {
+            throw new SimpleHttpException(HttpStatus.NOT_FOUND, "无此记录");
+        }else{
+            return JsonObjectUtils.buildSimpleObjectSuccess(null);
+        }
     }
 
     @RequestMapping(value = "/order/{id}",method = RequestMethod.GET)

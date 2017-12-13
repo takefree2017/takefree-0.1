@@ -61,7 +61,7 @@ public class UserAddressController {
             throw new SimpleHttpException(HttpStatus.FORBIDDEN,"无权限");
         }
 
-        userAddressService.deleteById(id);
+        int row=userAddressService.deleteById(id);
 
         return JsonObjectUtils.buildSimpleObjectSuccess(null);
     }
@@ -123,10 +123,9 @@ public class UserAddressController {
         userAddress.setUserId(token.getUserDTO().getId());
         userAddress.setId(id);
 
-        userAddressService.updateById(userAddress);
+        int row=userAddressService.updateById(userAddress);
 
         return JsonObjectUtils.buildSimpleObjectSuccess(userAddress);
     }
-
 
 }

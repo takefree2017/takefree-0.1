@@ -108,7 +108,7 @@ public class ShowController {
             throw new SimpleHttpException(HttpStatus.FORBIDDEN, "无权限");
         }
 
-        orderShowService.deleteById(id);
+        int row=orderShowService.deleteById(id);
         return JsonObjectUtils.buildSimpleObjectSuccess(null);
     }
 

@@ -17,7 +17,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -67,11 +66,15 @@ public class ShowLikeController {
     @ResponseBody
     @Authorization
     public JsonSimpleObject deleteShowLike(@RequestAttribute(Constants.TAKEFREE_TOKEN) Token token,@RequestParam Long showId) throws Exception{
-        if(showLikeService.getCount(showId,token.getUserDTO().getId())==0){
-            throw new SimpleHttpException(HttpStatus.BAD_REQUEST, "未关注");
+        /**
+         * TODO 权限校验
+         */
+        int row=showLikeService.delete(showId,token.getUserDTO().getId());
+        if(row==0) {
+            throw new SimpleHttpException(HttpStatus.NOT_FOUND, "未关注");
+        }else{
+            return JsonObjectUtils.buildSimpleObjectSuccess(null);
         }
-        showLikeService.delete(showId,token.getUserDTO().getId());
-        return JsonObjectUtils.buildSimpleObjectSuccess(null);
     }
 
 

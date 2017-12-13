@@ -13,9 +13,9 @@ import java.util.List;
 public interface TakeOrderService {
     long createOrders(Token token, CreateOrderForm createOrderForm) throws Exception;
 
-    long deleteById(Long id);
+    int deleteById(Long id);
 
-    long updateByIdSelected(Token token,TakeOrder takeOrder) throws Exception;
+    int updateByIdSelected(Token token,TakeOrder takeOrder) throws Exception;
 
     TakeOrderDTO getTakeOrderDTOById(Long id);
 

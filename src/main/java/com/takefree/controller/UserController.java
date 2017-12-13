@@ -138,7 +138,7 @@ public class UserController {
             //throw new SimpleHttpException(HttpStatus.FORBIDDEN, "不能通过此接口修改密码");
         }
         userDTO.setId(token.getUserDTO().getId());
-        userService.updateById(userDTO);
+        int row=userService.updateById(userDTO);
 
         //更新token中缓存user
         userDTO = userService.getUserDetailById(userDTO.getId());

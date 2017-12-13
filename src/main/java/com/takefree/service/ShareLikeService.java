@@ -11,7 +11,7 @@ import java.util.List;
 public interface ShareLikeService {
     ShareLike create(ShareLike shareLike);
 
-    boolean delete(Long shareId,Long userId);
+    int delete(Long shareId,Long userId);
 
     /**
      *

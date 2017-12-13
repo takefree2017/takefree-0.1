@@ -175,16 +175,18 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public void updateById(UserDTO userDTO) {
+    public int updateById(UserDTO userDTO) {
         UserInfo userInfo=new UserInfo();
         BeanUtils.copyPropertiesIgnoreNull(userDTO,userInfo);
-        userInfoMapper.updateByPrimaryKeySelective(userInfo);
+        int row=userInfoMapper.updateByPrimaryKeySelective(userInfo);
         if(userDTO.getDescription() != null) {
             UserDescription userDescription=new UserDescription();
             BeanUtils.copyPropertiesIgnoreNull(userDTO, userDescription);
             userDescriptionMapper.insertSelective(userDescription);
             userDescriptionMapper.updateByPrimaryKeySelective(userDescription);
         }
+
+        return row;
     }
 
     @Override

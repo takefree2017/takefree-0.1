@@ -117,7 +117,7 @@ public class ShareServiceImpl implements ShareService {
 
     @Override
     @Transactional
-    public ShareDTO updateByIdSelective(ShareDTO shareDTO) {
+    public int updateByIdSelective(ShareDTO shareDTO) {
         Share shareInfo = new Share();
         BeanUtils.copyPropertiesIgnoreNull(shareDTO, shareInfo);
         if(BeanUtils.getNotNullPropertyNames(shareInfo).length>2) {
@@ -168,19 +168,19 @@ public class ShareServiceImpl implements ShareService {
             }
         }
 
-        return shareDTO;
+        return 1;
     }
 
     @Override
     @Transactional
-    public boolean deleteById(Long id) {
+    public int deleteById(Long id) {
         Share share = new Share();
         share.setId(id);
         share.setStatus(ShareStatusEnum.DELETE.getCode());
-        shareMapper.updateByPrimaryKeySelective(share);
+        int row=shareMapper.updateByPrimaryKeySelective(share);
 
         applyService.updateAllReject(id);
-        return true;
+        return row;
     }
 
     @Override

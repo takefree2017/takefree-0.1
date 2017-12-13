@@ -45,7 +45,9 @@ public class OrderRateController {
 
         if(takeOrderDTO==null){
             throw new SimpleHttpException(HttpStatus.BAD_REQUEST, "订单不存在");
-        }else if(takeOrderDTO.getApplicantId().equals(token.getUserDTO().getId())){
+        }
+
+        if(takeOrderDTO.getApplicantId()!=(token.getUserDTO().getId())){
             throw new SimpleHttpException(HttpStatus.FORBIDDEN, "无权限");
         }
 
@@ -78,8 +80,12 @@ public class OrderRateController {
          * TODO...权限检查
          */
         orderRate.setId(id);
-        orderRateService.updateById(orderRate);
-        return JsonObjectUtils.buildSimpleObjectSuccess(null);
+        int row=orderRateService.updateById(orderRate);
+        if(row==0) {
+            throw new SimpleHttpException(HttpStatus.NOT_FOUND, "无此记录");
+        }else{
+            return JsonObjectUtils.buildSimpleObjectSuccess(null);
+        }
     }
 
     /**
@@ -96,9 +102,13 @@ public class OrderRateController {
         /**
          * TODO...权限判断
          */
-        orderRateService.deleteById(id);
+        int row=orderRateService.deleteById(id);
 
-        return JsonObjectUtils.buildSimpleObjectSuccess(null);
+        if(row==0) {
+            throw new SimpleHttpException(HttpStatus.NOT_FOUND, "无此记录");
+        }else{
+            return JsonObjectUtils.buildSimpleObjectSuccess(null);
+        }
     }
 
     /**

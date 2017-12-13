@@ -78,7 +78,7 @@ public class TakeApplicationController {
         if(!apply.getApplicantId().equals(token.getUserDTO().getId())){
             throw new SimpleHttpException(HttpStatus.FORBIDDEN, "Unauthorized");
         }
-        takeApplicationService.deleteById(takeApplicationId);
+        int row=takeApplicationService.deleteById(takeApplicationId);
         return JsonObjectUtils.buildSimpleObjectSuccess(null);
     }
 
@@ -94,7 +94,7 @@ public class TakeApplicationController {
             throw new SimpleHttpException(HttpStatus.FORBIDDEN, "Unauthorized");
         }
         takeApplication.setId(takeApplicationId);
-        takeApplicationService.updateById(takeApplication);
+        int row=takeApplicationService.updateById(takeApplication);
         return JsonObjectUtils.buildSimpleObjectSuccess(null);
     }
 

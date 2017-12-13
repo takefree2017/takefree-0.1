@@ -35,7 +35,7 @@ public class UserLikeController {
     @RequestMapping(value = "/userlike",method = RequestMethod.POST)
     @ResponseBody
     @Authorization
-    public JsonSimpleObject<UserLike> create(@RequestAttribute(Constants.TAKEFREE_TOKEN) Token token, @RequestParam Long folleweeId) throws Exception{
+    public JsonSimpleObject<UserLike> createUserLike(@RequestAttribute(Constants.TAKEFREE_TOKEN) Token token, @RequestParam Long folleweeId) throws Exception{
         if(folleweeId==token.getUserDTO().getId()){
             throw new SimpleHttpException(HttpStatus.BAD_REQUEST, "不能关注自己");
         }
@@ -74,7 +74,7 @@ public class UserLikeController {
     @RequestMapping(value = "/userlike/{id}",method = RequestMethod.DELETE)
     @ResponseBody
     @Authorization
-    public JsonSimpleObject<UserLike> deleteById(@RequestAttribute(Constants.TAKEFREE_TOKEN) Token token, @PathVariable Long id) throws Exception{
+    public JsonSimpleObject<UserLike> deleteUserLike(@RequestAttribute(Constants.TAKEFREE_TOKEN) Token token, @PathVariable Long id) throws Exception{
         UserLike userLike=userLikeService.getById(id);
         if(userLike==null){
             throw new SimpleHttpException(HttpStatus.BAD_REQUEST, "未关注");
@@ -85,12 +85,11 @@ public class UserLikeController {
         }
 
         userLike.setStatus(UserLikeStautsEnum.DISABLE.getCode());
-        userLikeService.update(userLike);
+        int row=userLikeService.update(userLike);
         return JsonObjectUtils.buildSimpleObjectSuccess(null);
     }
 
     /**
-     * 删除，非物理删除
      * @param token
      * @param folleweeId
      * @return
@@ -110,7 +109,7 @@ public class UserLikeController {
         }
 
         userLike.setStatus(UserLikeStautsEnum.DISABLE.getCode());
-        userLikeService.update(userLike);
+        int row=userLikeService.update(userLike);
         return JsonObjectUtils.buildSimpleObjectSuccess(null);
     }
 }

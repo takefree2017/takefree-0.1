@@ -37,13 +37,13 @@ public class ShareLikeServiceImpl implements ShareLikeService {
     }
 
     @Override
-    public boolean delete(Long shareId, Long userId) {
+    public int delete(Long shareId, Long userId) {
         ShareLikeQuery shareLikeQuery=new ShareLikeQuery();
         shareLikeQuery.createCriteria().andShareIdEqualTo(shareId).andUserIdEqualTo(userId);
-        int i=shareLikeMapper.deleteByExample(shareLikeQuery);
+        int row=shareLikeMapper.deleteByExample(shareLikeQuery);
         //TODO 修改恢复数量有bug，无论是否新申请都将新申请数量减1
-        shareCounterMapper.changeLikeCount(shareId,-i);
-        return true;
+        shareCounterMapper.changeLikeCount(shareId,-row);
+        return row;
     }
 
     @Override

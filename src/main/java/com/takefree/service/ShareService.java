@@ -14,9 +14,9 @@ public interface ShareService {
 
     ShareDTO getShareDetailById(Long id);
 
-    ShareDTO updateByIdSelective(ShareDTO shareDTO);
+    int updateByIdSelective(ShareDTO shareDTO);
 
-    boolean deleteById(Long id);
+    int deleteById(Long id);
 
     List<ShareDTO> getShareInfos(Integer page,Integer size,Long maxId,Long ownerId,Integer status);
 

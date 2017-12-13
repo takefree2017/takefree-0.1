@@ -12,15 +12,15 @@ import java.util.List;
 public interface TakeApplicationService {
     TakeApplication create(TakeApplication takeApplication);
 
-    long deleteById(Long id);
+    int deleteById(Long id);
 
-    long updateById(TakeApplication takeApplication);
+    int updateById(TakeApplication takeApplication);
 
     TakeApplicationDTO getById(Long id);
 
     long getCount(Long shareId, Long applyUserId);
 
-    long updateAllReject(Long shareId);
+    int updateAllReject(Long shareId);
 
     List<TakeApplicationDTO> getApplys(Integer page, Integer size, Long shareId, Long ownerId, Long applicantId, Integer orderStatus) throws Exception;
 

@@ -17,7 +17,7 @@ public interface UserService {
 
     boolean create(UserDTO userDTO);
 
-    void updateById(UserDTO userDTO);
+    int updateById(UserDTO userDTO);
 
     List<UserInfo> getUserInfoByMobile(String mobile);
 

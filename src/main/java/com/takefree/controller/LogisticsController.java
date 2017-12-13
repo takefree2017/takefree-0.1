@@ -45,7 +45,9 @@ public class LogisticsController {
 
         if(takeOrderDTO==null){
             throw new SimpleHttpException(HttpStatus.BAD_REQUEST, "订单不存在");
-        }else if(takeOrderDTO.getApplicantId().equals(token.getUserDTO().getId())){
+        }
+
+        if(takeOrderDTO.getOwnerId()!=(token.getUserDTO().getId())){
             throw new SimpleHttpException(HttpStatus.FORBIDDEN, "非送出人无权限");
         }
 
@@ -78,8 +80,12 @@ public class LogisticsController {
          */
 
         logistics.setId(id);
-        logisticsService.updateById(logistics);
-        return JsonObjectUtils.buildSimpleObjectSuccess(null);
+        int row=logisticsService.updateById(logistics);
+        if(row==0) {
+            throw new SimpleHttpException(HttpStatus.NOT_FOUND, "无此记录");
+        }else{
+            return JsonObjectUtils.buildSimpleObjectSuccess(null);
+        }
     }
 
     /**
@@ -96,13 +102,16 @@ public class LogisticsController {
         /**
          * TODO...权限判断
          */
-        logisticsService.deleteById(id);
-
-        return JsonObjectUtils.buildSimpleObjectSuccess(null);
+        int row=logisticsService.deleteById(id);
+        if(row==0) {
+            throw new SimpleHttpException(HttpStatus.NOT_FOUND, "无此记录");
+        }else{
+            return JsonObjectUtils.buildSimpleObjectSuccess(null);
+        }
     }
 
     /**
-     * 按订单查询物流
+     * 按订单查询订单号
      * @param token
      * @param orderId
      * @return

@@ -95,14 +95,14 @@ public class TakeOrderServiceImpl implements TakeOrderService {
     }
 
     @Override
-    public long deleteById(Long id) {
-        int count=takeOrderMapper.deleteByPrimaryKey(id);
+    public int deleteById(Long id) {
+        int row=takeOrderMapper.deleteByPrimaryKey(id);
 //        shareCounterMapper.changeTakeNumber(id,-count);
-        return count;
+        return row;
     }
 
     @Override
-    public long updateByIdSelected(Token token, TakeOrder takeOrder) throws Exception{
+    public int updateByIdSelected(Token token, TakeOrder takeOrder) throws Exception{
         //TODO...权限检查
         return takeOrderMapper.updateByPrimaryKeySelective(takeOrder);
     }

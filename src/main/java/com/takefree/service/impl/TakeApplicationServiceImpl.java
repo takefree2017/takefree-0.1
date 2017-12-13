@@ -44,14 +44,14 @@ public class TakeApplicationServiceImpl implements TakeApplicationService {
     }
 
     @Override
-    public long deleteById(Long id) {
+    public int deleteById(Long id) {
         int row=takeApplicationMapper.deleteByPrimaryKey(id);
         shareCounterMapper.changeApplyCount(id,-row);
         return row;
     }
 
     @Override
-    public long updateById(TakeApplication takeApplication) {
+    public int updateById(TakeApplication takeApplication) {
         return takeApplicationMapper.updateByPrimaryKeySelective(takeApplication);
     }
 
@@ -70,7 +70,7 @@ public class TakeApplicationServiceImpl implements TakeApplicationService {
     }
 
     @Override
-    public long updateAllReject(Long shareId) {
+    public int updateAllReject(Long shareId) {
         TakeApplication takeApplication=new TakeApplication();
         takeApplication.setStatus(ApplyStatusEnum.REJECT.getCode());
 
