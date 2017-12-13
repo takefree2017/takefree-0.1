@@ -3,14 +3,9 @@ package com.takefree.service.impl;
 import com.takefree.common.util.BeanUtils;
 import com.takefree.dto.mapper.OrderShowDTOMapper;
 import com.takefree.dto.model.OrderShowDTO;
-import com.takefree.pojo.mapper.OrderShowContentMapper;
-import com.takefree.pojo.mapper.OrderShowMapper;
-import com.takefree.pojo.mapper.ShowCounterMapper;
-import com.takefree.pojo.mapper.ShowPicMapper;
-import com.takefree.pojo.model.OrderShow;
-import com.takefree.pojo.model.OrderShowContent;
-import com.takefree.pojo.model.ShowCounter;
-import com.takefree.pojo.model.ShowPic;
+import com.takefree.enums.ShowStatusEnum;
+import com.takefree.pojo.mapper.*;
+import com.takefree.pojo.model.*;
 import com.takefree.pojo.query.OrderShowQuery;
 import com.takefree.pojo.query.ShowPicQuery;
 import com.takefree.service.OrderShowService;
@@ -25,6 +20,7 @@ import java.util.List;
  */
 @Service
 public class OrderShowServiceImpl implements OrderShowService {
+
     @Autowired
     private OrderShowDTOMapper orderShowDTOMapper;
 
@@ -40,27 +36,36 @@ public class OrderShowServiceImpl implements OrderShowService {
     @Autowired
     private ShowPicMapper showPicMapper;
 
+    @Autowired
+    private TakeOrderMapper takeOrderMapper;
+
     @Override
     @Transactional
     public OrderShowDTO create(OrderShowDTO orderShowDTO) {
-        OrderShow orderShow=new OrderShow();
+        OrderShow orderShow = new OrderShow();
         BeanUtils.copyPropertiesIgnoreNull(orderShowDTO, orderShow);
-        orderShowMapper.insertSelective(orderShow);
+        int row = orderShowMapper.insertSelective(orderShow);
+        if (row > 0) {
+            TakeOrder takeOrder = new TakeOrder();
+            takeOrder.setRateStatus(ShowStatusEnum.YES.getCode());
+            takeOrder.setId(orderShowDTO.getOrderId());
+            takeOrderMapper.updateByPrimaryKeySelective(takeOrder);
+        }
 
-        OrderShowContent orderShowContent=new OrderShowContent();
+        OrderShowContent orderShowContent = new OrderShowContent();
         orderShowContent.setOrderShowId(orderShow.getId());
         BeanUtils.copyPropertiesIgnoreNull(orderShowDTO, orderShowContent);
         orderShowContentMapper.insertSelective(orderShowContent);
 
-        ShowCounter showCounter=new ShowCounter();
+        ShowCounter showCounter = new ShowCounter();
         showCounter.setShowId(orderShow.getId());
         showCounterMapper.insertSelective(showCounter);
 
         /**
          * TODO...优化
          */
-        if(orderShowDTO.getShowPics() != null){
-            for(ShowPic showPic: orderShowDTO.getShowPics()){
+        if (orderShowDTO.getShowPics() != null) {
+            for (ShowPic showPic : orderShowDTO.getShowPics()) {
                 showPic.setShowId(orderShow.getId());
                 showPicMapper.insertSelective(showPic);
             }
@@ -82,13 +87,13 @@ public class OrderShowServiceImpl implements OrderShowService {
 
     @Override
     public OrderShowDTO getShowDTODetailById(Long id) {
-        OrderShowDTO orderShowDTO=orderShowDTOMapper.selectShowDTOById(id);
-        if(orderShowDTO==null){
+        OrderShowDTO orderShowDTO = orderShowDTOMapper.selectShowDTOById(id);
+        if (orderShowDTO == null) {
             return null;
         }
 
-        ShowPicQuery showPicQuery=new ShowPicQuery();
-        ShowPicQuery.Criteria criteria=showPicQuery.createCriteria();
+        ShowPicQuery showPicQuery = new ShowPicQuery();
+        ShowPicQuery.Criteria criteria = showPicQuery.createCriteria();
         criteria.andShowIdEqualTo(id);
         showPicQuery.setOrderByClause("sequence");
         orderShowDTO.setShowPics(showPicMapper.selectByExample(showPicQuery));
@@ -102,21 +107,21 @@ public class OrderShowServiceImpl implements OrderShowService {
         OrderShow orderShow = new OrderShow();
         orderShow.setId(orderShowDTO.getId());
         BeanUtils.copyPropertiesIgnoreNull(orderShowDTO, orderShowDTO);
-        if(BeanUtils.getNotNullPropertyNames(orderShow).length>2) {
+        if (BeanUtils.getNotNullPropertyNames(orderShow).length > 2) {
             orderShowMapper.updateByPrimaryKeySelective(orderShow);
         }
 
-        OrderShowContent orderShowContent=new OrderShowContent();
+        OrderShowContent orderShowContent = new OrderShowContent();
         orderShowContent.setOrderShowId(orderShowDTO.getId());
         BeanUtils.copyPropertiesIgnoreNull(orderShowDTO, orderShowContent);
-        if(BeanUtils.getNotNullPropertyNames(orderShowContent).length>2) {
+        if (BeanUtils.getNotNullPropertyNames(orderShowContent).length > 2) {
             orderShowContentMapper.updateByPrimaryKeySelective(orderShowContent);
         }
 
-        ShowCounter showCounter=new ShowCounter();
+        ShowCounter showCounter = new ShowCounter();
         showCounter.setShowId(orderShowDTO.getId());
         BeanUtils.copyPropertiesIgnoreNull(orderShowDTO, showCounter);
-        if(BeanUtils.getNotNullPropertyNames(showCounter).length>2) {
+        if (BeanUtils.getNotNullPropertyNames(showCounter).length > 2) {
             showCounterMapper.updateByPrimaryKeySelective(showCounter);
         }
 
@@ -124,8 +129,8 @@ public class OrderShowServiceImpl implements OrderShowService {
         ShowPicQuery showPicQuery = new ShowPicQuery();
         showPicQuery.createCriteria().andShowIdEqualTo(orderShowDTO.getId());
         showPicMapper.deleteByExample(showPicQuery);
-        if(orderShowDTO.getShowPics() != null){
-            for(ShowPic showPic: orderShowDTO.getShowPics()){
+        if (orderShowDTO.getShowPics() != null) {
+            for (ShowPic showPic : orderShowDTO.getShowPics()) {
                 showPic.setShowId(orderShowDTO.getId());
                 showPicMapper.insertSelective(showPic);
             }
@@ -139,7 +144,15 @@ public class OrderShowServiceImpl implements OrderShowService {
         /**
          * TODO...物理删除修改为逻辑删除，需要加字段
          */
-       return orderShowMapper.deleteByPrimaryKey(id);
+        OrderShow orderShow=orderShowMapper.selectByPrimaryKey(id);
+        int row = orderShowMapper.deleteByPrimaryKey(id);
+        if (row > 0) {
+            TakeOrder takeOrder = new TakeOrder();
+            takeOrder.setRateStatus(ShowStatusEnum.NO.getCode());
+            takeOrder.setId(orderShow.getOrderId());
+            takeOrderMapper.updateByPrimaryKeySelective(takeOrder);
+        }
+        return row;
 
 //        orderShowContentMapper.deleteByExample();
 //        showCounterMapper.deleteByExample();
@@ -147,9 +160,10 @@ public class OrderShowServiceImpl implements OrderShowService {
     }
 
     @Override
-    public List<OrderShowDTO> getShowDTOs(Integer page, Integer size, Long maxId,Long shareId, Long orderId, Long receiverId,Long giverId) {
-        OrderShowQuery orderShowQuery=new OrderShowQuery();
-        OrderShowQuery.Criteria criteria=orderShowQuery.createCriteria();
+    public List<OrderShowDTO> getShowDTOs(Integer page, Integer size, Long maxId, Long shareId, Long orderId,
+                                          Long receiverId, Long giverId) {
+        OrderShowQuery orderShowQuery = new OrderShowQuery();
+        OrderShowQuery.Criteria criteria = orderShowQuery.createCriteria();
         if (page != null && size != null) {
             orderShowQuery.page(page, size);
         }
@@ -186,15 +200,15 @@ public class OrderShowServiceImpl implements OrderShowService {
     @Override
     public boolean updateViewInfo(OrderShowDTO orderShowDTO, Long userId) {
         //发布人查看
-        if(userId!=null&&orderShowDTO.getGiverId()==userId){
+        if (userId != null && orderShowDTO.getGiverId() == userId) {
 //            ShowCounter showCounter=new ShowCounter();
 //            showCounter.setShowId(orderShowDTO.getId());
 //            showCounter.setNewApplyCount(0);
 //            showCounter.setNewCommentCount(0);
 //            showCounterMapper.updateByPrimaryKeySelective(showCounter);
             return true;
-        }else{ //其他人查看
-            showCounterMapper.changeViewCount(orderShowDTO.getId(),1);
+        } else { //其他人查看
+            showCounterMapper.changeViewCount(orderShowDTO.getId(), 1);
             return true;
         }
     }
