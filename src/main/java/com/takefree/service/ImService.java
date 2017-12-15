@@ -9,7 +9,7 @@ import java.util.List;
  */
 public interface ImService {
 
-    UserInfo createUser(UserInfo userInfo);
+    boolean createUser(UserInfo userInfo);
 
     //List<UserInfo> createUsers(List<UserInfo>  userInfos);
 

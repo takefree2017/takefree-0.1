@@ -9,11 +9,15 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 
 
 public class HttpWorker {
 
+	private static final Logger logger = LoggerFactory.getLogger(HttpWorker.class);
+	
 	@Value("${huanxin.sendmsg_url}")
 	private String sendmsg_url ;
 
@@ -49,12 +53,12 @@ public class HttpWorker {
 			}
 			response.close();
  		} catch (Exception e) {
-			System.out.println(e);
+ 			logger.error("", e);
 		} finally {
 			try {
 				httpclient.close();
 			} catch (IOException e) {
-				System.out.println(e);
+				logger.error("", e);
 			}
 		}
 		return ret;
