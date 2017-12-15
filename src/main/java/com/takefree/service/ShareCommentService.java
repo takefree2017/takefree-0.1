@@ -11,6 +11,8 @@ import java.util.List;
 public interface ShareCommentService {
     ShareComment create(ShareComment shareComment);
 
+    ShareCommentDTO get(Long id);
+
     int delete(Long id);
 
     List<ShareCommentDTO> getShareComments(Integer page, Integer size, Long shareId, Long userId);

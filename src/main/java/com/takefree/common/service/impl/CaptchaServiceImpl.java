@@ -20,39 +20,36 @@ import javax.validation.constraints.NotNull;
  * Created by gaoxiang on 2017/7/10.
  */
 @Service
-@ConfigurationProperties(prefix = "takefree.captcha.redis.prefix.login")
+@ConfigurationProperties(prefix = "takefree.captcha.redis")
 @Data
 public class CaptchaServiceImpl implements CaptchaService {
     private static final Logger logger = LoggerFactory.getLogger(CaptchaServiceImpl.class);
 
-    @NotNull
-    private String baseUrl;
-
-    @Autowired
+    //@Autowired
     private SmsService smsService;
 
     @Reference(version = "1.0.0")
     private RedisClient redisClient;
 
     @NotNull
-    private String redisNamespace;
+    private String namespace;
 
     @NotNull
-    private Integer redisTtl;
+    private Integer ttl;
 
     @NotNull
     private Integer inteval;
 
     @NotNull
-    private static String redisPrefixLogin;
+    private static String prefixLogin;
 
 
     //短信验证码
     public boolean sendLoginCode(String mobile) throws Exception {
-        String redisKey=redisPrefixLogin+mobile;
+        String redisKey=prefixLogin+mobile;
 
         //ttl经过时间小于短信最小间隔时间
-        if(redisClient.ttl(redisNamespace,redisKey )+inteval>redisTtl){
+        if(redisClient.ttl(namespace,redisKey )+inteval>ttl){
             throw new SimpleHttpException(HttpStatus.BAD_REQUEST, "短信发送太频繁");
         }
 
@@ -64,8 +61,8 @@ public class CaptchaServiceImpl implements CaptchaService {
 
     //短信验证码
     public boolean checkLoginCode(String mobile,String code) throws Exception {
-        String redisKey=redisPrefixLogin+mobile;
-        String redisCode=redisClient.get(redisNamespace, redisKey);
+        String redisKey=prefixLogin+mobile;
+        String redisCode=redisClient.get(namespace, redisKey);
         if(redisCode!=null&&redisCode.equals(code)){
             return true;
         }else{

@@ -2,7 +2,6 @@ package com.takefree.dto.model;
 
 import lombok.Data;
 
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -11,7 +10,7 @@ import java.util.Date;
  * @mbg.generated do_not_delete_during_merge
  */
 @Data
-public class ShareCommentDTO implements Serializable {
+public class ShowCommentDTO implements Serializable {
     /**
      * 主键
      */
@@ -20,8 +19,7 @@ public class ShareCommentDTO implements Serializable {
     /**
      * 分享id
      */
-
-    private Long shareId;
+    private Long showId;
 
     /**
      * 被回复的分享评论id

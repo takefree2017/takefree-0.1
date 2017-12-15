@@ -8,11 +8,11 @@ import com.takefree.common.entry.JsonSimpleObject;
 import com.takefree.common.entry.Token;
 import com.takefree.common.util.JsonObjectUtils;
 import com.takefree.common.web.constant.HttpStatus;
-import com.takefree.dto.model.ShareCommentDTO;
-import com.takefree.dto.model.ShareDTO;
-import com.takefree.pojo.model.ShareComment;
-import com.takefree.service.ShareCommentService;
-import com.takefree.service.ShareService;
+import com.takefree.dto.model.ShowCommentDTO;
+import com.takefree.pojo.model.OrderShow;
+import com.takefree.pojo.model.ShowComment;
+import com.takefree.service.ShowCommentService;
+import com.takefree.service.OrderShowService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -26,50 +26,60 @@ import java.util.List;
 @Controller
 public class ShowCommentController {
     @Autowired
-    private ShareCommentService shareCommentService;
+    private ShowCommentService showCommentService;
 
     @Autowired
-    private ShareService shareService;
+    private OrderShowService orderShowService;
 
-    @RequestMapping(value = "/sharecomment",method = RequestMethod.POST)
+    @RequestMapping(value = "/showcomment",method = RequestMethod.POST)
     @ResponseBody
     @Authorization
-    public JsonSimpleObject<ShareComment> createShareComment(@RequestAttribute(Constants.TAKEFREE_TOKEN) Token token, @Valid @RequestBody ShareComment shareComment) throws Exception{
-        ShareDTO shareInfo=shareService.getShareInfoById(shareComment.getShareId());
-
-        if(shareInfo==null){
-            throw new SimpleHttpException(HttpStatus.BAD_REQUEST, "分享不存在");
+    public JsonSimpleObject<ShowComment> createShowComment(@RequestAttribute(Constants.TAKEFREE_TOKEN) Token token, @Valid @RequestBody ShowComment showComment) throws Exception{
+        OrderShow orderShow=orderShowService.getShowInfoById(showComment.getShowId());
+        if(orderShow==null){
+            throw new SimpleHttpException(HttpStatus.BAD_REQUEST, "显摆不存在");
         }
 
-        shareComment.setUserId(token.getUserDTO().getId());
-        shareCommentService.create(shareComment);
-        return JsonObjectUtils.buildSimpleObjectSuccess(shareComment);
+        /**
+         * TODO parentId检查
+         */
+        showComment.setUserId(token.getUserDTO().getId());
+        showCommentService.create(showComment);
+        return JsonObjectUtils.buildSimpleObjectSuccess(showComment);
     }
 
     /**
      * 删除
      */
-    @RequestMapping(value = "/sharecomment/{id}",method = RequestMethod.DELETE)
+    @RequestMapping(value = "/showcomment/{id}",method = RequestMethod.DELETE)
     @ResponseBody
     @Authorization
-    public JsonSimpleObject deleteShareComment(@RequestAttribute(Constants.TAKEFREE_TOKEN) Token token,@PathVariable Long id) throws Exception{
+    public JsonSimpleObject deleteShowComment(@RequestAttribute(Constants.TAKEFREE_TOKEN) Token token,@PathVariable Long id) throws Exception{
         /**
          * TODO 权限检查
          */
-        int row=shareCommentService.delete(id);
+        int row=showCommentService.delete(id);
         if(row==0) {
-            throw new SimpleHttpException(HttpStatus.NOT_FOUND, "未关注");
+            throw new SimpleHttpException(HttpStatus.NOT_FOUND, "评论不存在");
         }else{
             return JsonObjectUtils.buildSimpleObjectSuccess(null);
         }
     }
 
-
-    @RequestMapping(value = "/sharecomment",method = RequestMethod.GET)
+    @RequestMapping(value = "/showcomment/{id}",method = RequestMethod.GET)
     @ResponseBody
-    public JsonObjectList<ShareCommentDTO> getShareComments(@RequestAttribute(value=Constants.TAKEFREE_TOKEN,required = false) Token token, Integer pageNo, Integer pageSize, Long userId, Long shareId) throws Exception{
+    public JsonSimpleObject<ShowCommentDTO> getShowComment(@RequestAttribute(Constants.TAKEFREE_TOKEN) Token token,@PathVariable Long id) throws Exception{
+        ShowCommentDTO showCommentDTO=showCommentService.get(id);
+        if(showCommentDTO==null){
+            throw new SimpleHttpException(HttpStatus.BAD_REQUEST, "评论不存在");
+        }
+        return JsonObjectUtils.buildSimpleObjectSuccess(showCommentDTO);
+    }
 
-        List<ShareCommentDTO> shareLikeDTOs=shareCommentService.getShareComments(pageNo, pageSize, null, userId);
-        return JsonObjectUtils.buildListSuccess(shareLikeDTOs);
+    @RequestMapping(value = "/showcomment",method = RequestMethod.GET)
+    @ResponseBody
+    public JsonObjectList<ShowCommentDTO> getShowComments(@RequestAttribute(value=Constants.TAKEFREE_TOKEN,required = false) Token token, Integer pageNo, Integer pageSize, Long userId, Long showId) throws Exception{
+        List<ShowCommentDTO> showLikeDTOs=showCommentService.getShowComments(pageNo, pageSize, showId, userId);
+        return JsonObjectUtils.buildListSuccess(showLikeDTOs);
     }
 }

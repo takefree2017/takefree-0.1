@@ -1,4 +1,4 @@
-package com.takefree.common.service.impl;
+package com.takefree.service.impl;
 
 import com.takefree.common.Exception.SimpleHttpException;
 import com.takefree.common.entry.Token;

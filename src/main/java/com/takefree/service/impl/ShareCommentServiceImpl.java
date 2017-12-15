@@ -35,6 +35,11 @@ public class ShareCommentServiceImpl implements ShareCommentService {
     }
 
     @Override
+    public ShareCommentDTO get(Long id){
+        return shareCommentDTOMapper.selectByPrimaryKey(id);
+    }
+
+    @Override
     public List<ShareCommentDTO> getShareComments(Integer page, Integer size, Long shareId, Long userId) {
         ShareCommentQuery shareCommentQuery=new ShareCommentQuery();
         if (page != null && size != null) {

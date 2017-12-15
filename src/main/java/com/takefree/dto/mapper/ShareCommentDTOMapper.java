@@ -15,5 +15,5 @@ import java.util.List;
 public interface ShareCommentDTOMapper {
     List<ShareCommentDTO> selectByExample(ShareCommentQuery ShareCommentQuery);
 
-    //ShareLikeDTO selectByPrimaryKey(Long id);
+    ShareCommentDTO selectByPrimaryKey(Long id);
 }
