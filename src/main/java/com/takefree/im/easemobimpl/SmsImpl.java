@@ -6,9 +6,11 @@ import com.alibaba.fastjson.JSONObject;
 import com.qianbao.redis.service.RedisClient;
 import com.takefree.common.Exception.SimpleHttpException;
 import com.takefree.common.entry.JsonObjectBase;
-import com.takefree.im.SmsApi;
+import com.takefree.common.service.SmsService;
 import com.takefree.common.util.Util;
 import com.takefree.common.web.constant.HttpStatus;
+import com.takefree.configuration.SmsConfig;
+
 import lombok.Data;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,7 +37,7 @@ import javax.validation.constraints.NotNull;
 @Service
 @ConfigurationProperties(prefix = "huanxin.sms")
 @Data
-public class SmsImpl implements SmsApi, InitializingBean {
+public class SmsImpl implements SmsService, InitializingBean {
 
 	private static final Logger logger = LoggerFactory.getLogger(SmsImpl.class);
 
