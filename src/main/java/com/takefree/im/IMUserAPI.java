@@ -81,7 +81,7 @@ public interface IMUserAPI {
 	 *            <code>{"newpassword" : "${新密码指定的字符串}"}</code>
 	 * @return
 	 */
-	Object modifyIMUserPasswordWithAdminToken(String userName, Object payload);
+//	Object modifyIMUserPasswordWithAdminToken(String userName, Object payload);
 
 	/**
 	 * 修改用户昵称 <br>
@@ -93,7 +93,7 @@ public interface IMUserAPI {
 	 *            <code>{"nickname" : "${昵称值}"}</code>
 	 * @return
 	 */
-	Object modifyIMUserNickNameWithAdminToken(String userName, Object payload);
+//	Object modifyIMUserNickNameWithAdminToken(String userName, Object payload);
 
 	/**
 	 * 给IM用户的添加好友 <br>
@@ -137,7 +137,7 @@ public interface IMUserAPI {
 	 *            用戶名或用戶ID
 	 * @return
 	 */
-	Object getBlackList(String userName);
+//	Object getBlackList(String userName);
 
 	/**
 	 * 往IM用户的黑名单中加人 <br>
@@ -149,7 +149,7 @@ public interface IMUserAPI {
 	 *            <code>{"usernames":["5cxhactgdj", "mh2kbjyop1"]}</code>
 	 * @return
 	 */
-	Object addToBlackList(String userName, Object payload);
+//	Object addToBlackList(String userName, Object payload);
 
 	/**
 	 * 从IM用户的黑名单中减人 <br>
@@ -161,7 +161,7 @@ public interface IMUserAPI {
 	 *            黑名单用戶名或用戶ID
 	 * @return
 	 */
-	Object removeFromBlackList(String userName, String blackListName);
+//	Object removeFromBlackList(String userName, String blackListName);
 
 	/**
 	 * 查看用户在线状态 <br>
@@ -171,7 +171,7 @@ public interface IMUserAPI {
 	 *            用戶名或用戶ID
 	 * @return
 	 */
-	Object getIMUserStatus(String userName);
+//	Object getIMUserStatus(String userName);
 
 	/**
 	 * 查询离线消息数 <br>
@@ -193,7 +193,7 @@ public interface IMUserAPI {
 	 *            消息ID
 	 * @return
 	 */
-	Object getSpecifiedOfflineMsgStatus(String userName, String msgId);
+//	Object getSpecifiedOfflineMsgStatus(String userName, String msgId);
 
 	/**
 	 * 用户账号禁用 <br>
@@ -203,7 +203,7 @@ public interface IMUserAPI {
 	 *            用戶名或用戶ID
 	 * @return
 	 */
-	Object deactivateIMUser(String userName);
+//	Object deactivateIMUser(String userName);
 
 	/**
 	 * 用户账号解禁 <br>
@@ -213,7 +213,7 @@ public interface IMUserAPI {
 	 *            用戶名或用戶ID
 	 * @return
 	 */
-	Object activateIMUser(String userName);
+//	Object activateIMUser(String userName);
 
 	/**
 	 * 强制用户下线 <br>
@@ -223,7 +223,7 @@ public interface IMUserAPI {
 	 *            用戶名或用戶ID
 	 * @return
 	 */
-	Object disconnectIMUser(String userName);
+//	Object disconnectIMUser(String userName);
 
 	/**
 	 * 获取用户参与的群组 <br>
@@ -235,7 +235,7 @@ public interface IMUserAPI {
 	 * @see http://docs.easemob.com/doku.php?id=start:100serverintegration:
 	 *      60groupmgmt
 	 */
-	Object getIMUserAllChatGroups(String userName);
+//	Object getIMUserAllChatGroups(String userName);
 
 	/**
 	 * 获取用户所有参与的聊天室 <br>
@@ -247,7 +247,7 @@ public interface IMUserAPI {
 	 * @see http://docs.easemob.com/doku.php?id=start:100serverintegration:
 	 *      70chatroommgmt
 	 */
-	Object getIMUserAllChatRooms(String userName);
+//	Object getIMUserAllChatRooms(String userName);
 	
 	/**
 	 * 发送消息 <br>
