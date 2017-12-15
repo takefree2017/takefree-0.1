@@ -1,8 +1,8 @@
-package com.takefree.service.impl;
+package com.takefree.common.service.impl;
 
 import com.takefree.common.Exception.SimpleHttpException;
 import com.takefree.common.entry.Token;
-import com.takefree.common.service.SmsService;
+import com.takefree.common.service.CaptchaService;
 import com.takefree.common.service.TokenManager;
 import com.takefree.common.util.BeanUtils;
 import com.takefree.common.util.Util;
@@ -20,7 +20,6 @@ import com.takefree.pojo.model.UserTime;
 import com.takefree.pojo.query.UserInfoQuery;
 import com.takefree.service.UserLikeService;
 import com.takefree.service.UserService;
-import com.xiaoleilu.hutool.crypto.SecureUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -49,14 +48,10 @@ public class UserServiceImpl implements UserService {
     private TokenManager tokenManager;
 
     @Autowired
-    private SmsService smsService;
+    private CaptchaService captchaService;
 
     @Autowired
     private UserLikeService userLikeService;
-
-    private static String loginSmsTemplete="TakeFree 登录验证码$code$，请在5分钟内使用。";
-
-    private static String loginSmsReidsPrefix="LOGIN";
 
     @Override
     public UserDTO getUserInfoById(Long id) {
@@ -127,7 +122,7 @@ public class UserServiceImpl implements UserService {
             throw new SimpleHttpException(HttpStatus.BAD_REQUEST, "手机号未注册");
         }
         UserDTO userDTO = userDTOS.get(0);
-        if(smsService.checkCode(mobile,loginSmsReidsPrefix,smsCode)){
+        if(captchaService.checkLoginCode(mobile, smsCode)){
             return login(userDTO);
         }else{
             throw new SimpleHttpException(HttpStatus.BAD_REQUEST, "验证码错误");
@@ -165,7 +160,7 @@ public class UserServiceImpl implements UserService {
         if(userDTOS.size() == 0) {
             throw new SimpleHttpException(HttpStatus.BAD_REQUEST, "手机号未注册");
         }
-        return smsService.sendCode(mobile,loginSmsReidsPrefix,loginSmsTemplete);
+        return captchaService.sendLoginCode(mobile);
     }
 
 
