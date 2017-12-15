@@ -113,7 +113,7 @@ public class UserAddressController {
     @RequestMapping(value = "/user/address/{id}",method = RequestMethod.PUT)
     @ResponseBody
     @Authorization
-    public JsonSimpleObject<UserAddress> updateUserAddress(@RequestAttribute(Constants.TAKEFREE_TOKEN) Token token,@PathVariable Long id,@RequestBody UserAddress userAddress) throws Exception{
+    public JsonSimpleObject updateUserAddress(@RequestAttribute(Constants.TAKEFREE_TOKEN) Token token,@PathVariable Long id,@RequestBody UserAddress userAddress) throws Exception{
         UserAddress oldUserAddress=userAddressService.getUserAddressById(id);
         if(oldUserAddress==null){
             throw new SimpleHttpException(HttpStatus.NOT_FOUND,"user address not found");
@@ -129,7 +129,7 @@ public class UserAddressController {
 
         int row=userAddressService.updateById(userAddress);
 
-        return JsonObjectUtils.buildSimpleObjectSuccess(userAddress);
+        return JsonObjectUtils.buildSimpleObjectSuccess(null);
     }
 
 }

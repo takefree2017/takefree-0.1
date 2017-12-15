@@ -98,6 +98,7 @@ public class UserServiceImpl implements UserService {
         BeanUtils.copyPropertiesIgnoreNull(userDTO, userTime);
         userTime.setUserId(userInfo.getId());
         userTimeMapper.insertSelective(userTime);
+
         return true;
     }
 

@@ -2,6 +2,7 @@ package com.takefree.pojo.model;
 
 import lombok.Data;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -21,6 +22,7 @@ public class ShareComment implements Serializable {
      * 分享id
      * @mbg.generated
      */
+    @NotNull(message="shareId不能为空")
     private Long shareId;
 
     /**
@@ -39,6 +41,7 @@ public class ShareComment implements Serializable {
      * 评论内容
      * @mbg.generated
      */
+    @NotNull(message="评论内容不能为空")
     private String content;
 
     /**

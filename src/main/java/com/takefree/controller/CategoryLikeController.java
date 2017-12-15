@@ -33,7 +33,7 @@ public class CategoryLikeController {
     @RequestMapping(value = "/categorylike",method = RequestMethod.POST)
     @ResponseBody
     @Authorization
-    public JsonSimpleObject<CategoryLike> createShowLike(@RequestAttribute(Constants.TAKEFREE_TOKEN) Token token, @RequestParam Long categoryId) throws Exception{
+    public JsonSimpleObject<CategoryLike> createCategoryLike(@RequestAttribute(Constants.TAKEFREE_TOKEN) Token token, @RequestParam Long categoryId) throws Exception{
         CategoryInfo categoryInfo=categoryService.getCategoryInfoById(categoryId);
 
         if(categoryInfo==null){
@@ -54,7 +54,7 @@ public class CategoryLikeController {
     @RequestMapping(value = "/categorylike",method = RequestMethod.DELETE)
     @ResponseBody
     @Authorization
-    public JsonSimpleObject deleteShowLike(@RequestAttribute(Constants.TAKEFREE_TOKEN) Token token,@RequestParam Long categoryId) throws Exception{
+    public JsonSimpleObject deleteCategoryLike(@RequestAttribute(Constants.TAKEFREE_TOKEN) Token token,@RequestParam Long categoryId) throws Exception{
         /**
          * TODO 权限校验
          */
@@ -69,7 +69,7 @@ public class CategoryLikeController {
 
     @RequestMapping(value = "/categorylike",method = RequestMethod.GET)
     @ResponseBody
-    public JsonObjectList<CategoryLike> getShowLikes(@RequestAttribute(value=Constants.TAKEFREE_TOKEN,required = false) Token token, Integer pageNo, Integer pageSize, Long userId) throws Exception{
+    public JsonObjectList<CategoryLike> getCategoryLikes(@RequestAttribute(value=Constants.TAKEFREE_TOKEN,required = false) Token token, Integer pageNo, Integer pageSize, Long userId) throws Exception{
 //        if(userId!=null){
 //            if(token==null||!token.getUserDTO().getId().equals(userId)){
 //                throw new SimpleHttpException(HttpStatus.UNAUTHORIZED, "Unauthorized");
