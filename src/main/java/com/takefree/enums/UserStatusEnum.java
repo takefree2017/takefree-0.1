@@ -4,7 +4,7 @@ package com.takefree.enums;
  * Created by gaoxiang on 2017/11/14.
  */
 public enum UserStatusEnum {
-    NOT_ACTIVE("草稿",10),ACTIVE("发布中",20);
+    NOT_ACTIVE("未激活",10),ACTIVE("已经激活",20);
 
     private String name ;
     private int code ;

@@ -75,14 +75,16 @@ public class UserAddressController {
      */
     @RequestMapping(value = "/user/address/{id}",method = RequestMethod.GET)
     @ResponseBody
-    @Authorization
-    public JsonSimpleObject<UserAddress> getUserAddress(@RequestAttribute(Constants.TAKEFREE_TOKEN) Token token,@PathVariable Long id) throws Exception{
+    //@Authorization
+    public JsonSimpleObject<UserAddress> getUserAddress(@RequestAttribute(value=Constants.TAKEFREE_TOKEN,required = false) Token token,@PathVariable Long id) throws Exception{
         UserAddress userAddress=userAddressService.getUserAddressById(id);
         if(userAddress==null){
-            throw new SimpleHttpException(HttpStatus.NOT_FOUND,"user address not found");
-        }else if(!userAddress.getUserId().equals(token.getUserDTO().getId())){
-            throw new SimpleHttpException(HttpStatus.FORBIDDEN,"无权限");
+            throw new SimpleHttpException(HttpStatus.NOT_FOUND,"address not found");
         }
+
+//        if(!userAddress.getUserId().equals(token.getUserDTO().getId())){
+//            throw new SimpleHttpException(HttpStatus.FORBIDDEN,"无权限");
+//        }
 
         return JsonObjectUtils.buildSimpleObjectSuccess(userAddress);
     }

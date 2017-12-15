@@ -43,7 +43,6 @@ public class TakeOrderDTO implements Serializable {
 
     /**
      * 申请人id
-
      */
     private Long applicantId;
 

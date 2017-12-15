@@ -23,7 +23,6 @@ public class UserAddress implements Serializable {
      * 用户id
      * @mbg.generated
      */
-    @NotNull(message="用户id不能为空")
     private Long userId;
 
     /**
