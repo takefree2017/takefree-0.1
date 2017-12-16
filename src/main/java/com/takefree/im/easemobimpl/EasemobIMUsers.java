@@ -25,6 +25,7 @@ public class EasemobIMUsers  implements ImService {
 				RegisterUsers payload = new RegisterUsers();
 				User u  = new User();
 				u.setUsername(String.valueOf(userInfo.getId()));
+				u.setPassword("lklklk");
 				payload.add(u);
 				return com.alibaba.fastjson.JSON.parse(api.orgNameAppNameUsersPost(OrgInfo.org_name,OrgInfo.app_name,(RegisterUsers) payload,TokenUtil.getAccessToken()));
 			}
