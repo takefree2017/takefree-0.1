@@ -69,12 +69,12 @@ public class TakeOrderController {
     @RequestMapping(value = "/order/{id}",method = RequestMethod.GET)
     @ResponseBody
     @Authorization
-    public JsonSimpleObject getOrder(@RequestAttribute(Constants.TAKEFREE_TOKEN) Token token,@PathVariable("id") Long orderId) throws Exception{
+    public JsonSimpleObject<TakeOrderDTO> getOrder(@RequestAttribute(Constants.TAKEFREE_TOKEN) Token token,@PathVariable("id") Long orderId) throws Exception{
         TakeOrderDTO takeOrderDTO=takeOrderService.getTakeOrderDTOById(orderId);
         if(takeOrderDTO==null){
             throw new SimpleHttpException(HttpStatus.NOT_FOUND, "无此订单");
         }
-        if(!takeOrderDTO.getApplicantId().equals(token.getUserDTO().getId())){
+        if(!takeOrderDTO.getApplicantId().equals(token.getUserDTO().getId())&&!takeOrderDTO.getOwnerId().equals(token.getUserDTO().getId())){
             throw new SimpleHttpException(HttpStatus.FORBIDDEN, "无权限");
         }
         return JsonObjectUtils.buildSimpleObjectSuccess(takeOrderDTO);
@@ -82,7 +82,7 @@ public class TakeOrderController {
 
     /**
      * 获取分享订单
-     * @param applyUserId 可选
+     * @param applicantId 可选
      * @param shareId 可选
      * @param pageNo 可选
      * @param pageSize 可选
@@ -92,14 +92,14 @@ public class TakeOrderController {
      */
     @RequestMapping(value = "/order",method = RequestMethod.GET)
     @ResponseBody
-    public JsonObjectList<TakeOrderDTO> getOrders(@RequestAttribute(value=Constants.TAKEFREE_TOKEN,required = false) Token token, Integer pageNo, Integer pageSize, Long applyUserId, Long shareId, Integer status) throws Exception{
-        if(applyUserId!=null){
-            if(token==null||!token.getUserDTO().getId().equals(applyUserId)){
+    public JsonObjectList<TakeOrderDTO> getOrders(@RequestAttribute(value=Constants.TAKEFREE_TOKEN,required = false) Token token, Integer pageNo, Integer pageSize, Long applicantId, Long shareId, Integer status) throws Exception{
+        if(applicantId!=null){
+            if(token==null||!token.getUserDTO().getId().equals(applicantId)){
                 throw new SimpleHttpException(HttpStatus.UNAUTHORIZED, "Unauthorized");
             }
         }
 
-        List<TakeOrderDTO> shareDTOS= takeOrderService.getTakeOrderDTOs(pageNo, pageSize, shareId, null, applyUserId, status);
+        List<TakeOrderDTO> shareDTOS= takeOrderService.getTakeOrderDTOs(pageNo, pageSize, shareId, null, applicantId, status);
         return JsonObjectUtils.buildListSuccess(shareDTOS);
     }
 }

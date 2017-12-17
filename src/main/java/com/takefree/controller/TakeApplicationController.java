@@ -10,12 +10,11 @@ import com.takefree.common.util.JsonObjectUtils;
 import com.takefree.common.web.constant.HttpStatus;
 import com.takefree.dto.model.ShareDTO;
 import com.takefree.dto.model.TakeApplicationDTO;
-import com.takefree.enums.ApplyStatusEnum;
 import com.takefree.enums.ShareStatusEnum;
 import com.takefree.pojo.model.ShareLike;
 import com.takefree.pojo.model.TakeApplication;
-import com.takefree.service.TakeApplicationService;
 import com.takefree.service.ShareService;
+import com.takefree.service.TakeApplicationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -106,7 +105,7 @@ public class TakeApplicationController {
         if(apply==null){
             throw new SimpleHttpException(HttpStatus.NOT_FOUND, "无此订单");
         }
-        if(!apply.getApplicantId().equals(token.getUserDTO().getId())){
+        if(!apply.getApplicantId().equals(token.getUserDTO().getId())&&!apply.getOwnerId().equals(token.getUserDTO().getId())){
             throw new SimpleHttpException(HttpStatus.UNAUTHORIZED, "Unauthorized");
         }
         return JsonObjectUtils.buildSimpleObjectSuccess(apply);
@@ -114,7 +113,7 @@ public class TakeApplicationController {
 
     /**
      * 获取分享订单
-     * @param applyUserId 可选
+     * @param applicantId 可选
      * @param shareId 可选
      * @param pageNo 可选
      * @param pageSize 可选
@@ -124,14 +123,14 @@ public class TakeApplicationController {
      */
     @RequestMapping(value = "/apply",method = RequestMethod.GET)
     @ResponseBody
-    public JsonObjectList<TakeApplicationDTO> getApplys(@RequestAttribute(value=Constants.TAKEFREE_TOKEN,required = false) Token token, Integer pageNo, Integer pageSize, Long applyUserId, Long shareId, Integer status) throws Exception{
-        if(applyUserId!=null){
-            if(token==null||!token.getUserDTO().getId().equals(applyUserId)){
+    public JsonObjectList<TakeApplicationDTO> getApplys(@RequestAttribute(value=Constants.TAKEFREE_TOKEN,required = false) Token token, Integer pageNo, Integer pageSize, Long applicantId, Long shareId, Integer status) throws Exception{
+        if(applicantId!=null){
+            if(token==null||!token.getUserDTO().getId().equals(applicantId)){
                 throw new SimpleHttpException(HttpStatus.UNAUTHORIZED, "Unauthorized");
             }
         }
 
-        List<TakeApplicationDTO> apply= takeApplicationService.getApplys(pageNo, pageSize, shareId, null, applyUserId, status);
+        List<TakeApplicationDTO> apply= takeApplicationService.getApplys(pageNo, pageSize, shareId, null, applicantId, status);
         return JsonObjectUtils.buildListSuccess(apply);
     }
 }

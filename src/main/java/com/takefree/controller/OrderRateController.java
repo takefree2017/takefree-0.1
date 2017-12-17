@@ -126,8 +126,11 @@ public class OrderRateController {
         /**
          * TODO...权限判断
          */
-        List<OrderRate> logistics=orderRateService.getByOrderId(orderId);
-
-        return JsonObjectUtils.buildSimpleObjectSuccess(logistics.get(0));
+        List<OrderRate> rates=orderRateService.getByOrderId(orderId);
+        if(rates.size()>0) {
+            return JsonObjectUtils.buildSimpleObjectSuccess(rates.get(0));
+        }else{
+            return JsonObjectUtils.buildSimpleObjectSuccess(null);
+        }
     }
 }

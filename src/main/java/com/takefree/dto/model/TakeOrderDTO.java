@@ -27,7 +27,6 @@ public class TakeOrderDTO implements Serializable {
 
     /**
      * 分享人id
-
      */
     private Long ownerId;
 
@@ -86,8 +85,7 @@ public class TakeOrderDTO implements Serializable {
     private Integer status;
 
     /**
-     * 物流状态。10,无物流信息；20，物流中；30已收货
-
+     * 10,无物流单；20，有物流单
      */
     private Integer logisticsStatus;
 

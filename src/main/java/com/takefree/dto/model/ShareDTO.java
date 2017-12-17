@@ -82,11 +82,11 @@ public class ShareDTO implements Serializable {
 //    @JsonView(ResultView.BriefView.class)
 //    private Long takerId;
 
-    /**
-     * taker昵称
-     */
-    @JsonView(ResultView.BriefView.class)
-    private String takerNickName;
+//    /**
+//     * taker昵称
+//     */
+//    @JsonView(ResultView.BriefView.class)
+//    private String takerNickName;
 
     /**
      * 记录插入时间
