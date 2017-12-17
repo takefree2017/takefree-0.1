@@ -1,79 +1,116 @@
 package com.takefree.im.easemobimpl;
 
+import java.util.List;
+
+import com.takefree.common.entry.JsonObjectBase;
 import com.takefree.im.EasemobAPI;
-import com.takefree.im.IMUserAPI;
+import com.takefree.pojo.model.UserInfo;
+import com.takefree.service.ImService;
+
 import io.swagger.client.ApiException;
 import io.swagger.client.api.UsersApi;
-import io.swagger.client.model.NewPassword;
-import io.swagger.client.model.Nickname;
 import io.swagger.client.model.RegisterUsers;
-import io.swagger.client.model.UserNames;
+import io.swagger.client.model.User;
 
-public class EasemobIMUsers  implements IMUserAPI {
-
+public class EasemobIMUsers  implements ImService {
 
 	private UsersApi api = new UsersApi();
 	private ResponseHandler responseHandler = new ResponseHandler();
+
 	@Override
-	public Object createNewIMUserSingle(final Object payload) {
-		return responseHandler.handle(new EasemobAPI() {
+	public boolean createUser(UserInfo userInfo) {
+		JsonObjectBase job = responseHandler.handle(new EasemobAPI() {
 			@Override
 			public Object invokeEasemobAPI() throws ApiException {
-				System.out.println("\n\n" + TokenUtil.getAccessToken());
+				RegisterUsers payload = new RegisterUsers();
+				User u  = new User();
+				u.setUsername(String.valueOf(userInfo.getId()));
+				u.setPassword("lklklk");
+				payload.add(u);
 				return com.alibaba.fastjson.JSON.parse(api.orgNameAppNameUsersPost(OrgInfo.org_name,OrgInfo.app_name,(RegisterUsers) payload,TokenUtil.getAccessToken()));
 			}
 		});
+		return job.getStatus().startsWith("200");		
 	}
 
 	@Override
-	public Object createNewIMUserBatch(final Object payload) {
-		return responseHandler.handle(new EasemobAPI() {
+	public boolean sendMessage(UserInfo fromUsers, List<UserInfo> toUsers, String content) {
+		JsonObjectBase job =  responseHandler.handle(new EasemobAPI() {
 			@Override
 			public Object invokeEasemobAPI() throws ApiException {
-				return com.alibaba.fastjson.JSON.parse(api.orgNameAppNameUsersPost(OrgInfo.org_name,OrgInfo.app_name, (RegisterUsers) payload,TokenUtil.getAccessToken()));
+				HttpWorker hWorker = new HttpWorker();
+				String tou = "";
+				for (UserInfo userInfo : toUsers) {
+					tou = tou + "\"" +  String.valueOf(userInfo.getId()) + "\"," ;
+				}
+				tou = (tou.length() > 0) ? tou.substring(0, tou.length()) : tou;
+				System.out.println("\n " + tou + "\n");
+				return hWorker.EasemobPost(String.valueOf(fromUsers.getId()),tou,content);
 			}
 		});
+		return job.getStatus().startsWith("200");
 	}
 
-	@Override
-	public Object getIMUserByUserName(final String userName) {
-		return responseHandler.handle(new EasemobAPI() {
-			@Override
-			public Object invokeEasemobAPI() throws ApiException {
-				return com.alibaba.fastjson.JSON.parse(api.orgNameAppNameUsersUsernameGet(OrgInfo.org_name,OrgInfo.app_name,TokenUtil.getAccessToken(),userName));
-		}
-		});
-	}
-
-	@Override
-	public Object getIMUsersBatch(final Long limit,final String cursor) {
-		return responseHandler.handle(new EasemobAPI() {
-			@Override
-			public Object invokeEasemobAPI() throws ApiException {
-				return com.alibaba.fastjson.JSON.parse(api.orgNameAppNameUsersGet(OrgInfo.org_name,OrgInfo.app_name,TokenUtil.getAccessToken(),limit+"",cursor));
-			}
-		});
-	}
-
-	@Override
-	public Object deleteIMUserByUserName(final String userName) {
-		return responseHandler.handle(new EasemobAPI() {
-			@Override
-			public Object invokeEasemobAPI() throws ApiException {
-				return com.alibaba.fastjson.JSON.parse(api.orgNameAppNameUsersUsernameDelete(OrgInfo.org_name,OrgInfo.app_name,TokenUtil.getAccessToken(),userName));
-			}
-		});
-	}
-
-	@Override
-	public Object deleteIMUserBatch(final Long limit,final String cursor) {
-		return responseHandler.handle(new EasemobAPI() {
-			@Override
-			public Object invokeEasemobAPI() throws ApiException {
-				return com.alibaba.fastjson.JSON.parse(api.orgNameAppNameUsersDelete(OrgInfo.org_name,OrgInfo.app_name,TokenUtil.getAccessToken(),limit+"",cursor));
-			}
-		});
-	}
+//	@Override
+//	public Object createNewIMUserSingle(final Object payload) {
+//		return responseHandler.handle(new EasemobAPI() {
+//			@Override
+//			public Object invokeEasemobAPI() throws ApiException {
+//				System.out.println("\n\n" + TokenUtil.getAccessToken());
+//				return com.alibaba.fastjson.JSON.parse(api.orgNameAppNameUsersPost(OrgInfo.org_name,OrgInfo.app_name,(RegisterUsers) payload,TokenUtil.getAccessToken()));
+//			}
+//		});
+//	}
+//
+//	@Override
+//	public Object createNewIMUserBatch(final Object payload) {
+//		return responseHandler.handle(new EasemobAPI() {
+//			@Override
+//			public Object invokeEasemobAPI() throws ApiException {
+//				return com.alibaba.fastjson.JSON.parse(api.orgNameAppNameUsersPost(OrgInfo.org_name,OrgInfo.app_name, (RegisterUsers) payload,TokenUtil.getAccessToken()));
+//			}
+//		});
+//	}
+//
+//	@Override
+//	public Object getIMUserByUserName(final String userName) {
+//		return responseHandler.handle(new EasemobAPI() {
+//			@Override
+//			public Object invokeEasemobAPI() throws ApiException {
+//				return com.alibaba.fastjson.JSON.parse(api.orgNameAppNameUsersUsernameGet(OrgInfo.org_name,OrgInfo.app_name,TokenUtil.getAccessToken(),userName));
+//		}
+//		});
+//	}
+//
+//	@Override
+//	public Object getIMUsersBatch(final Long limit,final String cursor) {
+//		return responseHandler.handle(new EasemobAPI() {
+//			@Override
+//			public Object invokeEasemobAPI() throws ApiException {
+//				return com.alibaba.fastjson.JSON.parse(api.orgNameAppNameUsersGet(OrgInfo.org_name,OrgInfo.app_name,TokenUtil.getAccessToken(),limit+"",cursor));
+//			}
+//		});
+//	}
+//
+//	@Override
+//	public Object deleteIMUserByUserName(final String userName) {
+//		return responseHandler.handle(new EasemobAPI() {
+//			@Override
+//			public Object invokeEasemobAPI() throws ApiException {
+//				return com.alibaba.fastjson.JSON.parse(api.orgNameAppNameUsersUsernameDelete(OrgInfo.org_name,OrgInfo.app_name,TokenUtil.getAccessToken(),userName));
+//			}
+//		});
+//	}
+//
+//	@Override
+//	public Object deleteIMUserBatch(final Long limit,final String cursor) {
+//		return responseHandler.handle(new EasemobAPI() {
+//			@Override
+//			public Object invokeEasemobAPI() throws ApiException {
+//				return com.alibaba.fastjson.JSON.parse(api.orgNameAppNameUsersDelete(OrgInfo.org_name,OrgInfo.app_name,TokenUtil.getAccessToken(),limit+"",cursor));
+//			}
+//		});
+//	}
 
 //	@Override
 //	public Object modifyIMUserPasswordWithAdminToken(final String userName, final Object payload) {
@@ -95,35 +132,35 @@ public class EasemobIMUsers  implements IMUserAPI {
 //		});
 //	}
 
-	@Override
-	public Object addFriendSingle(final String userName,final String friendName) {
-		return responseHandler.handle(new EasemobAPI() {
-			@Override
-			public Object invokeEasemobAPI() throws ApiException {
-				return com.alibaba.fastjson.JSON.parse(api.orgNameAppNameUsersOwnerUsernameContactsUsersFriendUsernamePost(OrgInfo.org_name,OrgInfo.app_name,TokenUtil.getAccessToken(),userName,friendName));
-			}
-		});
-	}
-
-	@Override
-	public Object deleteFriendSingle(final String userName,final String friendName) {
-		return responseHandler.handle(new EasemobAPI() {
-			@Override
-			public Object invokeEasemobAPI() throws ApiException {
-				return com.alibaba.fastjson.JSON.parse(api.orgNameAppNameUsersOwnerUsernameContactsUsersFriendUsernameDelete(OrgInfo.org_name,OrgInfo.app_name,TokenUtil.getAccessToken(),userName,friendName));
-			}
-		});
-	}
-
-	@Override
-	public Object getFriends(final String userName) {
-		return responseHandler.handle(new EasemobAPI() {
-			@Override
-			public Object invokeEasemobAPI() throws ApiException {
-				return com.alibaba.fastjson.JSON.parse(api.orgNameAppNameUsersOwnerUsernameContactsUsersGet(OrgInfo.org_name,OrgInfo.app_name,TokenUtil.getAccessToken(),userName));
-			}
-		});
-	}
+//	@Override
+//	public Object addFriendSingle(final String userName,final String friendName) {
+//		return responseHandler.handle(new EasemobAPI() {
+//			@Override
+//			public Object invokeEasemobAPI() throws ApiException {
+//				return com.alibaba.fastjson.JSON.parse(api.orgNameAppNameUsersOwnerUsernameContactsUsersFriendUsernamePost(OrgInfo.org_name,OrgInfo.app_name,TokenUtil.getAccessToken(),userName,friendName));
+//			}
+//		});
+//	}
+//
+//	@Override
+//	public Object deleteFriendSingle(final String userName,final String friendName) {
+//		return responseHandler.handle(new EasemobAPI() {
+//			@Override
+//			public Object invokeEasemobAPI() throws ApiException {
+//				return com.alibaba.fastjson.JSON.parse(api.orgNameAppNameUsersOwnerUsernameContactsUsersFriendUsernameDelete(OrgInfo.org_name,OrgInfo.app_name,TokenUtil.getAccessToken(),userName,friendName));
+//			}
+//		});
+//	}
+//
+//	@Override
+//	public Object getFriends(final String userName) {
+//		return responseHandler.handle(new EasemobAPI() {
+//			@Override
+//			public Object invokeEasemobAPI() throws ApiException {
+//				return com.alibaba.fastjson.JSON.parse(api.orgNameAppNameUsersOwnerUsernameContactsUsersGet(OrgInfo.org_name,OrgInfo.app_name,TokenUtil.getAccessToken(),userName));
+//			}
+//		});
+//	}
 
 //	@Override
 //	public Object getBlackList(final String userName) {
@@ -165,15 +202,15 @@ public class EasemobIMUsers  implements IMUserAPI {
 //		});
 //	}
 
-	@Override
-	public Object getOfflineMsgCount(final String userName) {
-		return responseHandler.handle(new EasemobAPI() {
-			@Override
-			public Object invokeEasemobAPI() throws ApiException {
-				return com.alibaba.fastjson.JSON.parse(api.orgNameAppNameUsersOwnerUsernameOfflineMsgCountGet(OrgInfo.org_name,OrgInfo.app_name,TokenUtil.getAccessToken(),userName));
-			}
-		});
-	}
+//	@Override
+//	public Object getOfflineMsgCount(final String userName) {
+//		return responseHandler.handle(new EasemobAPI() {
+//			@Override
+//			public Object invokeEasemobAPI() throws ApiException {
+//				return com.alibaba.fastjson.JSON.parse(api.orgNameAppNameUsersOwnerUsernameOfflineMsgCountGet(OrgInfo.org_name,OrgInfo.app_name,TokenUtil.getAccessToken(),userName));
+//			}
+//		});
+//	}
 
 //	@Override
 //	public Object getSpecifiedOfflineMsgStatus(final String userName,final String msgId) {
@@ -235,16 +272,16 @@ public class EasemobIMUsers  implements IMUserAPI {
 //		});
 //	}
 
-	@Override
-	public Object sendMsg(String from, String to, String msg) {
-		return responseHandler.handle(new EasemobAPI() {
-			@Override
-			public Object invokeEasemobAPI() throws ApiException {
-				HttpWorker hWorker = new HttpWorker();
-				return hWorker.EasemobPost(from,to,msg);
-			}
-		});
-	}
+//	@Override
+//	public Object sendMsg(String from, String to, String msg) {
+//		return responseHandler.handle(new EasemobAPI() {
+//			@Override
+//			public Object invokeEasemobAPI() throws ApiException {
+//				HttpWorker hWorker = new HttpWorker();
+//				return hWorker.EasemobPost(from,to,msg);
+//			}
+//		});
+//	}
 	
 
 }

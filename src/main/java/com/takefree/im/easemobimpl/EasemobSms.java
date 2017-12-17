@@ -1,5 +1,7 @@
 package com.takefree.im.easemobimpl;
 
+import com.takefree.configuration.SmsConfig;
+
 import lombok.Data;
 
 /**
