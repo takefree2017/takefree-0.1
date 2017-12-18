@@ -85,7 +85,6 @@ public class SmsImpl implements SmsService, InitializingBean {
     
     public boolean send(String mobile, String template,String kvs) throws Exception {
     	
-    	int retryTime = 0;
         if (TokenUtil.getSMS_TOKEN() == null) {
         	//取sms token 
     		getSmsToken();
@@ -98,7 +97,6 @@ public class SmsImpl implements SmsService, InitializingBean {
 			//sms token 出错 重取
     		getSmsToken();
     		result = smsClientService.send(TokenUtil.getSMS_TOKEN(),new EasemobSms(smsConfig,mobile, template, kvs)).execute().body();
-    		if (retryTime++ > 1) return false;
  		}
         if (!result.getStatus().startsWith("200")) {
             logger.error("send sms error!{}", result);
