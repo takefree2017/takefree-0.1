@@ -4,8 +4,9 @@ import com.takefree.common.web.constant.HttpStatus;
 
 /**
  * Created by gaoxiang on 2017/7/11.
+ * RuntimeException Transactional能回滚
  */
-public class SimpleHttpException extends Exception {
+public class SimpleHttpException extends RuntimeException {
     private HttpStatus httpStatus;
     private String     mesasge;
 

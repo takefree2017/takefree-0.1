@@ -11,6 +11,7 @@ import lombok.Data;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Service;
 
@@ -20,52 +21,59 @@ import javax.validation.constraints.NotNull;
  * Created by gaoxiang on 2017/7/10.
  */
 @Service
-@ConfigurationProperties(prefix = "takefree.captcha.redis")
 @Data
 public class CaptchaServiceImpl implements CaptchaService {
+
     private static final Logger logger = LoggerFactory.getLogger(CaptchaServiceImpl.class);
 
-    //@Autowired
+    @Autowired
     private SmsService smsService;
 
     @Reference(version = "1.0.0")
     private RedisClient redisClient;
 
     @NotNull
+    @Value("${takefree.redis.namespace}")
     private String namespace;
 
     @NotNull
+    @Value("${takefree.captcha.ttl}")
     private Integer ttl;
 
     @NotNull
+    @Value("${takefree.captcha.inteval}")
     private Integer inteval;
 
     @NotNull
-    private static String prefixLogin;
-
+    @Value("${takefree.captcha.redis.prefix.login}")
+    private String redisPrefixLogin;
 
     //短信验证码
     public boolean sendLoginCode(String mobile) throws Exception {
-        String redisKey=prefixLogin+mobile;
+        String redisKey = redisPrefixLogin + mobile;
 
         //ttl经过时间小于短信最小间隔时间
-        if(redisClient.ttl(namespace,redisKey )+inteval>ttl){
+        if (redisClient.ttl(namespace, redisKey) + inteval > ttl) {
             throw new SimpleHttpException(HttpStatus.BAD_REQUEST, "短信发送太频繁");
         }
 
-        String code= Util.generateSmsCode();
+        String code = Util.generateSmsCode();
 
-        return smsService.sendCode(mobile, code);
-
+        if (smsService.sendCode(mobile, code)) {
+            redisClient.setex(namespace, redisKey, ttl, code);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     //短信验证码
-    public boolean checkLoginCode(String mobile,String code) throws Exception {
-        String redisKey=prefixLogin+mobile;
-        String redisCode=redisClient.get(namespace, redisKey);
-        if(redisCode!=null&&redisCode.equals(code)){
+    public boolean checkLoginCode(String mobile, String code) throws Exception {
+        String redisKey = redisPrefixLogin + mobile;
+        String redisCode = redisClient.get(namespace, redisKey);
+        if (redisCode != null && redisCode.equals(code)) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }

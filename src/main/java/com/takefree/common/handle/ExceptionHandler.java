@@ -45,30 +45,47 @@ public class ExceptionHandler extends SimpleMappingExceptionResolver
     @org.springframework.web.bind.annotation.ExceptionHandler
     public ModelAndView resolveException(HttpServletRequest request,
                                          HttpServletResponse response, Object o, Exception e) {
-        LOG.warn(request.getRequestURI() + " ExceptionHandler FOUND. "  + e.toString());
+        LOG.warn( " ExceptionHandler!"  + request.getRequestURI() +" "+ e.toString());
         if (e instanceof SimpleHttpException){
             SimpleHttpException simpleHttpException=(SimpleHttpException) e;
             return buildError(simpleHttpException.getHttpStatus(),simpleHttpException.getMesasge());
-        }else if (e instanceof TypeMismatchException) {
+        }
+
+        LOG.error("",e);
+
+        if (e instanceof TypeMismatchException) {
             return buildError(HttpStatus.BAD_REQUEST, ((TypeMismatchException) e).getPropertyName() + " parameter type error!");
-        } else if (e instanceof InvalidPropertyException) {
+        }
+
+        if (e instanceof InvalidPropertyException) {
             return buildError(HttpStatus.BAD_REQUEST, ((InvalidPropertyException) e).getPropertyName() + " parameter cannot find!");
-        } else if (e instanceof BindException) {
+        }
+
+        if (e instanceof BindException) {
             return getParamErrors(((BindException) e)
                     .getBindingResult());
-        } else if (e instanceof MethodArgumentNotValidException) {
+        }
+
+        if (e instanceof MethodArgumentNotValidException) {
             return getParamErrors(((MethodArgumentNotValidException) e)
                     .getBindingResult());
-        } else if (e instanceof HttpRequestMethodNotSupportedException) {
+        }
+
+        if (e instanceof HttpRequestMethodNotSupportedException) {
             return buildError(HttpStatus.METHOD_NOT_ALLOWED);
-        } else if (e instanceof MissingServletRequestParameterException) {
+        }
+
+        if (e instanceof MissingServletRequestParameterException) {
             return buildError(HttpStatus.BAD_REQUEST,
                     e.getMessage());
-        } else if (e instanceof HttpMessageConversionException){
+        }
+
+        if (e instanceof HttpMessageConversionException){
             return buildError(HttpStatus.BAD_REQUEST,
                     "request body error!");
-        }  else {
-            LOG.error("",e);
+        }
+
+        {
             return buildError(HttpStatus.INTERNAL_SERVER_ERROR, "内部错误");
         }
     }
@@ -104,7 +121,7 @@ public class ExceptionHandler extends SimpleMappingExceptionResolver
 
         error.setMessage(httpStatus.getReasonPhrase());
 
-        LOG.info(error.toString());
+        LOG.debug(error.toString());
 
         return JsonObjectError2ModelView(error);
     }
@@ -122,7 +139,7 @@ public class ExceptionHandler extends SimpleMappingExceptionResolver
 
         error.setMessage(errorMsg);
 
-        LOG.info(error.toString());
+        LOG.debug(error.toString());
 
         return JsonObjectError2ModelView(error);
     }

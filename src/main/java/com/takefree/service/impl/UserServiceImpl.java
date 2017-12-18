@@ -18,6 +18,7 @@ import com.takefree.pojo.model.UserDescription;
 import com.takefree.pojo.model.UserInfo;
 import com.takefree.pojo.model.UserTime;
 import com.takefree.pojo.query.UserInfoQuery;
+import com.takefree.service.ImService;
 import com.takefree.service.UserLikeService;
 import com.takefree.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,6 +54,9 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserLikeService userLikeService;
 
+    @Autowired
+    private ImService imService;
+
     @Override
     public UserDTO getUserInfoById(Long id) {
         UserInfo userInfo=userInfoMapper.selectByPrimaryKey(id);
@@ -71,14 +75,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public boolean create(UserDTO userDTO) {
+    public boolean create(UserDTO userDTO) throws Exception{
         //密码MD5两次保存
         userDTO.setPassword(Util.encryptPassword(userDTO.getPassword()));
 
         UserInfo userInfo=new UserInfo();
         BeanUtils.copyPropertiesIgnoreNull(userDTO, userInfo);
-        int result=userInfoMapper.insertSelective(userInfo);
-        if(result==0){
+        int row=userInfoMapper.insertSelective(userInfo);
+        if(row==0){
             return false;
         }
 
@@ -93,6 +97,11 @@ public class UserServiceImpl implements UserService {
         BeanUtils.copyPropertiesIgnoreNull(userDTO, userTime);
         userTime.setUserId(userInfo.getId());
         userTimeMapper.insertSelective(userTime);
+
+        boolean status=imService.createUser(userInfo);
+        if(status==false){
+            throw new SimpleHttpException(HttpStatus.INTERNAL_SERVER_ERROR,"im账户创建失败");
+        }
 
         return true;
     }

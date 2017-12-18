@@ -15,7 +15,7 @@ public interface UserService {
 
     UserDTO getUserDetailById(Long id);
 
-    boolean create(UserDTO userDTO);
+    boolean create(UserDTO userDTO) throws Exception;
 
     int updateById(UserDTO userDTO);
 

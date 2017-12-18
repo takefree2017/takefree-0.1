@@ -153,7 +153,7 @@ public class UserController {
      * @return
      * @throws Exception
      */
-    @RequestMapping(value = "/user/detail", method = RequestMethod.GET)
+    @RequestMapping(value = "/user", method = RequestMethod.GET)
     @ResponseBody
     @Authorization
     @JsonView(ResultView.DetailView.class)
