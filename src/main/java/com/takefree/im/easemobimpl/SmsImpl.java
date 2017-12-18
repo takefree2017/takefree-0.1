@@ -29,7 +29,7 @@ import java.util.Properties;
 import javax.validation.constraints.NotNull;
 
 /**
- * Created by gaoxiang on 2017/7/10.
+ * Created by zhangzhongyuan on 2017/7/10.
  */
 @Service
 @ConfigurationProperties(prefix = "huanxin.sms")

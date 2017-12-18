@@ -5,7 +5,7 @@ import com.takefree.configuration.SmsConfig;
 import lombok.Data;
 
 /**
- * Created by gaoxiang on 2017/7/19.
+ * Created by zhangzhongyuan on 2017/7/19.
  */
 @Data
 public class EasemobSms {

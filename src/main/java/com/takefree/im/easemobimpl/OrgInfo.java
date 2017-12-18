@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 
 /**
- * Created by easemob on 2017/3/31.
+ * Created by zhangzhongyuan on 2017/3/31.
  */
 @Component
 public class OrgInfo {

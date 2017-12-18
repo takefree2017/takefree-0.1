@@ -1,7 +1,7 @@
 package com.takefree.im;
 
 /**
- * Created by gaoxiang on 2017/7/7.
+ * Created by zhangzhongyuan on 2017/7/7.
  */
 public interface SmsApi {
 	//按模板发手机短信
