@@ -2,17 +2,22 @@ package com.takefree.im.easemobimpl;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.takefree.common.entry.JsonObjectBase;
 import com.takefree.im.EasemobAPI;
 import com.takefree.pojo.model.UserInfo;
 import com.takefree.service.ImService;
+import com.xiaoleilu.hutool.crypto.SecureUtil;
 
 import io.swagger.client.ApiException;
 import io.swagger.client.api.UsersApi;
+import io.swagger.client.model.NewPassword;
 import io.swagger.client.model.RegisterUsers;
 import io.swagger.client.model.User;
 
-public class EasemobIMUsers  implements ImService {
+@Service
+public class EasemobIMUsers  implements ImService   {
 
 	private UsersApi api = new UsersApi();
 	private ResponseHandler responseHandler = new ResponseHandler();
@@ -25,7 +30,8 @@ public class EasemobIMUsers  implements ImService {
 				RegisterUsers payload = new RegisterUsers();
 				User u  = new User();
 				u.setUsername(String.valueOf(userInfo.getId()));
-				u.setPassword("lklklk");
+				//产生环信端密码
+				u.setPassword(SecureUtil.md5(userInfo.getPassword()));
 				payload.add(u);
 				return com.alibaba.fastjson.JSON.parse(api.orgNameAppNameUsersPost(OrgInfo.org_name,OrgInfo.app_name,(RegisterUsers) payload,TokenUtil.getAccessToken()));
 			}
@@ -112,15 +118,17 @@ public class EasemobIMUsers  implements ImService {
 //		});
 //	}
 
-//	@Override
-//	public Object modifyIMUserPasswordWithAdminToken(final String userName, final Object payload) {
-//		return responseHandler.handle(new EasemobAPI() {
-//			@Override
-//			public Object invokeEasemobAPI() throws ApiException {
-//				return com.alibaba.fastjson.JSON.parse(api.orgNameAppNameUsersUsernamePasswordPut(OrgInfo.org_name,OrgInfo.app_name,userName, (NewPassword) payload,TokenUtil.getAccessToken()));
-//			}
-//		});
-//	}
+	@Override
+	public boolean modifyUserPassword( String userName, String passwd) {
+		JsonObjectBase job =  responseHandler.handle(new EasemobAPI() {
+			@Override
+			public Object invokeEasemobAPI() throws ApiException {
+				NewPassword newPassword = new NewPassword();
+				return com.alibaba.fastjson.JSON.parse(api.orgNameAppNameUsersUsernamePasswordPut(OrgInfo.org_name,OrgInfo.app_name,userName, newPassword.newpassword(SecureUtil.md5(passwd)),TokenUtil.getAccessToken()));
+			}
+		});
+		return job.getStatus().startsWith("200");
+	}
 //
 //	@Override
 //	public Object modifyIMUserNickNameWithAdminToken(final String userName,final Object payload) {

@@ -11,6 +11,7 @@ public interface ImService {
 
     boolean createUser(UserInfo userInfo);
 
+    boolean modifyUserPassword(String username,String password);
     //List<UserInfo> createUsers(List<UserInfo>  userInfos);
 
     boolean sendMessage(UserInfo fromUsers,List<UserInfo> toUsers,String content);

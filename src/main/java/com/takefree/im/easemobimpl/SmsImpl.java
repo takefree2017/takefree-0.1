@@ -89,19 +89,23 @@ public class SmsImpl implements SmsService, InitializingBean {
         	//取sms token 
     		getSmsToken();
         }
+    	//发送失败也可能返回code 200 需要进步不判断
+    	Response<Object> rep = smsClientService.send(TokenUtil.getSMS_TOKEN(),new EasemobSms(smsConfig,mobile, template_yanzhengma, kvs)).execute();
+    
+//    	JSONObject jsonObj = JSON.parseObject(JSON.toJSONString(rep.body()));
+    	//{"data":{"sessionID":"489a46e99adaf88b46530c2c69da9407"},"errorCode":0}
+//    	JSONObject data = jsonObj.getJSONObject("data");
     	
-    	Response<JsonObjectBase> rep = smsClientService.send(TokenUtil.getSMS_TOKEN(),new EasemobSms(smsConfig,mobile, template, kvs)).execute();
-    	
-        JsonObjectBase result = rep.body();
     	if (rep.code() == 401) {
 			//sms token 出错 重取
     		getSmsToken();
-    		result = smsClientService.send(TokenUtil.getSMS_TOKEN(),new EasemobSms(smsConfig,mobile, template, kvs)).execute().body();
+    		rep = smsClientService.send(TokenUtil.getSMS_TOKEN(),new EasemobSms(smsConfig,mobile, template, kvs)).execute();
  		}
-        if (!result.getStatus().startsWith("200")) {
-            logger.error("send sms error!{}", result);
+        if (!(rep.code() == 200)) {
+            logger.error("send sms error!{}", rep.body());
             return false;
         } else {
+        	logger.info("短信发送成功sessionID:", rep.body());
             return true;
         }
     }
@@ -184,7 +188,7 @@ interface SmsClientService {
 
 	@Headers({"Content-Type: application/json;charset=UTF-8", "Accept: application/json"})
 	@POST("https://sms.easemob.com/1195170921115695/takefree/sms_send/")
-    public Call<JsonObjectBase> send(@Header("token") String token, @Body EasemobSms easemobSms);
+    public Call<Object> send(@Header("token") String token, @Body EasemobSms easemobSms);
  
     @Headers({"Content-Type: application/json;charset=UTF-8", "Accept: application/json"})
     @POST("https://sms.easemob.com/1195170921115695/takefree/token")
