@@ -31,7 +31,7 @@ public class IndexController {
     private OrderShowService orderShowService;
 
     /**
-     * 返回share+show列表，按时间排序。show只显示发布中的
+     *
      * @param pageSize
      * @param maxShareId
      * @param maxShowId

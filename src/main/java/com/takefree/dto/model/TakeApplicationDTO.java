@@ -47,12 +47,12 @@ public class TakeApplicationDTO implements Serializable {
     private Long applicantId;
 
     /**
-     * 分享者昵称
+     * 申请人昵称
      */
     private String applicantNickName;
 
     /**
-     * 分享者小图像
+     * 申请人小图像
      */
     private String applicantSmallIcon;
 

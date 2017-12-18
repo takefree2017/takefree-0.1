@@ -24,32 +24,32 @@ public class ShareCommentDTO implements Serializable {
     private Long shareId;
 
     /**
-     * 被回复的分享评论id
+     * parent评论id
      */
     private Long parentCommentId;
 
     /**
-     * 发出评论的用户id
+     * parent评论用户id
      */
     private Long parentUserId;
 
     /**
-     * 昵称
+     * parent评论用户昵称
      */
     private String parentUserNickName;
 
     /**
-     * 小图像
+     * parent评论用户小图像
      */
     private String parentUserSmallIcon;
 
     /**
-     * 评论内容
+     * parent评论内容
      */
     private String parentContent;
 
     /**
-     * 记录插入时间
+     * parent评论时间
      */
     private Date parentGmtCreate;
 
@@ -74,7 +74,7 @@ public class ShareCommentDTO implements Serializable {
     private String content;
 
     /**
-     * 记录插入时间
+     * 评论时间
      */
     private Date gmtCreate;
 
