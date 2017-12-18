@@ -4,11 +4,8 @@ import com.alibaba.dubbo.config.annotation.Reference;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.qianbao.redis.service.RedisClient;
-import com.takefree.common.Exception.SimpleHttpException;
 import com.takefree.common.entry.JsonObjectBase;
 import com.takefree.common.service.SmsService;
-import com.takefree.common.util.Util;
-import com.takefree.common.web.constant.HttpStatus;
 import com.takefree.configuration.SmsConfig;
 
 import lombok.Data;
@@ -84,22 +81,25 @@ public class SmsImpl implements SmsService, InitializingBean {
                 .build();
         smsClientService = retrofit.create(SmsClientService.class);
     }
+  
     
-    public boolean send(String receiver, String template,String kvs) throws Exception {
+    public boolean send(String mobile, String template,String kvs) throws Exception {
     	
+    	int retryTime = 0;
         if (TokenUtil.getSMS_TOKEN() == null) {
         	//取sms token 
     		getSmsToken();
         }
     	
-    	Response<JsonObjectBase> rep = smsClientService.send(TokenUtil.getSMS_TOKEN(),new EasemobSms(smsConfig,receiver, template, kvs)).execute();
+    	Response<JsonObjectBase> rep = smsClientService.send(TokenUtil.getSMS_TOKEN(),new EasemobSms(smsConfig,mobile, template, kvs)).execute();
     	
         JsonObjectBase result = rep.body();
     	if (rep.code() == 401) {
 			//sms token 出错 重取
     		getSmsToken();
-    		result = smsClientService.send(TokenUtil.getSMS_TOKEN(),new EasemobSms(smsConfig,receiver, template, kvs)).execute().body();
-		}
+    		result = smsClientService.send(TokenUtil.getSMS_TOKEN(),new EasemobSms(smsConfig,mobile, template, kvs)).execute().body();
+    		if (retryTime++ > 1) return false;
+ 		}
         if (!result.getStatus().startsWith("200")) {
             logger.error("send sms error!{}", result);
             return false;
@@ -109,46 +109,12 @@ public class SmsImpl implements SmsService, InitializingBean {
     }
 
     //短信验证码
-    public boolean sendCode(String mobile,String redisPreKey) throws Exception {
-        String redisKey=redisPreKey+mobile;
-        
-        //ttl经过时间小于短信最小间隔时间
-        if(redisClient.ttl(redisNamespace,redisKey )+inteval>redis_ttl){
-            throw new SimpleHttpException(HttpStatus.BAD_REQUEST, "短信发送太频繁");
-        }
+    public boolean sendCode(String mobile,String code) throws Exception {
+    	
+    	return send( mobile,  template_yanzhengma, "verificationCode="+code);
+     }
 
-        if (TokenUtil.getSMS_TOKEN() == null) {
-        	//取sms token 
-    		getSmsToken();
-        }
-        
-        String code= Util.generateSmsCode();
-        Response<JsonObjectBase> rep = smsClientService.send(TokenUtil.getSMS_TOKEN(),new EasemobSms(smsConfig,mobile, template_yanzhengma, "verificationCode="+code)).execute();
-    	if (String.valueOf(rep.code()).startsWith("401")) {
-			//sms token 过期 重取
-    		getSmsToken();
-    		rep = smsClientService.send(TokenUtil.getSMS_TOKEN(),new EasemobSms(smsConfig,mobile, template_yanzhengma, "verificationCode="+code)).execute();
-    	}
-        if (!String.valueOf(rep.code()).startsWith("200")) {
-            logger.error("send sms error!{}", rep.errorBody());
-            return false;
-        } else {
-            redisClient.setex(redisNamespace, redisKey, redis_ttl, code);
-            return true;
-        }
-    }
-
-    //短信验证码
-    public boolean checkCode(String mobile,String redisPreKey ,String code) throws Exception {
-        String redisKey=redisPreKey+mobile;
-        String redisCode=redisClient.get(redisNamespace, redisKey);
-        if(redisCode!=null&&redisCode.equals(code)){
-            return true;
-        }else{
-            return false;
-        }
-    }
-    
+ 
     private static String getSmsToken() throws IOException {
 //    	String adminToken = TokenUtil.getADMIN_TOKEN();
     	if (TokenUtil.getADMIN_TOKEN() == null) {
