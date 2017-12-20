@@ -11,6 +11,7 @@ import com.takefree.common.util.Util;
 import com.takefree.common.web.constant.HttpStatus;
 import com.takefree.dto.model.UserDTO;
 import com.takefree.service.UserService;
+import com.xiaoleilu.hutool.crypto.SecureUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -45,6 +46,7 @@ public class UserController {
         }
         userDTO.setEndorserId(token.getUserDTO().getId());
         userDTO.setPassword(Util.encryptPassword("123456"));
+        userDTO.setImPassword(SecureUtil.md5(userDTO.getPassword()));
         boolean result = userService.create(userDTO);
         if (result) {
             return JsonObjectUtils.buildSimpleObjectSuccess(userDTO);
@@ -136,6 +138,7 @@ public class UserController {
         }
         if (userDTO.getPassword() != null) {
             userDTO.setPassword(Util.encryptPassword(userDTO.getPassword()));
+            userDTO.setImPassword(SecureUtil.md5(userDTO.getPassword()));
             //throw new SimpleHttpException(HttpStatus.FORBIDDEN, "不能通过此接口修改密码");
         }
         userDTO.setId(token.getUserDTO().getId());

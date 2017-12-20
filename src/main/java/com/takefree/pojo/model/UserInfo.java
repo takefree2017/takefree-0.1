@@ -55,6 +55,12 @@ public class UserInfo implements Serializable {
     private String password;
 
     /**
+     * im密码
+     * @mbg.generated
+     */
+    private String imPassword;
+
+    /**
      * 用户状态:10未激活/20已激活
      * @mbg.generated
      */

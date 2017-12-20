@@ -31,7 +31,7 @@ public class EasemobIMUsers  implements ImService   {
 				User u  = new User();
 				u.setUsername(String.valueOf(userInfo.getId()));
 				//产生环信端密码
-				u.setPassword(SecureUtil.md5(userInfo.getPassword()));
+				u.setPassword(SecureUtil.md5(userInfo.getImPassword()));
 				payload.add(u);
 				return com.alibaba.fastjson.JSON.parse(api.orgNameAppNameUsersPost(OrgInfo.org_name,OrgInfo.app_name,(RegisterUsers) payload,TokenUtil.getAccessToken()));
 			}
@@ -119,12 +119,12 @@ public class EasemobIMUsers  implements ImService   {
 //	}
 
 	@Override
-	public boolean modifyUserPassword( String userName, String passwd) {
+	public boolean modifyUserPassword( UserInfo userInfo) {
 		JsonObjectBase job =  responseHandler.handle(new EasemobAPI() {
 			@Override
 			public Object invokeEasemobAPI() throws ApiException {
 				NewPassword newPassword = new NewPassword();
-				return com.alibaba.fastjson.JSON.parse(api.orgNameAppNameUsersUsernamePasswordPut(OrgInfo.org_name,OrgInfo.app_name,userName, newPassword.newpassword(SecureUtil.md5(passwd)),TokenUtil.getAccessToken()));
+				return com.alibaba.fastjson.JSON.parse(api.orgNameAppNameUsersUsernamePasswordPut(OrgInfo.org_name,OrgInfo.app_name,userInfo.getId().toString(), newPassword.newpassword(userInfo.getImPassword()),TokenUtil.getAccessToken()));
 			}
 		});
 		return job.getStatus().startsWith("200");

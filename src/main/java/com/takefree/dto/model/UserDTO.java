@@ -73,6 +73,13 @@ public class UserDTO implements Serializable {
     private String password;
 
     /**
+     * im密码
+     * user_info.password
+     */
+    @JsonView(ResultView.DetailView.class)
+    private String imPassword;
+
+    /**
      * 用户状态:10未激活/20已激活
      * user_info.status
      */

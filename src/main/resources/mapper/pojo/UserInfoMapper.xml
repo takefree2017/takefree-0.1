@@ -12,6 +12,7 @@
     <result column="email" jdbcType="VARCHAR" property="email" />
     <result column="endorser_id" jdbcType="BIGINT" property="endorserId" />
     <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="im_password" jdbcType="VARCHAR" property="imPassword" />
     <result column="status" jdbcType="TINYINT" property="status" />
     <result column="small_icon" jdbcType="VARCHAR" property="smallIcon" />
     <result column="big_icon" jdbcType="VARCHAR" property="bigIcon" />
@@ -89,7 +90,7 @@
     <!--
       WARNING - @mbg.generated
     -->
-    id, nick_name, real_name, mobile, email, endorser_id, password, status, small_icon, 
+    id, nick_name, real_name, mobile, email, endorser_id, password,im_password, status, small_icon,
     big_icon, version, gmt_create, gmt_modified, sex, birthday
   </sql>
   <select id="selectByExample" parameterType="com.takefree.pojo.query.UserInfoQuery" resultMap="BaseResultMap">
@@ -150,13 +151,13 @@
       SELECT LAST_INSERT_ID()
     </selectKey>
     insert into user_info (nick_name, real_name, mobile, 
-      email, endorser_id, password, 
+      email, endorser_id, password, im_password
       status, small_icon, big_icon, 
       version, gmt_create, gmt_modified, sex, birthday
       )
     values (#{nickName,jdbcType=VARCHAR}, #{realName,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, 
-      #{email,jdbcType=VARCHAR}, #{endorserId,jdbcType=BIGINT}, #{password,jdbcType=VARCHAR}, 
-      #{status,jdbcType=TINYINT}, #{smallIcon,jdbcType=VARCHAR}, #{bigIcon,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR}, #{endorserId,jdbcType=BIGINT}, #{password,jdbcType=VARCHAR},#{imPassword,jdbcType=VARCHAR},
+    #{status,jdbcType=TINYINT}, #{smallIcon,jdbcType=VARCHAR}, #{bigIcon,jdbcType=VARCHAR},
       #{version,jdbcType=INTEGER}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP},
       #{sex,jdbcType=TINYINT}, #{birthday,jdbcType=DATE})}
       )
@@ -187,6 +188,9 @@
       </if>
       <if test="password != null">
         password,
+      </if>
+      <if test="imPassword != null">
+        im_password,
       </if>
       <if test="status != null">
         status,
@@ -231,6 +235,9 @@
       </if>
       <if test="password != null">
         #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="imPassword != null">
+        #{imPassword,jdbcType=VARCHAR},
       </if>
       <if test="status != null">
         #{status,jdbcType=TINYINT},
@@ -294,6 +301,9 @@
       <if test="record.password != null">
         password = #{record.password,jdbcType=VARCHAR},
       </if>
+      <if test="record.imPassword != null">
+        im_password = #{record.imPassword,jdbcType=VARCHAR},
+      </if>
       <if test="record.status != null">
         status = #{record.status,jdbcType=TINYINT},
       </if>
@@ -333,6 +343,7 @@
       email = #{record.email,jdbcType=VARCHAR},
       endorser_id = #{record.endorserId,jdbcType=BIGINT},
       password = #{record.password,jdbcType=VARCHAR},
+      im_password = #{record.imPassword,jdbcType=VARCHAR},
       status = #{record.status,jdbcType=TINYINT},
       small_icon = #{record.smallIcon,jdbcType=VARCHAR},
       big_icon = #{record.bigIcon,jdbcType=VARCHAR},
@@ -368,6 +379,9 @@
       </if>
       <if test="password != null">
         password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="imPassword != null">
+        im_password = #{imPassword,jdbcType=VARCHAR},
       </if>
       <if test="status != null">
         status = #{status,jdbcType=TINYINT},
@@ -405,6 +419,7 @@
       email = #{email,jdbcType=VARCHAR},
       endorser_id = #{endorserId,jdbcType=BIGINT},
       password = #{password,jdbcType=VARCHAR},
+      im_password = #{record.imPassword,jdbcType=VARCHAR},
       status = #{status,jdbcType=TINYINT},
       small_icon = #{smallIcon,jdbcType=VARCHAR},
       big_icon = #{bigIcon,jdbcType=VARCHAR},
