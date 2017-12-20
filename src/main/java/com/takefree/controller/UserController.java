@@ -44,6 +44,7 @@ public class UserController {
             throw new SimpleHttpException(HttpStatus.BAD_REQUEST, "手机号已经注册");
         }
         userDTO.setEndorserId(token.getUserDTO().getId());
+        userDTO.setPassword(Util.encryptPassword("123456"));
         boolean result = userService.create(userDTO);
         if (result) {
             return JsonObjectUtils.buildSimpleObjectSuccess(userDTO);
