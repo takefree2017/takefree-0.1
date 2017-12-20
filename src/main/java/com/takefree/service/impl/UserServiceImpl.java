@@ -76,9 +76,6 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public boolean create(UserDTO userDTO) throws Exception{
-        //密码MD5两次保存
-        userDTO.setPassword(Util.encryptPassword(userDTO.getPassword()));
-
         UserInfo userInfo=new UserInfo();
         BeanUtils.copyPropertiesIgnoreNull(userDTO, userInfo);
         int row=userInfoMapper.insertSelective(userInfo);

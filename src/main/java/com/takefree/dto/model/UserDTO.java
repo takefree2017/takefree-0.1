@@ -68,8 +68,8 @@ public class UserDTO implements Serializable {
      * user_info.password
      */
     @JsonView(ResultView.AllView.class)
-    @NotBlank(message="密码不能为空")
-    @Size(min=6, max=12,message="密码最小长度6，最大长度12")
+//    @NotBlank(message="密码不能为空")
+//    @Size(min=6, max=12,message="密码最小长度6，最大长度12")
     private String password;
 
     /**
