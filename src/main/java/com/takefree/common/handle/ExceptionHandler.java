@@ -19,12 +19,14 @@ import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.SimpleMappingExceptionResolver;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.text.SimpleDateFormat;
 
 @Service
 @ControllerAdvice
@@ -37,12 +39,15 @@ public class ExceptionHandler extends SimpleMappingExceptionResolver
 
     protected ApplicationContext context;
 
+    private static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
     public void setApplicationContext(ApplicationContext arg0)
             throws BeansException {
         this.context = arg0;
     }
 
     @org.springframework.web.bind.annotation.ExceptionHandler
+    @ResponseBody
     public ModelAndView resolveException(HttpServletRequest request,
                                          HttpServletResponse response, Object o, Exception e) {
         LOG.warn( " ExceptionHandler!"  + request.getRequestURI() +" "+ e.toString());
@@ -148,9 +153,11 @@ public class ExceptionHandler extends SimpleMappingExceptionResolver
      */
     public static ModelAndView JsonObjectError2ModelView(JsonObjectError json) {
         ModelAndView model = new ModelAndView(new MappingJackson2JsonView());
-        model.addObject("message", json.getMessage());
         model.addObject("status", json.getStatus());
-
+        model.addObject("timestamp", sdf.format(json.getTimestamp()));
+        if(json.getMessage()!=null) {
+            model.addObject("message", json.getMessage());
+        }
         return model;
     }
 }

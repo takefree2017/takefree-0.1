@@ -29,7 +29,7 @@ public class UserDTO implements Serializable {
      * user_info.nick_name
      */
     @JsonView(ResultView.BriefView.class)
-    @NotBlank(message="昵称不能为空")
+//    @NotBlank(message="昵称不能为空")
     private String nickName;
 
     /**
@@ -53,7 +53,7 @@ public class UserDTO implements Serializable {
      * user_info.email
      */
     @JsonView(ResultView.DetailView.class)
-    @Email(message="邮箱格式不正确")
+//    @Email(message="邮箱格式不正确")
     private String email;
 
     /**
