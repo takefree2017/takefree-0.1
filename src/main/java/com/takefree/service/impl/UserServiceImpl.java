@@ -184,14 +184,16 @@ public class UserServiceImpl implements UserService {
         if(userDTO.getDescription() != null) {
             UserDescription userDescription=new UserDescription();
             BeanUtils.copyPropertiesIgnoreNull(userDTO, userDescription);
-            userDescriptionMapper.insertSelective(userDescription);
+            userDescription.setUserId(userInfo.getId());
             userDescriptionMapper.updateByPrimaryKeySelective(userDescription);
         }
 
         if(row>0){
-            boolean status=imService.modifyUserPassword(userInfo);
-            if(status==false){
-                throw new SimpleHttpException(HttpStatus.INTERNAL_SERVER_ERROR,"im密码更新失败");
+            if(userDTO.getPassword()!=null) {
+                boolean status = imService.modifyUserPassword(userInfo);
+                if (status == false) {
+                    throw new SimpleHttpException(HttpStatus.INTERNAL_SERVER_ERROR, "im密码更新失败");
+                }
             }
         }
         return row;
