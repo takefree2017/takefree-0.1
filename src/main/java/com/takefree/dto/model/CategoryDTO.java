@@ -2,7 +2,10 @@ package com.takefree.dto.model;
 
 import lombok.Data;
 import java.io.Serializable;
+import java.sql.Date;
 import java.util.List;
+
+import io.reactivex.functions.Predicate;
 
 @Data
 public class CategoryDTO implements Serializable {
@@ -27,6 +30,11 @@ public class CategoryDTO implements Serializable {
      */
     private Byte layer;
 
+    private Byte virtualFlag ; 
+    
+    private Byte express ; 
+    
+    private Byte participant ; 
     /**
      * 父层级的category_id
      * @mbg.generated

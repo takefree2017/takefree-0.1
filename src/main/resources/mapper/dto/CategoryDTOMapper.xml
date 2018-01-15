@@ -6,9 +6,11 @@
     <result column="category_name" jdbcType="VARCHAR" property="categoryName" />
     <result column="layer" jdbcType="TINYINT" property="layer" />
     <result column="parent_category_id" jdbcType="BIGINT" property="parentCategoryId" />
-     
-  <!--    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
-    <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="virtual_flag" jdbcType="TINYINT" property="virtualFlag" />
+    <result column="express" jdbcType="TINYINT" property="express" />
+    <result column="participant" jdbcType="TINYINT" property="participant" /> 
+ <!--   <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+      <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
     <result column="version" jdbcType="INTEGER" property="version" />
       -->
   </resultMap>
@@ -80,7 +82,7 @@
     <!--
       WARNING - @mbg.generated
     -->
-    id, category_name, layer, parent_category_id, gmt_create, gmt_modified, version
+    id, category_name, layer, parent_category_id, virtual_flag, express, participant, gmt_create, gmt_modified, version
   </sql>
   <select id="selectByExample" parameterType="com.takefree.pojo.query.CategoryInfoQuery" resultMap="BaseResultMap">
     <!--
