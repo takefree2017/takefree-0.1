@@ -137,17 +137,17 @@ public class ShareController {
      * @param maxId 可选
      * @param status 可选
      * @param ownerId 可选
+     * @param searchWord 搜索关键字
      * @return
      * @throws Exception
      */
     @RequestMapping(value = "/share",method = RequestMethod.GET)
     @ResponseBody
     @JsonView(ResultView.BriefView.class)
-    public JsonObjectList<ShareDTO> getShares(Integer pageNo,Integer pageSize,Long maxId,Integer status,Long ownerId) throws Exception{
-        List<ShareDTO> shareDTOS=shareService.getShareInfos(pageNo,pageSize,maxId,ownerId,status);
+    public JsonObjectList<ShareDTO> getShares(Integer pageNo,Integer pageSize,Long maxId,Integer status,Long ownerId,Integer shareModeId,String searchWord) throws Exception{
+        List<ShareDTO> shareDTOS=shareService.searchShareInfos(pageNo,pageSize,maxId,ownerId,status,shareModeId,searchWord);
         return JsonObjectUtils.buildListSuccess(shareDTOS);
     }
-
 
     /**
      *
@@ -217,8 +217,8 @@ public class ShareController {
     @RequestMapping(value = "/share/takeout",method = RequestMethod.GET)
     @ResponseBody
     @Authorization
-    public JsonObjectList<ShareDTO> getTakeOutShares(@RequestAttribute(Constants.TAKEFREE_TOKEN) Token token, Integer pageNo, Integer pageSize) throws Exception{
-        List<ShareDTO> shareDTOS=shareService.getShareInfos(pageNo, pageSize, null, token.getUserDTO().getId(), ShareStatusEnum.FINISH.getCode());
+    public JsonObjectList<ShareDTO> getTakeOutShares(@RequestAttribute(Constants.TAKEFREE_TOKEN) Token token,Integer shareModeId, Integer pageNo, Integer pageSize) throws Exception{
+        List<ShareDTO> shareDTOS=shareService.getShareInfos(pageNo, pageSize, null, token.getUserDTO().getId(), ShareStatusEnum.FINISH.getCode(),shareModeId);
         for (ShareDTO shareDTO:shareDTOS) {
             List<TakeOrderDTO> takeOrderDTOS= takeOrderService.getTakeOrderDTOs(null, null, shareDTO.getId(), null, null, null);
             shareDTO.setTakeOrderDTOS(takeOrderDTOS);

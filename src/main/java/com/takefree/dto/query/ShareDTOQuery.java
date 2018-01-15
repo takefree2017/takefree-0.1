@@ -470,6 +470,7 @@ public class ShareDTOQuery {
             return (Criteria) this;
         }
 
+
         public Criteria andTitleLike(String value) {
             addCriterion("share.title like", value, "title");
             return (Criteria) this;
@@ -870,6 +871,186 @@ public class ShareDTOQuery {
             return (Criteria) this;
         }
 
+        public Criteria andShareModeIdIsNull() {
+            addCriterion("share_mode_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andShareModeIdIsNotNull() {
+            addCriterion("share_mode_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andShareModeIdEqualTo(Integer value) {
+            addCriterion("share_mode_id =", value, "shareModeId");
+            return (Criteria) this;
+        }
+
+        public Criteria andShareModeIdNotEqualTo(Integer value) {
+            addCriterion("share_mode_id <>", value, "shareModeId");
+            return (Criteria) this;
+        }
+
+        public Criteria andShareModeIdGreaterThan(Integer value) {
+            addCriterion("share_mode_id >", value, "shareModeId");
+            return (Criteria) this;
+        }
+
+        public Criteria andShareModeIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("share_mode_id >=", value, "shareModeId");
+            return (Criteria) this;
+        }
+
+        public Criteria andShareModeIdLessThan(Integer value) {
+            addCriterion("share_mode_id <", value, "shareModeId");
+            return (Criteria) this;
+        }
+
+        public Criteria andShareModeIdLessThanOrEqualTo(Integer value) {
+            addCriterion("share_mode_id <=", value, "shareModeId");
+            return (Criteria) this;
+        }
+
+        public Criteria andShareModeIdIn(List<Integer> values) {
+            addCriterion("share_mode_id in", values, "shareModeId");
+            return (Criteria) this;
+        }
+
+        public Criteria andShareModeIdNotIn(List<Integer> values) {
+            addCriterion("share_mode_id not in", values, "shareModeId");
+            return (Criteria) this;
+        }
+
+        public Criteria andShareModeIdBetween(Integer value1, Integer value2) {
+            addCriterion("share_mode_id between", value1, value2, "shareModeId");
+            return (Criteria) this;
+        }
+
+        public Criteria andShareModeIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("share_mode_id not between", value1, value2, "shareModeId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTransferableIsNull() {
+            addCriterion("share.transferable is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTransferableIsNotNull() {
+            addCriterion("share.transferable is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTransferableEqualTo(Integer value) {
+            addCriterion("share.transferable =", value, "transferable");
+            return (Criteria) this;
+        }
+
+        public Criteria andTransferableNotEqualTo(Integer value) {
+            addCriterion("share.transferable <>", value, "transferable");
+            return (Criteria) this;
+        }
+
+        public Criteria andTransferableGreaterThan(Integer value) {
+            addCriterion("share.transferable >", value, "transferable");
+            return (Criteria) this;
+        }
+
+        public Criteria andTransferableGreaterThanOrEqualTo(Integer value) {
+            addCriterion("share.transferable >=", value, "transferable");
+            return (Criteria) this;
+        }
+
+        public Criteria andTransferableLessThan(Integer value) {
+            addCriterion("share.transferable <", value, "transferable");
+            return (Criteria) this;
+        }
+
+        public Criteria andTransferableLessThanOrEqualTo(Integer value) {
+            addCriterion("share.transferable <=", value, "transferable");
+            return (Criteria) this;
+        }
+
+        public Criteria andTransferableIn(List<Integer> values) {
+            addCriterion("share.transferable in", values, "transferable");
+            return (Criteria) this;
+        }
+
+        public Criteria andTransferableNotIn(List<Integer> values) {
+            addCriterion("share.transferable not in", values, "transferable");
+            return (Criteria) this;
+        }
+
+        public Criteria andTransferableBetween(Integer value1, Integer value2) {
+            addCriterion("share.transferable between", value1, value2, "transferable");
+            return (Criteria) this;
+        }
+
+        public Criteria andTransferableNotBetween(Integer value1, Integer value2) {
+            addCriterion("share.transferable not between", value1, value2, "transferable");
+            return (Criteria) this;
+        }
+
+        public Criteria andParticipatoryIsNull() {
+            addCriterion("share.participatory is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andParticipatoryIsNotNull() {
+            addCriterion("share.participatory is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andParticipatoryEqualTo(Integer value) {
+            addCriterion("share.participatory =", value, "participatory");
+            return (Criteria) this;
+        }
+
+        public Criteria andParticipatoryNotEqualTo(Integer value) {
+            addCriterion("share.participatory <>", value, "participatory");
+            return (Criteria) this;
+        }
+
+        public Criteria andParticipatoryGreaterThan(Integer value) {
+            addCriterion("share.participatory >", value, "participatory");
+            return (Criteria) this;
+        }
+
+        public Criteria andParticipatoryGreaterThanOrEqualTo(Integer value) {
+            addCriterion("share.participatory >=", value, "participatory");
+            return (Criteria) this;
+        }
+
+        public Criteria andParticipatoryLessThan(Integer value) {
+            addCriterion("share.participatory <", value, "participatory");
+            return (Criteria) this;
+        }
+
+        public Criteria andParticipatoryLessThanOrEqualTo(Integer value) {
+            addCriterion("share.participatory <=", value, "participatory");
+            return (Criteria) this;
+        }
+
+        public Criteria andParticipatoryIn(List<Integer> values) {
+            addCriterion("share.participatory in", values, "participatory");
+            return (Criteria) this;
+        }
+
+        public Criteria andParticipatoryNotIn(List<Integer> values) {
+            addCriterion("share.participatory not in", values, "participatory");
+            return (Criteria) this;
+        }
+
+        public Criteria andParticipatoryBetween(Integer value1, Integer value2) {
+            addCriterion("share.participatory between", value1, value2, "participatory");
+            return (Criteria) this;
+        }
+
+        public Criteria andParticipatoryNotBetween(Integer value1, Integer value2) {
+            addCriterion("share.participatory not between", value1, value2, "participatory");
+            return (Criteria) this;
+        }
+
         public Criteria andLikeUserEqualTo(Long value) {
             addCriterion("share_like.user_id =", value, "version");
             return (Criteria) this;
@@ -879,6 +1060,12 @@ public class ShareDTOQuery {
             addCriterion("take_order.applicant_id =", value, "version");
             return (Criteria) this;
         }
+
+        public Criteria andTitleMatch(String value) {
+            addCriterion("match (share.title) against ('+"+value+"' IN BOOLEAN MODE)");
+            return (Criteria) this;
+        }
+
     }
 
     /**

@@ -101,6 +101,21 @@ public class ShareDTO implements Serializable {
     private Date gmtModified;
 
     /**
+     */
+    @JsonView(ResultView.BriefView.class)
+    private Integer shareModeId;
+
+    /**
+     */
+    @JsonView(ResultView.BriefView.class)
+    private Integer transferable;
+
+    /**
+     */
+    @JsonView(ResultView.BriefView.class)
+    private Integer participatory;
+
+    /**
      * 记录版本号
      */
     @JsonView(ResultView.BriefView.class)

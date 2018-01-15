@@ -869,6 +869,186 @@ public class ShareQuery {
             addCriterion("version not between", value1, value2, "version");
             return (Criteria) this;
         }
+
+        public Criteria andShareModeIdIsNull() {
+            addCriterion("share_mode_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andShareModeIdIsNotNull() {
+            addCriterion("share_mode_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andShareModeIdEqualTo(Integer value) {
+            addCriterion("share_mode_id =", value, "shareModeId");
+            return (Criteria) this;
+        }
+
+        public Criteria andShareModeIdNotEqualTo(Integer value) {
+            addCriterion("share_mode_id <>", value, "shareModeId");
+            return (Criteria) this;
+        }
+
+        public Criteria andShareModeIdGreaterThan(Integer value) {
+            addCriterion("share_mode_id >", value, "shareModeId");
+            return (Criteria) this;
+        }
+
+        public Criteria andShareModeIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("share_mode_id >=", value, "shareModeId");
+            return (Criteria) this;
+        }
+
+        public Criteria andShareModeIdLessThan(Integer value) {
+            addCriterion("share_mode_id <", value, "shareModeId");
+            return (Criteria) this;
+        }
+
+        public Criteria andShareModeIdLessThanOrEqualTo(Integer value) {
+            addCriterion("share_mode_id <=", value, "shareModeId");
+            return (Criteria) this;
+        }
+
+        public Criteria andShareModeIdIn(List<Integer> values) {
+            addCriterion("share_mode_id in", values, "shareModeId");
+            return (Criteria) this;
+        }
+
+        public Criteria andShareModeIdNotIn(List<Integer> values) {
+            addCriterion("share_mode_id not in", values, "shareModeId");
+            return (Criteria) this;
+        }
+
+        public Criteria andShareModeIdBetween(Integer value1, Integer value2) {
+            addCriterion("share_mode_id between", value1, value2, "shareModeId");
+            return (Criteria) this;
+        }
+
+        public Criteria andShareModeIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("share_mode_id not between", value1, value2, "shareModeId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTransferableIsNull() {
+            addCriterion("transferable is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTransferableIsNotNull() {
+            addCriterion("transferable is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTransferableEqualTo(Integer value) {
+            addCriterion("transferable =", value, "transferable");
+            return (Criteria) this;
+        }
+
+        public Criteria andTransferableNotEqualTo(Integer value) {
+            addCriterion("transferable <>", value, "transferable");
+            return (Criteria) this;
+        }
+
+        public Criteria andTransferableGreaterThan(Integer value) {
+            addCriterion("transferable >", value, "transferable");
+            return (Criteria) this;
+        }
+
+        public Criteria andTransferableGreaterThanOrEqualTo(Integer value) {
+            addCriterion("transferable >=", value, "transferable");
+            return (Criteria) this;
+        }
+
+        public Criteria andTransferableLessThan(Integer value) {
+            addCriterion("transferable <", value, "transferable");
+            return (Criteria) this;
+        }
+
+        public Criteria andTransferableLessThanOrEqualTo(Integer value) {
+            addCriterion("transferable <=", value, "transferable");
+            return (Criteria) this;
+        }
+
+        public Criteria andTransferableIn(List<Integer> values) {
+            addCriterion("transferable in", values, "transferable");
+            return (Criteria) this;
+        }
+
+        public Criteria andTransferableNotIn(List<Integer> values) {
+            addCriterion("transferable not in", values, "transferable");
+            return (Criteria) this;
+        }
+
+        public Criteria andTransferableBetween(Integer value1, Integer value2) {
+            addCriterion("transferable between", value1, value2, "transferable");
+            return (Criteria) this;
+        }
+
+        public Criteria andTransferableNotBetween(Integer value1, Integer value2) {
+            addCriterion("transferable not between", value1, value2, "transferable");
+            return (Criteria) this;
+        }
+
+        public Criteria andParticipatoryIsNull() {
+            addCriterion("participatory is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andParticipatoryIsNotNull() {
+            addCriterion("participatory is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andParticipatoryEqualTo(Integer value) {
+            addCriterion("participatory =", value, "participatory");
+            return (Criteria) this;
+        }
+
+        public Criteria andParticipatoryNotEqualTo(Integer value) {
+            addCriterion("participatory <>", value, "participatory");
+            return (Criteria) this;
+        }
+
+        public Criteria andParticipatoryGreaterThan(Integer value) {
+            addCriterion("participatory >", value, "participatory");
+            return (Criteria) this;
+        }
+
+        public Criteria andParticipatoryGreaterThanOrEqualTo(Integer value) {
+            addCriterion("participatory >=", value, "participatory");
+            return (Criteria) this;
+        }
+
+        public Criteria andParticipatoryLessThan(Integer value) {
+            addCriterion("participatory <", value, "participatory");
+            return (Criteria) this;
+        }
+
+        public Criteria andParticipatoryLessThanOrEqualTo(Integer value) {
+            addCriterion("participatory <=", value, "participatory");
+            return (Criteria) this;
+        }
+
+        public Criteria andParticipatoryIn(List<Integer> values) {
+            addCriterion("participatory in", values, "participatory");
+            return (Criteria) this;
+        }
+
+        public Criteria andParticipatoryNotIn(List<Integer> values) {
+            addCriterion("participatory not in", values, "participatory");
+            return (Criteria) this;
+        }
+
+        public Criteria andParticipatoryBetween(Integer value1, Integer value2) {
+            addCriterion("participatory between", value1, value2, "participatory");
+            return (Criteria) this;
+        }
+
+        public Criteria andParticipatoryNotBetween(Integer value1, Integer value2) {
+            addCriterion("participatory not between", value1, value2, "participatory");
+            return (Criteria) this;
+        }
     }
 
     /**

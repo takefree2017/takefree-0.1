@@ -47,7 +47,7 @@ public class ShareModeController {
             } catch (NumberFormatException e) {
                 logger.error("{} config error", Constants.CONFIG_SHARE_MOODE_VERION);
             }
-            if (version > configVersion) {
+            if (version >= configVersion) {
                 JsonObjectList jsonObjectList=JsonObjectUtils.buildListSuccess(null);
                 jsonObjectList.setStatus(HttpStatus.NOT_MODIFIED.code());
                 return jsonObjectList;

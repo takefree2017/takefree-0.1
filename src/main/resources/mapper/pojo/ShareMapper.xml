@@ -14,6 +14,9 @@
     <result column="publish_time" jdbcType="TIMESTAMP" property="publishTime" />
     <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
     <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified" />
+    <result column="share_mode_id" jdbcType="INTEGER" property="shareModeId" />
+    <result column="transferable" jdbcType="INTEGER" property="transferable" />
+    <result column="participatory" jdbcType="INTEGER" property="participatory" />
     <result column="version" jdbcType="INTEGER" property="version" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -85,7 +88,7 @@
       WARNING - @mbg.generated
     -->
     id, owner_id, pic_homepage, title, share_desc_preview, status, publish_time,
-    gmt_create, gmt_modified, version
+    gmt_create, gmt_modified, version, share_mode_id, transferable, participatory
   </sql>
   <select id="selectByExample" parameterType="com.takefree.pojo.query.ShareQuery" resultMap="BaseResultMap">
     <!--
@@ -116,7 +119,7 @@
     <!--
       WARNING - @mbg.generated
     -->
-    select 
+    select
     <include refid="Base_Column_List" />
     from share
     where id = #{id,jdbcType=BIGINT}
@@ -144,14 +147,15 @@
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into share (owner_id, pic_homepage, title, 
-      share_desc_preview, status, publish_time, 
-      taker_id, gmt_create, gmt_modified, 
-      version)
-    values (#{ownerId,jdbcType=BIGINT}, #{picHomepage,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, 
-      #{shareDescPreview,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, #{publishTime,jdbcType=TIMESTAMP}, 
-      #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP},
-      #{version,jdbcType=INTEGER})
+    insert into share (owner_id, pic_homepage, title,
+    share_desc_preview, status, publish_time,
+    taker_id, gmt_create, gmt_modified,
+    version)
+    values (#{ownerId,jdbcType=BIGINT}, #{picHomepage,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR},
+    #{shareDescPreview,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, #{publishTime,jdbcType=TIMESTAMP},
+    #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP},
+    #{version,jdbcType=INTEGER}), #{shareModeId,jdbcType=INTEGER}, #{transferable,jdbcType=INTEGER},
+    #{participatory,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.takefree.pojo.model.Share">
     <!--
@@ -180,6 +184,9 @@
       <if test="publishTime != null">
         publish_time,
       </if>
+      <if test="takerId != null">
+        taker_id,
+      </if>
       <if test="gmtCreate != null">
         gmt_create,
       </if>
@@ -188,6 +195,15 @@
       </if>
       <if test="version != null">
         version,
+      </if>
+      <if test="shareModeId != null">
+        share_mode_id,
+      </if>
+      <if test="transferable != null">
+        transferable,
+      </if>
+      <if test="participatory != null">
+        participatory,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -209,6 +225,9 @@
       <if test="publishTime != null">
         #{publishTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="takerId != null">
+        #{takerId,jdbcType=BIGINT},
+      </if>
       <if test="gmtCreate != null">
         #{gmtCreate,jdbcType=TIMESTAMP},
       </if>
@@ -217,6 +236,15 @@
       </if>
       <if test="version != null">
         #{version,jdbcType=INTEGER},
+      </if>
+      <if test="shareModeId != null">
+        #{shareModeId,jdbcType=INTEGER},
+      </if>
+      <if test="transferable != null">
+        #{transferable,jdbcType=INTEGER},
+      </if>
+      <if test="participatory != null">
+        #{participatory,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -262,6 +290,15 @@
       <if test="record.gmtModified != null">
         gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP},
       </if>
+      <if test="record.shareModeId != null">
+        share_mode_id = #{record.shareModeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.transferable != null">
+        transferable = #{record.transferable,jdbcType=INTEGER},
+      </if>
+      <if test="record.participatory != null">
+        participatory = #{record.participatory,jdbcType=INTEGER},
+      </if>
       version = version+1
     </set>
     <if test="_parameter != null">
@@ -274,15 +311,18 @@
     -->
     update share
     set id = #{record.id,jdbcType=BIGINT},
-      owner_id = #{record.ownerId,jdbcType=BIGINT},
-      pic_homepage = #{record.picHomepage,jdbcType=VARCHAR},
-      title = #{record.title,jdbcType=VARCHAR},
-      share_desc_preview = #{record.shareDescPreview,jdbcType=VARCHAR},
-      status = #{record.status,jdbcType=TINYINT},
-      publish_time = #{record.publishTime,jdbcType=TIMESTAMP},
-      gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
-      gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP},
-      version = version+1
+    owner_id = #{record.ownerId,jdbcType=BIGINT},
+    pic_homepage = #{record.picHomepage,jdbcType=VARCHAR},
+    title = #{record.title,jdbcType=VARCHAR},
+    share_desc_preview = #{record.shareDescPreview,jdbcType=VARCHAR},
+    status = #{record.status,jdbcType=TINYINT},
+    publish_time = #{record.publishTime,jdbcType=TIMESTAMP},
+    gmt_create = #{record.gmtCreate,jdbcType=TIMESTAMP},
+    gmt_modified = #{record.gmtModified,jdbcType=TIMESTAMP},
+    share_mode_id = #{record.shareModeId,jdbcType=INTEGER},
+    transferable = #{record.transferable,jdbcType=INTEGER},
+    participatory = #{record.participatory,jdbcType=INTEGER},
+    version = version+1
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -317,6 +357,15 @@
       <if test="gmtModified != null">
         gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
       </if>
+      <if test="shareModeId != null">
+        share_mode_id = #{shareModeId,jdbcType=INTEGER},
+      </if>
+      <if test="transferable != null">
+        transferable = #{transferable,jdbcType=INTEGER},
+      </if>
+      <if test="participatory != null">
+        participatory = #{participatory,jdbcType=INTEGER},
+      </if>
       version = version + 1
     </set>
     where id = #{id,jdbcType=BIGINT}
@@ -327,14 +376,17 @@
     -->
     update share
     set owner_id = #{ownerId,jdbcType=BIGINT},
-      pic_homepage = #{picHomepage,jdbcType=VARCHAR},
-      title = #{title,jdbcType=VARCHAR},
-      share_desc_preview = #{shareDescPreview,jdbcType=VARCHAR},
-      status = #{status,jdbcType=TINYINT},
-      publish_time = #{publishTime,jdbcType=TIMESTAMP},
-      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
-      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
-      version = version + 1
+    pic_homepage = #{picHomepage,jdbcType=VARCHAR},
+    title = #{title,jdbcType=VARCHAR},
+    share_desc_preview = #{shareDescPreview,jdbcType=VARCHAR},
+    status = #{status,jdbcType=TINYINT},
+    publish_time = #{publishTime,jdbcType=TIMESTAMP},
+    gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+    gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+    share_mode_id = #{shareModeId,jdbcType=INTEGER},
+    transferable = #{transferable,jdbcType=INTEGER},
+    participatory = #{participatory,jdbcType=INTEGER},
+    version = version + 1
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

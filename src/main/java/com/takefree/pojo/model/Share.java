@@ -78,6 +78,21 @@ public class Share implements Serializable {
     private Integer version;
 
     /**
+     * @mbg.generated
+     */
+    private Integer shareModeId;
+
+    /**
+     * @mbg.generated
+     */
+    private Integer transferable;
+
+    /**
+     * @mbg.generated
+     */
+    private Integer participatory;
+
+    /**
      * This field corresponds to the database table share
      * @mbg.generated
      */

@@ -18,7 +18,9 @@ public interface ShareService {
 
     int deleteById(Long id);
 
-    List<ShareDTO> getShareInfos(Integer page,Integer size,Long maxId,Long ownerId,Integer status);
+    List<ShareDTO> getShareInfos(Integer page,Integer size,Long maxId,Long ownerId,Integer status,Integer shareModeInfo);
+
+    List<ShareDTO> searchShareInfos(Integer page,Integer size,Long maxId,Long ownerId,Integer status,Integer shareModeInfo,String word);
 
     /**
      * 用户喜欢列表

@@ -40,8 +40,8 @@ public class IndexController {
      */
     @RequestMapping(value = "/index",method = RequestMethod.GET)
     @ResponseBody
-    public JsonObjectList<Object> getShares(@RequestParam Integer pageSize, Long maxShareId, Long maxShowId) throws Exception{
-        List<ShareDTO> shareDTOS=shareService.getShareInfos(null, pageSize, maxShareId, null, ShareStatusEnum.PUBLISH.getCode());
+    public JsonObjectList<Object> getShares(@RequestParam Integer pageSize, Long maxShareId, Long maxShowId,Integer shareModeId) throws Exception{
+        List<ShareDTO> shareDTOS=shareService.getShareInfos(null, pageSize, maxShareId, null, ShareStatusEnum.PUBLISH.getCode(),shareModeId);
         List<OrderShowDTO> orderShowDTOS = orderShowService.getShowDTOs(null, pageSize, maxShowId, null, null, null, null);
         LinkedList<Object> result=new LinkedList<Object>();
         int number;

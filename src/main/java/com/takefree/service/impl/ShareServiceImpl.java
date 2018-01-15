@@ -12,6 +12,7 @@ import com.takefree.pojo.query.SharePicQuery;
 import com.takefree.pojo.query.TakeApplicationQuery;
 import com.takefree.service.TakeApplicationService;
 import com.takefree.service.ShareService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -184,7 +185,7 @@ public class ShareServiceImpl implements ShareService {
     }
 
     @Override
-    public List<ShareDTO> getShareInfos(Integer page,Integer size,Long maxId,Long ownerId,Integer status) {
+    public List<ShareDTO> getShareInfos(Integer page,Integer size,Long maxId,Long ownerId,Integer status,Integer shareModeId) {
         ShareDTOQuery shareDTOQuery = new ShareDTOQuery();
         if (page != null && size != null) {
             shareDTOQuery.page(page, size);
@@ -204,6 +205,46 @@ public class ShareServiceImpl implements ShareService {
         }
         if (maxId != null) {
             criteria.andIdLessThan(maxId);
+        }
+        if (shareModeId != null) {
+            criteria.andShareModeIdEqualTo(shareModeId);
+        }
+
+        shareDTOQuery.setOrderByClause("share.id desc");
+
+        return shareDTOMapper.selectShareInfoListByExample(shareDTOQuery);
+    }
+
+    @Override
+    public List<ShareDTO> searchShareInfos(Integer page,Integer size,Long maxId,Long ownerId,Integer status,Integer shareModeId,String word) {
+        ShareDTOQuery shareDTOQuery = new ShareDTOQuery();
+        if (page != null && size != null) {
+            shareDTOQuery.page(page, size);
+        }
+
+        if (page == null && size != null) {
+            shareDTOQuery.limit(size);
+        }
+
+        ShareDTOQuery.Criteria criteria = shareDTOQuery.createCriteria();
+        if (ownerId != null) {
+            criteria.andOwnerIdEqualTo(ownerId);
+        }
+
+        if (status != null) {
+            criteria.andStatusEqualTo(status);
+        }
+        if (maxId != null) {
+            criteria.andIdLessThan(maxId);
+        }
+        if (shareModeId != null) {
+            criteria.andShareModeIdEqualTo(shareModeId);
+        }
+        if(StringUtils.isNotEmpty(word) ){
+            String trimWord=word.trim();
+            if(StringUtils.isNotEmpty(trimWord)){
+                criteria.andTitleMatch(trimWord);
+            }
         }
 
         shareDTOQuery.setOrderByClause("share.id desc");

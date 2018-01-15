@@ -11,4 +11,6 @@ import java.util.List;
  */
 public interface ConfigurationService {
     public List<Configuration> getConfigurations();
+
+    public String getConfiguration(String configIterm);
 }
