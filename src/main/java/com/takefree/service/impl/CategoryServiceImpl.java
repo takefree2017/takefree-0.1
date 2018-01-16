@@ -40,9 +40,9 @@ public class CategoryServiceImpl implements CategoryService {
 				lcd_shi_tmp = new ArrayList<CategoryDTO>();
 				cd_shen_tmp.setSubCategoryList(lcd_shi_tmp);
 				lCategoryDTOs.add(cd_shen_tmp); //加一个一级目类
-			}else if (categoryInfo.getId() % 100 == 0) {
+			}/*else if (categoryInfo.getId() % 100 == 0) {//18年1月新需求，不再需要二级目类
 				lcd_shi_tmp.add(categoryInfo);//加一个二级目类
-			}
+			}*/
 		}    	
         return lCategoryDTOs;
     }
