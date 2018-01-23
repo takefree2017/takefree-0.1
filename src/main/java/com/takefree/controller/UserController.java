@@ -213,7 +213,7 @@ public class UserController {
      */
     @RequestMapping(value = "/user/followee", method = RequestMethod.GET)
     @ResponseBody
-    @JsonView(ResultView.BriefView.class)
+    @JsonView(ResultView.UserFolloweeView.class)
     @Authorization
     public JsonObjectList<UserDTO> getFollowees(@RequestAttribute(Constants.TAKEFREE_TOKEN) Token token, Integer pageNo,
                                                Integer pageSize) throws Exception {

@@ -121,6 +121,12 @@ public class UserDTO implements Serializable {
     private Boolean isFollowee;
 
     /**
+     * 是否like我，用于查看我like的人
+     */
+    @JsonView(ResultView.UserFolloweeView.class)
+    private Boolean isFollower;
+
+    /**
      * 最后修改时间
      * user_info.gmt_modified
      */

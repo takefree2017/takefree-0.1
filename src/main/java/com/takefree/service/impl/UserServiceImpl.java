@@ -254,6 +254,17 @@ public class UserServiceImpl implements UserService {
 
         criteria.andFollowerIdEqualTo(followerId);
 
-        return userDTOMapper.selectFolloweeByFollowerId(userDTOQuery);
+        List<UserDTO> followees=userDTOMapper.selectFolloweeByFollowerId(userDTOQuery);
+
+        for(UserDTO followee:followees){
+            //判断我like的人，是否也like我
+            if(userLikeService.getByFollowerAndFollowee(followee.getId(),followerId)!=null){
+                followee.setIsFollower(true);
+            }else{
+                followee.setIsFollower(false);
+            }
+        }
+
+        return followees;
     }
 }
