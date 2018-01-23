@@ -76,11 +76,11 @@ public class ShareDTO implements Serializable {
     @JsonView(ResultView.BriefView.class)
     private Date publishTime;
 
-//    /**t
-//     * 获得该分享的用户id
-//     */
-//    @JsonView(ResultView.BriefView.class)
-//    private Long takerId;
+    /**
+     * 获得该分享的用户id
+     */
+    @JsonView(ResultView.BriefView.class)
+    private Long takerId;
 
 //    /**
 //     * taker昵称
@@ -109,6 +109,12 @@ public class ShareDTO implements Serializable {
      */
     @JsonView(ResultView.BriefView.class)
     private Integer transferable;
+
+    /**
+     * 10,物流;20,见面交易;30,支持两种
+     */
+    @JsonView(ResultView.BriefView.class)
+    private Integer transferType;
 
     /**
      */

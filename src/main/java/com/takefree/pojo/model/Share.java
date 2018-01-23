@@ -53,11 +53,11 @@ public class Share implements Serializable {
      */
     private Date publishTime;
 
-//    /**
-//     * 获得该分享的用户id
-//     * @mbg.generated
-//     */
-//    private Long takerId;
+    /**
+     * 获得该分享的用户id
+     * @mbg.generated
+     */
+    private Long takerId;
 
     /**
      * 记录插入时间
@@ -90,7 +90,15 @@ public class Share implements Serializable {
     /**
      * @mbg.generated
      */
+    private Integer transferType;
+
+    /**
+     * @mbg.generated
+     */
     private Integer participatory;
+
+
+
 
     /**
      * This field corresponds to the database table share
@@ -98,28 +106,5 @@ public class Share implements Serializable {
      */
     private static final long serialVersionUID = 1L;
 
-    /**
-     * This method corresponds to the database table share
-     * @mbg.generated
-     */
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getClass().getSimpleName());
-        sb.append(" [");
-        sb.append("Hash = ").append(hashCode());
-        sb.append(", id=").append(id);
-        sb.append(", ownerId=").append(ownerId);
-        sb.append(", picHomepage=").append(picHomepage);
-        sb.append(", title=").append(title);
-        sb.append(", shareDescPreview=").append(shareDescPreview);
-        sb.append(", status=").append(status);
-        sb.append(", publishTime=").append(publishTime);
-        sb.append(", gmtCreate=").append(gmtCreate);
-        sb.append(", gmtModified=").append(gmtModified);
-        sb.append(", version=").append(version);
-        sb.append(", serialVersionUID=").append(serialVersionUID);
-        sb.append("]");
-        return sb.toString();
-    }
+
 }

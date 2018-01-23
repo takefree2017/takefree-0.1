@@ -1,5 +1,7 @@
 package com.takefree.dto.query;
 
+import com.takefree.pojo.query.ShareQuery;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -1048,6 +1050,66 @@ public class ShareDTOQuery {
 
         public Criteria andParticipatoryNotBetween(Integer value1, Integer value2) {
             addCriterion("share.participatory not between", value1, value2, "participatory");
+            return (Criteria) this;
+        }
+
+        public Criteria andTransferTypeIsNull() {
+            addCriterion("share.transfer_type is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTransferTypeIsNotNull() {
+            addCriterion("share.transfer_type is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTransferTypeEqualTo(Integer value) {
+            addCriterion("share.transfer_type =", value, "transferType");
+            return (Criteria) this;
+        }
+
+        public Criteria andTransferTypeNotEqualTo(Integer value) {
+            addCriterion("share.transfer_type <>", value, "transferType");
+            return (Criteria) this;
+        }
+
+        public Criteria andTransferTypeGreaterThan(Integer value) {
+            addCriterion("share.transfer_type >", value, "transferType");
+            return (Criteria) this;
+        }
+
+        public Criteria andTransferTypeGreaterThanOrEqualTo(Integer value) {
+            addCriterion("share.transfer_type >=", value, "transferType");
+            return (Criteria) this;
+        }
+
+        public Criteria andTransferTypeLessThan(Integer value) {
+            addCriterion("share.transfer_type <", value, "transferType");
+            return (Criteria) this;
+        }
+
+        public Criteria andTransferTypeLessThanOrEqualTo(Integer value) {
+            addCriterion("share.transfer_type <=", value, "transferType");
+            return (Criteria) this;
+        }
+
+        public Criteria andTransferTypeIn(List<Integer> values) {
+            addCriterion("share.transfer_type in", values, "transferType");
+            return (Criteria) this;
+        }
+
+        public Criteria andTransferTypeNotIn(List<Integer> values) {
+            addCriterion("share.transfer_type not in", values, "transferType");
+            return (Criteria) this;
+        }
+
+        public Criteria andTransferTypeBetween(Integer value1, Integer value2) {
+            addCriterion("share.transfer_type between", value1, value2, "transferType");
+            return (Criteria) this;
+        }
+
+        public Criteria andTransferTypeNotBetween(Integer value1, Integer value2) {
+            addCriterion("share.transfer_type not between", value1, value2, "transferType");
             return (Criteria) this;
         }
 

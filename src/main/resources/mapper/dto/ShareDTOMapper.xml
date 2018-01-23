@@ -15,6 +15,7 @@
         <result column="gmt_modified" jdbcType="TIMESTAMP" property="gmtModified"/>
         <result column="share_mode_id" jdbcType="INTEGER" property="shareModeId" />
         <result column="transferable" jdbcType="INTEGER" property="transferable" />
+        <result column="transfer_type" jdbcType="INTEGER" property="transferType" />
         <result column="participatory" jdbcType="INTEGER" property="participatory" />
         <result column="version" jdbcType="INTEGER" property="version"/>
         <result column="category_id" jdbcType="BIGINT" property="categoryId"/>
