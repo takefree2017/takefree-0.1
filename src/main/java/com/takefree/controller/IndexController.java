@@ -2,6 +2,7 @@ package com.takefree.controller;
 
 import com.takefree.common.entry.JsonObjectList;
 import com.takefree.common.util.JsonObjectUtils;
+import com.takefree.dto.model.IndexDTO;
 import com.takefree.dto.model.OrderShowDTO;
 import com.takefree.dto.model.ShareDTO;
 import com.takefree.enums.ShareStatusEnum;
@@ -40,10 +41,10 @@ public class IndexController {
      */
     @RequestMapping(value = "/index",method = RequestMethod.GET)
     @ResponseBody
-    public JsonObjectList<Object> getShares(@RequestParam Integer pageSize, Long maxShareId, Long maxShowId,Integer shareModeId) throws Exception{
+    public JsonObjectList<IndexDTO> getShares(@RequestParam Integer pageSize, Long maxShareId, Long maxShowId, Integer shareModeId) throws Exception{
         List<ShareDTO> shareDTOS=shareService.getShareInfos(null, pageSize, maxShareId, null, ShareStatusEnum.PUBLISH.getCode(),shareModeId);
         List<OrderShowDTO> orderShowDTOS = orderShowService.getShowDTOs(null, pageSize, maxShowId, null, null, null, null);
-        LinkedList<Object> result=new LinkedList<Object>();
+        LinkedList<IndexDTO> result=new LinkedList<IndexDTO>();
         int number;
         ShareDTO shareDTO=null;
         OrderShowDTO orderShowDTO=null;
@@ -64,23 +65,32 @@ public class IndexController {
                 }
             }
 
+            if(shareDTO==null&&orderShowDTO==null){
+                break;
+            }
+
+            IndexDTO indexDTO=new IndexDTO();
+            indexDTO.setSequence(i+1);
             if(shareDTO!=null&&orderShowDTO!=null){
                 if(shareDTO.getPublishTime().after(orderShowDTO.getGmtCreate())){
-                    result.add(shareDTO);
+                    indexDTO.setType(1);
+                    indexDTO.setShare(shareDTO);
                     shareDTO=null;
                 }else{
-                    result.add(orderShowDTO);
+                    indexDTO.setType(2);
+                    indexDTO.setShow(orderShowDTO);
                     orderShowDTO=null;
                 }
             }else if(shareDTO!=null){
-                result.add(shareDTO);
+                indexDTO.setType(1);
+                indexDTO.setShare(shareDTO);
                 shareDTO=null;
             }else if(orderShowDTO!=null){
-                result.add(orderShowDTO);
+                indexDTO.setType(2);
+                indexDTO.setShow(orderShowDTO);
                 orderShowDTO=null;
-            }else{
-                break;
             }
+            result.add(indexDTO);
         }
 
         return JsonObjectUtils.buildListSuccess(result);

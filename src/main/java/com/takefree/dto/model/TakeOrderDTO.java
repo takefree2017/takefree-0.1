@@ -91,37 +91,31 @@ public class TakeOrderDTO implements Serializable {
 
     /**
      * 订单评价状态 10未评价，20已评价
-
      */
     private Integer rateStatus;
 
     /**
      * 显摆状态 10:未显摆 20:已显摆
-
      */
     private Integer showStatus;
 
     /**
      * 记录插入时间
-
      */
     private Date gmtCreate;
 
     /**
      * 最后修改时间
-
      */
     private Date gmtModified;
 
     /**
      * 记录版本号
-
      */
     private Integer version;
 
     /**
      * This field corresponds to the database table take_order
-
      */
     private static final long serialVersionUID = 1L;
 
