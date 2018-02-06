@@ -89,8 +89,8 @@ public class SmsImpl implements SmsService, InitializingBean {
         	//取sms token 
     		getSmsToken();
         }
-    	//发送失败也可能返回code 200 需要进步不判断
-    	Response<Object> rep = smsClientService.send(TokenUtil.getSMS_TOKEN(),new EasemobSms(smsConfig,mobile, template_yanzhengma, kvs)).execute();
+    	//发送失败也可能返回code 200 需要进步判断
+    	Response<Object> rep = smsClientService.send(TokenUtil.getSMS_TOKEN(),new EasemobSms(smsConfig,mobile, template, kvs)).execute();
     
 //    	JSONObject jsonObj = JSON.parseObject(JSON.toJSONString(rep.body()));
     	//{"data":{"sessionID":"489a46e99adaf88b46530c2c69da9407"},"errorCode":0}
