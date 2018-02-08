@@ -189,6 +189,22 @@
             <artifactId>httpmime</artifactId>
             <version>4.5.3</version>
         </dependency>
+        
+        <dependency>
+            <groupId>com.aliyun</groupId>
+            <artifactId>aliyun-java-sdk-dysmsapi</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+		<dependency>
+			<groupId>com.aliyun.mns</groupId>
+			<artifactId>aliyun-sdk-mns</artifactId>
+			<version>1.1.8</version>
+		</dependency>
+		<dependency>
+	      <groupId>com.aliyun</groupId>
+	      <artifactId>aliyun-java-sdk-core</artifactId>
+	      <version>3.2.2</version>
+	    </dependency>	
     </dependencies>
 
     <build>
