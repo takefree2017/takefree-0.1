@@ -73,8 +73,8 @@ public class SmsImpl implements SmsService {
     		logger.info("短信发送成功,接收方手机号:" + mobile);
     		return true;
      	}else {
-    		logger.error(sendSmsResponse.getCode() + "短信发送失败，接收方手机号:" + mobile);
-        	return false;	
+			logger.error("短信发送失败，手机号:{},code:{},message:{}" , mobile,sendSmsResponse.getCode(),sendSmsResponse.getMessage());
+        	return false;
     	}
     	
     }
