@@ -65,7 +65,7 @@ public class ShareLikeController {
     public JsonSimpleObject deleteShareLike(@RequestAttribute(Constants.TAKEFREE_TOKEN) Token token,@RequestParam Long shareId) throws Exception{
         int row=shareLikeService.delete(shareId,token.getUserDTO().getId());
         if(row==0) {
-            throw new SimpleHttpException(HttpStatus.NOT_FOUND, "未关注");
+            throw new SimpleHttpException(HttpStatus.NOT_FOUND, "未like");
         }else{
             return JsonObjectUtils.buildSimpleObjectSuccess(null);
         }
