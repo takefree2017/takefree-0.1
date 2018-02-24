@@ -130,7 +130,7 @@ public class ShareDTO implements Serializable {
     /**
      * 分享描述
      */
-    @JsonView(ResultView.DetailView.class)
+    @JsonView(ResultView.BriefView.class)
     private String description;
 
     /**

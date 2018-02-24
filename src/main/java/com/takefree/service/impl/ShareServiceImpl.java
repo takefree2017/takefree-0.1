@@ -50,7 +50,7 @@ public class ShareServiceImpl implements ShareService {
 
     @Override
     @Transactional
-    public ShareDTO create(ShareDTO shareDTO) {
+    public int create(ShareDTO shareDTO) {
         Share shareInfo = new Share();
         BeanUtils.copyPropertiesIgnoreNull(shareDTO, shareInfo);
         shareMapper.insertSelective(shareInfo);
@@ -69,7 +69,7 @@ public class ShareServiceImpl implements ShareService {
         ShareLbs shareLbs = new ShareLbs();
         shareLbs.setShareId(shareDTO.getId());
         BeanUtils.copyPropertiesIgnoreNull(shareDTO, shareLbs);
-        shareLbsMapper.insertSelective(shareLbs);
+        int row=shareLbsMapper.insertSelective(shareLbs);
 
         //可以优化
         if(shareDTO.getCategories()!=null) {
@@ -87,7 +87,7 @@ public class ShareServiceImpl implements ShareService {
             }
         }
 
-        return shareDTO;
+        return row;
     }
 
     @Override

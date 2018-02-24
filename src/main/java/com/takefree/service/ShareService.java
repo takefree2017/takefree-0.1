@@ -8,7 +8,7 @@ import java.util.List;
  * Created by gaoxiang on 2017/11/7.
  */
 public interface ShareService {
-    ShareDTO create(ShareDTO shareDTO);
+    int create(ShareDTO shareDTO);
 
     ShareDTO getShareInfoById(Long id);
 

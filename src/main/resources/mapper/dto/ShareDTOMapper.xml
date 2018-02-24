@@ -57,10 +57,10 @@
         </foreach>
     </sql>
     <sql id="Base_Column_List">
-    share.*,share_counter.view_count,share_counter.number, share_counter.take_number,share_counter.like_count,share_counter.apply_count,share_counter.new_apply_count,share_counter.comment_count,share_counter.new_comment_count,owner.nick_name as owner_nick_name,owner.small_icon as owner_small_icon
+    share.*,share_counter.view_count,share_counter.number, share_counter.take_number,share_counter.like_count,share_counter.apply_count,share_counter.new_apply_count,share_counter.comment_count,share_counter.new_comment_count,owner.nick_name as owner_nick_name,owner.small_icon as owner_small_icon,share_desc.description
     </sql>
     <sql id="Detail_Column_List">
-        <include refid="Base_Column_List"/>,share_desc.description,share_lbs.longitude,share_lbs.latitude,share_lbs.lbs_description
+        <include refid="Base_Column_List"/>,share_lbs.longitude,share_lbs.latitude,share_lbs.lbs_description
    </sql>
 
     <select id="selectShareInfoListByExample" parameterType="com.takefree.dto.query.ShareDTOQuery"
@@ -70,10 +70,11 @@
             distinct
         </if>
         <include refid="Base_Column_List"/>
-        from share,share_counter,user_info as owner
+        from share,share_counter,user_info as owner,share_desc
         where
           share.id=share_counter.share_id
           and share.owner_id=owner.id
+          and share.id=share_desc.share_id
         <if test="_parameter != null">
             <include refid="Example_Where_Clause"/>
         </if>
@@ -97,11 +98,12 @@
             distinct
         </if>
         <include refid="Base_Column_List"/>
-        from share,share_counter,user_info as owner,share_like
+        from share,share_counter,user_info as owner,share_like,share_desc
         where
           share.id=share_counter.share_id
           and share.id=share_like.share_id
           and share.owner_id=owner.id
+          and share.id=share_desc.share_id
         <if test="_parameter != null">
             <include refid="Example_Where_Clause"/>
         </if>
@@ -125,11 +127,12 @@
             distinct
         </if>
         <include refid="Base_Column_List"/>
-        from share,share_counter,user_info as owner,take_application
+        from share,share_counter,user_info as owner,take_application,share_desc
         where
             share.id=share_counter.share_id
             and share.id=take_application.share_id
             and share.owner_id=owner.id
+            and share.id=share_desc.share_id
         <if test="_parameter != null">
             <include refid="Example_Where_Clause"/>
         </if>
@@ -154,11 +157,12 @@
             distinct
         </if>
         <include refid="Base_Column_List"/>
-        from share,share_counter,user_info as owner,take_order
+        from share,share_counter,user_info as owner,take_order,share_desc
         where
             share.id=share_counter.share_id
             and share.id=take_order.share_id
             and share.owner_id=owner.id
+            and share.id=share_desc.share_id
         <if test="_parameter != null">
             <include refid="Example_Where_Clause"/>
         </if>
@@ -179,9 +183,10 @@
     <select id="selectShareInfoById" parameterType="java.lang.Long" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
-        from share,share_counter,user_info as owner
+        from share,share_counter,user_info as owner,share_desc
         where share.id=share_counter.share_id
         and share.owner_id=owner.id
+        and share.id=share_desc.share_id
         and share.id = #{shareId,jdbcType=BIGINT}
     </select>
 

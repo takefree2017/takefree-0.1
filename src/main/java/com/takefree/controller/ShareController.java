@@ -41,13 +41,13 @@ public class ShareController {
     @RequestMapping(value = "/share",method = RequestMethod.POST)
     @ResponseBody
     @Authorization
-    public JsonSimpleObject<ShareDTO> createShare(@RequestAttribute(Constants.TAKEFREE_TOKEN) Token token,@Valid @RequestBody ShareDTO shareDTO) throws Exception{
+    public JsonSimpleObject createShare(@RequestAttribute(Constants.TAKEFREE_TOKEN) Token token,@Valid @RequestBody ShareDTO shareDTO) throws Exception{
         if(shareDTO.getId()!=null){
             throw new SimpleHttpException(HttpStatus.BAD_REQUEST, "分享已经存在");
         }
         shareDTO.setOwnerId(token.getUserDTO().getId());
-        shareDTO=shareService.create(shareDTO);
-        return JsonObjectUtils.buildSimpleObjectSuccess(shareDTO);
+        shareService.create(shareDTO);
+        return JsonObjectUtils.buildSimpleObjectSuccess(null);
     }
 
     /**
@@ -81,7 +81,7 @@ public class ShareController {
     @ResponseBody
     @Authorization
     @JsonView(ResultView.BriefView.class)
-    public JsonSimpleObject<ShareDTO> publishShare(@RequestAttribute(Constants.TAKEFREE_TOKEN) Token token,@Valid @RequestBody ShareDTO shareDTO) throws Exception{
+    public JsonSimpleObject publishShare(@RequestAttribute(Constants.TAKEFREE_TOKEN) Token token,@Valid @RequestBody ShareDTO shareDTO) throws Exception{
         shareDTO.setStatus(ShareStatusEnum.PUBLISH.getCode());
         shareDTO.setPublishTime(new Date());
         if(shareDTO.getId()==null){ //不存在新建
