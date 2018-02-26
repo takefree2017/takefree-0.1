@@ -69,12 +69,13 @@
         <if test="distinct">
             distinct
         </if>
-        <include refid="Base_Column_List"/>
-        from share,share_counter,user_info as owner,share_desc
+        <include refid="Detail_Column_List"/>
+        from share,share_counter,user_info as owner,share_desc,share_lbs
         where
           share.id=share_counter.share_id
           and share.owner_id=owner.id
           and share.id=share_desc.share_id
+          and share.id=share_lbs.share_id
         <if test="_parameter != null">
             <include refid="Example_Where_Clause"/>
         </if>
@@ -97,13 +98,14 @@
         <if test="distinct">
             distinct
         </if>
-        <include refid="Base_Column_List"/>
-        from share,share_counter,user_info as owner,share_like,share_desc
+        <include refid="Detail_Column_List"/>
+        from share,share_counter,user_info as owner,share_like,share_desc,share_lbs
         where
           share.id=share_counter.share_id
           and share.id=share_like.share_id
           and share.owner_id=owner.id
           and share.id=share_desc.share_id
+          and share.id=share_lbs.share_id
         <if test="_parameter != null">
             <include refid="Example_Where_Clause"/>
         </if>
@@ -126,13 +128,14 @@
         <if test="distinct">
             distinct
         </if>
-        <include refid="Base_Column_List"/>
-        from share,share_counter,user_info as owner,take_application,share_desc
+        <include refid="Detail_Column_List"/>
+        from share,share_counter,user_info as owner,take_application,share_desc,share_lbs
         where
             share.id=share_counter.share_id
             and share.id=take_application.share_id
             and share.owner_id=owner.id
             and share.id=share_desc.share_id
+            and share.id=share_lbs.share_id
         <if test="_parameter != null">
             <include refid="Example_Where_Clause"/>
         </if>
@@ -156,13 +159,14 @@
         <if test="distinct">
             distinct
         </if>
-        <include refid="Base_Column_List"/>
-        from share,share_counter,user_info as owner,take_order,share_desc
+        <include refid="Detail_Column_List"/>
+        from share,share_counter,user_info as owner,take_order,share_desc,share_lbs
         where
             share.id=share_counter.share_id
             and share.id=take_order.share_id
             and share.owner_id=owner.id
             and share.id=share_desc.share_id
+            and share.id=share_lbs.share_id
         <if test="_parameter != null">
             <include refid="Example_Where_Clause"/>
         </if>
@@ -182,8 +186,8 @@
 
     <select id="selectShareInfoById" parameterType="java.lang.Long" resultMap="BaseResultMap">
         select
-        <include refid="Base_Column_List"/>
-        from share,share_counter,user_info as owner,share_desc
+        <include refid="Detail_Column_List"/>
+        from share,share_counter,user_info as owner,share_desc,share_lbs
         where share.id=share_counter.share_id
         and share.owner_id=owner.id
         and share.id=share_desc.share_id

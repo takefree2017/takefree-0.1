@@ -40,7 +40,7 @@ public class ShowController {
     @RequestMapping(value = "/show", method = RequestMethod.POST)
     @ResponseBody
     @Authorization
-    public JsonSimpleObject<OrderShowDTO> createShow(@RequestAttribute(Constants.TAKEFREE_TOKEN) Token token, @Valid @RequestBody OrderShowDTO orderShowDTO)
+    public JsonSimpleObject createShow(@RequestAttribute(Constants.TAKEFREE_TOKEN) Token token, @Valid @RequestBody OrderShowDTO orderShowDTO)
             throws Exception {
         TakeOrderDTO takeOrder=takeOrderService.getTakeOrderDTOById(orderShowDTO.getOrderId());
         if(takeOrder==null){
@@ -59,7 +59,7 @@ public class ShowController {
         orderShowDTO.setGiverId(takeOrder.getOwnerId());
         orderShowDTO.setReceiverId(takeOrder.getApplicantId());
         orderShowService.create(orderShowDTO);
-        return JsonObjectUtils.buildSimpleObjectSuccess(orderShowDTO);
+        return JsonObjectUtils.buildSimpleObjectSuccess(null);
     }
 
     /**

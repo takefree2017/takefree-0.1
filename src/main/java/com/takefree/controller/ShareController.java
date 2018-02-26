@@ -80,7 +80,6 @@ public class ShareController {
     @RequestMapping(value = "/share/publish",method = RequestMethod.POST)
     @ResponseBody
     @Authorization
-    @JsonView(ResultView.BriefView.class)
     public JsonSimpleObject publishShare(@RequestAttribute(Constants.TAKEFREE_TOKEN) Token token,@Valid @RequestBody ShareDTO shareDTO) throws Exception{
         shareDTO.setStatus(ShareStatusEnum.PUBLISH.getCode());
         shareDTO.setPublishTime(new Date());
@@ -114,7 +113,7 @@ public class ShareController {
      */
     @RequestMapping(value = "/share/{id}",method = RequestMethod.GET)
     @ResponseBody
-//    @JsonView(ResultView.DetailView.class)
+    //@JsonView(ResultView.DetailView.class)
     public JsonSimpleObject<ShareDTO> getShare(@RequestAttribute(value=Constants.TAKEFREE_TOKEN,required = false) Token token,@PathVariable Long id) throws Exception{
         ShareDTO shareDTO=shareService.getShareDetailById(id);
         if(shareDTO==null){
@@ -143,7 +142,7 @@ public class ShareController {
      */
     @RequestMapping(value = "/share",method = RequestMethod.GET)
     @ResponseBody
-    @JsonView(ResultView.BriefView.class)
+    //@JsonView(ResultView.BriefView.class)
     public JsonObjectList<ShareDTO> getShares(Integer pageNo,Integer pageSize,Long maxId,Integer status,Long ownerId,Integer shareModeId,String searchWord) throws Exception{
         List<ShareDTO> shareDTOS=shareService.searchShareInfos(pageNo,pageSize,maxId,ownerId,status,shareModeId,searchWord);
         return JsonObjectUtils.buildListSuccess(shareDTOS);
@@ -158,7 +157,7 @@ public class ShareController {
      * @return
      * @throws Exception
      */
-    @JsonView(ResultView.BriefView.class)
+    //@JsonView(ResultView.BriefView.class)
     @RequestMapping(value = "/share/takein",method = RequestMethod.GET)
     @ResponseBody
     @Authorization
@@ -177,7 +176,7 @@ public class ShareController {
      * @return
      * @throws Exception
      */
-    @JsonView(ResultView.BriefView.class)
+    //@JsonView(ResultView.BriefView.class)
     @RequestMapping(value = "/share/like",method = RequestMethod.GET)
     @ResponseBody
     @Authorization
@@ -196,7 +195,7 @@ public class ShareController {
      * @return
      * @throws Exception
      */
-    @JsonView(ResultView.BriefView.class)
+    //@JsonView(ResultView.BriefView.class)
     @RequestMapping(value = "/share/apply",method = RequestMethod.GET)
     @ResponseBody
     @Authorization
