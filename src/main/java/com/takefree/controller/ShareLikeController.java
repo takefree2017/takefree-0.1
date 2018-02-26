@@ -42,9 +42,11 @@ public class ShareLikeController {
 
         if(shareInfo==null){
             throw new SimpleHttpException(HttpStatus.BAD_REQUEST, "分享不存在");
-        }else if(shareInfo.getOwnerId().equals(token.getUserDTO().getId())){
-            throw new SimpleHttpException(HttpStatus.FORBIDDEN, "不能like本人分享");
         }
+
+//        else if(shareInfo.getOwnerId().equals(token.getUserDTO().getId())){
+//            throw new SimpleHttpException(HttpStatus.FORBIDDEN, "不能like本人分享");
+//        }
         if(shareLikeService.getCount(shareId,token.getUserDTO().getId())>0){
             throw new SimpleHttpException(HttpStatus.BAD_REQUEST, "已经关注");
         }

@@ -22,8 +22,8 @@ build/
 target/
 bin/
 dependency-reduced-pom.xml
-application-sms.properties
-application-im.properties
+src/main/resources/application-sms.properties
+src/main/resources/application-im.properties
 
 # Eclipse Project Files
 .classpath
