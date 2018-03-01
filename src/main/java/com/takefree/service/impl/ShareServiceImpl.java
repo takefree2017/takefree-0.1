@@ -270,7 +270,7 @@ public class ShareServiceImpl implements ShareService {
             criteria.andOwnerIdEqualTo(ownerId);
         }
 
-        shareDTOQuery.setOrderByClause("share_order.id desc");
+        shareDTOQuery.setOrderByClause("take_order.id desc");
 
         return shareDTOMapper.selectReceivedShareInfoListByExample(shareDTOQuery);
     }

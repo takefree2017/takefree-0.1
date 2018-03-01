@@ -49,7 +49,7 @@
     take_order.gmt_modified, take_order.version, take_order.logistics_status, take_order.rate_status,take_order.show_status,
     owner.nick_name as owner_nick_name,owner.small_icon as owner_small_icon,
     applicant.nick_name as applicant_nick_name,applicant.small_icon as applicant_small_icon,
-    share.owner_id,share.pic_homepage as share_pic_homepage
+    share.owner_id,share.title as shareTitle,share.pic_homepage as share_pic_homepage
   </sql>
   <select id="selectByExample" parameterType="com.takefree.pojo.query.TakeOrderQuery" resultMap="BaseResultMap">
     select

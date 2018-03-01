@@ -32,7 +32,7 @@
     share_like.id, share_like.share_id, share_like.user_id, share_like.gmt_create, share_like.gmt_modified, share_like.version,
     owner.nick_name as owner_nick_name,owner.small_icon as owner_small_icon,
     user.nick_name as user_nick_name,user.small_icon as user_small_icon,
-    share.owner_id,share.pic_homepage as share_pic_homepage,share.status as share_status
+    share.owner_id,share.title as shareTitle,share.pic_homepage as share_pic_homepage,share.status as share_status
   </sql>
   <select id="selectByExample" parameterType="com.takefree.pojo.query.ShareLikeQuery" resultMap="BaseResultMap">
     select

@@ -17,6 +17,8 @@ public class ShareLikeDTO implements Serializable {
      */
     private Long shareId;
 
+    private String shareTitle;
+
     /**
      * 首页图片url
      */

@@ -191,6 +191,7 @@
         where share.id=share_counter.share_id
         and share.owner_id=owner.id
         and share.id=share_desc.share_id
+        and share.id=share_lbs.share_id
         and share.id = #{shareId,jdbcType=BIGINT}
     </select>
 

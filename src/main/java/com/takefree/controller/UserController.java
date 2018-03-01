@@ -14,6 +14,7 @@ import com.takefree.service.UserService;
 import com.xiaoleilu.hutool.crypto.SecureUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
@@ -65,8 +66,17 @@ public class UserController {
     @RequestMapping(value = "/login/password", method = RequestMethod.POST)
     @ResponseBody
     @JsonView(ResultView.DetailView.class)
-    public JsonSimpleObject<Token> loginByPassword(@RequestParam String mobile, @RequestParam String password,
+    public JsonSimpleObject<Token> loginByPassword(@RequestBody UserDTO userDTO,
                                                    HttpServletResponse httpServletResponse) throws Exception {
+        String mobile=userDTO.getMobile();
+        String password=userDTO.getPassword();
+        if(StringUtils.isEmpty(mobile)){
+            throw new SimpleHttpException(HttpStatus.BAD_REQUEST, "手机号不能为空");
+        }
+        if(StringUtils.isEmpty(password)){
+            throw new SimpleHttpException(HttpStatus.BAD_REQUEST, "密码不能为空");
+        }
+
         Token token = userService.loginByPassword(mobile, password);
         Cookie cookie=new Cookie(Constants.TAKEFREE_TOKEN, token.getToken());
         cookie.setPath("/");
