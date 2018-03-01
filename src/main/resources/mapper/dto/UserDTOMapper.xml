@@ -45,9 +45,11 @@
 
     <select id="selectByMobile" parameterType="java.lang.String" resultMap="BaseResultMap">
         select
-        <include refid="Base_Column_List"/>
-        from user_info
+        <include refid="Detail_Column_List"/>
+        from user_info,user_description,user_time
         WHERE user_info.mobile = #{mobile}
+        and user_info.id=user_description.user_id
+        and user_info.id=user_time.user_id
     </select>
 
     <select id="selectFollowerByFolloweeId" parameterType="com.takefree.dto.query.UserDTOQuery"

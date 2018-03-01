@@ -136,7 +136,7 @@ public class UserServiceImpl implements UserService {
     }
 
     private Token login(UserDTO userDTO) throws Exception{
-        userDTO.setLastloginTime(new Date());
+        //userDTO.setLastloginTime(new Date());
         Token token=tokenManager.createToken(userDTO);
 
         if(token!=null) {
