@@ -374,8 +374,8 @@
       <if test="transferable != null">
         transferable = #{transferable,jdbcType=INTEGER},
       </if>
-      <if test="record.transferType != null">
-        transfer_type = #{record.transferType,jdbcType=INTEGER},
+      <if test="transferType != null">
+        transfer_type = #{transferType,jdbcType=INTEGER},
       </if>
       <if test="participatory != null">
         participatory = #{participatory,jdbcType=INTEGER},
@@ -399,7 +399,7 @@
     gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
     share_mode_id = #{shareModeId,jdbcType=INTEGER},
     transferable = #{transferable,jdbcType=INTEGER},
-    transfer_type = #{record.transferType,jdbcType=INTEGER},
+    transfer_type = #{transferType,jdbcType=INTEGER},
     participatory = #{participatory,jdbcType=INTEGER},
     version = version + 1
     where id = #{id,jdbcType=BIGINT}

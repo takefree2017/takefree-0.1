@@ -36,7 +36,7 @@ public class UserLikeController {
     @ResponseBody
     @Authorization
     public JsonSimpleObject<UserLike> createUserLike(@RequestAttribute(Constants.TAKEFREE_TOKEN) Token token, @RequestParam Long folleweeId) throws Exception{
-        if(folleweeId==token.getUserDTO().getId()){
+        if(!folleweeId.equals(token.getUserDTO().getId())){
             throw new SimpleHttpException(HttpStatus.BAD_REQUEST, "不能关注自己");
         }
 
@@ -47,7 +47,7 @@ public class UserLikeController {
 
         UserLike userLike=null;
         if((userLike=userLikeService.getByFollowerAndFollowee(token.getUserDTO().getId(),folleweeId))!=null){ //已经关注过
-            if( userLike.getStatus() == UserLikeStautsEnum.ENABLE.getCode()) { //关注有效
+            if( userLike.getStatus() .equals( UserLikeStautsEnum.ENABLE.getCode())) { //关注有效
                 throw new SimpleHttpException(HttpStatus.BAD_REQUEST, "已经关注");
             }else{
                 userLike.setStatus(UserLikeStautsEnum.ENABLE.getCode()); //关注已经取消
@@ -80,7 +80,7 @@ public class UserLikeController {
             throw new SimpleHttpException(HttpStatus.BAD_REQUEST, "未关注");
         }
 
-        if(userLike.getUserFollowerId()!=token.getUserDTO().getId()){
+        if(!userLike.getUserFollowerId().equals(token.getUserDTO().getId())){
             throw new SimpleHttpException(HttpStatus.FORBIDDEN, "无权限");
         }
 
@@ -104,7 +104,7 @@ public class UserLikeController {
             throw new SimpleHttpException(HttpStatus.BAD_REQUEST, "未关注");
         }
 
-        if(userLike.getUserFollowerId()!=token.getUserDTO().getId()){
+        if(!userLike.getUserFollowerId().equals(token.getUserDTO().getId())){
             throw new SimpleHttpException(HttpStatus.FORBIDDEN, "无权限");
         }
 

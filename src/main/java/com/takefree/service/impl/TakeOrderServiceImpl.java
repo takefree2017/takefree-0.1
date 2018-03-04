@@ -59,7 +59,7 @@ public class TakeOrderServiceImpl implements TakeOrderService {
             throw new SimpleHttpException(HttpStatus.UNAUTHORIZED, "非本人分享");
         }
 
-        if(shareInfo.getStatus() != ShareStatusEnum.PUBLISH.getCode()){
+        if(!shareInfo.getStatus() .equals( ShareStatusEnum.PUBLISH.getCode())){
             throw new SimpleHttpException(HttpStatus.BAD_REQUEST, "分享非发布状态");
         }
 
@@ -78,7 +78,6 @@ public class TakeOrderServiceImpl implements TakeOrderService {
         }
 
         takeOrderMapper.insertOrders(takeApplicationQuery);
-
 
         ShareDTO updateShare=new ShareDTO();
         updateShare.setId(createOrderForm.getShareId());

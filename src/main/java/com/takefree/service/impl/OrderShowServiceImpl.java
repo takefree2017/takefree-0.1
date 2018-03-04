@@ -200,7 +200,7 @@ public class OrderShowServiceImpl implements OrderShowService {
     @Override
     public boolean updateViewInfo(OrderShowDTO orderShowDTO, Long userId) {
         //发布人查看
-        if (userId != null && orderShowDTO.getGiverId() == userId) {
+        if (userId != null && orderShowDTO.getGiverId() .equals(userId)) {
 //            ShowCounter showCounter=new ShowCounter();
 //            showCounter.setShowId(orderShowDTO.getId());
 //            showCounter.setNewApplyCount(0);

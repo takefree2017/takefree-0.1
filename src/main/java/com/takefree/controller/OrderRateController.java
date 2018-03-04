@@ -47,7 +47,7 @@ public class OrderRateController {
             throw new SimpleHttpException(HttpStatus.BAD_REQUEST, "订单不存在");
         }
 
-        if(takeOrderDTO.getApplicantId()!=(token.getUserDTO().getId())){
+        if(!takeOrderDTO.getApplicantId().equals(token.getUserDTO().getId())){
             throw new SimpleHttpException(HttpStatus.FORBIDDEN, "只能接收人评价");
         }
 

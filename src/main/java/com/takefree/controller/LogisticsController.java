@@ -47,7 +47,7 @@ public class LogisticsController {
             throw new SimpleHttpException(HttpStatus.BAD_REQUEST, "订单不存在");
         }
 
-        if(takeOrderDTO.getOwnerId()!=(token.getUserDTO().getId())){
+        if(!takeOrderDTO.getOwnerId().equals(token.getUserDTO().getId())){
             throw new SimpleHttpException(HttpStatus.FORBIDDEN, "非送出人无权限");
         }
 

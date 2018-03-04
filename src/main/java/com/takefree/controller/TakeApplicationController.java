@@ -37,7 +37,7 @@ public class TakeApplicationController {
     @RequestMapping(value = "/apply",method = RequestMethod.POST)
     @ResponseBody
     @Authorization
-    public JsonSimpleObject<ShareLike> createApply(@RequestAttribute(Constants.TAKEFREE_TOKEN) Token token,@Valid @RequestBody TakeApplication takeApplication) throws Exception{
+    public JsonSimpleObject<TakeApplication> createApply(@RequestAttribute(Constants.TAKEFREE_TOKEN) Token token,@Valid @RequestBody TakeApplication takeApplication) throws Exception{
         ShareDTO shareInfo=shareService.getShareInfoById(takeApplication.getShareId());
 
         if(shareInfo==null){

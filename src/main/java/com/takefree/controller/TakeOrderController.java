@@ -99,7 +99,7 @@ public class TakeOrderController {
             }
         }
 
-        List<TakeOrderDTO> shareDTOS= takeOrderService.getTakeOrderDTOs(pageNo, pageSize, shareId, null, applicantId, status);
-        return JsonObjectUtils.buildListSuccess(shareDTOS);
+        List<TakeOrderDTO> orderDTOS= takeOrderService.getTakeOrderDTOs(pageNo, pageSize, shareId, null, applicantId, status);
+        return JsonObjectUtils.buildListSuccess(orderDTOS);
     }
 }

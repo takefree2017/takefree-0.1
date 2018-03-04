@@ -279,7 +279,7 @@ public class ShareServiceImpl implements ShareService {
     @Transactional
     public boolean updateViewInfo(ShareDTO shareDTO,Long userId){
         //发布人查看
-        if(userId!=null&&shareDTO.getOwnerId()==userId){
+        if(userId!=null&&shareDTO.getOwnerId().equals(userId)){
             ShareCounter shareCouter=new ShareCounter();
             shareCouter.setShareId(shareDTO.getId());
             shareCouter.setNewApplyCount(0);
