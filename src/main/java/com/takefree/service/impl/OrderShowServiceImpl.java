@@ -47,7 +47,7 @@ public class OrderShowServiceImpl implements OrderShowService {
         int row = orderShowMapper.insertSelective(orderShow);
         if (row > 0) {
             TakeOrder takeOrder = new TakeOrder();
-            takeOrder.setRateStatus(ShowStatusEnum.YES.getCode());
+            takeOrder.setShowStatus(ShowStatusEnum.YES.getCode());
             takeOrder.setId(orderShowDTO.getOrderId());
             takeOrderMapper.updateByPrimaryKeySelective(takeOrder);
         }
