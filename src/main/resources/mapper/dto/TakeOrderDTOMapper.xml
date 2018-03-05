@@ -19,8 +19,10 @@
     <result column="show_status" jdbcType="INTEGER" property="showStatus" />
   </resultMap>
   <sql id="Example_Where_Clause">
+    <where>
       <foreach collection="oredCriteria" item="criteria" separator="or">
         <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
             <foreach collection="criteria.criteria" item="criterion">
               <choose>
                 <when test="criterion.noValue">
@@ -40,8 +42,10 @@
                 </when>
               </choose>
             </foreach>
+          </trim>
         </if>
       </foreach>
+    </where>
   </sql>
   <sql id="Base_Column_List">
     take_order.id, take_order.share_id,take_order.applicant_id, take_order.application_id,
@@ -49,7 +53,8 @@
     take_order.gmt_modified, take_order.version, take_order.logistics_status, take_order.rate_status,take_order.show_status,
     owner.nick_name as owner_nick_name,owner.small_icon as owner_small_icon,
     applicant.nick_name as applicant_nick_name,applicant.small_icon as applicant_small_icon,
-    share.owner_id,share.title as shareTitle,share.pic_homepage as share_pic_homepage
+    share.owner_id,share.title as shareTitle,share.pic_homepage as share_pic_homepage,
+    order_rate.rate
   </sql>
   <select id="selectByExample" parameterType="com.takefree.pojo.query.TakeOrderQuery" resultMap="BaseResultMap">
     select
@@ -57,10 +62,11 @@
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from take_order,user_info owner,user_info applicant,share
-    where take_order.share_id=share.id
-    and share.owner_id=owner.id
-    and take_order.applicant_id=applicant.id
+    from take_order
+      join user_info applicant on take_order.applicant_id=applicant.id
+      join share on take_order.share_id=share.id
+      join user_info owner on share.owner_id=owner.id
+      left join order_rate on take_order.id= order_rate.order_id
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -79,10 +85,11 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
-    from take_order,user_info as owner,user_info as applicant,share
-    where take_order.share_id=share.id
-    and share.owner_id=owner.id
-    and take_order.applicant_id=applicant.id
-    and take_order.id = #{id,jdbcType=BIGINT}
+    from take_order
+      join user_info applicant on take_order.applicant_id=applicant.id
+      join share on take_order.share_id=share.id
+      join user_info owner on share.owner_id=owner.id
+      left join order_rate on take_order.id= order_rate.order_id
+    where take_order.id = #{id,jdbcType=BIGINT}
   </select>
 </mapper>

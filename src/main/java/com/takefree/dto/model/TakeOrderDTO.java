@@ -5,6 +5,7 @@ import com.takefree.common.entry.ResultView;
 import lombok.Data;
 import org.hibernate.validator.constraints.NotBlank;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -100,6 +101,12 @@ public class TakeOrderDTO implements Serializable {
      * 显摆状态 10:未显摆 20:已显摆
      */
     private Integer showStatus;
+
+    /**
+     * 评价, 1好评 0差评
+     * @mbg.generated
+     */
+    private Integer rate;
 
     /**
      * 记录插入时间
