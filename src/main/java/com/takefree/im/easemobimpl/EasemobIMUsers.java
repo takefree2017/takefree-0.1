@@ -31,12 +31,12 @@ public class EasemobIMUsers  implements ImService   {
 				User u  = new User();
 				u.setUsername(String.valueOf(userInfo.getId()));
 				//产生环信端密码
-				u.setPassword(SecureUtil.md5(userInfo.getImPassword()));
+				u.setPassword(userInfo.getImPassword());
 				payload.add(u);
 				return com.alibaba.fastjson.JSON.parse(api.orgNameAppNameUsersPost(OrgInfo.org_name,OrgInfo.app_name,(RegisterUsers) payload,TokenUtil.getAccessToken()));
 			}
 		});
-		return job.getStatus().startsWith("200");		
+		return job.getStatus().startsWith("200");
 	}
 
 	@Override
