@@ -230,4 +230,14 @@ public class ShareDTO implements Serializable {
     @JsonView(ResultView.AllView.class)
     private List<TakeOrderDTO> takeOrderDTOS;
 
+    /**
+     * 当前用户是否like
+     */
+    private Boolean isCurrentUserLike;
+
+    /**
+     * 当前用户是否apply
+     */
+    private Boolean isCurrentUserApply;
+
 }

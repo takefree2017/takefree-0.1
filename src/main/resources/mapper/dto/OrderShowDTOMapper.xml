@@ -31,19 +31,17 @@
     <sql id="Base_Column_List">
       order_show.id,order_show.order_id,order_show.mood_id,order_show.show_content_preview,order_show.pic_homepage,order_show.gmt_create,order_show.gmt_modified,
       take_order.take_time,
-      share.title as share_title,share.pic_homepage as share_pic_homepage,
+      share.id as share_id,share.title as share_title,share.pic_homepage as share_pic_homepage,
       receiver.id as receiver_id,receiver.nick_name as receiver_nick_name,receiver.small_icon as receiver_small_icon,
       giver.id as giver_id,giver.nick_name as giver_nick_name,giver.small_icon as giver_small_icon,
       mood_info.mood_name as mood_name,mood_info.icon_url as mood_icon_url,
-      show_counter.view_count,show_counter.like_count,show_counter.comment_count
-    </sql>
-    <sql id="Detail_Column_List">
-        <include refid="Base_Column_List"/>,order_show_content.content
+      show_counter.view_count,show_counter.like_count,show_counter.comment_count,
+      order_show_content.content
     </sql>
 
     <select id="selectShowDTOById" parameterType="java.lang.Long" resultMap="BaseResultMap">
-        select <include refid="Detail_Column_List"/>
-        from  order_show left join mood_info  on order_show.mood_id=order_show.id,
+        select <include refid="Base_Column_List"/>
+        from  order_show left join mood_info  on order_show.mood_id=mood_info.id,
               take_order,share,user_info giver,user_info receiver,show_counter,order_show_content
         where  order_show.order_id=take_order.id
             and take_order.share_id=share.id
@@ -57,13 +55,14 @@
     <select id="selectShowDTOsByExample" parameterType="com.takefree.dto.query.ShareDTOQuery"
             resultMap="BaseResultMap">
         select <include refid="Base_Column_List"/>
-        from  order_show left join mood_info  on order_show.mood_id=order_show.id,
-              take_order,share,user_info giver,user_info receiver,show_counter
+        from  order_show left join mood_info  on order_show.mood_id=mood_info.id,
+              take_order,share,user_info giver,user_info receiver,show_counter,order_show_content
         where  order_show.order_id=take_order.id
             and take_order.share_id=share.id
             and take_order.owner_id=giver.id
             and take_order.applicant_id=receiver.id
             and order_show.id=show_counter.show_id
+            and order_show.id=order_show_content.order_show_id
         <if test="_parameter != null">
             <include refid="Example_Where_Clause"/>
         </if>

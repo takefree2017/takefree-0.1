@@ -87,6 +87,11 @@ public class OrderShowDTO implements Serializable {
     private String moodIconUrl;
 
     /**
+     * 首页图片
+     */
+    private String picHomepage;
+
+    /**
      * 显摆缩略描述
      */
     private String showContentPreview;
@@ -125,6 +130,11 @@ public class OrderShowDTO implements Serializable {
      * 最后修改时间
      */
     private Date gmtModified;
+
+    /**
+     * 当前用户是否like
+     */
+    private Boolean isCurrentUserLike;
 
     /**
      * 记录版本号

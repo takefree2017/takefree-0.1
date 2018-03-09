@@ -1,19 +1,18 @@
 package com.takefree.controller;
 
+import com.takefree.common.config.Constants;
 import com.takefree.common.entry.JsonObjectList;
+import com.takefree.common.entry.Token;
 import com.takefree.common.util.JsonObjectUtils;
 import com.takefree.dto.model.IndexDTO;
 import com.takefree.dto.model.OrderShowDTO;
 import com.takefree.dto.model.ShareDTO;
 import com.takefree.enums.ShareStatusEnum;
-import com.takefree.service.OrderShowService;
-import com.takefree.service.ShareService;
+import com.takefree.pojo.model.TakeApplication;
+import com.takefree.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -31,6 +30,15 @@ public class IndexController {
     @Autowired
     private OrderShowService orderShowService;
 
+    @Autowired
+    private ShareLikeService shareLikeService;
+
+    @Autowired
+    private TakeApplicationService takeApplicationService;
+
+    @Autowired
+    private ShowLikeService showLikeService;
+
     /**
      *
      * @param pageSize
@@ -41,7 +49,7 @@ public class IndexController {
      */
     @RequestMapping(value = "/index",method = RequestMethod.GET)
     @ResponseBody
-    public JsonObjectList<IndexDTO> getShares(@RequestParam Integer pageSize, Long maxShareId, Long maxShowId, Integer shareModeId) throws Exception{
+    public JsonObjectList<IndexDTO> getList(@RequestAttribute(value= Constants.TAKEFREE_TOKEN,required = false) Token token,@RequestParam Integer pageSize, Long maxShareId, Long maxShowId, Integer shareModeId) throws Exception{
         List<ShareDTO> shareDTOS=shareService.getShareInfos(null, pageSize, maxShareId, null, ShareStatusEnum.PUBLISH.getCode(),shareModeId);
         List<OrderShowDTO> orderShowDTOS = orderShowService.getShowDTOs(null, pageSize, maxShowId, null, null, null, null);
         LinkedList<IndexDTO> result=new LinkedList<IndexDTO>();
@@ -56,12 +64,35 @@ public class IndexController {
             if(shareDTO==null) {
                 if (shareIts.hasNext()) {
                     shareDTO = shareIts.next();
+                    if(token!=null) {
+                        long likeCount=shareLikeService.getCount(shareDTO.getId(), token.getUserDTO().getId());
+                        if(likeCount==0) {
+                            shareDTO.setIsCurrentUserLike(false);
+                        }else{
+                            shareDTO.setIsCurrentUserLike(true);
+                        }
+
+                        long applyCount=takeApplicationService.getCount(shareDTO.getId(),token.getUserDTO().getId());
+                        if(applyCount==0) {
+                            shareDTO.setIsCurrentUserApply(false);
+                        }else{
+                            shareDTO.setIsCurrentUserApply(true);
+                        }
+                    }
                 }
             }
 
             if(orderShowDTO==null) {
                 if (showIts.hasNext()) {
                     orderShowDTO = showIts.next();
+                    if(token!=null) {
+                        long likeCount=showLikeService.getCount(orderShowDTO.getId(), token.getUserDTO().getId());
+                        if(likeCount==0) {
+                            orderShowDTO.setIsCurrentUserLike(false);
+                        }else{
+                            orderShowDTO.setIsCurrentUserLike(true);
+                        }
+                    }
                 }
             }
 

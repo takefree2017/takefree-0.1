@@ -12,6 +12,7 @@ import com.takefree.dto.model.OrderShowDTO;
 import com.takefree.dto.model.TakeOrderDTO;
 import com.takefree.pojo.model.OrderShow;
 import com.takefree.service.OrderShowService;
+import com.takefree.service.ShowLikeService;
 import com.takefree.service.TakeOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,6 +31,9 @@ public class ShowController {
 
     @Autowired
     private TakeOrderService takeOrderService;
+
+    @Autowired
+    private ShowLikeService showLikeService;
 
     /**
      * @param token
@@ -149,8 +153,18 @@ public class ShowController {
      */
     @RequestMapping(value = "/show", method = RequestMethod.GET)
     @ResponseBody
-    public JsonObjectList<OrderShowDTO> getShows(Integer pageNo, Integer pageSize, Long maxId,Long shareId, Long orderId, Long receiverId, Long giverId) throws Exception {
+    public JsonObjectList<OrderShowDTO> getShows(@RequestAttribute(value= Constants.TAKEFREE_TOKEN,required = false) Token token,Integer pageNo, Integer pageSize, Long maxId,Long shareId, Long orderId, Long receiverId, Long giverId) throws Exception {
         List<OrderShowDTO> orderShowDTOS = orderShowService.getShowDTOs(pageNo, pageSize, maxId, shareId, orderId, receiverId, giverId);
+        if(token!=null) {
+            for(OrderShowDTO orderShowDTO:orderShowDTOS) {
+                long likeCount = showLikeService.getCount(orderShowDTO.getId(), token.getUserDTO().getId());
+                if (likeCount == 0) {
+                    orderShowDTO.setIsCurrentUserLike(false);
+                } else {
+                    orderShowDTO.setIsCurrentUserLike(true);
+                }
+            }
+        }
         return JsonObjectUtils.buildListSuccess(orderShowDTOS);
     }
 }
