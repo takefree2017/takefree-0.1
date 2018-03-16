@@ -3,6 +3,7 @@ package com.takefree.service.impl;
 import com.takefree.dto.mapper.ShareCommentDTOMapper;
 import com.takefree.dto.model.ShareCommentDTO;
 import com.takefree.pojo.mapper.ShareCommentMapper;
+import com.takefree.pojo.mapper.ShareCounterMapper;
 import com.takefree.pojo.model.ShareComment;
 import com.takefree.pojo.query.ShareCommentQuery;
 import com.takefree.service.ShareCommentService;
@@ -22,15 +23,24 @@ public class ShareCommentServiceImpl implements ShareCommentService {
     @Autowired
     private ShareCommentDTOMapper shareCommentDTOMapper;
 
+    @Autowired
+    private ShareCounterMapper shareCounterMapper;
+
     @Override
     public ShareComment create(ShareComment shareComment) {
-        shareCommentMapper.insertSelective(shareComment);
+        int row=shareCommentMapper.insertSelective(shareComment);
+        shareCounterMapper.changeCommentCount(shareComment.getShareId(),row);
         return shareComment;
     }
 
     @Override
     public int delete(Long id) {
-        int row=shareCommentMapper.deleteByPrimaryKey(id);
+        ShareComment shareComment=shareCommentMapper.selectByPrimaryKey(id);
+        int row = 0;
+        if(shareComment!=null) {
+            row=shareCommentMapper.deleteByPrimaryKey(id);
+            shareCounterMapper.changeCommentCount(shareComment.getShareId(), -row);
+        }
         return row;
     }
 
