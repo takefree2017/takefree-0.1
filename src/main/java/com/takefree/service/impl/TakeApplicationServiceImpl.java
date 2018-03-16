@@ -45,8 +45,12 @@ public class TakeApplicationServiceImpl implements TakeApplicationService {
 
     @Override
     public int deleteById(Long id) {
-        int row=takeApplicationMapper.deleteByPrimaryKey(id);
-        shareCounterMapper.changeApplyCount(id,-row);
+        TakeApplication takeApplication=takeApplicationMapper.selectByPrimaryKey(id);
+        int row=0;
+        if(takeApplication!=null) {
+            row = takeApplicationMapper.deleteByPrimaryKey(id);
+            shareCounterMapper.changeApplyCount(takeApplication.getShareId(), -row);
+        }
         return row;
     }
 
