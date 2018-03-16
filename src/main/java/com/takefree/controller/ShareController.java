@@ -127,8 +127,7 @@ public class ShareController {
     @RequestMapping(value = "/share/{id}", method = RequestMethod.GET)
     @ResponseBody
     //@JsonView(ResultView.DetailView.class)
-    public JsonSimpleObject<ShareDTO> getShare(
-            @RequestAttribute(value = Constants.TAKEFREE_TOKEN, required = false) Token token, @PathVariable Long id)
+    public JsonSimpleObject<ShareDTO> getShare(@RequestAttribute(value = Constants.TAKEFREE_TOKEN, required = false) Token token, @PathVariable Long id)
             throws Exception {
         ShareDTO shareDTO = shareService.getShareDetailById(id);
         if (shareDTO == null) {
@@ -138,6 +137,19 @@ public class ShareController {
         Long userId = null;
         if (token != null) {
             userId = token.getUserDTO().getId();
+            long likeCount = shareLikeService.getCount(shareDTO.getId(), userId);
+            if (likeCount == 0) {
+                shareDTO.setIsCurrentUserLike(false);
+            } else {
+                shareDTO.setIsCurrentUserLike(true);
+            }
+
+            long applyCount = takeApplicationService.getCount(shareDTO.getId(), userId);
+            if (applyCount == 0) {
+                shareDTO.setIsCurrentUserApply(false);
+            } else {
+                shareDTO.setIsCurrentUserApply(true);
+            }
         }
 
         shareService.updateViewInfo(shareDTO, userId);
