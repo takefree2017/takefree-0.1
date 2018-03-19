@@ -294,7 +294,7 @@
       <if test="gmtModified != null">
         gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
       </if>
-      version = version + 1
+      version = version + 1,
       <if test="description != null">
         description = #{description,jdbcType=LONGVARCHAR},
       </if>
